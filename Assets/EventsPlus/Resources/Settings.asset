@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ffcefcceb0e5440ba41fa4de95c653, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  isPrivateDisplayed: 0
+  _filters:
+  - _typeNamespace: System
+    _typeClass: Object
+    _whiteList: []
+    _blackList:
+    - 8:GetType
+  - _typeNamespace: UnityEngine
+    _typeClass: Object
+    _whiteList: []
+    _blackList:
+    - 8:GetInstanceID
+    - 8:ToString
+    - 8:Equals,System.Object
+    - 8:GetHashCode
+  - _typeNamespace: UnityEngine
+    _typeClass: Component
+    _whiteList: []
+    _blackList:
+    - 8:CompareTag,System.String
+    - 8:GetComponents,System.Type
+    - 8:GetComponents,System.Type,System.Collections.Generic.List`1[UnityEngine.Component]
+    - 8:GetComponentsInParent,System.Type,System.Boolean
+    - 8:GetComponentsInParent,System.Type
+    - 8:GetComponentInParent,System.Type
+    - 8:GetComponentsInChildren,System.Type,System.Boolean
+    - 8:GetComponentsInChildren,System.Type
+    - 8:GetComponentInChildren,System.Type
+    - 8:GetComponentInChildren,System.Type,System.Boolean
+    - 8:GetComponent,System.String
+    - 8:GetComponent,System.Type
+  - _typeNamespace: UnityEngine
+    _typeClass: MonoBehaviour
+    _whiteList: []
+    _blackList:
+    - 8:StopCoroutine,UnityEngine.Coroutine
+    - 8:StopCoroutine,System.Collections.IEnumerator
+    - 8:StartCoroutine_Auto,System.Collections.IEnumerator
+    - 8:StartCoroutine,System.Collections.IEnumerator
+    - 8:IsInvoking
+    - 8:IsInvoking,System.String
+  - _typeNamespace: UnityEngine
+    _typeClass: GameObject
+    _whiteList: []
+    _blackList:
+    - 8:AddComponent,System.Type
+    - 8:CompareTag,System.String
+    - 8:GetComponentsInParent,System.Type,System.Boolean
+    - 8:GetComponentsInParent,System.Type
+    - 8:GetComponentsInChildren,System.Type,System.Boolean
+    - 8:GetComponentsInChildren,System.Type
+    - 8:GetComponents,System.Type,System.Collections.Generic.List`1[UnityEngine.Component]
+    - 8:GetComponents,System.Type
+    - 8:GetComponentInParent,System.Type
+    - 8:GetComponentInChildren,System.Type
+    - 8:GetComponentInChildren,System.Type,System.Boolean
+    - 8:GetComponent,System.String
+    - 8:GetComponent,System.Type
