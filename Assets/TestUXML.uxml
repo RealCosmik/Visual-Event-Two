@@ -6,5 +6,4 @@
   <engine:Button class="mybutton" text="name">
     <VisualElement class="myele"/>
   </engine:Button>
-  
 </engine:UXML>

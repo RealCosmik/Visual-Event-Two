@@ -37,7 +37,6 @@ namespace EventsPlus
 			{
 				tempList = new ReorderableList( tProperty.serializedObject, tempCallsProperty, true, true, true, true );
 				tempList.footerHeight = EditorGUIUtility.singleLineHeight;
-
                 tempList.drawHeaderCallback += rect =>
                 {
                 };
@@ -47,7 +46,7 @@ namespace EventsPlus
 				};
 				tempList.elementHeightCallback += ( int tIndex ) =>
 				{
-					return EditorGUI.GetPropertyHeight( tempList.serializedProperty.GetArrayElementAtIndex( tIndex ) ) + EditorGUIUtility.standardVerticalSpacing;
+					return EditorGUI.GetPropertyHeight( tempList.serializedProperty.GetArrayElementAtIndex( tIndex ),true) + EditorGUIUtility.standardVerticalSpacing;
 				};
 				cache.Add( tProperty.propertyPath, tempList );
               tempList.onRemoveCallback += list => onElementDelete(list, tempCallsProperty);
@@ -103,7 +102,6 @@ namespace EventsPlus
 				tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
 				tPosition.width -= tempIndentSize;
 				tPosition.height = tempList.GetHeight();
-				
 				tempList.DoList( tPosition );
 				
 				EditorGUI.indentLevel = tempIndentLevel - 1;
@@ -126,7 +124,7 @@ namespace EventsPlus
             string delegatepath = delegateprop.propertyPath;
             delegateprop.FindPropertyRelative("_arguments").ClearArray();
             delegateprop.serializedObject.ApplyModifiedProperties();
-            DrawerRawCallView.cache[delegatepath].ClearViewCache();
+         //   DrawerRawCallView.cache[delegatepath].ClearViewCache();
             arrayprop.DeleteArrayElementAtIndex(list.index);
             arrayprop.serializedObject.ApplyModifiedProperties();
             Debug.Log("aye");

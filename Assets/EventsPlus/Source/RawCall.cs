@@ -20,7 +20,6 @@ namespace EventsPlus
 		/// <summary>Whether or not this delegate is invoked with passed in parameters from a <see cref="Publisher"/> or if it contains predefined arguments</summary>
 		[SerializeField]
 		protected bool _isDynamic;
-
 		//=======================
 		// Initialization
 		//=======================
@@ -28,7 +27,8 @@ namespace EventsPlus
 		/// <param name="tPublisher">Publisher passed in the delegate used for automatic memory management</param>
 		public virtual void initialize( Publisher tPublisher )
 		{
-			_delegateInstance = createDelegate( tPublisher, Utility.Deserialize( _target == null ? null : _target.GetType(), _member ) );
+            Debug.Log(methodData[0]);
+			_delegateInstance = createDelegate( tPublisher, Utility.QuickDeseralizer( _target == null ? null : _target.GetType(), methodData ) );
 		}
 		
 		//=======================
@@ -149,7 +149,7 @@ namespace EventsPlus
                         break;
                 }
             }
-                MemberTypes mem_type = (MemberTypes)int.Parse(_member.Substring(0, _member.IndexOf(":")));
+            MemberTypes mem_type = (MemberTypes)int.Parse(methodData[0]);
                 return new Action(() => Debug.LogError($@"Cannot find {mem_type} ""{_member}"" in class  ""{_target.GetType().FullName}""+ 
                 member was renamed or removed on gameobject ""{_target.name}""",_target));
 		}

@@ -16,27 +16,24 @@ namespace EventsPlus
         //=======================
         /// <summary> Dynamic types are determined by the generics of the <see cref="Publisher.types"/> the raw call resodes in  and <see cref="DrawerRawCallView.createCache(SerializedProperty)"/> 
         /// type definition used to determine if a delegate is treated as a direct invocation rather than having predefined arguments</summary>
-        protected Type[] _dynamicTypes;
+        protected Type[] dynamicTypes;
 		/// <summary>True if the selected member can be invoked without predefined arguments</summary>
-		protected bool _isDynamicable;
-		/// <summary>True if the selected member is to be invoked without predefined arguments</summary>
-		protected bool _isDynamic;
-		/// <summary>Cached predefined arguments of the selected member</summary>
-		protected Argument[] _arguments;
-        public bool HasDelegateError;
-		//=======================
-		// Constructor
-		//=======================
-		/// <summary>Constructor</summary>
-		/// <param name="tDynamicTypes">Type definition used to check if this call is <see cref="_isDynamicable"/></param>
-		public RawCallView( Type[] tDynamicTypes )
-		{
-			_dynamicTypes = tDynamicTypes;
-		}
-        public RawCallView()
-        {
+		public bool isDynamicable { get; protected set; }
+        /// <summary>True if the selected member is to be invoked without predefined arguments</summary>
+        protected bool m_isDynamic;
+        /// <summary>Gets/Sets the <see cref="m_isDynamic"/> toggle</summary>
+        public virtual bool isDynamic { get => m_isDynamic; set => m_isDynamic = value && isDynamicable; }
+        /// <summary>Cached predefined arguments of the selected member</summary>
+        public Argument[] arguments { get; protected set; }
 
-        }
+        public bool HasDelegateError;
+        //=======================
+        // Constructor
+        //=======================
+        /// <summary>Constructor</summary>
+        /// <param name="tDynamicTypes">Type definition used to check if this call is <see cref="isDynamicable"/></param>
+        public RawCallView(Type[] tDynamicTypes) => dynamicTypes = tDynamicTypes;
+        public RawCallView() { }
 		
 		//=======================
 		// Target
@@ -46,9 +43,9 @@ namespace EventsPlus
 		/// <param name="tMember">Selected member property</param>
 		/// <param name="tDynamic">Dynamic toggle property</param>
 		/// <returns>True if the data matches</returns>
-		public virtual bool validateTarget( SerializedProperty tTarget, SerializedProperty tMember, SerializedProperty tDynamic )
+		public virtual bool validateTarget( SerializedProperty tTarget, string[] SeralizedMethodData, SerializedProperty tDynamic )
 		{
-			if ( !base.validateTarget( tTarget, tMember ) )
+			if ( !base.validateTarget( tTarget, SeralizedMethodData ) )
 			{
 				isDynamic = tDynamic.boolValue;
 				
@@ -60,19 +57,19 @@ namespace EventsPlus
         /// <summary>
         /// Called when user selects member and populates array for in editor parameter choosing
         /// </summary>
-        /// <param name="value"></param>
-        public override void UpdateSelectedMember(int value)
+        /// <param name="memberindex"></param>
+        public override void UpdateSelectedMember(int memberindex)
         {
-            if (value == -1)
+            if (memberindex == -1)
                 SetDelegateError();
             else
             {
                 //   base.UpdateSelectedMember(value);
-                selectedMemberIndex = value;
+                selectedMemberIndex = memberindex;
             }
             // Generate arguments and determine if can be dynamic
-            _arguments = null;
-            _isDynamicable = false;
+            arguments = null;
+            isDynamicable = false;
 
             if (CurrentMembers != null)
             {
@@ -80,27 +77,28 @@ namespace EventsPlus
                 switch (tempMember.info.MemberType)
                 {
                     case MemberTypes.Field:
-                        _arguments = new Argument[] { new Argument(tempMember.info as FieldInfo) };
-                        _isDynamicable = _dynamicTypes != null && _dynamicTypes.Length == 1 && _dynamicTypes[0] == _arguments[0].type;
+                        arguments = new Argument[] { new Argument(tempMember.info as FieldInfo) };
+                        isDynamicable = dynamicTypes != null && dynamicTypes.Length == 1 && dynamicTypes[0] == arguments[0].type;
                         break;
                     case MemberTypes.Property:
-                        _arguments = new Argument[] { new Argument(tempMember.info as PropertyInfo) };
-                        _isDynamicable = _dynamicTypes != null && _dynamicTypes.Length == 1 && _dynamicTypes[0] == _arguments[0].type;
+                        arguments = new Argument[] { new Argument(tempMember.info as PropertyInfo) };
+                        isDynamicable = dynamicTypes != null && dynamicTypes.Length == 1 && dynamicTypes[0] == arguments[0].type;
                         break;
                     case MemberTypes.Method:
                         ParameterInfo[] tempParameters = (tempMember.info as MethodInfo).GetParameters();
                         if (tempParameters != null)
                         {
                             int tempListLength = tempParameters.Length;
-                            _arguments = new Argument[tempListLength];
-                            _isDynamicable = _dynamicTypes != null && tempListLength == _dynamicTypes.Length; // methods without arguments are not dynamic
+                            arguments = new Argument[tempListLength];
+                            //if dynamicTypes is null the meothod is void and method less
+                            isDynamicable = dynamicTypes != null && tempListLength == dynamicTypes.Length; // methods without arguments are not dynamic
 
                             for (int i = (tempListLength - 1); i >= 0; --i)
                             {
-                                _arguments[i] = new Argument(tempParameters[i]);
-                                if (_isDynamicable && _arguments[i].type != _dynamicTypes[i])
+                                arguments[i] = new Argument(tempParameters[i]);
+                                if (isDynamicable && arguments[i].type != dynamicTypes[i])
                                 {
-                                    _isDynamicable = false;
+                                    isDynamicable = false;
                                 }
                             }
                         }
@@ -110,7 +108,7 @@ namespace EventsPlus
                 }
             }
             // Turn off dynamic if not able
-            if (!_isDynamicable && _isDynamic)
+            if (!isDynamicable && m_isDynamic)
             {
                 isDynamic = false;
             }
@@ -119,9 +117,9 @@ namespace EventsPlus
         /// <param name="tMember">Selected member property</param>
         /// <param name="tDynamic">Dynamic toggle property</param>
         /// <returns>True if the data matches</returns>
-        public virtual bool validateMember(SerializedProperty tMember, SerializedProperty tDynamic )
+        public virtual bool validateMember(string[] SeralizedMethodData, SerializedProperty tDynamic )
 		{
-			if ( !base.validateMember( tMember ) )
+			if ( !base.validateMember(SeralizedMethodData) )
 			{ 
                 Debug.Log(selectedMemberIndex);
                 Debug.LogError("WE SHOULD BE HERE");
@@ -137,63 +135,17 @@ namespace EventsPlus
             HasDelegateError = true;
             UpdateSelectedTarget(AvailableTargetObjects.Count - 1);
             selectedMemberIndex = 2;
+
         }
         public override void ClearViewCache()
         {
             Debug.Log("clearing");
             base.ClearViewCache();
             HasDelegateError = false;
-            _arguments = null;
-            _dynamicTypes = null;
+            arguments = null;
+            dynamicTypes = null;
         }
-        //=======================
-        // Dynamic
-        //=======================
-        /// <summary>Gets the <see cref="_dynamicTypes"/></summary>
-        public Type[] dynamicTypes
-		{
-			get
-			{
-				return _dynamicTypes;
-			}
-		}
 		
-		/// <summary>Gets the <see cref="_isDynamicable"/> toggle</summary>
-		public bool isDynamicable
-		{
-			get
-			{
-				return _isDynamicable;
-			}
-		}
-		
-		/// <summary>Gets/Sets the <see cref="_isDynamic"/> toggle</summary>
-		public virtual bool isDynamic
-		{
-			get
-			{
-				return _isDynamic;
-			}
-			set
-			{
-				bool tempIsDynamic = value && _isDynamicable;
-				if ( tempIsDynamic != _isDynamic )
-				{
-					_isDynamic = tempIsDynamic;
-				}
-			}
-		}
-		
-		//=======================
-		// Arguments
-		//=======================
-		/// <summary>Gets the predefined <see cref="_arguments"/> of the selected member</summary>
-		public Argument[] arguments
-		{
-			get
-			{
-				return _arguments;
-			}
-		}
+	
 	}
 }

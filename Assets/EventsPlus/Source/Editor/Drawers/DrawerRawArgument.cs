@@ -23,7 +23,7 @@ namespace EventsPlus
 		{
 			float tempHeight = base.GetPropertyHeight( tProperty, tLabel );
 			
-			SerializedProperty tempType = tProperty.FindPropertyRelative( "type" );
+			SerializedProperty tempType = tProperty.FindPropertyRelative("FullArgumentName");
 			if ( tempType.stringValue == "UnityEngine.Rect" )
 			{
 				tempHeight += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
@@ -32,7 +32,6 @@ namespace EventsPlus
 			{
 				tempHeight += ( EditorGUIUtility.singleLineHeight * 2 ) + EditorGUIUtility.standardVerticalSpacing;
 			}
-			
 			return tempHeight;
 		}
 		
@@ -42,14 +41,17 @@ namespace EventsPlus
 		/// <param name="tLabel">GUI Label of the drawer</param>
 		public override void OnGUI( UnityEngine.Rect tPosition, SerializedProperty tProperty, GUIContent tLabel )
 		{
-			SerializedProperty tempTypeProperty = tProperty.FindPropertyRelative( "type" );
-			switch ( tempTypeProperty.stringValue )
+            string assemblyTypeName = tProperty.FindPropertyRelative("assemblyQualifiedArgumentName").stringValue;
+            string FullTypeName = tProperty.FindPropertyRelative("FullArgumentName").stringValue;
+			switch (FullTypeName)
 			{
 				case "System.String":
 					SerializedProperty tempString = tProperty.FindPropertyRelative( "stringValue" );
                     tempString.stringValue = EditorGUI.TextArea(tPosition, tempString.stringValue);
 					break;
 				case "System.Boolean":
+                    tPosition.width = 500;
+                    tPosition.x = 100;
 					SerializedProperty tempX1 = tProperty.FindPropertyRelative( "_x1" );
 					tempX1.floatValue = EditorGUI.Toggle( tPosition, tLabel, tempX1.floatValue > 0 ) ? 1 : -1;
 					break;
@@ -169,51 +171,44 @@ namespace EventsPlus
 					tempCurve.animationCurveValue = EditorGUI.CurveField( tPosition, tLabel, tempCurve.animationCurveValue );
 					break;
 				default:
-					if ( String.IsNullOrEmpty( tempTypeProperty.stringValue ) )
+					if ( String.IsNullOrEmpty(assemblyTypeName) )
 					{
 						// N/A
 						EditorGUI.LabelField( tPosition, ( tProperty.displayName + " Not Drawable" ) );
 					}
 					else
 					{
-						// Convert string to type
-						Type tempType = null;
-						Assembly[] tempAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-						for ( int i = ( tempAssemblies.Length - 1 ); i >= 0 && tempType == null; --i )
-						{
-							tempType = tempAssemblies[i].GetType( tempTypeProperty.stringValue );
-						}
-						
-						if ( tempType != null )
+                        // Convert string to type
+                        Type current_type = Type.GetType(assemblyTypeName);
+						if ( current_type != null )
 						{
 							// Enumerator
-							if ( tempType.IsEnum )
+							if ( current_type.IsEnum )
 							{
 								tempX1 = tProperty.FindPropertyRelative( "_x1" );
 								
-								if ( tempType.IsDefined( typeof( FlagsAttribute ), false ) )
+								if ( current_type.IsDefined( typeof( FlagsAttribute ), false ) )
 								{
-									tempX1.floatValue = Convert.ToSingle( EditorGUI.EnumFlagsField( tPosition, tLabel, (Enum)Enum.ToObject( tempType, (int)tempX1.floatValue ) ) );
+									tempX1.floatValue = Convert.ToSingle( EditorGUI.EnumFlagsField( tPosition, tLabel, (Enum)Enum.ToObject( current_type, (int)tempX1.floatValue ) ) );
 								}
 								else
 								{
-									tempX1.floatValue = Convert.ToSingle( EditorGUI.EnumPopup( tPosition, tLabel, (Enum)Enum.ToObject( tempType, (int)tempX1.floatValue ) ) );
+									tempX1.floatValue = Convert.ToSingle( EditorGUI.EnumPopup( tPosition, tLabel, (Enum)Enum.ToObject( current_type, (int)tempX1.floatValue ) ) );
 								}
 								
 								return;
 							}
 							// Unity object
-							else if ( tempType.IsClass && ( tempType == typeof( UnityEngine.Object ) || tempType.IsSubclassOf( typeof( UnityEngine.Object ) ) ) )
+							else if ( current_type.IsClass && ( current_type == typeof( UnityEngine.Object ) || current_type.IsSubclassOf( typeof( UnityEngine.Object ) ) ) )
 							{
 								SerializedProperty tempObject = tProperty.FindPropertyRelative( "objectValue" );
-								tempObject.objectReferenceValue = EditorGUI.ObjectField( tPosition, tLabel, tempObject.objectReferenceValue, tempType, true );
+								tempObject.objectReferenceValue = EditorGUI.ObjectField( tPosition, tLabel, tempObject.objectReferenceValue, current_type, true );
 								
 								return;
 							}
 						}
-						
 						// N/A
-						EditorGUI.LabelField( tPosition, ( tempTypeProperty.stringValue + " Not Drawable" ) );
+						EditorGUI.LabelField( tPosition, ( FullTypeName + " Not Drawable" ) );
 					}
 					
 					break;

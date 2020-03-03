@@ -271,30 +271,23 @@ namespace EventsPlus
 				int tempListLength = tempFields.Length;
 				if ( tempListLength > 0 )
 				{
-					List<MemberField> tempOut = null;
+					List<MemberField> tempOut = new List<MemberField>();
 					FieldInfo tempField;
 					for ( int i = 0; i < tempListLength; ++i )
 					{
 						tempField = tempFields[i];
-						if ( !tempField.IsInitOnly && !tempField.IsLiteral )
+						if ( !tempField.IsInitOnly && !tempField.IsLiteral ) //not readonly field and not const field
 						{
 							MemberField tempMember = new MemberField( tempField ); 
 							if ( !tIsFiltered || !Settings.instance.isMemberFiltered( tempField.DeclaringType, tempField.ReflectedType, tempMember ) )
 							{
-								if ( tempOut == null )
-								{
-									tempOut = new List<MemberField>();
-								}
-								
 								tempOut.Add( tempMember );
 							}
 						}
 					}
-					
 					return tempOut;
 				}
 			}
-			
 			return null;
 		}
 		

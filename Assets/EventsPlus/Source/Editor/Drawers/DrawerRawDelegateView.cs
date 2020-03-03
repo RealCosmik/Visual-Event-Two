@@ -16,7 +16,7 @@ namespace EventsPlus
         // Variables
         //=======================
         /// <summary>Cached delegate drop-down data used for optimization</summary>
-        public static Dictionary<string, T> cache { get; protected set; } = new Dictionary<string, T>();
+        public Dictionary<string, T> cache { get; protected set; } = new Dictionary<string, T>();
 		//=======================
 		// Initialization
 		//=======================
@@ -31,16 +31,7 @@ namespace EventsPlus
             {
                 cache.Add(tProperty.propertyPath, createCache(tProperty));
             }
-            AssemblyReloadEvents.afterAssemblyReload += AssemblyValidation;
-
             return base.GetPropertyHeight( tProperty, tLabel );
-
-            void AssemblyValidation()
-            { 
-                Debug.LogWarning("HOPE THIS WORKS");
-                AssemblyReloadEvents.afterAssemblyReload -= AssemblyValidation;
-            }
-
         }
 
 
@@ -64,6 +55,7 @@ namespace EventsPlus
 		/// <param name="tLabel">GUI Label of the drawer</param>
 		public override void OnGUI( Rect tPosition, SerializedProperty tProperty, GUIContent tLabel )
 		{
+            tLabel.text = null;
             // Validate cache
 			T DelegateCache = cache[ tProperty.propertyPath ];
             if (DelegateCache == null)
@@ -72,6 +64,8 @@ namespace EventsPlus
             // Target  
             float tempFieldWidth = ( tPosition.width - EditorGUIUtility.labelWidth ) * 0.5f;
 			tPosition.height = base.GetPropertyHeight( tProperty, tLabel );
+            tPosition.x -= 120;
+            tPosition.width += 120;
 			if ( DelegateCache.CurrentTarget == null ) // empty field
 			{   
 				EditorGUI.BeginChangeCheck();
@@ -83,32 +77,35 @@ namespace EventsPlus
 					handleTargetUpdate( tProperty, DelegateCache );
                     DelegateCache.UpdateSelectedMember(DelegateCache.selectedMemberIndex);
                     handleMemberUpdate(tProperty, DelegateCache);
-				}
-			} 
-			else // drop-down
+                    EditorGUIUtility.PingObject(UserParentTarget);
+                }
+
+            }
+            else // drop-down
 			{
-				tPosition.width = tempFieldWidth + EditorGUIUtility.labelWidth;
-				EditorGUI.BeginChangeCheck();
-				int UserSelectedTarget = EditorGUI.Popup( tPosition, tLabel.text, DelegateCache.CurrentTargetIndex, DelegateCache._targetNames );
-				if ( EditorGUI.EndChangeCheck() )
-				{
+				tPosition.width = tempFieldWidth + EditorGUIUtility.labelWidth+30;
+                EditorGUI.BeginChangeCheck();
+                int previousIndex = DelegateCache.CurrentTargetIndex;
+				int UserSelectedTarget = EditorGUI.Popup( tPosition, tLabel.text, DelegateCache.CurrentTargetIndex, DelegateCache._targetNames);
+                if (EditorGUI.EndChangeCheck() && previousIndex != UserSelectedTarget)
+                {
+                    EditorGUIUtility.PingObject(DelegateCache.GetObjectFromTree(UserSelectedTarget));
                     DelegateCache.UpdateSelectedTarget(UserSelectedTarget);
                     Debug.Log(DelegateCache._targetNames[UserSelectedTarget]);
-                    handleTargetUpdate( tProperty, DelegateCache );
+                    handleTargetUpdate(tProperty, DelegateCache);
                     DelegateCache.UpdateSelectedMember(DelegateCache.selectedMemberIndex);
                     handleMemberUpdate(tProperty, DelegateCache);
-				}
-			}
+                }
+            }
 			
 			// Members
 			if ( DelegateCache.CurrentTarget != null )
 			{
 				float tempIndentSize = ( EditorGUI.indentLevel - 1 ) * EditorUtility.IndentSize;
-				tPosition.x += tPosition.width - 13 - tempIndentSize;
-				tPosition.width = tempFieldWidth + 13 + tempIndentSize;
-				
+				tPosition.x += tPosition.width - 13 - tempIndentSize+10;
+				tPosition.width = tempFieldWidth + 13 + tempIndentSize+70;
 				EditorGUI.BeginChangeCheck();
-				int tempSelectedMember = EditorGUI.Popup( tPosition, DelegateCache.selectedMemberIndex, DelegateCache.memberNames );
+				int tempSelectedMember = EditorGUI.Popup( tPosition, DelegateCache.selectedMemberIndex, DelegateCache.memberNames);
 				if ( EditorGUI.EndChangeCheck() )
 				{ 
                     DelegateCache.UpdateSelectedMember(tempSelectedMember);
@@ -122,12 +119,13 @@ namespace EventsPlus
 		/// <param name="tCache">Cached delegate drop-down data</param>
 		protected virtual void validate( SerializedProperty tProperty, T tCache )
 		{
-			SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative( "_member" );
-			if ( !tCache.validateTarget( tProperty.FindPropertyRelative( "_target" ), tempMemberProperty ) )
+			SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative( "methodData" );
+            var methodData = GetSeralizedMethodDataprop(tempMemberProperty);
+			if ( !tCache.validateTarget( tProperty.FindPropertyRelative( "_target" ), methodData ) )
 			{
 				handleTargetUpdate( tProperty, tCache );
 			}
-			if ( !tCache.validateMember( tempMemberProperty ) )
+			if ( !tCache.validateMember( methodData ) )
 			{
                 Debug.Log("member update still");
 				handleMemberUpdate( tProperty, tCache );
@@ -148,9 +146,29 @@ namespace EventsPlus
 		/// <param name="tCache">Cached delegate drop-down data</param>
 		protected virtual void handleMemberUpdate( SerializedProperty tProperty, T tCache )
 		{
-            Debug.Log("UPDATING MEMBER INFO IMPLICITLY");
-            tProperty.FindPropertyRelative( "_member" ).stringValue = tCache.SelectedMember.serializedName;
+            var methodData_prop = tProperty.FindPropertyRelative("methodData");
+            if (tCache.SelectedMember == null)
+                methodData_prop.arraySize = 0;
+            else
+            {
+                methodData_prop.arraySize = tCache.SelectedMember.SeralizedData.Length;
+                for (int i = 0; i < tCache.SelectedMember.SeralizedData.Length; i++)
+                {
+                    methodData_prop.GetArrayElementAtIndex(i).stringValue = tCache.SelectedMember.SeralizedData[i];
+                }
+            }
 			tProperty.serializedObject.ApplyModifiedProperties();
 		}
+        
+        protected string[] GetSeralizedMethodDataprop(SerializedProperty methodDataprop)
+        {
+            int array_size = methodDataprop.arraySize;
+            string[] member_data = new string[array_size];
+            for (int i = 0; i < array_size; i++)
+            {
+                member_data[i] = methodDataprop.GetArrayElementAtIndex(i).stringValue;
+            }
+            return member_data;
+        }
     }
 }

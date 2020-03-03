@@ -13,8 +13,9 @@ namespace EventsPlus
 		//=======================
 		// Variables
 		//=======================
-		/// <summary>Type of argument used by serialization</summary>
-		public string type;
+        public string assemblyQualifiedArgumentName;
+        /// <summary>Type of argument used by serialization</summary>
+        public string FullArgumentName;
 		/// <summary>Object reference</summary>
 		public UnityEngine.Object objectValue;
 		/// <summary>String</summary>
@@ -52,9 +53,9 @@ namespace EventsPlus
 		{
 			get
 			{
-				if ( !String.IsNullOrEmpty( type ) )
+				if ( !String.IsNullOrEmpty( FullArgumentName ) )
 				{
-					switch ( type )
+					switch ( FullArgumentName )
 					{
 						case "System.String":
 							return stringValue;
@@ -85,7 +86,7 @@ namespace EventsPlus
 						case "UnityEngine.AnimationCurve":
 							return animationCurveValue;
 						default:
-							Type tempType = Type.GetType( type );
+							Type tempType = Type.GetType(assemblyQualifiedArgumentName);
 							if ( tempType != null )
 							{
 								if ( tempType.IsEnum )
@@ -136,7 +137,7 @@ namespace EventsPlus
 		{
 			get
 			{
-				Type tempType = Type.GetType( type );
+				Type tempType = Type.GetType( assemblyQualifiedArgumentName );
 				if ( tempType != null && tempType.IsEnum )
 				{
 					return (Enum)Enum.ToObject( tempType, (int)_x1 );

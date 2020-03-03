@@ -12,5 +12,6 @@ namespace EventsPlus
 		MemberInfo info { get; }
 		string serializedName { get; }
         string GetdisplayName();
+        string[] SeralizedData { get;}
 	}
 }

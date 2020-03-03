@@ -5,18 +5,18 @@ using System.Collections.Generic;
 
 public class UtilitySO : ScriptableObject
 {
-    public void LogMessage(string message,LogType logtype)
+    public void LogMessage(string message,LogType logtype,UnityEngine.Object context)
     {
         switch (logtype)
         {
             case LogType.Standard:
-                Debug.Log(message);
+                Debug.Log(message,context);
                 break;
             case LogType.Warning:
-                Debug.LogWarning(message);
+                Debug.LogWarning(message,context);
                 break;
             case LogType.Error:
-                Debug.LogError(message);
+                Debug.LogError(message,context);
                 break;
             default:
                 break;

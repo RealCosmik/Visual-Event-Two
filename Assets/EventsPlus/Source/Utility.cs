@@ -9,6 +9,12 @@ namespace EventsPlus
     /// <summary>Utility class for delegate serialization</summary>
     public static class Utility
     {
+        /// <summary>
+        /// this string is used in replacement of types unityengine.object so that there is no discrepency between .net obj and unity obj
+        /// </summary>
+        const string UnityobjectSeralizedName = "UnityObject";
+        const BindingFlags memberBinding = BindingFlags.Instance|BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
+
         //=======================
         // Serialization
         //=======================
@@ -17,6 +23,7 @@ namespace EventsPlus
         /// <returns>String value of the serialized member info, null if invalid</returns>
         public static string Serialize(MemberInfo tInfo)
         {
+            List<string> Memberinfo_Data = new List<string>(2);
             if (tInfo != null)
             {
                 if (tInfo.MemberType == MemberTypes.Method)
@@ -30,9 +37,11 @@ namespace EventsPlus
                     for (int i = 0; i < tempListLength; ++i)
                     {
                         tempBuilder.Append(',');
-                        tempBuilder.Append(tempParameters[i].ParameterType);
+                        var currentparamType = tempParameters[i].ParameterType;
+                        if (currentparamType == typeof(UnityEngine.Object))
+                            tempBuilder.Append(UnityobjectSeralizedName);
+                        else tempBuilder.Append(tempParameters[i].ParameterType.FullName);
                     }
-
                     return tempBuilder.ToString();
                 }
 
@@ -40,6 +49,59 @@ namespace EventsPlus
             }
 
             return null;
+        }
+        public static string[] QuickSeralizer(MemberInfo member_info)
+        {
+
+            List<string> member_data = new List<string>(2);
+            //first element is member type
+            member_data.Add(((int)member_info.MemberType).ToString());
+            //second element is member name
+            member_data.Add(member_info.Name);
+            // if its a method all subsequent elements are the type names of the method parameters
+            if (member_info.MemberType == MemberTypes.Method)
+            {
+                var method_params = (member_info as MethodInfo).GetParameters();
+                for (int i = 0; i < method_params.Length; i++)
+                    member_data.Add(method_params[i].ParameterType.AssemblyQualifiedName);
+            }
+            return member_data.ToArray();
+        }
+        /// <summary>
+        /// deseralizes a string array of method data <see cref="QuickSeralizer(MemberInfo)"/> to see seralization format
+        /// </summary>
+        /// <param name="CurrentType"></param>
+        /// <param name="methodata"></param>
+        /// <param name="memberflags"></param>
+        /// <returns></returns>
+        public static MemberInfo QuickDeseralizer(Type CurrentType,string[] methodata,BindingFlags memberflags=memberBinding)
+        {
+            MemberInfo member_info = null;
+            var member_type = (MemberTypes)int.Parse(methodata[0]);
+            var member_name = methodata[1];
+            if (member_type != MemberTypes.Method) //field or property
+            {
+                var reflected_members = CurrentType.GetMember(member_name, member_type, memberflags);
+                if (reflected_members != null && reflected_members.Length > 0)
+                    member_info = reflected_members[0];
+            }
+            // here we do work if the reflected member is a method
+            else
+            {
+                // data only contiains membertype and method name i.e its a void method
+                if (methodata.Length == 2)
+                    member_info = CurrentType.GetMethod(member_name, memberflags, null, Type.EmptyTypes, null);
+                else
+                {
+                    var paramtypes = new Type[methodata.Length - 2];
+                    for (int i = 2; i < methodata.Length; i++)
+                    {
+                        paramtypes[i-2] = Type.GetType(methodata[i]);
+                    }
+                    member_info = CurrentType.GetMethod(member_name, memberflags, null, paramtypes, null);
+                }
+            }
+            return member_info;
         }
 
         /// <summary>Deserializes a coded string into a <see cref="MemberInfo"/></summary>
@@ -50,6 +112,7 @@ namespace EventsPlus
         public static MemberInfo Deserialize(Type tType, string tSerialized, BindingFlags tFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
         {
             //note that members are seralized in the format of "{ mebertype as int}:{method name},{paramtype}...,{paramtype_n}
+            Debug.Log(tSerialized);
             MemberInfo Meber_info = null;
             if (!String.IsNullOrEmpty(tSerialized))
             {
@@ -58,7 +121,6 @@ namespace EventsPlus
                 switch (tempMemberType)
                 {
                     case MemberTypes.Method:
-                        UnityEngine.Debug.Log(tType.Name);
                         string[] tempRawTypes = tSerialized.Split(',');
                         int tempTypesLength = tempRawTypes.Length - 1;
                         if (tempTypesLength > 0)
@@ -66,12 +128,12 @@ namespace EventsPlus
                             Type[] tempTypes = new Type[tempTypesLength];
                             for (int i = (tempTypesLength - 1); i >= 0; --i)
                             {
-                                tempTypes[i] = Type.GetType(tempRawTypes[i + 1]);
-                                Debug.Log(tempTypes[i].FullName);
+                                var paramtype = tempRawTypes[i + 1];
+                                if (paramtype.Equals(UnityobjectSeralizedName))
+                                    tempTypes[i] = typeof(UnityEngine.Object);
+                               else  tempTypes[i] = Type.GetType(paramtype);
                             }
-                            Debug.Log(tempRawTypes[0].Substring(tempNameIndex + 1));
-                            Debug.Log(tType.FullName);
-                            Meber_info = tType.GetMethod(tempRawTypes[0].Substring(tempNameIndex + 1), tFlags, null, tempTypes, null);
+                             Meber_info = tType.GetMethod(tempRawTypes[0].Substring(tempNameIndex + 1), tFlags, null, tempTypes, null);
                         }
                         //void method
                         else Meber_info = tType.GetMethod(tempRawTypes[0].Substring(tempNameIndex + 1), tFlags, null, Type.EmptyTypes, null);
@@ -85,6 +147,7 @@ namespace EventsPlus
                         break;
                 }
             }
+            Debug.Log(Meber_info == null);
             return Meber_info;
         }
 

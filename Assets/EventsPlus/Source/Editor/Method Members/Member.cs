@@ -22,6 +22,8 @@ namespace EventsPlus
 
         /// <summary>Gets the display name of the member for use in drop-downs</summary>
         public abstract string GetdisplayName();
+        protected string[] m_seralizeData;
+        public string[] SeralizedData => m_seralizeData;
 
         //=======================
         // Constructor
@@ -33,6 +35,7 @@ namespace EventsPlus
 			m_info = tInfo;
             //Custom seralize it here so that at run time we can decode it and retrieve the member data
 			serializedName = Utility.Serialize( m_info );
+            m_seralizeData = Utility.QuickSeralizer(tInfo);
 		}
 	}
 }

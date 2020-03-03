@@ -23,6 +23,8 @@ namespace EventsPlus
 		/// <summary>Serialized name of the target member</summary>
 		[SerializeField]
 		protected string _member;
+        [SerializeField]
+        protected string[] methodData;
 		/// <summary>Cached delegate instance generated upon initialization</summary>
 		protected System.Delegate _delegateInstance;
 		

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+using System.Linq;
 namespace EventsPlus
 {
     //##########################
@@ -43,6 +43,8 @@ namespace EventsPlus
             CurrentMembers = null;
             memberNames = null;
         }
+
+        public UnityEngine.Object GetObjectFromTree(int index) => AvailableTargetObjects[index];
         /// <summary>
         /// Sets the parent target of this delegate. This object will be used to construct delegate component tree
         /// </summary>
@@ -65,11 +67,6 @@ namespace EventsPlus
             }
             else Debug.LogError("No parent target was set for this delegate");
         }
-        /// <summary>
-        /// repopulates cacheDelegats members relative to the new target
-        /// </summary>
-        /// <param name="TargetIndex"></param>
-
 
         /// <summary>Generates a drop-down list of a target's relatives and output display names</summary>
         /// <param name="new_target">Target object</param>
@@ -111,21 +108,28 @@ namespace EventsPlus
                     int tempListLength = tempComponents.Length;
                     for (int i = 0; i < tempListLength; i++)
                     {
-                        string tempName = tempComponents[i].GetType().Name;
-                        targetnames.Add(FocusedTarget.name + "." + tempName); //gameobjectname.componentname 
-                        target_tree.Add(tempComponents[i]);
-
-                        if (FocusedTarget == null && tempComponents[i] == new_target)
+                        //in case there is a component in the tree that has loaded with an error
+                        if (tempComponents[i] != null)
                         {
-                            tempTarget_index += i + 1;
+                            string tempName = tempComponents[i].GetType().Name;
+                            targetnames.Add(FocusedTarget.name + "." + tempName); //gameobjectname.componentname 
+                            target_tree.Add(tempComponents[i]);
+
+                            if (FocusedTarget == null && tempComponents[i] == new_target)
+                            {
+                                tempTarget_index += i + 1;
+                            }
                         }
                     }
 
 
                     //here we artifically force add extension targets to the drop down for utility methods 
                     var obj = UnityEditor.AssetDatabase.LoadAssetAtPath<UtilitySO>("Assets/Utility.asset");
-                    target_tree.Add(obj);
-                    targetnames.Add(obj.name);
+                    if (obj != null)
+                    {
+                        target_tree.Add(obj);
+                        targetnames.Add(obj?.name);
+                    }
 
 
                     // here we populate array of all potential targetname 
@@ -177,7 +181,7 @@ namespace EventsPlus
         /// <param name="seralizedTarget">Selected target property</param>
         /// <param name="seralizedMember">Selected member property</param>
         /// <returns>True if the data matches</returns>
-        public virtual bool validateTarget(SerializedProperty seralizedTarget, SerializedProperty seralizedMember)
+        public virtual bool validateTarget(SerializedProperty seralizedTarget, string[] SeralizedMethodData)
         { 
             // on assembly recompile we must rebuild the view from the seralized values of the delegate
             if (AvailableTargetObjects == null && seralizedTarget.objectReferenceValue != null)
@@ -211,7 +215,7 @@ namespace EventsPlus
                     SetParentTarget(seralizedTarget.objectReferenceValue);
                 }
                 Debug.LogWarning("Set again here");
-                UpdateSelectedMember(findMember(seralizedMember.stringValue));
+                UpdateSelectedMember(findMember(SeralizedMethodData));
                 Debug.LogWarning($"member value is {selectedMemberIndex}");
 
                 return false;
@@ -229,15 +233,15 @@ namespace EventsPlus
         /// <summary>Checks for discrepancies between the <see cref="UnityEditor.SerializedProperty"/> and the cached data; tries to match the cache to the property</summary>
         /// <param name="tMember">Selected member property</param>
         /// <returns>True if the data matches</returns>
-        public virtual bool validateMember(SerializedProperty tMember)
+        public virtual bool validateMember(string[] seralizedMethodData)
         {
-            if (CurrentMembers == null || string.IsNullOrWhiteSpace(tMember.stringValue))
+            if (CurrentMembers == null || seralizedMethodData==null)
             {
                 Debug.Log("no members");
                 UpdateSelectedMember(0);
                 return false;
             }
-            UpdateSelectedMember(findMember(tMember.stringValue));
+            UpdateSelectedMember(findMember(seralizedMethodData));
             return selectedMemberIndex >= 0;
         }
 
@@ -245,27 +249,27 @@ namespace EventsPlus
         /// <summary>Finds the index of a serialized member name within the <see cref="CurrentMembers"/> list</summary>
         /// <param name="tSerializedName">Serialized name of the member being searched</param>
         /// <returns>Index if found, -1 if not, 0 if member is null or empty</returns>
-        public int findMember(string tSerializedName)
+        public int findMember(string[] seralizedmethodData)
         {
             if (CurrentMembers != null)
             {
                 for (int i = (CurrentMembers.Count - 1); i >= 0; --i)
                 {
-                    if (CurrentMembers[i].serializedName == tSerializedName)
+                    if (CurrentMembers[i].SeralizedData.SequenceEqual(seralizedmethodData))
                     {
                         return i;
                     }
                 }
             }
             //no member seralized member set 
-            if (string.IsNullOrWhiteSpace(tSerializedName))
+            if (seralizedmethodData.Length==0)
             {
                 Debug.Log("no name");
                 return 0;
             }
             else
             {
-                Debug.LogError($"cannot find memmber{tSerializedName}");
+                Debug.LogError($"cannot find memmber{seralizedmethodData[1]}");
                 return -1;
             }
         }
