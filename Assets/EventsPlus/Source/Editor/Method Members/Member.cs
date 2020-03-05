@@ -15,7 +15,7 @@ namespace EventsPlus
 		/// <summary>Reflection info</summary>
 		protected T m_info;
         /// <summary>Cached serialized name of the member</summary>
-        public string serializedName { get; protected set; }
+        public string serializedName => SeralizedData[1];
 
         /// <summary>Gets the reflection <see cref="m_info"/></summary>
         public MemberInfo info => m_info;
@@ -34,7 +34,6 @@ namespace EventsPlus
 		{
 			m_info = tInfo;
             //Custom seralize it here so that at run time we can decode it and retrieve the member data
-			serializedName = Utility.Serialize( m_info );
             m_seralizeData = Utility.QuickSeralizer(tInfo);
 		}
 	}

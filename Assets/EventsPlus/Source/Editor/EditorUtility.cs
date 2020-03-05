@@ -278,10 +278,12 @@ namespace EventsPlus
 						tempField = tempFields[i];
 						if ( !tempField.IsInitOnly && !tempField.IsLiteral ) //not readonly field and not const field
 						{
-							MemberField tempMember = new MemberField( tempField ); 
+							MemberField tempMember = new MemberField( tempField );
+                            MemberField tempGetter = new MemberField(tempField, false);
 							if ( !tIsFiltered || !Settings.instance.isMemberFiltered( tempField.DeclaringType, tempField.ReflectedType, tempMember ) )
 							{
 								tempOut.Add( tempMember );
+                                tempOut.Add(tempGetter);
 							}
 						}
 					}
@@ -384,6 +386,27 @@ namespace EventsPlus
 			
 			return null;
 		}
+
+        public static List<IMember> GetMemberList(this Type CurrentType, Type matchType)
+        {
+            return CurrentType.GetMemberList().Where(m => filterMembersByType(m, matchType)).ToList();
+        }
+
+        private static bool filterMembersByType(IMember member, Type matchType)
+        {
+            switch (member.info.MemberType)
+            {
+                case MemberTypes.Field:
+                    return (member.info as FieldInfo).FieldType == matchType;
+                case MemberTypes.Property:
+                    var prop_info = member.info as PropertyInfo;
+                    return prop_info.CanRead && prop_info.PropertyType == matchType;
+                case MemberTypes.Method:
+                    return (member.info as MethodInfo).ReturnType == matchType;
+                default:
+                    return false;
+            }
+        }
        
         //=======================
         // Inspector

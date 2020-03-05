@@ -180,9 +180,9 @@ namespace EventsPlus
         /// because on recompile or when switching gameobjects cache data will get desynced</summary>
         /// <param name="seralizedTarget">Selected target property</param>
         /// <param name="seralizedMember">Selected member property</param>
-        /// <returns>True if the data matches</returns>
-        public virtual bool validateTarget(SerializedProperty seralizedTarget, string[] SeralizedMethodData)
-        { 
+        /// <returns>True if the data matches</returns> 
+        public virtual bool validateTarget(SerializedProperty seralizedTarget,SerializedProperty memberData)
+        {
             // on assembly recompile we must rebuild the view from the seralized values of the delegate
             if (AvailableTargetObjects == null && seralizedTarget.objectReferenceValue != null)
             {
@@ -198,31 +198,39 @@ namespace EventsPlus
                 return false;
             }
             // if user reorders components in editor 
-            else if (seralizedTarget.objectReferenceValue != null && seralizedTarget.objectReferenceValue != AvailableTargetObjects[CurrentTargetIndex])
+            else if (seralizedTarget.objectReferenceValue != null && seralizedTarget.objectReferenceValue != CurrentTarget)
             {
+                Debug.Log(seralizedTarget.objectReferenceValue.GetType());
+                Debug.Log(AvailableTargetObjects[CurrentTargetIndex].GetType());
                 Debug.Log("mis match targets");
                 int tempIndex = AvailableTargetObjects.IndexOf(seralizedTarget.objectReferenceValue);
                 if (tempIndex >= 0)
                 {
                     Debug.LogWarning("found the index");
                     CurrentTargetIndex = tempIndex;
-                    GenerateNewTargetMembers(CurrentTargetIndex);
                 }
                 //could not find target in seralized object so just force set
                 else
                 {
                     Debug.LogWarning("setting here");
+                    CurrentTargetIndex = 0;
                     SetParentTarget(seralizedTarget.objectReferenceValue);
                 }
-                Debug.LogWarning("Set again here");
-                UpdateSelectedMember(findMember(SeralizedMethodData));
-                Debug.LogWarning($"member value is {selectedMemberIndex}");
-
+                //var SeralizedMethodData = GetSeralizedMethodDataFromprop(memberData);
+                //GenerateNewTargetMembers(CurrentTargetIndex);
+                //selectedMemberIndex = findMember(SeralizedMethodData);
+                //memberData.arraySize = SelectedMember?.SeralizedData.Length ?? 0;
+                //for (int i = 0; i < memberData.arraySize; i++)
+                //{
+                //    memberData.GetArrayElementAtIndex(i).stringValue = SelectedMember.SeralizedData[i];
+                //}
+                //memberData.serializedObject.ApplyModifiedProperties();
                 return false;
             }
             // on return from playmode
             else if (AvailableTargetObjects != null && CurrentTarget == null && seralizedTarget.objectReferenceValue != null)
             {
+                Debug.LogError("random shit");
                 CurrentTarget = seralizedTarget.objectReferenceValue;
                 return false;
             }
@@ -233,11 +241,12 @@ namespace EventsPlus
         /// <summary>Checks for discrepancies between the <see cref="UnityEditor.SerializedProperty"/> and the cached data; tries to match the cache to the property</summary>
         /// <param name="tMember">Selected member property</param>
         /// <returns>True if the data matches</returns>
-        public virtual bool validateMember(string[] seralizedMethodData)
+        public virtual bool validateMember(SerializedProperty memberDataprop)
         {
+            var seralizedMethodData = GetSeralizedMethodDataFromprop(memberDataprop);
             if (CurrentMembers == null || seralizedMethodData==null)
             {
-                Debug.Log("no members");
+               // Debug.Log("no members");
                 UpdateSelectedMember(0);
                 return false;
             }
@@ -251,27 +260,44 @@ namespace EventsPlus
         /// <returns>Index if found, -1 if not, 0 if member is null or empty</returns>
         public int findMember(string[] seralizedmethodData)
         {
-            if (CurrentMembers != null)
+            if (CurrentMembers != null&&seralizedmethodData.Length>0)
             {
-                for (int i = (CurrentMembers.Count - 1); i >= 0; --i)
+                //filters based on member type  (field,prop,method)
+                var possibleMembers = CurrentMembers.Where(m => m.SeralizedData[0] == seralizedmethodData[0]);
+                for (int i=0; i<possibleMembers.Count(); i++)
                 {
-                    if (CurrentMembers[i].SeralizedData.SequenceEqual(seralizedmethodData))
+                    if (possibleMembers.ElementAt(i).SeralizedData.SequenceEqual(seralizedmethodData))
                     {
-                        return i;
+                       return CurrentMembers.IndexOf(possibleMembers.ElementAt(i));
                     }
-                }
+                } 
             }
             //no member seralized member set 
-            if (seralizedmethodData.Length==0)
+            if (seralizedmethodData.Length==0||seralizedmethodData==null)
             {
                 Debug.Log("no name");
                 return 0;
             }
             else
             {
-                Debug.LogError($"cannot find memmber{seralizedmethodData[1]}");
+                Debug.Log(CurrentTarget.GetType().FullName);
+                for (int i = 0; i < seralizedmethodData.Length; i++)
+                {
+                    Debug.Log(seralizedmethodData[i]);
+                }
+                Debug.LogError($"cannot find member {seralizedmethodData[1]}");
                 return -1;
             }
+        }
+        protected string[] GetSeralizedMethodDataFromprop(SerializedProperty methodDataprop)
+        {
+            int array_size = methodDataprop.arraySize;
+            string[] member_data = new string[array_size];
+            for (int i = 0; i < array_size; i++)
+            {
+                member_data[i] = methodDataprop.GetArrayElementAtIndex(i).stringValue;
+            }
+            return member_data;
         }
         /// <summary>
         /// Updates selected member index

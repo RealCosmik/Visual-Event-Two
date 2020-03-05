@@ -40,26 +40,22 @@ namespace EventsPlus
 		/// <summary>Initializes <see cref="_calls"/> and registers with any potential <see cref="Subscriber"/> instances</summary>
 		public virtual void initialize()
 		{
-			// Initialize and ingest calls
-		//	if ( _calls != null )
+			if ( _calls != null )
 			{
 				int tempListLength = _calls.Count;
 				for ( int i = 0; i < tempListLength; ++i )
 				{
-					_calls[i].initialize( this );
-					effectsCallAdded( _calls[i] );
+                    try
+                    {
+                        _calls[i].initialize(this);
+                        effectsCallAdded(_calls[i]);
+                    }
+                    catch (System.Exception ex) //catch any reflection errors or type errors 
+                    {
+                        Debug.LogError(ex,_calls[i].target);
+                    }
+					
 				}
-			}
-			
-			// Subscribe to Subscriber
-			Subscriber.OnLoaded += onSubscriberLoaded;
-			Subscriber.OnDestroyed += onSubscriberDestroyed;
-			
-			// Fire load event
-			Action<Publisher> tempEvent = OnLoaded;
-			if ( tempEvent != null )
-			{
-				tempEvent( this );
 			}
 		}
 		

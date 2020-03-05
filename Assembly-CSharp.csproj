@@ -80,6 +80,7 @@
     <Compile Include="Assets\EventsPlus\Source\RawArgument.cs" />
     <Compile Include="Assets\EventsPlus\Source\RawCall.cs" />
     <Compile Include="Assets\EventsPlus\Source\RawDelegate.cs" />
+    <Compile Include="Assets\EventsPlus\Source\RawReference.cs" />
     <Compile Include="Assets\EventsPlus\Source\RawRequest.cs" />
     <Compile Include="Assets\EventsPlus\Source\Subscriber.cs" />
     <Compile Include="Assets\EventsPlus\Source\Utility.cs" />
@@ -113,6 +114,9 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>/Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.quicksearch">
+      <HintPath>/Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/com.unity.quicksearch.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2019.3.1f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

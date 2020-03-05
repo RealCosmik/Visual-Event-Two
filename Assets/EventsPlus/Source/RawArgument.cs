@@ -13,38 +13,41 @@ namespace EventsPlus
 		//=======================
 		// Variables
 		//=======================
-        public string assemblyQualifiedArgumentName;
+       [SerializeField] protected string assemblyQualifiedArgumentName;
         /// <summary>Type of argument used by serialization</summary>
-        public string FullArgumentName;
+         [SerializeField] protected string FullArgumentName;
 		/// <summary>Object reference</summary>
-		public UnityEngine.Object objectValue;
+		[SerializeField] protected UnityEngine.Object objectValue;
 		/// <summary>String</summary>
-		public string stringValue;
+		[SerializeField] private string stringValue;
 		/// <summary>General numbers data</summary>
 		[SerializeField]
-		protected float _x1;
+		private float _x1;
 		/// <summary>General numbers data</summary>
 		[SerializeField]
-		protected float _x2;
+		private float _x2;
 		/// <summary>General numbers data</summary>
 		[SerializeField]
-		protected float _y1;
+		private float _y1;
 		/// <summary>General numbers data</summary>
 		[SerializeField]
-		protected float _y2;
+		private float _y2;
 		/// <summary>General numbers data</summary>
 		[SerializeField]
-		protected float _z1;
+		private float _z1;
 		/// <summary>General numbers data</summary>
 		[SerializeField]
-		protected float _z2;
-		/// <summary>Long</summary>
-		public long longValue;
-		/// <summary>Double</summary>
-		public double doubleValue;
-		/// <summary>Animation curve</summary>
-		public AnimationCurve animationCurveValue;
-		
+		private float _z2;
+		[SerializeField]
+		private long longValue;
+	    [SerializeField]
+		private double doubleValue;
+		[SerializeField]
+		private AnimationCurve animationCurveValue;
+        [SerializeField]
+        string[] methodData;
+        [SerializeField]
+        bool UseReference;
 		//=======================
 		// Accessors
 		//=======================
@@ -85,6 +88,8 @@ namespace EventsPlus
 							return colorValue;
 						case "UnityEngine.AnimationCurve":
 							return animationCurveValue;
+                        case "UnityEngine.Object":
+                        return objectValue;
 						default:
 							Type tempType = Type.GetType(assemblyQualifiedArgumentName);
 							if ( tempType != null )
@@ -93,9 +98,15 @@ namespace EventsPlus
 								{
 									return enumValue;
 								}
+                                // for custom types that may inherit from unityobject
 								else if ( tempType.IsClass && tempType.IsSubclassOf( typeof( UnityEngine.Object ) ) )
 								{
-									return objectValue;
+                                    /// if the pointer is still null here then it will be treated as a Unity.Object Reference instead of a refference
+                                    /// of type "tempType" so throw early before reflection throws type excpetion to save time 
+                                    if (objectValue == null)
+                                        throw new UnityException("Child types of Type Unity.Object cannot be left null" +
+                                            $" populate the {tempType.FullName} field in the inspector to seralize delegate");
+                                    else return objectValue;
 								}
 							}
 							break;
@@ -107,7 +118,7 @@ namespace EventsPlus
 		}
 		
 		/// <summary>Gets the bool value of the argument</summary>
-		public bool boolValue
+		private bool boolValue
 		{
 			get
 			{
@@ -120,7 +131,7 @@ namespace EventsPlus
 		}
 		
 		/// <summary>Gets the integer value of the argument</summary>
-		public int intValue
+		private int intValue
 		{
 			get
 			{
@@ -133,7 +144,7 @@ namespace EventsPlus
 		}
 		
 		/// <summary>Gets the enumeration value of the argument</summary>
-		public Enum enumValue
+		private Enum enumValue
 		{
 			get
 			{
@@ -152,7 +163,7 @@ namespace EventsPlus
 		}
 		
 		/// <summary>Gets the floating point value of the argument</summary>
-		public float floatValue
+		private float floatValue
 		{
 			get
 			{
@@ -165,7 +176,7 @@ namespace EventsPlus
 		}
 		
 		/// <summary>Gets the Vector2 value of the argument</summary>
-		public Vector2 vector2Value
+		private Vector2 vector2Value
 		{
 			get
 			{
@@ -179,7 +190,7 @@ namespace EventsPlus
 		}
 		
 		/// <summary>Gets the Vector3 value of the argument</summary>
-		public Vector3 vector3Value
+		private Vector3 vector3Value
 		{
 			get
 			{
@@ -194,7 +205,7 @@ namespace EventsPlus
 		}
 		
 		/// <summary>Gets the Vector4 value of the argument</summary>
-		public Vector4 vector4Value
+		private Vector4 vector4Value
 		{
 			get
 			{
@@ -210,7 +221,7 @@ namespace EventsPlus
 		}
 		
 		/// <summary>Gets the quaternion value of the argument</summary>
-		public Quaternion quaternionValue
+		private Quaternion quaternionValue
 		{
 			get
 			{
@@ -226,7 +237,7 @@ namespace EventsPlus
 		}
 		
 		/// <summary>Gets the Rect value of the argument</summary>
-		public Rect rectValue
+		private Rect rectValue
 		{
 			get
 			{
@@ -242,7 +253,7 @@ namespace EventsPlus
 		}
 		
 		/// <summary>Gets the Bounds value of the argument</summary>
-		public Bounds boundsValue
+		private Bounds boundsValue
 		{
 			get
 			{
@@ -260,7 +271,7 @@ namespace EventsPlus
 		}
 		
 		/// <summary>Gets the color value of the argument</summary>
-		public Color colorValue
+		private Color colorValue
 		{
 			get
 			{

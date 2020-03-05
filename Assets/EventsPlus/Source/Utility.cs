@@ -53,7 +53,7 @@ namespace EventsPlus
         public static string[] QuickSeralizer(MemberInfo member_info)
         {
 
-            List<string> member_data = new List<string>(2);
+            List<string> member_data = new List<string>(3);
             //first element is member type
             member_data.Add(((int)member_info.MemberType).ToString());
             //second element is member name
@@ -65,6 +65,9 @@ namespace EventsPlus
                 for (int i = 0; i < method_params.Length; i++)
                     member_data.Add(method_params[i].ParameterType.AssemblyQualifiedName);
             }
+            else
+                // place holder to be populated by member to tell if it will be treated on deseralize as setfield or get field
+                member_data.Add(null);
             return member_data.ToArray();
         }
         /// <summary>

@@ -11,12 +11,11 @@ namespace EventsPlus
 	/// <summary>Inspector class for rendering <see cref="RawDelegate"/>s in the inspector</summary>
 	public class DrawerRawDelegateView<T> : PropertyDrawer where T : RawDelegateView,new()
 	{
-
         //=======================
         // Variables
         //=======================
         /// <summary>Cached delegate drop-down data used for optimization</summary>
-        public Dictionary<string, T> cache { get; protected set; } = new Dictionary<string, T>();
+        public static Dictionary<string, T> cache { get; protected set; } = new Dictionary<string, T>();
 		//=======================
 		// Initialization
 		//=======================
@@ -25,11 +24,16 @@ namespace EventsPlus
 		/// <param name="tLabel">GUI Label of the drawer</param>
 		/// <returns>Height of the drawer</returns>
 		public override float GetPropertyHeight( SerializedProperty tProperty, GUIContent tLabel )
-		{ 
+		{
             // Initialize cache
             if (!cache.TryGetValue(tProperty.propertyPath, out T delegeateCache))
             {
+                Debug.LogWarning("had to make a new one");
                 cache.Add(tProperty.propertyPath, createCache(tProperty));
+            }
+            else
+            {
+                //Debug.Log(tProperty.propertyPath);
             }
             return base.GetPropertyHeight( tProperty, tLabel );
         }
@@ -41,8 +45,7 @@ namespace EventsPlus
         protected virtual T createCache( SerializedProperty tProperty ) 
 		{
             Debug.Log("creatint cache type");
-            //return new T();
-            return Activator.CreateInstance<T>();
+            return new T();
         }
         
 		
@@ -65,6 +68,7 @@ namespace EventsPlus
             float tempFieldWidth = ( tPosition.width - EditorGUIUtility.labelWidth ) * 0.5f;
 			tPosition.height = base.GetPropertyHeight( tProperty, tLabel );
             tPosition.x -= 120;
+            tPosition.y += 5;
             tPosition.width += 120;
 			if ( DelegateCache.CurrentTarget == null ) // empty field
 			{   
@@ -79,7 +83,6 @@ namespace EventsPlus
                     handleMemberUpdate(tProperty, DelegateCache);
                     EditorGUIUtility.PingObject(UserParentTarget);
                 }
-
             }
             else // drop-down
 			{
@@ -87,11 +90,12 @@ namespace EventsPlus
                 EditorGUI.BeginChangeCheck();
                 int previousIndex = DelegateCache.CurrentTargetIndex;
 				int UserSelectedTarget = EditorGUI.Popup( tPosition, tLabel.text, DelegateCache.CurrentTargetIndex, DelegateCache._targetNames);
+                // on memberchange 
                 if (EditorGUI.EndChangeCheck() && previousIndex != UserSelectedTarget)
                 {
                     EditorGUIUtility.PingObject(DelegateCache.GetObjectFromTree(UserSelectedTarget));
                     DelegateCache.UpdateSelectedTarget(UserSelectedTarget);
-                    Debug.Log(DelegateCache._targetNames[UserSelectedTarget]);
+                    //Debug.Log(DelegateCache._targetNames[UserSelectedTarget]);
                     handleTargetUpdate(tProperty, DelegateCache);
                     DelegateCache.UpdateSelectedMember(DelegateCache.selectedMemberIndex);
                     handleMemberUpdate(tProperty, DelegateCache);
@@ -120,12 +124,11 @@ namespace EventsPlus
 		protected virtual void validate( SerializedProperty tProperty, T tCache )
 		{
 			SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative( "methodData" );
-            var methodData = GetSeralizedMethodDataprop(tempMemberProperty);
-			if ( !tCache.validateTarget( tProperty.FindPropertyRelative( "_target" ), methodData ) )
+			if ( !tCache.validateTarget( tProperty.FindPropertyRelative( "m_target" ), tempMemberProperty) )
 			{
 				handleTargetUpdate( tProperty, tCache );
 			}
-			if ( !tCache.validateMember( methodData ) )
+			 if ( !tCache.validateMember(tempMemberProperty) )
 			{
                 Debug.Log("member update still");
 				handleMemberUpdate( tProperty, tCache );
@@ -137,14 +140,15 @@ namespace EventsPlus
 		/// <param name="tCache">Cached delegate drop-down data</param>
 		protected virtual void handleTargetUpdate( SerializedProperty tProperty, T tCache )
 		{
-			tProperty.FindPropertyRelative( "_target" ).objectReferenceValue = tCache.CurrentTarget;
-		//    handleMemberUpdate( tProperty, tCache );
-		}
-		
-		/// <summary>Applies the member property of the <see cref="RawDelegate"/></summary>
-		/// <param name="tProperty">Serialized delegate property</param>
-		/// <param name="tCache">Cached delegate drop-down data</param>
-		protected virtual void handleMemberUpdate( SerializedProperty tProperty, T tCache )
+			tProperty.FindPropertyRelative( "m_target" ).objectReferenceValue = tCache.CurrentTarget;
+            tProperty.serializedObject.ApplyModifiedProperties();
+            //    handleMemberUpdate( tProperty, tCache );
+        }
+
+        /// <summary>Applies the member property of the <see cref="RawDelegate"/></summary>
+        /// <param name="tProperty">Serialized delegate property</param>
+        /// <param name="tCache">Cached delegate drop-down data</param>
+        protected virtual void handleMemberUpdate( SerializedProperty tProperty, T tCache )
 		{
             var methodData_prop = tProperty.FindPropertyRelative("methodData");
             if (tCache.SelectedMember == null)
@@ -160,15 +164,6 @@ namespace EventsPlus
 			tProperty.serializedObject.ApplyModifiedProperties();
 		}
         
-        protected string[] GetSeralizedMethodDataprop(SerializedProperty methodDataprop)
-        {
-            int array_size = methodDataprop.arraySize;
-            string[] member_data = new string[array_size];
-            for (int i = 0; i < array_size; i++)
-            {
-                member_data[i] = methodDataprop.GetArrayElementAtIndex(i).stringValue;
-            }
-            return member_data;
-        }
+    
     }
 }

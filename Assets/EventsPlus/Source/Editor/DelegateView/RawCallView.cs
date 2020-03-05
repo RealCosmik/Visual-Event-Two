@@ -43,15 +43,14 @@ namespace EventsPlus
 		/// <param name="tMember">Selected member property</param>
 		/// <param name="tDynamic">Dynamic toggle property</param>
 		/// <returns>True if the data matches</returns>
-		public virtual bool validateTarget( SerializedProperty tTarget, string[] SeralizedMethodData, SerializedProperty tDynamic )
+		public virtual bool validateTarget( SerializedProperty tTarget, SerializedProperty memberdataprop, SerializedProperty tDynamic )
 		{
-			if ( !base.validateTarget( tTarget, SeralizedMethodData ) )
+			if ( !base.validateTarget( tTarget, memberdataprop) )
 			{
 				isDynamic = tDynamic.boolValue;
 				
 				return false;
 			}
-			
 			return true;
 		}
         /// <summary>
@@ -117,12 +116,10 @@ namespace EventsPlus
         /// <param name="tMember">Selected member property</param>
         /// <param name="tDynamic">Dynamic toggle property</param>
         /// <returns>True if the data matches</returns>
-        public virtual bool validateMember(string[] SeralizedMethodData, SerializedProperty tDynamic )
+        public virtual bool validateMember(SerializedProperty methodDataprop, SerializedProperty tDynamic )
 		{
-			if ( !base.validateMember(SeralizedMethodData) )
+			if ( !base.validateMember(methodDataprop) )
 			{ 
-                Debug.Log(selectedMemberIndex);
-                Debug.LogError("WE SHOULD BE HERE");
 				isDynamic = tDynamic.boolValue;
 				return false;
 			}
