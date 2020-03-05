@@ -14,7 +14,7 @@ namespace EventsPlus
         /// <summary>Index of the currently selected member</summary>
 
         //=======================
-        // Variables
+        // Variables 
         //=======================
         /// <summary>Cached target objects</summary>
         protected List<UnityEngine.Object> AvailableTargetObjects;
@@ -33,6 +33,7 @@ namespace EventsPlus
 
         /// <summary>Gets/Sets the selected target object; if set, regenerates the target's members</summary>
         public virtual UnityEngine.Object CurrentTarget { get; protected set; }
+        public string propertypath;
 
         /// <summary>
         /// Clears the data from this view when delegate is removed
@@ -198,16 +199,15 @@ namespace EventsPlus
                 return false;
             }
             // if user reorders components in editor 
-            else if (seralizedTarget.objectReferenceValue != null && seralizedTarget.objectReferenceValue != CurrentTarget)
+            else if (seralizedTarget.objectReferenceValue != null && seralizedTarget.objectReferenceValue != CurrentTarget && AvailableTargetObjects != null)
             {
-                Debug.Log(seralizedTarget.objectReferenceValue.GetType());
-                Debug.Log(AvailableTargetObjects[CurrentTargetIndex].GetType());
                 Debug.Log("mis match targets");
                 int tempIndex = AvailableTargetObjects.IndexOf(seralizedTarget.objectReferenceValue);
                 if (tempIndex >= 0)
                 {
                     Debug.LogWarning("found the index");
                     CurrentTargetIndex = tempIndex;
+                    GenerateNewTargetMembers(CurrentTargetIndex);
                 }
                 //could not find target in seralized object so just force set
                 else
@@ -234,6 +234,8 @@ namespace EventsPlus
                 CurrentTarget = seralizedTarget.objectReferenceValue;
                 return false;
             }
+            else if (AvailableTargetObjects == null)
+                return false;
             return true;
         }
 
@@ -275,7 +277,7 @@ namespace EventsPlus
             //no member seralized member set 
             if (seralizedmethodData.Length==0||seralizedmethodData==null)
             {
-                Debug.Log("no name");
+               // Debug.Log("no name");
                 return 0;
             }
             else

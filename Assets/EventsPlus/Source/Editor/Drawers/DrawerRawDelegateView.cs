@@ -15,7 +15,7 @@ namespace EventsPlus
         // Variables
         //=======================
         /// <summary>Cached delegate drop-down data used for optimization</summary>
-        public static Dictionary<string, T> cache { get; protected set; } = new Dictionary<string, T>();
+        public static List<T> listcache = new List<T>();
 		//=======================
 		// Initialization
 		//=======================
@@ -25,15 +25,10 @@ namespace EventsPlus
 		/// <returns>Height of the drawer</returns>
 		public override float GetPropertyHeight( SerializedProperty tProperty, GUIContent tLabel )
 		{
-            // Initialize cache
-            if (!cache.TryGetValue(tProperty.propertyPath, out T delegeateCache))
-            {
-                Debug.LogWarning("had to make a new one");
-                cache.Add(tProperty.propertyPath, createCache(tProperty));
-            }
-            else
-            {
-                //Debug.Log(tProperty.propertyPath);
+            var index = tProperty.GetRawCallIndex();
+            if (index >= listcache.Count)
+            { 
+                listcache.Add(createCache(tProperty));
             }
             return base.GetPropertyHeight( tProperty, tLabel );
         }
@@ -59,10 +54,12 @@ namespace EventsPlus
 		public override void OnGUI( Rect tPosition, SerializedProperty tProperty, GUIContent tLabel )
 		{
             tLabel.text = null;
-            // Validate cache
-			T DelegateCache = cache[ tProperty.propertyPath ];
-            if (DelegateCache == null)
-                DelegateCache = createCache(tProperty);
+
+            var index = tProperty.GetRawCallIndex();
+            T DelegateCache = listcache[index];
+          //  if (DelegateCache.propertypath != tProperty.propertyPath)
+            //    DelegateCache.ClearViewCache();
+            //else Debug.Log("thats okay");
 			validate( tProperty, DelegateCache );
             // Target  
             float tempFieldWidth = ( tPosition.width - EditorGUIUtility.labelWidth ) * 0.5f;

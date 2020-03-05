@@ -2,7 +2,7 @@
 using UnityEditor;
 using System;
 using System.Reflection;
-
+using System.Collections.Generic;
 namespace EventsPlus
 {
     //##########################
@@ -12,6 +12,7 @@ namespace EventsPlus
     [CustomPropertyDrawer(typeof(RawArgument), true)]
     public class DrawerRawArgument : PropertyDrawer
     {
+        Dictionary<string, ArgumentReference> Argument_references = new Dictionary<string, ArgumentReference>();
         //=======================
         // Render
         //=======================
@@ -41,7 +42,7 @@ namespace EventsPlus
         public override void OnGUI(UnityEngine.Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         {
             var refpos = tPosition;
-            refpos.x = refpos.width - 50;
+            refpos.x = refpos.width - 50-EditorGUI.indentLevel;
             var style = new GUIStyle();
             var reference_content = new GUIContent("useref");
             style.CalcMinMaxWidth(reference_content, out float min, out float max);
@@ -52,7 +53,12 @@ namespace EventsPlus
             useReference.boolValue= EditorGUI.Toggle(togglerect, useReference.boolValue);
             var argpos = tPosition;
             argpos.width -= max;
+            if(!useReference.boolValue)
             DisplayArgument(argpos, tProperty,tLabel);
+            else
+            {
+                DisplayReference(argpos, tProperty, tLabel,max);
+            }
             
         }
         private void DisplayArgument(Rect rect, SerializedProperty tProperty,GUIContent paramLabel)
@@ -239,6 +245,32 @@ namespace EventsPlus
                     }
                     break;
             }
+        }
+        private void DisplayReference(Rect rect,SerializedProperty argumentprop,GUIContent label,float minwidth)
+        {
+            var style = new GUIStyle();
+            rect.x -= 50;
+            style.CalcMinMaxWidth(label, out float min, out float max);
+            EditorGUI.LabelField(rect, label);
+            var refrect = rect;
+            refrect.x += max+10;
+            refrect.width -= (minwidth+50);
+            var argument_reference = GetRefference(argumentprop);
+            EditorGUI.BeginChangeCheck();
+            var ref_obj = argumentprop.FindPropertyRelative("objectValue").objectReferenceValue;
+            ref_obj= EditorGUI.ObjectField(refrect, ref_obj, typeof(UnityEngine.Object), true);
+            if (EditorGUI.EndChangeCheck())
+            {
+                Debug.LogWarning("maybe this");
+                argumentprop.FindPropertyRelative("objectValue").objectReferenceValue = ref_obj;
+                argumentprop.serializedObject.ApplyModifiedProperties();
+            }
+        }
+        private ArgumentReference GetRefference(SerializedProperty argumentprop)
+        {
+            if (!Argument_references.TryGetValue(argumentprop.propertyPath, out ArgumentReference arg_ref))
+                arg_ref = new ArgumentReference();
+            return arg_ref;
         }
     }
 }

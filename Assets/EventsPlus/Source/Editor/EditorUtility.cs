@@ -14,6 +14,8 @@ namespace EventsPlus
 	/// <summary>Utility class for editor functions and display</summary>
 	public static class EditorUtility
 	{
+
+        static Dictionary<string, int> ParseCache = new Dictionary<string, int>();
 		//=======================
 		// Settings
 		//=======================
@@ -406,6 +408,16 @@ namespace EventsPlus
                 default:
                     return false;
             }
+        }
+        public static int GetRawCallIndex(this SerializedProperty rawcallprop)
+        {
+            string path = rawcallprop.propertyPath;
+            if (!ParseCache.TryGetValue(path, out int index))
+            { 
+                index = path.LastIndexOf("[", StringComparison.OrdinalIgnoreCase)+1;
+                ParseCache.Add(path, index);
+            }
+            return int.Parse(path[index].ToString());
         }
        
         //=======================

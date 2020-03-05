@@ -15,10 +15,52 @@ namespace EventsPlus
     public class DrawerPublisher : PropertyDrawer
     {
 
+        private static Texture2D eventexture;
+        private static Texture2D oddtexture;
+        private static GUIStyle evenstyle;
+        private static GUIStyle oddstyle;
+        private static Color evencolor = new Color(.21f, .21f, .21f);
+        private static Color oddColor = new Color(.5f, .5f, .5f);
+
+
+        // Note that this function is only meant to be called from OnGUI() functions.
+        public static void GUIDrawRect(Rect position,int index)
+        {
+            if (eventexture == null)
+            {
+                eventexture = new Texture2D(1, 1);
+                eventexture.SetPixel(0, 0, evencolor);
+                eventexture.Apply();
+            }
+            if (oddtexture == null)
+            {
+                oddtexture = new Texture2D(1, 1);
+                oddtexture.SetPixel(0, 0, oddColor);
+                oddtexture.Apply();
+            }
+
+            if (evenstyle == null)
+            {
+                evenstyle = new GUIStyle();
+                evenstyle.normal.background = eventexture;
+            }
+            if (oddstyle == null)
+            {
+                oddstyle = new GUIStyle();
+                oddstyle.normal.background = oddtexture;
+            }
+            if (index % 2 == 0)
+                GUI.Box(position, GUIContent.none, evenstyle);
+            else GUI.Box(position, GUIContent.none, oddstyle);
+
+
+        }
+
+        static Texture2D t = Texture2D.whiteTexture;
         //=======================
         // Variables
         //=======================
-        /// <summary>Cached <see cref="UnityEditorInternal.ReorderableList"/> dictionary used for optimization</summary>
+        /// <summary>Cached <see cref="ReorderableList"/> dictionary used for optimization</summary>
         private Dictionary<string, ReorderableList> cache = new Dictionary<string, ReorderableList>();
 
         //=======================
@@ -40,18 +82,15 @@ namespace EventsPlus
                 tempList.drawHeaderCallback += rect =>
                 {
                 };
-                tempList.drawElementCallback += (Rect tPosition, int tIndex, bool tIsActive, bool tIsFocused) =>
+                tempList.drawElementCallback += (Rect rect, int tindex, bool tIsActive, bool tIsFocused) =>
                 {
-                    EditorGUI.PropertyField(tPosition, tempList.serializedProperty.GetArrayElementAtIndex(tIndex), false);
+                    EditorGUI.PropertyField(rect, tempList.serializedProperty.GetArrayElementAtIndex(tindex), true);
                 };
                 tempList.elementHeightCallback += (int tIndex) =>
                 {
+                   
                     return EditorGUI.GetPropertyHeight(tempList.serializedProperty.GetArrayElementAtIndex(tIndex),false) + EditorGUIUtility.standardVerticalSpacing;
                 };
-                tempList.drawElementBackgroundCallback += (Rect rect, int index, bool active, bool xfocus) =>
-                  {
-
-                  };
                 cache.Add(tProperty.propertyPath, tempList);
                  tempList.onRemoveCallback += list => onElementDelete(list, tempCallsProperty);
                   tempList.onAddCallback += list => onAddElement(list, tempCallsProperty);
@@ -63,7 +102,6 @@ namespace EventsPlus
             float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
             if (tProperty.isExpanded)
             {
-                tempHeight += EditorGUI.GetPropertyHeight(tProperty.FindPropertyRelative("_tag"), true) + EditorGUIUtility.standardVerticalSpacing;
                 tempHeight += tempList.GetHeight() + (tempCallsProperty.arraySize * EditorGUIUtility.standardVerticalSpacing);
             }
             return tempHeight;
@@ -83,21 +121,7 @@ namespace EventsPlus
             tProperty.isExpanded = EditorGUI.Foldout(tPosition, tProperty.isExpanded, tProperty.displayName);
             if (tProperty.isExpanded)
             {
-                ++EditorGUI.indentLevel;
-                // Tag
-                SerializedProperty tempTagProperty = tProperty.FindPropertyRelative("_tag");
-
-                tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
-                tPosition.height = EditorGUI.GetPropertyHeight(tempTagProperty);
-
-                EditorGUI.BeginChangeCheck();
-                string tempTag = EditorGUI.TextField(tPosition, tempTagProperty.displayName, tempTagProperty.stringValue);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    tempTagProperty.stringValue = tempTag;
-                    tProperty.serializedObject.ApplyModifiedProperties();
-                }
-               
+                ++EditorGUI.indentLevel; 
                 // Calls
                 ReorderableList tempList = cache[tProperty.propertyPath];
                 int tempIndentLevel = EditorGUI.indentLevel;
@@ -107,7 +131,7 @@ namespace EventsPlus
                 tPosition.x += tempIndentSize;
                 tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
                 tPosition.x -= tempIndentSize;
-                tPosition.height = tempList.GetHeight()+500;
+                tPosition.height = tempList.GetHeight();
                 tempList.DoList(tPosition);
                 EditorGUI.indentLevel = tempIndentLevel - 1;
             }
@@ -124,45 +148,63 @@ namespace EventsPlus
             publiserproperty.managedReferenceValue = publisher;
         }
         private void onElementDelete(ReorderableList list, SerializedProperty arrayprop)
-        {
-            var delegateprop = arrayprop.GetArrayElementAtIndex(list.index);
-            string delegatepath = delegateprop.propertyPath;
+        { 
+            var removedindex = list.index;
+            var delegateprop = arrayprop.GetArrayElementAtIndex(removedindex);
             delegateprop.FindPropertyRelative("m_arguments").ClearArray();
             delegateprop.FindPropertyRelative("m_target").objectReferenceValue = null;
-            delegateprop.serializedObject.ApplyModifiedProperties();
-            DrawerRawDelegateView<RawCallView>.cache[delegatepath].ClearViewCache();
-            arrayprop.DeleteArrayElementAtIndex(list.index);
+            DrawerRawDelegateView<RawCallView>.listcache.RemoveAt(removedindex);
+            arrayprop.DeleteArrayElementAtIndex(removedindex);
             arrayprop.serializedObject.ApplyModifiedProperties();
-            Debug.Log("aye");
+            Debug.Log("aye"); 
         }
         private void onAddElement(ReorderableList list, SerializedProperty arrayprop)
         {
-            arrayprop.InsertArrayElementAtIndex(arrayprop.arraySize);
-            arrayprop.GetArrayElementAtIndex(arrayprop.arraySize - 1).FindPropertyRelative("m_arguments").ClearArray();
-            arrayprop.GetArrayElementAtIndex(arrayprop.arraySize - 1).FindPropertyRelative("m_target").objectReferenceValue = null;
+            int size = arrayprop.arraySize;
+            arrayprop.InsertArrayElementAtIndex(size);
+            var newcall = arrayprop.GetArrayElementAtIndex(size);
+          newcall.FindPropertyRelative("m_arguments").ClearArray();
+          newcall.FindPropertyRelative("m_target").objectReferenceValue = null;
+            var cache_list = DrawerRawDelegateView<RawCallView>.listcache;
+           // if (cache_list[size].CurrentTarget != null)
+           //     cache_list[size].ClearViewCache();
             arrayprop.serializedObject.ApplyModifiedProperties();
         }
         private void OnReorder(ReorderableList list, int oldindex, int newindex,SerializedProperty arrayprop)
         {
-            var oldpath = arrayprop.GetArrayElementAtIndex(oldindex).propertyPath;
-            var newpath = arrayprop.GetArrayElementAtIndex(newindex).propertyPath;
-            var oldcache = DrawerRawDelegateView<RawCallView>.cache[oldpath];
-            var newcache = DrawerRawDelegateView<RawCallView>.cache[newpath];
-            DrawerRawDelegateView<RawCallView>.cache[newpath] = oldcache; 
-            DrawerRawDelegateView<RawCallView>.cache[oldpath] = newcache;
-            arrayprop.serializedObject.ApplyModifiedProperties(); 
+            var cache_list = DrawerRawDelegateView<RawCallView>.listcache;
+            var elementCache = cache_list[oldindex]; //cache before reorder
+            if (newindex < oldindex) // moved element higher up
+            {
+                //Debug.Log("shifted up");
+                for (int i = oldindex; i > newindex; i--) //2
+                {
+                    var index_shitDown = i - 1 == -1 ? cache_list.Count - 1 : i - 1; //shift other indicies up or wrap to bottom
+                   // Debug.Log(index_shitDown + "turns to " + i);
+                    cache_list[i] = cache_list[index_shitDown];
+                } 
+            } 
+            else
+            {
+                for (int i = oldindex; i < newindex; i++)
+                {
+                    var index_shiftUp = i + 1 == cache_list.Count ? 0 : i + 1;
+                    cache_list[i] = cache_list[index_shiftUp]; 
+                }
+            }
+            cache_list[newindex] = elementCache;
         }
         private void ClearOldCache(SerializedProperty publisherprop)
-        {
+        { 
             var Array_size = publisherprop.FindPropertyRelative("_calls").arraySize;
             string publisherpath = publisherprop.propertyPath;
-            if (Array_size == 0)
+            if (Array_size == 0) 
             {
-                var OldCache = DrawerRawDelegateView<RawCallView>.cache.Keys.Where(k =>
-                k.StartsWith(publisherpath, StringComparison.CurrentCulture));
+                var OldCache = DrawerRawDelegateView<RawCallView>.listcache.Where(k =>
+                k.propertypath.StartsWith(publisherpath, StringComparison.OrdinalIgnoreCase));
                 for (int i = 0; i < OldCache.Count(); i++)
                 {
-                    var currentCache = DrawerRawDelegateView<RawCallView>.cache[OldCache.ElementAt(i)];
+                    var currentCache = OldCache.ElementAt(i);
                     if (currentCache.CurrentTarget != null)
                         currentCache.ClearViewCache();
                 }

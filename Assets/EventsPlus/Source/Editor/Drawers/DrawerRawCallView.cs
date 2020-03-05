@@ -20,8 +20,10 @@ namespace EventsPlus
 
             // Dynamic toggle height
             SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
-            RawCallView tempCache = cache[tProperty.propertyPath];
-            if (tempCache.CurrentTarget != null)
+            var path = tProperty.propertyPath;
+            var index = int.Parse(path[path.LastIndexOf('[') + 1].ToString());
+            RawCallView tempCache = listcache[index];
+            if (tempCache.CurrentTarget != null) 
             {
                 if (tempCache.isDynamicable)
                 {
@@ -39,7 +41,7 @@ namespace EventsPlus
                            tempHeight += EditorGUI.GetPropertyHeight(tempArgumentsProperty.GetArrayElementAtIndex(i))+EditorGUIUtility.standardVerticalSpacing;
                         }
                       // tempHeight += (EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing) * tempArgumentsProperty.arraySize;
-                    }
+                    } 
                 }
             }
             return tempHeight+10;
@@ -48,7 +50,9 @@ namespace EventsPlus
         protected override RawCallView createCache(SerializedProperty tProperty)
         {
             Publisher tempPublisher = tProperty.GetPublisher();
-            return new RawCallView(tempPublisher == null ? null : tempPublisher.types);
+            var view= new RawCallView(tempPublisher == null ? null : tempPublisher.types);
+            view.propertypath = tProperty.propertyPath;
+            return view;
         }
 
         //=======================
@@ -58,16 +62,17 @@ namespace EventsPlus
         {
             // Inheritance
             base.OnGUI(tPosition, tProperty, tLabel);
-            RawCallView tempCache = cache[tProperty.propertyPath];
+            var index = tProperty.GetRawCallIndex();
+            RawCallView tempCache = listcache[index];
             if (tempCache.HasDelegateError)
                 HandleDelegeateError(tProperty, tempCache);
-            // Dynamic toggle
+           if(tempCache.CurrentTarget!=null)
             EditorGUI.indentLevel += 1;
             if (tempCache.CurrentTarget != null)
             {
                 tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
                 if (tempCache.isDynamicable)
-                {
+                { 
                     SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
 
                     tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
@@ -85,27 +90,27 @@ namespace EventsPlus
                 if (!tempCache.isDynamic)
                 {
                     SerializedProperty tempArgumentsProperty = tProperty.FindPropertyRelative("m_arguments");
-                  
+
                     if (tempArgumentsProperty.arraySize > 0)
                     {
-                       tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
-                        tPosition.height = EditorGUI.GetPropertyHeight(tempArgumentsProperty,false);
+                        tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
+                        tPosition.height = EditorGUI.GetPropertyHeight(tempArgumentsProperty, false);
 
                         tempArgumentsProperty.isExpanded = EditorGUI.Foldout(tPosition, tempArgumentsProperty.isExpanded, tempArgumentsProperty.displayName);
                         if (tempArgumentsProperty.isExpanded)
                         {
-                            ++EditorGUI.indentLevel;
+                           ++EditorGUI.indentLevel;
                             int tempListLength = tempArgumentsProperty.arraySize;
                             for (int i = 0; i < tempListLength; ++i)
                             {
-                                DrawArgument(ref tPosition, tempArgumentsProperty.GetArrayElementAtIndex(i), i, cache[tProperty.propertyPath]);
+                                DrawArgument(ref tPosition, tempArgumentsProperty.GetArrayElementAtIndex(i), i,tempCache);
                             }
-                            --EditorGUI.indentLevel;
+                           --EditorGUI.indentLevel;
                         }
                     }
-                }
-
-                EditorGUI.indentLevel -= 1;
+                 }
+                if (tempCache.CurrentTarget != null)
+                    EditorGUI.indentLevel -= 1;
             }
         }
         protected override void validate(SerializedProperty tProperty, RawCallView tCache)
@@ -129,7 +134,7 @@ namespace EventsPlus
         /// <param name="tCache">Cached call drop-down data</param>
         protected static void DrawArgument(ref Rect tPosition, SerializedProperty tArgument, int tIndex, RawCallView tCache)
         {
-            tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing*2;
+            tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
             tPosition.height = EditorGUI.GetPropertyHeight(tArgument);
             EditorGUI.PropertyField(tPosition, tArgument,new GUIContent(tCache.arguments[tIndex].name));
         }
@@ -194,10 +199,11 @@ namespace EventsPlus
                 Argument[] tempArguments = tCache.arguments;
                 if (tempArguments == null)
                 {
-                    tempArgumentsProperty.ClearArray();
                 }
                 else
                 {
+                    if (tCache.CurrentTarget != null)
+                        Debug.Log(tempArguments.Length);
                     tempArgumentsProperty.arraySize = tempArguments.Length;
                     for (int i = (tempArguments.Length - 1); i >= 0; --i)
                     {
