@@ -21,8 +21,9 @@ namespace EventsPlus
             // Dynamic toggle height
             SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
             var path = tProperty.propertyPath;
-            var index = int.Parse(path[path.LastIndexOf('[') + 1].ToString());
-            RawCallView tempCache = listcache[index];
+            var index = tProperty.GetRawCallIndex();
+            var pubpath = tProperty.GetPublisherPath();
+            RawCallView tempCache = listcache[pubpath][index];
             if (tempCache.CurrentTarget != null) 
             {
                 if (tempCache.isDynamicable)
@@ -63,7 +64,8 @@ namespace EventsPlus
             // Inheritance
             base.OnGUI(tPosition, tProperty, tLabel);
             var index = tProperty.GetRawCallIndex();
-            RawCallView tempCache = listcache[index];
+            var path = tProperty.GetPublisherPath();
+            RawCallView tempCache = listcache[path][index];
             if (tempCache.HasDelegateError)
                 HandleDelegeateError(tProperty, tempCache);
            if(tempCache.CurrentTarget!=null)

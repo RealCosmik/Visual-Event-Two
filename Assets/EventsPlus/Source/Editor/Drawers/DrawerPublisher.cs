@@ -95,7 +95,7 @@ namespace EventsPlus
                  tempList.onRemoveCallback += list => onElementDelete(list, tempCallsProperty);
                   tempList.onAddCallback += list => onAddElement(list, tempCallsProperty);
                 tempList.onReorderCallbackWithDetails += (ReorderableList list, int oldindex, int newindex) =>
-                  OnReorder(list, oldindex, newindex, tempCallsProperty);
+                  OnReorder(list, oldindex, newindex, tProperty);
             }
 
             // Calculate height
@@ -132,7 +132,11 @@ namespace EventsPlus
                 tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
                 tPosition.x -= tempIndentSize;
                 tPosition.height = tempList.GetHeight();
+                EditorGUI.BeginChangeCheck();
                 tempList.DoList(tPosition);
+                if (EditorGUI.EndChangeCheck()&&EditorApplication.isPlaying)
+                {
+                }
                 EditorGUI.indentLevel = tempIndentLevel - 1;
             }
         }
@@ -151,9 +155,10 @@ namespace EventsPlus
         { 
             var removedindex = list.index;
             var delegateprop = arrayprop.GetArrayElementAtIndex(removedindex);
+            string pubpath = delegateprop.GetPublisherPath();
             delegateprop.FindPropertyRelative("m_arguments").ClearArray();
             delegateprop.FindPropertyRelative("m_target").objectReferenceValue = null;
-            DrawerRawDelegateView<RawCallView>.listcache.RemoveAt(removedindex);
+            DrawerRawDelegateView<RawCallView>.listcache[pubpath].RemoveAt(removedindex);
             arrayprop.DeleteArrayElementAtIndex(removedindex);
             arrayprop.serializedObject.ApplyModifiedProperties();
             Debug.Log("aye"); 
@@ -170,9 +175,10 @@ namespace EventsPlus
            //     cache_list[size].ClearViewCache();
             arrayprop.serializedObject.ApplyModifiedProperties();
         }
-        private void OnReorder(ReorderableList list, int oldindex, int newindex,SerializedProperty arrayprop)
+        private void OnReorder(ReorderableList list, int oldindex, int newindex,SerializedProperty publisherprop)
         {
-            var cache_list = DrawerRawDelegateView<RawCallView>.listcache;
+            string pubpath = publisherprop.propertyPath;
+            var cache_list = DrawerRawDelegateView<RawCallView>.listcache[pubpath];
             var elementCache = cache_list[oldindex]; //cache before reorder
             if (newindex < oldindex) // moved element higher up
             {
@@ -200,14 +206,14 @@ namespace EventsPlus
             string publisherpath = publisherprop.propertyPath;
             if (Array_size == 0) 
             {
-                var OldCache = DrawerRawDelegateView<RawCallView>.listcache.Where(k =>
-                k.propertypath.StartsWith(publisherpath, StringComparison.OrdinalIgnoreCase));
-                for (int i = 0; i < OldCache.Count(); i++)
-                {
-                    var currentCache = OldCache.ElementAt(i);
-                    if (currentCache.CurrentTarget != null)
-                        currentCache.ClearViewCache();
-                }
+                //var OldCache = DrawerRawDelegateView<RawCallView>.listcache.Where(k =>
+                //k.propertypath.StartsWith(publisherpath, StringComparison.OrdinalIgnoreCase));
+                //for (int i = 0; i < OldCache.Count(); i++)
+                //{
+                //    var currentCache = OldCache.ElementAt(i);
+                //    if (currentCache.CurrentTarget != null)
+                //        currentCache.ClearViewCache();
+                //}
             }
         }
     }

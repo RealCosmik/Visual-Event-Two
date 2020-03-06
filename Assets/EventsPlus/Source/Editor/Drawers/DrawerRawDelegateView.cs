@@ -15,7 +15,7 @@ namespace EventsPlus
         // Variables
         //=======================
         /// <summary>Cached delegate drop-down data used for optimization</summary>
-        public static List<T> listcache = new List<T>();
+        public static Dictionary<string, List<T>> listcache = new Dictionary<string, List<T>>();
 		//=======================
 		// Initialization
 		//=======================
@@ -25,11 +25,13 @@ namespace EventsPlus
 		/// <returns>Height of the drawer</returns>
 		public override float GetPropertyHeight( SerializedProperty tProperty, GUIContent tLabel )
 		{
+            var publisherpath = tProperty.GetPublisherPath();
             var index = tProperty.GetRawCallIndex();
-            if (index >= listcache.Count)
-            { 
-                listcache.Add(createCache(tProperty));
-            }
+            if (!listcache.TryGetValue(publisherpath,out List<T> cachelist))
+                listcache.Add(publisherpath, cachelist = new List<T>());
+
+            if (index >= cachelist.Count)
+                    cachelist.Add(createCache(tProperty));
             return base.GetPropertyHeight( tProperty, tLabel );
         }
 
@@ -56,9 +58,10 @@ namespace EventsPlus
             tLabel.text = null;
 
             var index = tProperty.GetRawCallIndex();
-            T DelegateCache = listcache[index];
+            var pubpath = tProperty.GetPublisherPath();
+            T DelegateCache = listcache[pubpath][index];
           //  if (DelegateCache.propertypath != tProperty.propertyPath)
-            //    DelegateCache.ClearViewCache();
+            //    DelegateCache.ClearViewCache(); 
             //else Debug.Log("thats okay");
 			validate( tProperty, DelegateCache );
             // Target  

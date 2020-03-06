@@ -361,7 +361,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -399,7 +399,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pub:
     _tag: 
-    _calls: []
+    _calls:
+    - m_target: {fileID: 1921043783}
+      methodData:
+      - 16
+      - layer
+      - set
+      m_arguments:
+      - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+        FullArgumentName: System.Int32
+        objectValue: {fileID: 0}
+        stringValue: 
+        _x1: 9
+        _x2: 0
+        _y1: 0
+        _y2: 0
+        _z1: 0
+        _z2: 0
+        longValue: 0
+        doubleValue: 0
+        animationCurveValue:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+        methodData: []
+        UseReference: 0
+      m_isDynamic: 0
+    - m_target: {fileID: 1921043785}
+      methodData:
+      - 16
+      - position
+      - set
+      m_arguments:
+      - assemblyQualifiedArgumentName: UnityEngine.Vector3, UnityEngine.CoreModule,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        FullArgumentName: UnityEngine.Vector3
+        objectValue: {fileID: 0}
+        stringValue: 
+        _x1: 0
+        _x2: 0
+        _y1: 0
+        _y2: 0
+        _z1: 0
+        _z2: 0
+        longValue: 0
+        doubleValue: 0
+        animationCurveValue:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+        methodData: []
+        UseReference: 0
+      m_isDynamic: 0
+    - m_target: {fileID: 0}
+      methodData: []
+      m_arguments: []
+      m_isDynamic: 0
   mynum: 0
 --- !u!4 &1921043785
 Transform:
@@ -413,5 +473,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

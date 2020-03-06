@@ -412,12 +412,18 @@ namespace EventsPlus
         public static int GetRawCallIndex(this SerializedProperty rawcallprop)
         {
             string path = rawcallprop.propertyPath;
-            if (!ParseCache.TryGetValue(path, out int index))
-            { 
-                index = path.LastIndexOf("[", StringComparison.OrdinalIgnoreCase)+1;
-                ParseCache.Add(path, index);
+            return int.Parse(path[path.Length - 2].ToString());
+        }
+        public static string GetPublisherPath(this SerializedProperty rawcallprop)
+        { 
+            string path = rawcallprop.propertyPath;
+            if (!ParseCache.TryGetValue(path, out int publisheridnex))
+            {
+                publisheridnex = path.IndexOf("._calls", StringComparison.OrdinalIgnoreCase);
+                ParseCache.Add(path,publisheridnex);
             }
-            return int.Parse(path[index].ToString());
+            return path.Substring(0, publisheridnex);
+
         }
        
         //=======================
