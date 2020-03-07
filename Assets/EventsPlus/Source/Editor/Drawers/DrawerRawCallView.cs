@@ -206,23 +206,7 @@ namespace EventsPlus
         }
         private void HandleDrag(SerializedProperty tprop)
         {
-            switch (Event.current.type)
-            {
-                case EventType.MouseDown:
-                    DragAndDrop.StartDrag("start");
-                    Debug.Log("mouse down");
-                    DragAndDrop.PrepareStartDrag();// reset data
-                    DragAndDrop.SetGenericData("rand num", tprop.GetTarget());
-                    Event.current.Use();
-                    break;
-                case EventType.MouseDrag:
-                    DragAndDrop.AcceptDrag();
-                    Debug.Log("drag");
-                    var obj = DragAndDrop.GetGenericData("rand num") as RawCall;
-                   DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
-                    Event.current.Use();
-                    break;
-            }
+            
         }
     }
 }

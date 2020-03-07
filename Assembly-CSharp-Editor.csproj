@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\Editor Debug\SerializedPropertyViewer.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Argument.cs" />
+    <Compile Include="Assets\EventsPlus\Source\Editor\ArgumentReference.cs" />
+    <Compile Include="Assets\EventsPlus\Source\Editor\Cache\ViewCache.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\CacheFilter.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\DelegateView\RawCallView.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\DelegateView\RawDelegateView.cs" />
@@ -121,6 +123,9 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.quicksearch">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/com.unity.quicksearch.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>F:/UNITY VERSIONS/2019.3.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -327,19 +332,22 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="GitHub.Api.45">
-      <HintPath>/Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll</HintPath>
-    </Reference>
-    <Reference Include="GitHub.Unity.45">
-      <HintPath>/Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll</HintPath>
-    </Reference>
-    <Reference Include="sfw.net">
-      <HintPath>/Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/sfw.net.dll</HintPath>
-    </Reference>
-    <Reference Include="GitHub.UnityShim">
-      <HintPath>/Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll</HintPath>
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll</HintPath>
     </Reference>
     <Reference Include="GitHub.Logging">
-      <HintPath>/Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Logging.dll</HintPath>
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/GitHub/Editor/GitHub.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="GitHub.Unity.45">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll</HintPath>
+    </Reference>
+    <Reference Include="GitHub.UnityShim">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/GitHub/Editor/Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="sfw.net">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/GitHub/Editor/sfw.net.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -711,7 +719,7 @@
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
     <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
-      <Project>{9191F4DA-2BED-C98C-EC3C-EFDAE7D85B5D}</Project>
+      <Project>{2C160ACC-0D6D-840F-A916-BAAD7125C36D}</Project>
       <Name>Assembly-CSharp-Editor-firstpass</Name>
     </ProjectReference>
   </ItemGroup>
