@@ -13,9 +13,825 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 3
-  lastUpdatedAtString: 2020-03-07T14:13:41.108-05:00
+  lastUpdatedAtString: 2020-03-07T14:16:30.076-05:00
   initializedAtString: 2020-03-07T14:13:41.108-05:00
   log:
+  - commitID: cd3334fa648d91b5d2a8c0635c289c565d5cd29e
+    mergeA: 
+    mergeB: 
+    authorName: Cosmik
+    authorEmail: realcosmik@gmail.com
+    commitEmail: realcosmik@gmail.com
+    commitName: Cosmik
+    summary: 'Cosmik: adding github plugin'
+    description: 
+    timeString: 2020-03-07T14:15:10.000-05:00
+    commitTimeString: 2020-03-07T14:15:10.000-05:00
+    changes:
+    - path: Assembly-CSharp-Editor-firstpass.csproj
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assembly-CSharp-Editor-firstpass.csproj
+      projectPath: Assembly-CSharp-Editor-firstpass.csproj
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assembly-CSharp-Editor.csproj
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assembly-CSharp-Editor.csproj
+      projectPath: Assembly-CSharp-Editor.csproj
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Assets/EventsPlus/Source/RawReference.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/RawReference.cs
+      projectPath: Assets/EventsPlus/Source/RawReference.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/AsyncBridge.Net35.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/AsyncBridge.Net35.dll
+      projectPath: Assets/Plugins/GitHub/Editor/AsyncBridge.Net35.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/ExtensionLoader.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/ExtensionLoader.cs
+      projectPath: Assets/Plugins/GitHub/Editor/ExtensionLoader.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll.mdb
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll.mdb
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll.mdb
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.Api.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Api.dll
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.Api.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.Api.dll.mdb
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Api.dll.mdb
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.Api.dll.mdb
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.Logging.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Logging.dll
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.Logging.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.Logging.dll.mdb
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Logging.dll.mdb
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.Logging.dll.mdb
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll.mdb
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll.mdb
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.Unity.45.dll.mdb
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.Unity.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Unity.dll
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.Unity.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.Unity.dll.mdb
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.Unity.dll.mdb
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.Unity.dll.mdb
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll.mdb
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll.mdb
+      projectPath: Assets/Plugins/GitHub/Editor/GitHub.UnityShim.dll.mdb
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/Mono.Posix.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/Mono.Posix.dll
+      projectPath: Assets/Plugins/GitHub/Editor/Mono.Posix.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/QuickGuide.pdf
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/QuickGuide.pdf
+      projectPath: Assets/Plugins/GitHub/Editor/QuickGuide.pdf
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/ReadOnlyCollectionsInterfaces.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/ReadOnlyCollectionsInterfaces.dll
+      projectPath: Assets/Plugins/GitHub/Editor/ReadOnlyCollectionsInterfaces.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/System.Threading.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/System.Threading.dll
+      projectPath: Assets/Plugins/GitHub/Editor/System.Threading.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/UnityAPIWrapper.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/UnityAPIWrapper.cs
+      projectPath: Assets/Plugins/GitHub/Editor/UnityAPIWrapper.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/big-logo@2x.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/big-logo@2x.png
+      projectPath: Assets/Plugins/GitHub/Editor/big-logo@2x.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/credits.txt
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/credits.txt
+      projectPath: Assets/Plugins/GitHub/Editor/credits.txt
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/eula.txt
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/eula.txt
+      projectPath: Assets/Plugins/GitHub/Editor/eula.txt
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/libsfw.bundle
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/libsfw.bundle
+      projectPath: Assets/Plugins/GitHub/Editor/libsfw.bundle
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/libsfw.so
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/libsfw.so
+      projectPath: Assets/Plugins/GitHub/Editor/libsfw.so
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Assets/Plugins/GitHub/Editor/sfw.net.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Plugins/GitHub/Editor/sfw.net.dll
+      projectPath: Assets/Plugins/GitHub/Editor/sfw.net.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/APIUpdater/project-dependencies.graph
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/APIUpdater/project-dependencies.graph
+      projectPath: Library/APIUpdater/project-dependencies.graph
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ArtifactDB
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ArtifactDB
+      projectPath: Library/ArtifactDB
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/CurrentMaximizeLayout.dwlt
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/CurrentMaximizeLayout.dwlt
+      projectPath: Library/CurrentMaximizeLayout.dwlt
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/EditorInstance.json
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/EditorInstance.json
+      projectPath: Library/EditorInstance.json
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/InspectorExpandedItems.asset
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/InspectorExpandedItems.asset
+      projectPath: Library/InspectorExpandedItems.asset
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/LastBuild.buildreport
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/LastBuild.buildreport
+      projectPath: Library/LastBuild.buildreport
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/CHANGELOG.md
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/CHANGELOG.md
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/CHANGELOG.md
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/AsyncSearchSession.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/AsyncSearchSession.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/AsyncSearchSession.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FilterWindow.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FilterWindow.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FilterWindow.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FuzzySearch.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FuzzySearch.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FuzzySearch.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/clear.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/clear.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/clear.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/filter.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/filter.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/filter.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/loading.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/loading.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/loading.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/log_error.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/log_error.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/log_error.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/log_info.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/log_info.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/log_info.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/log_warning.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/log_warning.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/log_warning.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/more.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/more.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/more.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/package_installed.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/package_installed.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/package_installed.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/package_update.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/package_update.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/package_update.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/quicksearch.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/quicksearch.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/quicksearch.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/search.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/search.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/search.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/settings.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/settings.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/settings.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/shortcut.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/shortcut.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/shortcut.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/store.png
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/store.png
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons/store.png
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ADBIndex.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ADBIndex.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ADBIndex.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetIndexer.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetIndexer.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetIndexer.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetPostprocessorIndexer.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetPostprocessorIndexer.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetPostprocessorIndexer.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetStoreProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetStoreProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetStoreProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Calculator.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Calculator.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Calculator.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Eval.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Eval.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Eval.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/FileSearchIndexer.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/FileSearchIndexer.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/FileSearchIndexer.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/HelpProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/HelpProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/HelpProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/LogProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/LogProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/LogProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/MenuProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/MenuProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/MenuProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/OnlineSearchProviders.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/OnlineSearchProviders.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/OnlineSearchProviders.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/PackageManagerProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/PackageManagerProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/PackageManagerProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ResourceProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ResourceProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ResourceProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SceneProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SceneProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SceneProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SearchIndexer.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SearchIndexer.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SearchIndexer.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SettingsProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SettingsProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SettingsProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/StaticMethodProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/StaticMethodProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/StaticMethodProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/UIElementsSearchProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/UIElementsSearchProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/UIElementsSearchProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/DataWalkerQueryHandler.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/DataWalkerQueryHandler.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/DataWalkerQueryHandler.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryEngine.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryEngine.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryEngine.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperations.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperations.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperations.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperators.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperators.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperators.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilters.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilters.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilters.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraph.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraph.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraph.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraphViewer.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraphViewer.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraphViewer.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryNodes.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryNodes.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryNodes.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QuickSearch.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QuickSearch.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QuickSearch.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/ResourceDescriptors.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/ResourceDescriptors.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/ResourceDescriptors.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAction.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAction.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAction.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAnalytics.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAnalytics.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAnalytics.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchContext.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchContext.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchContext.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchFilter.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchFilter.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchFilter.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchItem.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchItem.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchItem.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchProvider.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchProvider.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchProvider.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchService.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchService.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchService.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchSettings.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchSettings.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchSettings.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchUtils.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchUtils.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchUtils.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/StyleSheets/Extensions/common.uss
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/StyleSheets/Extensions/common.uss
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/StyleSheets/Extensions/common.uss
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Utils.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Utils.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Utils.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/com.unity.quicksearch.asmdef
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/com.unity.quicksearch.asmdef
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/com.unity.quicksearch.asmdef
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/LICENSE.md
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/LICENSE.md
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/LICENSE.md
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/README.md
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/README.md
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/README.md
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/.tests.json
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/.tests.json
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/.tests.json
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/Content/test_material_42.mat
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/Content/test_material_42.mat
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/Content/test_material_42.mat
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QueryEngineTests.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QueryEngineTests.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QueryEngineTests.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QuickSearchToolTests.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QuickSearchToolTests.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QuickSearchToolTests.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchIndexerTests.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchIndexerTests.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchIndexerTests.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchServiceTests.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchServiceTests.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchServiceTests.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/UtilsTests.cs
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/UtilsTests.cs
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/UtilsTests.cs
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/com.unity.quicksearch.tests.asmdef
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/com.unity.quicksearch.tests.asmdef
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/com.unity.quicksearch.tests.asmdef
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PackageCache/com.unity.quicksearch@1.5.2/package.json
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/package.json
+      projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/package.json
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PlayerScriptAssemblies/Unity.TextMeshPro.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PlayerScriptAssemblies/Unity.TextMeshPro.dll
+      projectPath: Library/PlayerScriptAssemblies/Unity.TextMeshPro.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PlayerScriptAssemblies/Unity.Timeline.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PlayerScriptAssemblies/Unity.Timeline.dll
+      projectPath: Library/PlayerScriptAssemblies/Unity.Timeline.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PlayerScriptAssemblies/UnityEngine.TestRunner.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PlayerScriptAssemblies/UnityEngine.TestRunner.dll
+      projectPath: Library/PlayerScriptAssemblies/UnityEngine.TestRunner.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/PlayerScriptAssemblies/UnityEngine.UI.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/PlayerScriptAssemblies/UnityEngine.UI.dll
+      projectPath: Library/PlayerScriptAssemblies/UnityEngine.UI.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll
+      projectPath: Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+      projectPath: Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/Assembly-CSharp.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/Assembly-CSharp.dll
+      projectPath: Library/ScriptAssemblies/Assembly-CSharp.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
+      projectPath: Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/Unity.Rider.Editor.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/Unity.Rider.Editor.dll
+      projectPath: Library/ScriptAssemblies/Unity.Rider.Editor.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+      projectPath: Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/Unity.TextMeshPro.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/Unity.TextMeshPro.dll
+      projectPath: Library/ScriptAssemblies/Unity.TextMeshPro.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/Unity.Timeline.Editor.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/Unity.Timeline.Editor.dll
+      projectPath: Library/ScriptAssemblies/Unity.Timeline.Editor.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/Unity.Timeline.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/Unity.Timeline.dll
+      projectPath: Library/ScriptAssemblies/Unity.Timeline.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/Unity.VSCode.Editor.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/Unity.VSCode.Editor.dll
+      projectPath: Library/ScriptAssemblies/Unity.VSCode.Editor.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/UnityEditor.TestRunner.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/UnityEditor.TestRunner.dll
+      projectPath: Library/ScriptAssemblies/UnityEditor.TestRunner.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/UnityEditor.UI.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/UnityEditor.UI.dll
+      projectPath: Library/ScriptAssemblies/UnityEditor.UI.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/UnityEngine.TestRunner.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/UnityEngine.TestRunner.dll
+      projectPath: Library/ScriptAssemblies/UnityEngine.TestRunner.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/UnityEngine.UI.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/UnityEngine.UI.dll
+      projectPath: Library/ScriptAssemblies/UnityEngine.UI.dll
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/ScriptAssemblies/com.unity.quicksearch.dll
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptAssemblies/com.unity.quicksearch.dll
+      projectPath: Library/ScriptAssemblies/com.unity.quicksearch.dll
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/SourceAssetDB
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/SourceAssetDB
+      projectPath: Library/SourceAssetDB
+      originalPath: 
+      indexStatus: 3
+      workTreeStatus: 0
+    - path: Library/UIElements/EditorWindows/UnityEditor.PackageManager.UI.PackageManagerWindow.pref
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/UIElements/EditorWindows/UnityEditor.PackageManager.UI.PackageManagerWindow.pref
+      projectPath: Library/UIElements/EditorWindows/UnityEditor.PackageManager.UI.PackageManagerWindow.pref
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/gfu/cache/gitlocks.yaml
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/gfu/cache/gitlocks.yaml
+      projectPath: Library/gfu/cache/gitlocks.yaml
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/gfu/cache/gitlog.yaml
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/gfu/cache/gitlog.yaml
+      projectPath: Library/gfu/cache/gitlog.yaml
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/gfu/cache/gitstatusentries.yaml
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/gfu/cache/gitstatusentries.yaml
+      projectPath: Library/gfu/cache/gitstatusentries.yaml
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/gfu/cache/gittrackingstatus.yaml
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/gfu/cache/gittrackingstatus.yaml
+      projectPath: Library/gfu/cache/gittrackingstatus.yaml
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/gfu/cache/gituser.yaml
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/gfu/cache/gituser.yaml
+      projectPath: Library/gfu/cache/gituser.yaml
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/gfu/cache/repoinfo.yaml
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/gfu/cache/repoinfo.yaml
+      projectPath: Library/gfu/cache/repoinfo.yaml
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Library/quicksearch.asset.index
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/quicksearch.asset.index
+      projectPath: Library/quicksearch.asset.index
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
+    - path: Visual-Event-Two.sln
+      fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Visual-Event-Two.sln
+      projectPath: Visual-Event-Two.sln
+      originalPath: 
+      indexStatus: 4
+      workTreeStatus: 0
   - commitID: 7a1f07e3e85e19317c929f6f5a144d1fb12d9df5
     mergeA: 
     mergeB: 
