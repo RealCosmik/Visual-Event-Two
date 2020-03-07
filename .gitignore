@@ -14,10 +14,18 @@
 *.userprefs
 
 # Build results
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+[Tt]emp/
 x64/
 x86/
 [Aa][Rr][Mm]/
