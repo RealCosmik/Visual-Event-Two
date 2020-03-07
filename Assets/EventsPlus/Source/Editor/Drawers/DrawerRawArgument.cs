@@ -13,6 +13,7 @@ namespace EventsPlus
     public class DrawerRawArgument : PropertyDrawer
     {
         Dictionary<string, ArgumentReference> Argument_references = new Dictionary<string, ArgumentReference>();
+        Dictionary<RawArgument, Publisher> dict = new Dictionary<RawArgument, Publisher>();
         //=======================
         // Render
         //=======================
@@ -53,13 +54,11 @@ namespace EventsPlus
             useReference.boolValue= EditorGUI.Toggle(togglerect, useReference.boolValue);
             var argpos = tPosition;
             argpos.width -= max;
-            if(!useReference.boolValue)
-            DisplayArgument(argpos, tProperty,tLabel);
+            if (!useReference.boolValue)
+                DisplayArgument(argpos, tProperty, tLabel);
             else
-            {
-                DisplayReference(argpos, tProperty, tLabel,max);
-            }
-            
+                DisplayReference(argpos, tProperty, tLabel, max);
+            tProperty.GetTarget();
         }
         private void DisplayArgument(Rect rect, SerializedProperty tProperty,GUIContent paramLabel)
         {

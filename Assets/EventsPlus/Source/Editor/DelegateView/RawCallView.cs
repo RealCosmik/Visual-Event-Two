@@ -24,7 +24,7 @@ namespace EventsPlus
         /// <summary>Gets/Sets the <see cref="m_isDynamic"/> toggle</summary>
         public virtual bool isDynamic { get => m_isDynamic; set => m_isDynamic = value && isDynamicable; }
         /// <summary>Cached predefined arguments of the selected member</summary>
-        public Argument[] arguments { get; protected set; }
+        public Argument[] arguments { get;  set; }
 
         public bool HasDelegateError;
         //=======================
@@ -142,7 +142,16 @@ namespace EventsPlus
             arguments = null;
             dynamicTypes = null;
         }
-		
-	
+        public void CopyCall(RawCallView othercall)
+        {
+            CurrentTarget = othercall.CurrentTarget;
+            AvailableTargetObjects = othercall.AvailableTargetObjects;
+            CurrentMembers = othercall.CurrentMembers;
+            memberNames = othercall.memberNames;
+            selectedMemberIndex = othercall.selectedMemberIndex;
+            arguments = othercall.arguments;
+            dynamicTypes=othercall.dynamicTypes;
+            HasDelegateError = othercall.HasDelegateError;
+        }
 	}
 }

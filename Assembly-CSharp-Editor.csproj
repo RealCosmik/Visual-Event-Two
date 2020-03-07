@@ -66,6 +66,7 @@
     <Compile Include="Assets\Editor\Editor Debug\SerializedPropertyViewer.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Argument.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\ArgumentReference.cs" />
+    <Compile Include="Assets\EventsPlus\Source\Editor\Cache\ViewCache.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\CacheFilter.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\DelegateView\RawCallView.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\DelegateView\RawDelegateView.cs" />
@@ -74,7 +75,6 @@
     <Compile Include="Assets\EventsPlus\Source\Editor\Drawers\DrawerRawArgument.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Drawers\DrawerRawCallView.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Drawers\DrawerRawDelegateView.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Editor\EditorSubscriber.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\EditorUtility.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Filter.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\HashedFilter.cs" />

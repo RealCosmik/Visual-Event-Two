@@ -398,37 +398,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pub:
-    _tag: 
     _calls:
-    - m_target: {fileID: 1921043783}
-      methodData:
-      - 16
-      - layer
-      - set
-      m_arguments:
-      - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089
-        FullArgumentName: System.Int32
-        objectValue: {fileID: 0}
-        stringValue: 
-        _x1: 9
-        _x2: 0
-        _y1: 0
-        _y2: 0
-        _z1: 0
-        _z2: 0
-        longValue: 0
-        doubleValue: 0
-        animationCurveValue:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 0
-          m_PostInfinity: 0
-          m_RotationOrder: 0
-        methodData: []
-        UseReference: 0
-      m_isDynamic: 0
-    - m_target: {fileID: 1921043785}
+    - m_target: {fileID: 1921043784}
       methodData:
       - 16
       - position
@@ -439,7 +410,37 @@ MonoBehaviour:
         FullArgumentName: UnityEngine.Vector3
         objectValue: {fileID: 0}
         stringValue: 
-        _x1: 0
+        _x1: 3.04
+        _x2: 0
+        _y1: 4.76
+        _y2: 0
+        _z1: 0
+        _z2: 0
+        longValue: 0
+        doubleValue: 0
+        animationCurveValue:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+        methodData: []
+        UseReference: 0
+      m_isDynamic: 0
+  otherpub:
+    _calls:
+    - m_target: {fileID: 1921043784}
+      methodData:
+      - 16
+      - position
+      - set
+      m_arguments:
+      - assemblyQualifiedArgumentName: UnityEngine.Vector3, UnityEngine.CoreModule,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        FullArgumentName: UnityEngine.Vector3
+        objectValue: {fileID: 0}
+        stringValue: 
+        _x1: 3.04
         _x2: 0
         _y1: 0
         _y2: 0
@@ -456,11 +457,10 @@ MonoBehaviour:
         methodData: []
         UseReference: 0
       m_isDynamic: 0
-    - m_target: {fileID: 0}
-      methodData: []
-      m_arguments: []
-      m_isDynamic: 0
   mynum: 0
+  reference: {fileID: 0}
+  f: {fileID: 0}
+  mono: {fileID: 0}
 --- !u!4 &1921043785
 Transform:
   m_ObjectHideFlags: 0

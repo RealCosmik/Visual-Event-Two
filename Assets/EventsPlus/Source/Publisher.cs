@@ -11,31 +11,21 @@ namespace EventsPlus
 	[Serializable]
 	public class Publisher
 	{
-		//=======================
-		// Variables
-		//=======================
-		/// <summary>Global event that gets fired when a Publisher is instantiated</summary>
-		public static event Action<Publisher> OnLoaded;
-		/// <summary>Immutable tag key that is used to wire up events with a <see cref="Subscriber"/></summary>
-		[SerializeField]
-		protected string _tag = null;
 		/// <summary>List of raw <see cref="RawCall"/> objects that this Publisher invokes using predefined arguments</summary>
 		[SerializeField]
 		protected List<RawCall> _calls;
-		/// <summary>Managed <see cref="RawRequest"/> tracker for handling event wiring a <see cref="Subscriber"/></summary>
-		protected Dictionary<Subscriber,List<RawRequest>> requests;
 		/// <summary>Event for 0-Parameter delegates and calls</summary>
-		public event Action onVoid;
+		private Action onVoid;
 		
 		//=======================
 		// Constructor
 		//=======================
 		/// <summary>Initializes the <see cref="_tag"/></summary>
 		/// <param name="tTag">Tag key to bind to this instance</param>
-		public Publisher( string tTag = null )
+		public Publisher()
 		{
-			_tag = tTag;
 		}
+
 		
 		/// <summary>Initializes <see cref="_calls"/> and registers with any potential <see cref="Subscriber"/> instances</summary>
 		public virtual void initialize()
@@ -58,59 +48,33 @@ namespace EventsPlus
 				}
 			}
 		}
-		
+        public void ReInitialize()
+        {
+            var call_length = _calls.Count;
+            for (int i = 0; i < call_length; i++)
+            {
+                try
+                {
+                    effectsCallRemoved(_calls[i], i);
+                    _calls[i].initialize(this);
+                    effectsCallAdded(_calls[i]);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError(ex, _calls[i].target);
+                }
+            }
+        }
 		//=======================
 		// Destructor
 		//=======================
 		/// <summary>Unregisters from <see cref="Subscriber"/> instances and clears memory usage</summary>
 		~Publisher()
 		{
-			// Unsubscribe from Subscriber
-			Subscriber.OnLoaded -= onSubscriberLoaded;
-			Subscriber.OnDestroyed -= onSubscriberDestroyed;
 			
 			// Clear memory
 			_calls = null;
-			requests = null;
 			onVoid = null;
-		}
-		
-		//=======================
-		// Subscriber
-		//=======================
-		/// <summary>Callback for when a <see cref="Subscriber"/> is loaded; this will attempt to add all of the Subscriber's event requests</summary>
-		/// <param name="tSubscriber">Subscriber that was loaded</param>
-		public virtual void onSubscriberLoaded( Subscriber tSubscriber )
-		{
-			if ( tSubscriber != null )
-			{
-				RawRequest[] tempRequests = tSubscriber.requests;
-				if ( tempRequests != null )
-				{
-					int tempListLength = tempRequests.Length;
-					for ( int i = 0; i < tempListLength; ++i )
-					{
-						addRequest( tSubscriber, tempRequests[i] );
-					}
-				}
-			}
-		}
-		
-		/// <summary>Callback for when a <see cref="Subscriber"/> is destroyed; this will attempt to remove all of the Subscriber's event requests</summary>
-		/// <param name="tSubscriber">Subscriber that was destroyed</param>
-		protected virtual void onSubscriberDestroyed( Subscriber tSubscriber )
-		{
-			if ( requests != null )
-			{
-				List<RawRequest> tempRequests;
-				if ( requests.TryGetValue( tSubscriber, out tempRequests ) )
-				{
-					for ( int i = ( tempRequests.Count - 1 ); i >= 0; --i )
-					{
-						removeRequest( tSubscriber, tempRequests[i] );
-					}
-				}
-			}
 		}
 		
 		//=======================
@@ -125,18 +89,6 @@ namespace EventsPlus
 			}
 		} 
 
-		//=======================
-		// Tag
-		//=======================
-		/// <summary>Gets the <see cref="_tag"/> key that is bound to this instance</summary>
-		public string tag
-		{
-			get
-			{
-				return _tag;
-			}
-		}
-		
 		//=======================
 		// Calls
 		//=======================
@@ -246,104 +198,8 @@ namespace EventsPlus
 				onVoid -= tempDelegate;
 			}
 		}
+	
 		
-		//=======================
-		// Requests
-		//=======================
-		/// <summary>Attempts to add a <see cref="RawRequest"/> to the Publisher's internal tracker and event(s)</summary>
-		/// <param name="tSubscriber">Owning <see cref="Subscriber"/> instance of <paramref name="tRequest"/></param>
-		/// <param name="tRequest">RawRequest to add</param>
-		/// <returns>True if successful</returns>
-		public bool addRequest( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			if ( tSubscriber != null && tRequest != null && _tag != null && Array.IndexOf( tRequest.tags, _tag ) >= 0 )
-			{
-				List<RawRequest> tempRequests;
-				if ( requests == null )
-				{
-					requests = new Dictionary<Subscriber,List<RawRequest>>();
-					tempRequests = new List<RawRequest>();
-					tempRequests.Add( tRequest );
-					requests.Add( tSubscriber, tempRequests );
-				}
-				else if ( requests.TryGetValue( tSubscriber, out tempRequests ) )
-				{
-					tempRequests.Add( tRequest );
-				}
-				else
-				{
-					tempRequests = new List<RawRequest>();
-					tempRequests.Add( tRequest );
-					requests.Add( tSubscriber, tempRequests );
-				}
-				
-				effectsRequestAdded( tSubscriber, tRequest );
-				
-				return true;
-			}
-			
-			return false;
-		}
-		
-		/// <summary>Handles the <see cref="RawRequest"/> that was added and registers its delegate to the Publisher's matching event(s)</summary>
-		/// <param name="tSubscriber">Owning <see cref="Subscriber"/> instance of <paramref name="tRequest"/></param>
-		/// <param name="tRequest">RawRequest that was added</param>
-		protected virtual void effectsRequestAdded( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action tempDelegate = tRequest.delegateInstance as Action;
-			if ( tempDelegate != null )
-			{
-				onVoid += tempDelegate;
-			}
-		}
-		
-		/// <summary>Attempts to remove a <see cref="RawRequest"/> from the Publisher's internal tracker and event(s)</summary>
-		/// <param name="tSubscriber">Owning <see cref="Subscriber"/> instance of <paramref name="tRequest"/></param>
-		/// <param name="tRequest">RawRequest to remove</param>
-		/// <returns>True if successful</returns>
-		public bool removeRequest( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			if ( tSubscriber != null && tRequest != null && requests != null )
-			{
-				List<RawRequest> tempRequests;
-				if ( requests.TryGetValue( tSubscriber, out tempRequests ) )
-				{
-					int tempIndex = tempRequests.IndexOf( tRequest );
-					if ( tempIndex >= 0 )
-					{
-						tempRequests.RemoveAt( tempIndex );
-						if ( tempRequests.Count == 0 )
-						{
-							requests.Remove( tSubscriber );
-							if ( requests.Count == 0 )
-							{
-								requests = null;
-							}
-						}
-						
-						effectsRequestRemoved( tSubscriber, tRequest );
-						
-						return true;
-					}
-				}
-			}
-			
-			return false;
-		}
-		
-		/// <summary>Handles the <see cref="RawRequest"/> that was removed and removes its delegate from the Publisher's matching event(s)</summary>
-		/// <param name="tSubscriber">Owning <see cref="Subscriber"/> instance of <paramref name="tRequest"/></param>
-		/// <param name="tRequest">RawRequest that was removed</param>
-		protected virtual void effectsRequestRemoved( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action tempDelegate = tRequest.delegateInstance as Action;
-			if ( tempDelegate != null )
-			{
-				onVoid -= tempDelegate;
-			}
-		}
-		
-		//=======================
 		// Publish
 		//=======================
 		/// <summary>Invokes the <see cref="onVoid"/> event</summary>
@@ -372,10 +228,6 @@ namespace EventsPlus
 		//=======================
 		// Constructor
 		//=======================
-		public Publisher( string tTag = null ) : base ( tTag )
-		{
-		}
-		
 		//=======================
 		// Destructor
 		//=======================
@@ -424,34 +276,6 @@ namespace EventsPlus
 			}
 		}
 		
-		//=======================
-		// Requests
-		//=======================
-		protected override void effectsRequestAdded( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A> tempDelegate = tRequest.delegateInstance as Action<A>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestAdded( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent += tempDelegate;
-			}
-		}
-		
-		protected override void effectsRequestRemoved( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A> tempDelegate = tRequest.delegateInstance as Action<A>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestRemoved( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent -= tempDelegate;
-			}
-		}
 
 		//=======================
 		// Publish
@@ -480,13 +304,6 @@ namespace EventsPlus
 		//=======================
 		/// <summary>Event for 2-Parameter delegates</summary>
 		public event Action<A,B> onEvent;
-		
-		//=======================
-		// Constructor
-		//=======================
-		public Publisher( string tTag = null ) : base ( tTag )
-		{
-		}
 		
 		//=======================
 		// Destructor
@@ -536,35 +353,7 @@ namespace EventsPlus
 			}
 		}
 		
-		//=======================
-		// Requests
-		//=======================
-		protected override void effectsRequestAdded( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B> tempDelegate = tRequest.delegateInstance as Action<A,B>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestAdded( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent += tempDelegate;
-			}
-		}
-		
-		protected override void effectsRequestRemoved( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B> tempDelegate = tRequest.delegateInstance as Action<A,B>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestRemoved( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent -= tempDelegate;
-			}
-		}
-
+	
 		//=======================
 		// Publish
 		//=======================
@@ -592,13 +381,6 @@ namespace EventsPlus
 		//=======================
 		/// <summary>Event for 3-Parameter delegates</summary>
 		public event Action<A,B,C> onEvent;
-		
-		//=======================
-		// Constructor
-		//=======================
-		public Publisher( string tTag = null ) : base ( tTag )
-		{
-		}
 		
 		//=======================
 		// Destructor
@@ -648,35 +430,7 @@ namespace EventsPlus
 			}
 		}
 		
-		//=======================
-		// Requests
-		//=======================
-		protected override void effectsRequestAdded( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C> tempDelegate = tRequest.delegateInstance as Action<A,B,C>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestAdded( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent += tempDelegate;
-			}
-		}
 		
-		protected override void effectsRequestRemoved( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C> tempDelegate = tRequest.delegateInstance as Action<A,B,C>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestRemoved( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent -= tempDelegate;
-			}
-		}
-
 		//=======================
 		// Publish
 		//=======================
@@ -704,14 +458,6 @@ namespace EventsPlus
 		//=======================
 		/// <summary>Event for 4-Parameter delegates</summary>
 		public event Action<A,B,C,D> onEvent;
-		
-		//=======================
-		// Constructor
-		//=======================
-		public Publisher( string tTag = null ) : base ( tTag )
-		{
-		}
-		
 		//=======================
 		// Destructor
 		//=======================
@@ -760,35 +506,7 @@ namespace EventsPlus
 			}
 		}
 		
-		//=======================
-		// Requests
-		//=======================
-		protected override void effectsRequestAdded( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestAdded( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent += tempDelegate;
-			}
-		}
-		
-		protected override void effectsRequestRemoved( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestRemoved( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent -= tempDelegate;
-			}
-		}
-
+	
 		//=======================
 		// Publish
 		//=======================
@@ -817,12 +535,6 @@ namespace EventsPlus
 		/// <summary>Event for 5-Parameter delegates</summary>
 		public event Action<A,B,C,D,E> onEvent;
 		
-		//=======================
-		// Constructor
-		//=======================
-		public Publisher( string tTag = null ) : base ( tTag )
-		{
-		}
 		
 		//=======================
 		// Destructor
@@ -872,34 +584,7 @@ namespace EventsPlus
 			}
 		}
 		
-		//=======================
-		// Requests
-		//=======================
-		protected override void effectsRequestAdded( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestAdded( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent += tempDelegate;
-			}
-		}
-		
-		protected override void effectsRequestRemoved( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestRemoved( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent -= tempDelegate;
-			}
-		}
+	
 
 		//=======================
 		// Publish
@@ -929,12 +614,6 @@ namespace EventsPlus
 		/// <summary>Event for 6-Parameter delegates</summary>
 		public event Action<A,B,C,D,E,F> onEvent;
 		
-		//=======================
-		// Constructor
-		//=======================
-		public Publisher( string tTag = null ) : base ( tTag )
-		{
-		}
 		
 		//=======================
 		// Destructor
@@ -984,34 +663,7 @@ namespace EventsPlus
 			}
 		}
 		
-		//=======================
-		// Requests
-		//=======================
-		protected override void effectsRequestAdded( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E,F> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E,F>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestAdded( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent += tempDelegate;
-			}
-		}
 		
-		protected override void effectsRequestRemoved( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E,F> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E,F>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestRemoved( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent -= tempDelegate;
-			}
-		}
 
 		//=======================
 		// Publish
@@ -1040,13 +692,6 @@ namespace EventsPlus
 		//=======================
 		/// <summary>Event for 7-Parameter delegates</summary>
 		public event Action<A,B,C,D,E,F,G> onEvent;
-		
-		//=======================
-		// Constructor
-		//=======================
-		public Publisher( string tTag = null ) : base ( tTag )
-		{
-		}
 		
 		//=======================
 		// Destructor
@@ -1096,34 +741,7 @@ namespace EventsPlus
 			}
 		}
 		
-		//=======================
-		// Requests
-		//=======================
-		protected override void effectsRequestAdded( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E,F,G> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E,F,G>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestAdded( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent += tempDelegate;
-			}
-		}
-		
-		protected override void effectsRequestRemoved( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E,F,G> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E,F,G>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestRemoved( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent -= tempDelegate;
-			}
-		}
+	
 
 		//=======================
 		// Publish
@@ -1153,12 +771,6 @@ namespace EventsPlus
 		/// <summary>Event for 8-Parameter delegates</summary>
 		public event Action<A,B,C,D,E,F,G,H> onEvent;
 		
-		//=======================
-		// Constructor
-		//=======================
-		public Publisher( string tTag = null ) : base ( tTag )
-		{
-		}
 		
 		//=======================
 		// Destructor
@@ -1208,34 +820,7 @@ namespace EventsPlus
 			}
 		}
 		
-		//=======================
-		// Requests
-		//=======================
-		protected override void effectsRequestAdded( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E,F,G,H> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E,F,G,H>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestAdded( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent += tempDelegate;
-			}
-		}
-		
-		protected override void effectsRequestRemoved( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E,F,G,H> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E,F,G,H>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestRemoved( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent -= tempDelegate;
-			}
-		}
+	
 
 		//=======================
 		// Publish
@@ -1265,14 +850,6 @@ namespace EventsPlus
 		/// <summary>Event for 9-Parameter delegates</summary>
 		public event Action<A,B,C,D,E,F,G,H,I> onEvent;
 		
-		//=======================
-		// Constructor
-		//=======================
-		public Publisher( string tTag = null ) : base ( tTag )
-		{
-		}
-		
-		//=======================
 		// Destructor
 		//=======================
 		~Publisher()
@@ -1320,35 +897,7 @@ namespace EventsPlus
 			}
 		}
 		
-		//=======================
-		// Requests
-		//=======================
-		protected override void effectsRequestAdded( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E,F,G,H,I> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E,F,G,H,I>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestAdded( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent += tempDelegate;
-			}
-		}
-		
-		protected override void effectsRequestRemoved( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E,F,G,H,I> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E,F,G,H,I>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestRemoved( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent -= tempDelegate;
-			}
-		}
-
+	
 		//=======================
 		// Publish
 		//=======================
@@ -1376,13 +925,6 @@ namespace EventsPlus
 		//=======================
 		/// <summary>Event for 10-Parameter delegates</summary>
 		public event Action<A,B,C,D,E,F,G,H,I,J> onEvent;
-		
-		//=======================
-		// Constructor
-		//=======================
-		public Publisher( string tTag = null ) : base ( tTag )
-		{
-		}
 		
 		//=======================
 		// Destructor
@@ -1431,36 +973,7 @@ namespace EventsPlus
 				onEvent -= tempDelegate;
 			}
 		}
-		
-		//=======================
-		// Requests
-		//=======================
-		protected override void effectsRequestAdded( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E,F,G,H,I,J> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E,F,G,H,I,J>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestAdded( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent += tempDelegate;
-			}
-		}
-		
-		protected override void effectsRequestRemoved( Subscriber tSubscriber, RawRequest tRequest )
-		{
-			Action<A,B,C,D,E,F,G,H,I,J> tempDelegate = tRequest.delegateInstance as Action<A,B,C,D,E,F,G,H,I,J>;
-			if ( tempDelegate == null )
-			{
-				base.effectsRequestRemoved( tSubscriber, tRequest );
-			}
-			else
-			{
-				onEvent -= tempDelegate;
-			}
-		}
-		
+	
 		//=======================
 		// Publish
 		//=======================

@@ -37,7 +37,8 @@ namespace EventsPlus
         /// <param name="tPublisher">Publisher passed in the delegate used for automatic memory management</param>
         public virtual void initialize(Publisher tPublisher)
         {
-            delegateInstance = createDelegate(tPublisher, Utility.QuickDeseralizer(m_target == null ? null : m_target.GetType(), methodData));
+            if(m_target!=null)
+            delegateInstance = createDelegate(tPublisher, Utility.QuickDeseralizer(m_target.GetType(), methodData));
         }
 
         //=======================

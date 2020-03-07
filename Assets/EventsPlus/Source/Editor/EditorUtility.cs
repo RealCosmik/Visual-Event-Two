@@ -16,6 +16,7 @@ namespace EventsPlus
 	{
 
         static Dictionary<string, int> ParseCache = new Dictionary<string, int>();
+        static Dictionary<SerializedProperty, object> propertyTargets = new Dictionary<SerializedProperty, object>();
 		//=======================
 		// Settings
 		//=======================
@@ -44,37 +45,43 @@ namespace EventsPlus
 		/// <returns>Target instance</returns>
 		public static object GetTarget( this SerializedProperty tProperty )
 		{
-			if ( tProperty != null )
-			{
-				object tempObject = tProperty.serializedObject.targetObject;
-				
-				string[] tempPaths = tProperty.propertyPath.Replace( "Array.data", "" ).Split( '.' );
-				int tempListLength = tempPaths.Length;
-				for ( int i = 0; i < tempListLength; ++i )
-				{
-					if ( tempPaths[i][0] == '[' )
-					{
-						int tempIndex = Int32.Parse( tempPaths[i].Substring( 1, tempPaths[i].IndexOf( ']' ) - 1 ) );
-						if ( tempIndex < ( tempObject as IList ).Count )
-						{
-							tempObject = ( tempObject as IList )[ tempIndex ];
-						}
-						else
-						{
-							return null;
-						}
-					}
-					else
-					{
-						tempObject = tempObject.GetType().GetField( tempPaths[i], Utility.InstanceFlags ).GetValue( tempObject );
-					}
-				}
-				
-				return tempObject;
-			}
-			
-			return null;
+			if(!propertyTargets.TryGetValue(tProperty, out object targetvalue))
+            {
+                targetvalue = GetObjectFirstTime(tProperty);
+                propertyTargets.Add(tProperty, targetvalue);
+            }
+            return targetvalue;
 		}
+        private static object GetObjectFirstTime( SerializedProperty property)
+        {
+            if (property != null)
+            {
+                object tempObject = property.serializedObject.targetObject;
+                string[] tempPaths = property.propertyPath.Replace("Array.data", "").Split('.');
+                int tempListLength = tempPaths.Length;
+                for (int i = 0; i < tempListLength; ++i)
+                {
+                    if (tempPaths[i][0] == '[')
+                    {
+                        int tempIndex = tempPaths[i][1] - '0';
+                        if (tempIndex < (tempObject as IList).Count)
+                        {
+                            tempObject = (tempObject as IList)[tempIndex];
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        tempObject = tempObject.GetType().GetField(tempPaths[i], Utility.InstanceFlags).GetValue(tempObject);
+                    }
+                }
+                return tempObject;
+            }
+            return null;
+        }
 		
 		/// <summary>Returns the <see cref="Publisher"/> instance that owns <paramref name="tProperty"/></summary>
 		/// <param name="tProperty">Property owned by the Publisher instance</param>
@@ -91,7 +98,7 @@ namespace EventsPlus
 				{
 					if ( tempPaths[i][0] == '[' )
 					{
-						int tempIndex = Int32.Parse( tempPaths[i].Substring( 1, tempPaths[i].IndexOf( ']' ) - 1 ) );
+                        int tempIndex = tempPaths[i][1] - '0';
 						if ( tempIndex < ( tempObject as IList ).Count )
 						{
 							tempObject = ( tempObject as IList )[ tempIndex ];
@@ -105,15 +112,11 @@ namespace EventsPlus
 					{
 						tempObject = tempObject.GetType().GetField( tempPaths[i], Utility.InstanceFlags ).GetValue( tempObject );
 					}
-					
-					Publisher tempPublisher = tempObject as Publisher;
-					if ( tempPublisher != null )
-					{
-						return tempPublisher;
-					}
+
+                    if (tempObject is Publisher pub)
+                        return pub;
 				}
 			}
-			
 			return null;
 		}
 		
@@ -412,7 +415,7 @@ namespace EventsPlus
         public static int GetRawCallIndex(this SerializedProperty rawcallprop)
         {
             string path = rawcallprop.propertyPath;
-            return int.Parse(path[path.Length - 2].ToString());
+            return path[path.Length - 2] - '0'; //ascii substration faster than int.parse
         }
         public static string GetPublisherPath(this SerializedProperty rawcallprop)
         { 
@@ -425,7 +428,36 @@ namespace EventsPlus
             return path.Substring(0, publisheridnex);
 
         }
-       
+        public static void CopySeralizedMethodDataToProp(SerializedProperty methodDataprop,string[] seralizedData)
+        {
+            methodDataprop.arraySize = seralizedData.Length;
+            for (int i = 0; i < seralizedData.Length; i++)
+            {
+                methodDataprop.GetArrayElementAtIndex(i).stringValue = seralizedData[i];
+            }
+        }
+       public static string CreateErrorMessage(SerializedProperty methodData_prop, UnityEngine.Object ErrorObject)
+        {
+            var member_type = (MemberTypes)int.Parse(methodData_prop.GetArrayElementAtIndex(0).stringValue);
+            var member_name = methodData_prop.GetArrayElementAtIndex(1).stringValue;
+            return $@"{member_type}: ""{member_name}"" was removed or renamed in type: ""{ErrorObject.GetType()}""";
+        }
+        public static void CopyDelegateArguments(SerializedProperty DestinationArgument,SerializedProperty originargument)
+        { 
+            DestinationArgument.FindPropertyRelative("objectValue").objectReferenceValue = originargument.FindPropertyRelative("objectValue").objectReferenceValue;
+            DestinationArgument.FindPropertyRelative("_x1").floatValue = originargument.FindPropertyRelative("_x1").floatValue;
+            DestinationArgument.FindPropertyRelative("_x2").floatValue = originargument.FindPropertyRelative("_x2").floatValue;
+            DestinationArgument.FindPropertyRelative("_y1").floatValue = originargument.FindPropertyRelative("_y1").floatValue;
+            DestinationArgument.FindPropertyRelative("_y2").floatValue = originargument.FindPropertyRelative("_y2").floatValue;
+            DestinationArgument.FindPropertyRelative("_z1").floatValue = originargument.FindPropertyRelative("_z1").floatValue;
+            DestinationArgument.FindPropertyRelative("_z2").floatValue = originargument.FindPropertyRelative("_z2").floatValue;
+            DestinationArgument.FindPropertyRelative("stringValue").stringValue = originargument.FindPropertyRelative("stringValue").stringValue;
+            DestinationArgument.FindPropertyRelative("longValue").longValue = originargument.FindPropertyRelative("longValue").longValue;
+            DestinationArgument.FindPropertyRelative("doubleValue").doubleValue = originargument.FindPropertyRelative("doubleValue").doubleValue;
+            DestinationArgument.FindPropertyRelative("animationCurveValue").animationCurveValue = originargument.FindPropertyRelative("animationCurveValue").animationCurveValue;
+        }
+
+
         //=======================
         // Inspector
         //=======================

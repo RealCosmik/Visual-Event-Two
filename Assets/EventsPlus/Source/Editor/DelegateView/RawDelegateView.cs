@@ -62,7 +62,6 @@ namespace EventsPlus
             if (AvailableTargetObjects != null)
             {
                 CurrentTargetIndex = newTargetIndex < 0 ? 0 : newTargetIndex;
-                var newtarget = AvailableTargetObjects[CurrentTargetIndex];
                 CurrentTarget = AvailableTargetObjects[CurrentTargetIndex];
                 GenerateNewTargetMembers(CurrentTargetIndex);
             }
@@ -264,24 +263,30 @@ namespace EventsPlus
         {
             if (CurrentMembers != null&&seralizedmethodData.Length>0)
             {
+                int index = 0;
                 //filters based on member type  (field,prop,method)
-                var possibleMembers = CurrentMembers.Where(m => m.SeralizedData[0] == seralizedmethodData[0]);
+                var possibleMembers = CurrentMembers.Where(m=>m != null);
                 for (int i=0; i<possibleMembers.Count(); i++)
                 {
                     if (possibleMembers.ElementAt(i).SeralizedData.SequenceEqual(seralizedmethodData))
                     {
-                       return CurrentMembers.IndexOf(possibleMembers.ElementAt(i));
+                       index=CurrentMembers.IndexOf(possibleMembers.ElementAt(i));
                     }
-                } 
+                }
+                return index;
             }
             //no member seralized member set 
-            if (seralizedmethodData.Length==0||seralizedmethodData==null)
+            else if (seralizedmethodData.Length==0||seralizedmethodData==null)
             {
-               // Debug.Log("no name");
+                Debug.Log("no name");
                 return 0;
             }
             else
             {
+                Debug.Log(seralizedmethodData == null);
+                Debug.Log(seralizedmethodData.Length == 0);
+                Debug.Log(CurrentMembers == null);
+
                 Debug.Log(CurrentTarget.GetType().FullName);
                 for (int i = 0; i < seralizedmethodData.Length; i++)
                 {

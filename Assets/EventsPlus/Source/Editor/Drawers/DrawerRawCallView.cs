@@ -17,13 +17,12 @@ namespace EventsPlus
         public override float GetPropertyHeight(SerializedProperty tProperty, GUIContent tLabel)
         {
             float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
-
             // Dynamic toggle height
             SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
             var path = tProperty.propertyPath;
             var index = tProperty.GetRawCallIndex();
             var pubpath = tProperty.GetPublisherPath();
-            RawCallView tempCache = listcache[pubpath][index];
+            RawCallView tempCache = ViewCache.Cache[pubpath][index] as RawCallView;
             if (tempCache.CurrentTarget != null) 
             {
                 if (tempCache.isDynamicable)
@@ -48,7 +47,7 @@ namespace EventsPlus
             return tempHeight+10;
         }
 
-        protected override RawCallView createCache(SerializedProperty tProperty)
+        protected override RawDelegateView createCache(SerializedProperty tProperty)
         {
             Publisher tempPublisher = tProperty.GetPublisher();
             var view= new RawCallView(tempPublisher == null ? null : tempPublisher.types);
@@ -65,7 +64,7 @@ namespace EventsPlus
             base.OnGUI(tPosition, tProperty, tLabel);
             var index = tProperty.GetRawCallIndex();
             var path = tProperty.GetPublisherPath();
-            RawCallView tempCache = listcache[path][index];
+            RawCallView tempCache = ViewCache.Cache[path][index] as RawCallView;
             if (tempCache.HasDelegateError)
                 HandleDelegeateError(tProperty, tempCache);
            if(tempCache.CurrentTarget!=null)
@@ -95,7 +94,7 @@ namespace EventsPlus
 
                     if (tempArgumentsProperty.arraySize > 0)
                     {
-                        tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
+                        tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing+5;
                         tPosition.height = EditorGUI.GetPropertyHeight(tempArgumentsProperty, false);
 
                         tempArgumentsProperty.isExpanded = EditorGUI.Foldout(tPosition, tempArgumentsProperty.isExpanded, tempArgumentsProperty.displayName);
@@ -115,17 +114,18 @@ namespace EventsPlus
                     EditorGUI.indentLevel -= 1;
             }
         }
-        protected override void validate(SerializedProperty tProperty, RawCallView tCache)
+        protected override void validate(SerializedProperty tProperty, RawDelegateView delegatecache)
         {
+            var rawcallcache = delegatecache as RawCallView;
             SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative("methodData");
             SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
-            if (!tCache.validateTarget(tProperty.FindPropertyRelative("m_target"), tempMemberProperty, tempDynamicProperty))
+            if (!rawcallcache.validateTarget(tProperty.FindPropertyRelative("m_target"), tempMemberProperty, tempDynamicProperty))
             {
-                handleTargetUpdate(tProperty, tCache);
+                handleTargetUpdate(tProperty, rawcallcache);
             }
-            if (!tCache.validateMember(tempMemberProperty, tempDynamicProperty))
+            if (!rawcallcache.validateMember(tempMemberProperty, tempDynamicProperty))
             {
-                handleMemberUpdate(tProperty, tCache);
+                handleMemberUpdate(tProperty, rawcallcache);
             }
         }
 
@@ -141,17 +141,17 @@ namespace EventsPlus
             EditorGUI.PropertyField(tPosition, tArgument,new GUIContent(tCache.arguments[tIndex].name));
         }
 
-        protected override void handleMemberUpdate(SerializedProperty tProperty, RawCallView tCache)
+        protected override void handleMemberUpdate(SerializedProperty tProperty, RawDelegateView tCache)
         {
             base.handleMemberUpdate(tProperty, tCache);
-            handleDynamicUpdate(tProperty, tCache);
+            handleDynamicUpdate(tProperty, tCache as RawCallView);
         }
         private void HandleDelegeateError(SerializedProperty delegeateProp, RawCallView delegatecall)
         { 
             Debug.Log("handle error");
             var methoData_prop = delegeateProp.FindPropertyRelative("methodData");
             var contextobj = delegeateProp.FindPropertyRelative("m_target").serializedObject.targetObject;
-            string errormessage = CreateErrorMessage(methoData_prop, contextobj);
+            string errormessage = EditorUtility.CreateErrorMessage(methoData_prop, contextobj);
             delegeateProp.FindPropertyRelative("m_target").objectReferenceValue = delegatecall.CurrentTarget;
             var argumentArray = delegeateProp.FindPropertyRelative("m_arguments");
             argumentArray.ClearArray();
@@ -160,25 +160,11 @@ namespace EventsPlus
             argumentArray.GetArrayElementAtIndex(1).FindPropertyRelative("_x1").floatValue = (int)LogType.Error;
             argumentArray.GetArrayElementAtIndex(2).FindPropertyRelative("objectValue").objectReferenceValue = contextobj;
              
-            SetMethodData(methoData_prop, delegatecall.SelectedMember.SeralizedData);
+            EditorUtility.CopySeralizedMethodDataToProp(methoData_prop, delegatecall.SelectedMember.SeralizedData);
             delegatecall.HasDelegateError = false;
             handleDynamicUpdate(delegeateProp, delegatecall);
         }
-        private void SetMethodData(SerializedProperty methodDataProp,string[] methodData)
-        {
-            methodDataProp.arraySize = methodData.Length;
-            for (int i = 0; i < methodData.Length; i++)
-            {
-                methodDataProp.GetArrayElementAtIndex(i).stringValue = methodData[i];
-            }
-        }
-        string CreateErrorMessage(SerializedProperty methodData_prop, UnityEngine.Object ErrorObject)
-        {
-            var member_type = (MemberTypes)int.Parse(methodData_prop.GetArrayElementAtIndex(0).stringValue);
-            var member_name = methodData_prop.GetArrayElementAtIndex(1).stringValue;
-            return $@"{member_type}: ""{member_name}"" was removed or renamed in type: ""{ErrorObject.GetType()}""";
-        }
-
+     
         /// <summary>Applies the dynamic toggle and arguments properties of the <see cref="RawCall"/></summary>
         /// <param name="tProperty">Serialized call property</param>
         /// <param name="tCache">Cached call drop-down data</param>

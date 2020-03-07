@@ -9,16 +9,11 @@ namespace EventsPlus
 	// Class Declaration
 	//##########################
 	/// <summary>Inspector class for rendering <see cref="RawDelegate"/>s in the inspector</summary>
-	public class DrawerRawDelegateView<T> : PropertyDrawer where T : RawDelegateView,new()
+	public abstract class DrawerRawDelegateView<delegateType> : PropertyDrawer
 	{
-        //=======================
-        // Variables
-        //=======================
-        /// <summary>Cached delegate drop-down data used for optimization</summary>
-        public static Dictionary<string, List<T>> listcache = new Dictionary<string, List<T>>();
+       
 		//=======================
 		// Initialization
-		//=======================
 		/// <summary>Initializes the drawer and calculates the inspector height</summary>
 		/// <param name="tProperty">Serialized delegate property</param>
 		/// <param name="tLabel">GUI Label of the drawer</param>
@@ -27,9 +22,8 @@ namespace EventsPlus
 		{
             var publisherpath = tProperty.GetPublisherPath();
             var index = tProperty.GetRawCallIndex();
-            if (!listcache.TryGetValue(publisherpath,out List<T> cachelist))
-                listcache.Add(publisherpath, cachelist = new List<T>());
-
+            if (!ViewCache.Cache.TryGetValue(publisherpath,out List<RawDelegateView> cachelist))
+                ViewCache.Cache.Add(publisherpath, cachelist = new List<RawDelegateView>());
             if (index >= cachelist.Count)
                     cachelist.Add(createCache(tProperty));
             return base.GetPropertyHeight( tProperty, tLabel );
@@ -39,13 +33,7 @@ namespace EventsPlus
         /// <summary>Instantiates the delegate drop-down <see cref="cache"/></summary>
         /// <param name="tProperty">Serialized delegate property</param>
         /// <returns>Delegate cache</returns>
-        protected virtual T createCache( SerializedProperty tProperty ) 
-		{
-            Debug.Log("creatint cache type");
-            return new T();
-        }
-        
-		
+        protected abstract RawDelegateView createCache(SerializedProperty tProperty);
 		//=======================
 		// Render
 		//=======================
@@ -59,7 +47,7 @@ namespace EventsPlus
 
             var index = tProperty.GetRawCallIndex();
             var pubpath = tProperty.GetPublisherPath();
-            T DelegateCache = listcache[pubpath][index];
+            RawDelegateView DelegateCache = ViewCache.Cache[pubpath][index];
           //  if (DelegateCache.propertypath != tProperty.propertyPath)
             //    DelegateCache.ClearViewCache(); 
             //else Debug.Log("thats okay");
@@ -121,7 +109,7 @@ namespace EventsPlus
 		/// <summary>Validates the delegate property against the <paramref name="tCache"/></summary>
 		/// <param name="tProperty">Serialized delegate property</param>
 		/// <param name="tCache">Cached delegate drop-down data</param>
-		protected virtual void validate( SerializedProperty tProperty, T tCache )
+		protected virtual void validate( SerializedProperty tProperty, RawDelegateView tCache )
 		{
 			SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative( "methodData" );
 			if ( !tCache.validateTarget( tProperty.FindPropertyRelative( "m_target" ), tempMemberProperty) )
@@ -138,7 +126,7 @@ namespace EventsPlus
 		/// <summary>Applies the target property of the <see cref="RawDelegate"/></summary>
 		/// <param name="tProperty">Serialized delegate property</param>
 		/// <param name="tCache">Cached delegate drop-down data</param>
-		protected virtual void handleTargetUpdate( SerializedProperty tProperty, T tCache )
+		protected virtual void handleTargetUpdate( SerializedProperty tProperty, RawDelegateView tCache )
 		{
 			tProperty.FindPropertyRelative( "m_target" ).objectReferenceValue = tCache.CurrentTarget;
             tProperty.serializedObject.ApplyModifiedProperties();
@@ -148,7 +136,7 @@ namespace EventsPlus
         /// <summary>Applies the member property of the <see cref="RawDelegate"/></summary>
         /// <param name="tProperty">Serialized delegate property</param>
         /// <param name="tCache">Cached delegate drop-down data</param>
-        protected virtual void handleMemberUpdate( SerializedProperty tProperty, T tCache )
+        protected virtual void handleMemberUpdate( SerializedProperty tProperty, RawDelegateView tCache )
 		{
             var methodData_prop = tProperty.FindPropertyRelative("methodData");
             if (tCache.SelectedMember == null)

@@ -21,10 +21,10 @@ namespace EventsPlus
         private static GUIStyle oddstyle;
         private static Color evencolor = new Color(.21f, .21f, .21f);
         private static Color oddColor = new Color(.5f, .5f, .5f);
-
-
+        private static RawCallView copiedcache;
+        private static SerializedProperty copiedprop;
         // Note that this function is only meant to be called from OnGUI() functions.
-        public static void GUIDrawRect(Rect position,int index)
+        public static void GUIDrawRect(Rect position, int index)
         {
             if (eventexture == null)
             {
@@ -88,14 +88,26 @@ namespace EventsPlus
                 };
                 tempList.elementHeightCallback += (int tIndex) =>
                 {
-                   
-                    return EditorGUI.GetPropertyHeight(tempList.serializedProperty.GetArrayElementAtIndex(tIndex),false) + EditorGUIUtility.standardVerticalSpacing;
+
+                    return EditorGUI.GetPropertyHeight(tempList.serializedProperty.GetArrayElementAtIndex(tIndex), false) + EditorGUIUtility.standardVerticalSpacing;
                 };
                 cache.Add(tProperty.propertyPath, tempList);
-                 tempList.onRemoveCallback += list => onElementDelete(list, tempCallsProperty);
-                  tempList.onAddCallback += list => onAddElement(list, tempCallsProperty);
+                tempList.onRemoveCallback += list => onElementDelete(list, tempCallsProperty);
+                tempList.onAddCallback += list => onAddElement(list, tempCallsProperty);
                 tempList.onReorderCallbackWithDetails += (ReorderableList list, int oldindex, int newindex) =>
                   OnReorder(list, oldindex, newindex, tProperty);
+
+                tempList.onSelectCallback += list =>
+                {
+                    if (Event.current.button == 1)
+                    {
+                        GenericMenu m = new GenericMenu();
+                        m.AddItem(new GUIContent("copy delegate"), false, () => CopyDelegate(list, tempCallsProperty));
+                        m.AddItem(new GUIContent("paste delegate"), false, () => PasteDelegate(list, tempCallsProperty));
+                        m.ShowAsContext();
+                    }
+                };
+
             }
 
             // Calculate height
@@ -118,10 +130,11 @@ namespace EventsPlus
         {
             ClearOldCache(tProperty);
             tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
+            var calls = tProperty.FindPropertyRelative("_calls");
             tProperty.isExpanded = EditorGUI.Foldout(tPosition, tProperty.isExpanded, tProperty.displayName);
             if (tProperty.isExpanded)
             {
-                ++EditorGUI.indentLevel; 
+                ++EditorGUI.indentLevel;
                 // Calls
                 ReorderableList tempList = cache[tProperty.propertyPath];
                 int tempIndentLevel = EditorGUI.indentLevel;
@@ -134,9 +147,13 @@ namespace EventsPlus
                 tPosition.height = tempList.GetHeight();
                 EditorGUI.BeginChangeCheck();
                 tempList.DoList(tPosition);
-                if (EditorGUI.EndChangeCheck()&&EditorApplication.isPlaying)
+                if (EditorGUI.EndChangeCheck() && EditorApplication.isPlaying)
                 {
+                    tProperty.serializedObject.ApplyModifiedProperties();
+                    tProperty.GetPublisher()?.ReInitialize();
                 }
+                
+            
                 EditorGUI.indentLevel = tempIndentLevel - 1;
             }
         }
@@ -152,33 +169,30 @@ namespace EventsPlus
             publiserproperty.managedReferenceValue = publisher;
         }
         private void onElementDelete(ReorderableList list, SerializedProperty arrayprop)
-        { 
+        {
             var removedindex = list.index;
             var delegateprop = arrayprop.GetArrayElementAtIndex(removedindex);
             string pubpath = delegateprop.GetPublisherPath();
             delegateprop.FindPropertyRelative("m_arguments").ClearArray();
             delegateprop.FindPropertyRelative("m_target").objectReferenceValue = null;
-            DrawerRawDelegateView<RawCallView>.listcache[pubpath].RemoveAt(removedindex);
+            ViewCache.Cache[pubpath].RemoveAt(removedindex);
             arrayprop.DeleteArrayElementAtIndex(removedindex);
             arrayprop.serializedObject.ApplyModifiedProperties();
-            Debug.Log("aye"); 
         }
         private void onAddElement(ReorderableList list, SerializedProperty arrayprop)
         {
             int size = arrayprop.arraySize;
             arrayprop.InsertArrayElementAtIndex(size);
             var newcall = arrayprop.GetArrayElementAtIndex(size);
-          newcall.FindPropertyRelative("m_arguments").ClearArray();
-          newcall.FindPropertyRelative("m_target").objectReferenceValue = null;
-            var cache_list = DrawerRawDelegateView<RawCallView>.listcache;
-           // if (cache_list[size].CurrentTarget != null)
-           //     cache_list[size].ClearViewCache();
+            newcall.FindPropertyRelative("m_arguments").ClearArray();
+            newcall.FindPropertyRelative("m_target").objectReferenceValue = null;
             arrayprop.serializedObject.ApplyModifiedProperties();
         }
-        private void OnReorder(ReorderableList list, int oldindex, int newindex,SerializedProperty publisherprop)
+
+        private void OnReorder(ReorderableList list, int oldindex, int newindex, SerializedProperty publisherprop)
         {
             string pubpath = publisherprop.propertyPath;
-            var cache_list = DrawerRawDelegateView<RawCallView>.listcache[pubpath];
+            var cache_list =ViewCache.Cache[pubpath];
             var elementCache = cache_list[oldindex]; //cache before reorder
             if (newindex < oldindex) // moved element higher up
             {
@@ -186,34 +200,82 @@ namespace EventsPlus
                 for (int i = oldindex; i > newindex; i--) //2
                 {
                     var index_shitDown = i - 1 == -1 ? cache_list.Count - 1 : i - 1; //shift other indicies up or wrap to bottom
-                   // Debug.Log(index_shitDown + "turns to " + i);
+                                                                                     // Debug.Log(index_shitDown + "turns to " + i);
                     cache_list[i] = cache_list[index_shitDown];
-                } 
-            } 
+                }
+            }
             else
             {
                 for (int i = oldindex; i < newindex; i++)
                 {
                     var index_shiftUp = i + 1 == cache_list.Count ? 0 : i + 1;
-                    cache_list[i] = cache_list[index_shiftUp]; 
+                    cache_list[i] = cache_list[index_shiftUp];
                 }
             }
             cache_list[newindex] = elementCache;
+            publisherprop.serializedObject.ApplyModifiedProperties();
+            publisherprop.GetPublisher()?.ReInitialize();
         }
+
         private void ClearOldCache(SerializedProperty publisherprop)
-        { 
+        {
             var Array_size = publisherprop.FindPropertyRelative("_calls").arraySize;
             string publisherpath = publisherprop.propertyPath;
-            if (Array_size == 0) 
+            if (Array_size == 0)
+            { 
+                if (ViewCache.Cache.TryGetValue(publisherpath, out List<RawDelegateView> viewcache))
+                {
+                        var OldCache = viewcache.Where(k => k!=null&& k.propertypath.StartsWith(publisherpath, StringComparison.OrdinalIgnoreCase));
+                        for (int i = 0; i < OldCache.Count(); i++)
+                        {
+                            var currentCache = OldCache.ElementAt(i);
+                            if (currentCache.CurrentTarget != null)
+                                currentCache.ClearViewCache();
+                        }
+                    }
+                }
+        }
+        /// <summary>
+        /// Copies call to static fields
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="arrayprop"></param>
+        private void CopyDelegate(ReorderableList list,SerializedProperty arrayprop)
+        {
+            var currentdelegate = arrayprop.GetArrayElementAtIndex(list.index);
+            var cachelist = ViewCache.Cache[currentdelegate.GetPublisherPath()];
+            copiedcache = cachelist[currentdelegate.GetRawCallIndex()] as RawCallView;
+            copiedprop = currentdelegate;
+        }
+        private void PasteDelegate(ReorderableList list,SerializedProperty arrayprop)
+        {
+            if (copiedcache.CurrentTarget != null)
             {
-                //var OldCache = DrawerRawDelegateView<RawCallView>.listcache.Where(k =>
-                //k.propertypath.StartsWith(publisherpath, StringComparison.OrdinalIgnoreCase));
-                //for (int i = 0; i < OldCache.Count(); i++)
-                //{
-                //    var currentCache = OldCache.ElementAt(i);
-                //    if (currentCache.CurrentTarget != null)
-                //        currentCache.ClearViewCache();
-                //}
+                var currentdelegateprop = arrayprop.GetArrayElementAtIndex(list.index);
+                EditorUtility.CopySeralizedMethodDataToProp(currentdelegateprop.FindPropertyRelative("methodData"), copiedcache.SelectedMember.SeralizedData);
+                currentdelegateprop.FindPropertyRelative("m_target").objectReferenceValue = copiedcache.CurrentTarget;
+                var arguments = currentdelegateprop.FindPropertyRelative("m_arguments");
+                var argument_size = copiedcache.arguments.Length;
+                arguments.arraySize = argument_size;
+
+                var copied_arguments = copiedprop.FindPropertyRelative("m_arguments");
+                for (int i = 0; i < argument_size; i++)
+                {
+                    arguments.GetArrayElementAtIndex(i).FindPropertyRelative("assemblyQualifiedArgumentName").stringValue = copiedcache.arguments[i].type.AssemblyQualifiedName;
+                    arguments.GetArrayElementAtIndex(i).FindPropertyRelative("FullArgumentName").stringValue = copiedcache.arguments[i].type.FullName;
+                    EditorUtility.CopyDelegateArguments(arguments.GetArrayElementAtIndex(i), copied_arguments.GetArrayElementAtIndex(i));
+
+                }
+
+                currentdelegateprop.serializedObject.ApplyModifiedProperties();
+                arrayprop.serializedObject.ApplyModifiedProperties();
+
+                //updating cache 
+                var currentcache = ViewCache.Cache[currentdelegateprop.GetPublisherPath()][currentdelegateprop.GetRawCallIndex()];
+                currentcache.SetParentTarget(copiedcache.CurrentTarget);
+                currentcache.CurrentTargetIndex = copiedcache.CurrentTargetIndex;
+                currentcache.UpdateSelectedTarget(copiedcache.CurrentTargetIndex);
+                currentcache.UpdateSelectedMember(copiedcache.selectedMemberIndex);
             }
         }
     }

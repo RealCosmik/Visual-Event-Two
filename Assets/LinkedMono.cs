@@ -5,7 +5,6 @@ using System.Reflection.Emit;
 class LinkedMono : MonoBehaviour
 {
     public Publisher pub;
-    public Publisher otherpub;
     public int RandomPropp { get => 2; set { Debug.Log("set value to be" + value); } }
     public int mynum;
     public Vector2 vectest { get; set; }
@@ -23,10 +22,9 @@ class LinkedMono : MonoBehaviour
     public void testrect(Rect t) => Debug.Log("test rect");
     public void testQuaternion(Quaternion quatern) => Debug.Log("test q");
     public void testbool(bool paramnameis) => Debug.Log("testparam");
+    public void numberlog(int num) => Debug.Log(num);
     private void Start()
     {
-        ILGenerator f;
-
         Object o = new AudioSource();
         Debug.Log(reference.GetType().FullName);
         pub.initialize();
@@ -35,10 +33,8 @@ class LinkedMono : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-                //pub.initialize();
-                pub.publish();
       //      pub.initialize();
-        //    pub.publish();
+           pub.publish();
         }
     }
 

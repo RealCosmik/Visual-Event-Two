@@ -82,7 +82,6 @@
     <Compile Include="Assets\EventsPlus\Source\RawDelegate.cs" />
     <Compile Include="Assets\EventsPlus\Source\RawReference.cs" />
     <Compile Include="Assets\EventsPlus\Source\RawRequest.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Subscriber.cs" />
     <Compile Include="Assets\EventsPlus\Source\Utility.cs" />
     <Compile Include="Assets\LinkedMono.cs" />
     <Compile Include="Assets\Logger.cs" />
