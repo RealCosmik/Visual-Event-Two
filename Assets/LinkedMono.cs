@@ -8,10 +8,6 @@ class LinkedMono : MonoBehaviour
     public int RandomPropp { get => 2; set { Debug.Log("set value to be" + value); } }
     public int mynum;
     public Vector2 vectest { get; set; }
-    public Object reference;
-    public Component f;
-    [HideInInspector]
-    public MonoBehaviour mono;
     public void methodforikram() => Debug.Log("this is for ikram");
     public void testmethod(Vector3 thisisalongertitle, Vector3 duos, int data) => Debug.Log("test");
     public void SetAudio(AudioClip clip) => Debug.Log("cli[[y");
@@ -25,8 +21,6 @@ class LinkedMono : MonoBehaviour
     public void numberlog(int num) => Debug.Log(num);
     private void Start()
     {
-        Object o = new AudioSource();
-        Debug.Log(reference.GetType().FullName);
         pub.initialize();
     }
     private void Update()

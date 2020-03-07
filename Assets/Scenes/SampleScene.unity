@@ -399,7 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pub:
     _calls:
-    - m_target: {fileID: 1921043784}
+    - m_target: {fileID: 1921043785}
       methodData:
       - 16
       - position
@@ -410,9 +410,9 @@ MonoBehaviour:
         FullArgumentName: UnityEngine.Vector3
         objectValue: {fileID: 0}
         stringValue: 
-        _x1: 3.04
+        _x1: 1.08
         _x2: 0
-        _y1: 4.76
+        _y1: 6.24
         _y2: 0
         _z1: 0
         _z2: 0
@@ -427,20 +427,46 @@ MonoBehaviour:
         methodData: []
         UseReference: 0
       m_isDynamic: 0
-  otherpub:
-    _calls:
     - m_target: {fileID: 1921043784}
       methodData:
-      - 16
-      - position
-      - set
+      - 8
+      - numberlog
+      - System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       m_arguments:
-      - assemblyQualifiedArgumentName: UnityEngine.Vector3, UnityEngine.CoreModule,
-          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-        FullArgumentName: UnityEngine.Vector3
+      - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+        FullArgumentName: System.Int32
         objectValue: {fileID: 0}
         stringValue: 
-        _x1: 3.04
+        _x1: 5
+        _x2: 0
+        _y1: 0
+        _y2: 0
+        _z1: 0
+        _z2: 0
+        longValue: 0
+        doubleValue: 0
+        animationCurveValue:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+        methodData: []
+        UseReference: 0
+      m_isDynamic: 0
+    - m_target: {fileID: 1921043784}
+      methodData:
+      - 8
+      - numberlog
+      - System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      m_arguments:
+      - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+        FullArgumentName: System.Int32
+        objectValue: {fileID: 0}
+        stringValue: 
+        _x1: 3
         _x2: 0
         _y1: 0
         _y2: 0
@@ -469,7 +495,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921043783}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1624.8845, y: 505.38785, z: -934.7446}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

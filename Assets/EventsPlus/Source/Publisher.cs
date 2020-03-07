@@ -30,7 +30,7 @@ namespace EventsPlus
 		/// <summary>Initializes <see cref="_calls"/> and registers with any potential <see cref="Subscriber"/> instances</summary>
 		public virtual void initialize()
 		{
-			if ( _calls != null )
+			if ( _calls != null ) 
 			{
 				int tempListLength = _calls.Count;
 				for ( int i = 0; i < tempListLength; ++i )
@@ -50,20 +50,8 @@ namespace EventsPlus
 		}
         public void ReInitialize()
         {
-            var call_length = _calls.Count;
-            for (int i = 0; i < call_length; i++)
-            {
-                try
-                {
-                    effectsCallRemoved(_calls[i], i);
-                    _calls[i].initialize(this);
-                    effectsCallAdded(_calls[i]);
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogError(ex, _calls[i].target);
-                }
-            }
+            onVoid = null;
+            initialize();
         }
 		//=======================
 		// Destructor
@@ -150,10 +138,10 @@ namespace EventsPlus
 		protected virtual void effectsCallAdded( RawCall tCall )
 		{
 			Action tempDelegate = tCall.delegateInstance as Action;
-			if ( tempDelegate != null )
-			{
-				onVoid += tempDelegate;
-			}
+            if (tempDelegate != null)
+            {
+                onVoid += tempDelegate;
+            }
 		}
 		
 		/// <summary>Attempts to remove a <see cref="RawCall"/> from the Publisher's internal array and event(s)</summary>

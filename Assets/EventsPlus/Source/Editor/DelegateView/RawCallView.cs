@@ -24,7 +24,7 @@ namespace EventsPlus
         /// <summary>Gets/Sets the <see cref="m_isDynamic"/> toggle</summary>
         public virtual bool isDynamic { get => m_isDynamic; set => m_isDynamic = value && isDynamicable; }
         /// <summary>Cached predefined arguments of the selected member</summary>
-        public Argument[] arguments { get;  set; }
+        public Argument[] arguments { get; protected set; }
 
         public bool HasDelegateError;
         //=======================

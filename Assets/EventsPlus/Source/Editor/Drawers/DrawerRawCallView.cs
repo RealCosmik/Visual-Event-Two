@@ -191,7 +191,6 @@ namespace EventsPlus
                 else
                 {
                     if (tCache.CurrentTarget != null)
-                        Debug.Log(tempArguments.Length);
                     tempArgumentsProperty.arraySize = tempArguments.Length;
                     for (int i = (tempArguments.Length - 1); i >= 0; --i)
                     {

@@ -229,7 +229,6 @@ namespace EventsPlus
             // on return from playmode
             else if (AvailableTargetObjects != null && CurrentTarget == null && seralizedTarget.objectReferenceValue != null)
             {
-                Debug.LogError("random shit");
                 CurrentTarget = seralizedTarget.objectReferenceValue;
                 return false;
             }
@@ -261,27 +260,28 @@ namespace EventsPlus
         /// <returns>Index if found, -1 if not, 0 if member is null or empty</returns>
         public int findMember(string[] seralizedmethodData)
         {
-            if (CurrentMembers != null&&seralizedmethodData.Length>0)
+            int index = -1;
+            //no member seralized member set
+            if (seralizedmethodData.Length == 0 || seralizedmethodData == null)
             {
-                int index = 0;
+                Debug.Log("no name");
+                index = 0;
+            }
+
+            else if (CurrentMembers != null && seralizedmethodData.Length > 0)
+            {
                 //filters based on member type  (field,prop,method)
-                var possibleMembers = CurrentMembers.Where(m=>m != null);
-                for (int i=0; i<possibleMembers.Count(); i++)
+                var possibleMembers = CurrentMembers.Where(m => m.SeralizedData[0] == seralizedmethodData[0]);
+                for (int i = 0; i < possibleMembers.Count(); i++)
                 {
                     if (possibleMembers.ElementAt(i).SeralizedData.SequenceEqual(seralizedmethodData))
                     {
-                       index=CurrentMembers.IndexOf(possibleMembers.ElementAt(i));
+                        index = CurrentMembers.IndexOf(possibleMembers.ElementAt(i));
+                        break;
                     }
-                }
-                return index;
-            }
-            //no member seralized member set 
-            else if (seralizedmethodData.Length==0||seralizedmethodData==null)
-            {
-                Debug.Log("no name");
-                return 0;
-            }
-            else
+                } 
+            } 
+            if (index == -1)
             {
                 Debug.Log(seralizedmethodData == null);
                 Debug.Log(seralizedmethodData.Length == 0);
@@ -293,9 +293,11 @@ namespace EventsPlus
                     Debug.Log(seralizedmethodData[i]);
                 }
                 Debug.LogError($"cannot find member {seralizedmethodData[1]}");
-                return -1;
             }
+
+            return index;
         }
+            
         protected string[] GetSeralizedMethodDataFromprop(SerializedProperty methodDataprop)
         {
             int array_size = methodDataprop.arraySize;

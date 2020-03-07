@@ -23,6 +23,9 @@ namespace EventsPlus
         private static Color oddColor = new Color(.5f, .5f, .5f);
         private static RawCallView copiedcache;
         private static SerializedProperty copiedprop;
+        private static GenericMenu rightclick_menu;
+        private const string Copy = "Copy";
+        private const string Paste = "Paste";
         // Note that this function is only meant to be called from OnGUI() functions.
         public static void GUIDrawRect(Rect position, int index)
         {
@@ -101,10 +104,7 @@ namespace EventsPlus
                 {
                     if (Event.current.button == 1)
                     {
-                        GenericMenu m = new GenericMenu();
-                        m.AddItem(new GUIContent("copy delegate"), false, () => CopyDelegate(list, tempCallsProperty));
-                        m.AddItem(new GUIContent("paste delegate"), false, () => PasteDelegate(list, tempCallsProperty));
-                        m.ShowAsContext();
+                        ShowRightClickMenu(tempList, tempCallsProperty);
                     }
                 };
 
@@ -152,9 +152,8 @@ namespace EventsPlus
                     tProperty.serializedObject.ApplyModifiedProperties();
                     tProperty.GetPublisher()?.ReInitialize();
                 }
-                
-            
                 EditorGUI.indentLevel = tempIndentLevel - 1;
+                CopyPasteKeyboard(tempList, calls);
             }
         }
 
@@ -249,7 +248,7 @@ namespace EventsPlus
         }
         private void PasteDelegate(ReorderableList list,SerializedProperty arrayprop)
         {
-            if (copiedcache.CurrentTarget != null)
+            if (copiedcache?.CurrentTarget != null)
             {
                 var currentdelegateprop = arrayprop.GetArrayElementAtIndex(list.index);
                 EditorUtility.CopySeralizedMethodDataToProp(currentdelegateprop.FindPropertyRelative("methodData"), copiedcache.SelectedMember.SeralizedData);
@@ -276,7 +275,24 @@ namespace EventsPlus
                 currentcache.CurrentTargetIndex = copiedcache.CurrentTargetIndex;
                 currentcache.UpdateSelectedTarget(copiedcache.CurrentTargetIndex);
                 currentcache.UpdateSelectedMember(copiedcache.selectedMemberIndex);
+            } 
+        }
+        private void ShowRightClickMenu(ReorderableList list,SerializedProperty calls)
+        {
+            if (rightclick_menu == null)
+            {
+                rightclick_menu = new GenericMenu();
+                rightclick_menu.AddItem(new GUIContent("copy delegate"), false, () => CopyDelegate(list, calls));
+                rightclick_menu.AddItem(new GUIContent("paste delegate"), false, () => PasteDelegate(list, calls));
             }
+            rightclick_menu.ShowAsContext();
+        }
+        private void CopyPasteKeyboard(ReorderableList list,SerializedProperty arrayprop)
+        {
+            if (Event.current.commandName == Copy)
+                CopyDelegate(list, arrayprop);
+            else if (Event.current.commandName == Paste)
+                PasteDelegate(list, arrayprop);
         }
     }
 }
