@@ -5,7 +5,7 @@ namespace EventsPlusTest
 {
 	public class Level : MonoBehaviour
 	{
-		public Publisher onReset;
+		public VisualDelegate onReset;
 	
 		public void Awake()
 		{

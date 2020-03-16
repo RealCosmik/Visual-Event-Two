@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System;
-using System.Reflection;
+﻿using System;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using System.Reflection;
+using System.Linq;
 namespace EventsPlus
 {
     //##########################
@@ -12,8 +13,7 @@ namespace EventsPlus
     [CustomPropertyDrawer(typeof(RawArgument), true)]
     public class DrawerRawArgument : PropertyDrawer
     {
-        Dictionary<string, ArgumentReference> Argument_references = new Dictionary<string, ArgumentReference>();
-        Dictionary<RawArgument, Publisher> dict = new Dictionary<RawArgument, Publisher>();
+        const string DotNetType = "System.Type";
         //=======================
         // Render
         //=======================
@@ -24,18 +24,28 @@ namespace EventsPlus
         public override float GetPropertyHeight(SerializedProperty tProperty, GUIContent tLabel)
         {
             float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
-            SerializedProperty tempType = tProperty.FindPropertyRelative("FullArgumentName");
-            if (tempType.stringValue == "UnityEngine.Rect")
-            {
+            string argumentName = tProperty.FindPropertyRelative("FullArgumentName").stringValue;
+            var usingref = tProperty.FindPropertyRelative("UseReference").boolValue;
+            if (argumentName == "UnityEngine.Rect")
                 tempHeight += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
-            }
-            else if (tempType.stringValue == "UnityEngine.Bounds")
-            {
+            else if (argumentName == "UnityEngine.Bounds")
                 tempHeight += (EditorGUIUtility.singleLineHeight) + EditorGUIUtility.standardVerticalSpacing;
+            if (usingref)
+            {
+                tempHeight += EditorGUI.GetPropertyHeight(tProperty.FindPropertyRelative("call_Reference"));
             }
+            ValidateArgumentCache(tProperty,argumentName);
             return tempHeight;
         }
-
+        private void ValidateArgumentCache(SerializedProperty argumentprop, string argumentTypename)
+        {
+            var argumentCache = ViewCache.GetRawArgumentCache(argumentprop);
+            var arg_type = Type.GetType(argumentprop.FindPropertyRelative("stringValue").stringValue);
+            if (arg_type!=null&&argumentTypename == DotNetType&&argumentCache.CurrentScript==null)
+            { 
+                argumentCache.CurrentScript= Resources.FindObjectsOfTypeAll<MonoScript>().First(m => m.GetClass() == arg_type);
+            }
+        }
         /// <summary>Renders the appropriate input field of the <see cref="RawArgument"/> property</summary>
         /// <param name="tPosition">Inspector position and size of <paramref name="tProperty"/></param>
         /// <param name="tProperty">Serialized <see cref="RawArgument"/> property</param>
@@ -44,25 +54,34 @@ namespace EventsPlus
         {
             var refpos = tPosition;
             refpos.x = refpos.width - 50-EditorGUI.indentLevel;
-            var style = new GUIStyle();
+            var style = VisualEdiotrUtility.StandardStyle;
             var reference_content = new GUIContent("useref");
             style.CalcMinMaxWidth(reference_content, out float min, out float max);
             EditorGUI.LabelField(refpos, reference_content);
             SerializedProperty useReference = tProperty.FindPropertyRelative("UseReference");
             var togglerect = refpos;
             togglerect.x += max+10;
+            EditorGUI.BeginChangeCheck();
             useReference.boolValue= EditorGUI.Toggle(togglerect, useReference.boolValue);
-            var argpos = tPosition;
-            argpos.width -= max;
+            if (EditorGUI.EndChangeCheck())
+            {
+                var call_cache= ViewCache.GetRawCallCacheFromRawReference(tProperty.FindPropertyRelative("call_Reference"));
+                call_cache.RequiresRecalculation = true;
+            }
+            var argumentpos = tPosition;
+            argumentpos.width -= max;
             if (!useReference.boolValue)
-                DisplayArgument(argpos, tProperty, tLabel);
+                DisplayArgument(argumentpos, tProperty, tLabel);
             else
-                DisplayReference(argpos, tProperty, tLabel, max);
-            tProperty.GetTarget();
+                DisplayReference(argumentpos, tProperty, tLabel);
+            if (tProperty.serializedObject.hasModifiedProperties)
+                tProperty.serializedObject.ApplyModifiedProperties();
         }
+        
         private void DisplayArgument(Rect rect, SerializedProperty tProperty,GUIContent paramLabel)
         {
-            var style = new GUIStyle();
+            RawArgumentView argument_cache = ViewCache.GetRawArgumentCache(tProperty);
+            var style = VisualEdiotrUtility.StandardStyle;
             style.CalcMinMaxWidth(paramLabel, out float minoffset, out float maxoffset);
             var labelpos = rect;
             labelpos.x -= 50;
@@ -75,9 +94,10 @@ namespace EventsPlus
             switch (FullTypeName)
             {
                 case "System.String":
+                    argpos.x += 10;
                     SerializedProperty tempString = tProperty.FindPropertyRelative("stringValue");
-                    tempString.stringValue = EditorGUI.TextField(argpos, GUIContent.none, tempString.stringValue);
-
+                    tempString.stringValue = EditorGUI.TextArea(argpos, tempString.stringValue);
+                    EditorGUILayout.EndScrollView();
                     break;
                 case "System.Boolean":
                     argpos.x += 50;
@@ -87,24 +107,27 @@ namespace EventsPlus
                 case "System.Int32":
                     argpos.x += 10;
                     tempX1 = tProperty.FindPropertyRelative("_x1");
-                    tempX1.floatValue = EditorGUI.IntField(argpos, GUIContent.none, (int)tempX1.floatValue);
+                    tempX1.floatValue = EditorGUI.DelayedIntField(argpos, GUIContent.none, (int)tempX1.floatValue);
                     break;
                 case "System.Int64":
+                    argpos.x += 10;
                     SerializedProperty tempLong = tProperty.FindPropertyRelative("longValue");
                     tempLong.longValue = EditorGUI.LongField(argpos, GUIContent.none, tempLong.longValue);
                     break;
                 case "System.Single":
+                    argpos.x += 10;
                     tempX1 = tProperty.FindPropertyRelative("_x1");
-                    tempX1.floatValue = EditorGUI.FloatField(argpos, GUIContent.none, tempX1.floatValue);
+                    tempX1.floatValue = EditorGUI.DelayedFloatField(argpos, GUIContent.none, tempX1.floatValue);
                     break;
                 case "System.Double":
+                    argpos.x += 10;
                     SerializedProperty tempDouble = tProperty.FindPropertyRelative("doubleValue");
-                    tempDouble.doubleValue = EditorGUI.DoubleField(argpos, GUIContent.none, tempDouble.doubleValue);
+                    tempDouble.doubleValue = EditorGUI.DelayedDoubleField(argpos, GUIContent.none, tempDouble.doubleValue);
                     break;
                 case "UnityEngine.Vector2":
+                    argpos.x += 10;
                     tempX1 = tProperty.FindPropertyRelative("_x1");
                     SerializedProperty tempY1 = tProperty.FindPropertyRelative("_y1");
-                    argpos.x += 10;
                     EditorGUI.BeginChangeCheck();
                     Vector2 tempVector2 = EditorGUI.Vector2Field(argpos, GUIContent.none, new Vector2(tempX1.floatValue, tempY1.floatValue));
                     if (EditorGUI.EndChangeCheck())
@@ -183,6 +206,7 @@ namespace EventsPlus
                     }
                     break;
                 case "UnityEngine.Color":
+                    argpos.x += 10;
                     tempX1 = tProperty.FindPropertyRelative("_x1");
                     tempY1 = tProperty.FindPropertyRelative("_y1");
                     tempZ1 = tProperty.FindPropertyRelative("_z1");
@@ -199,8 +223,26 @@ namespace EventsPlus
                     }
                     break;
                 case "UnityEngine.AnimationCurve":
+                    argpos.x += 10;
                     SerializedProperty tempCurve = tProperty.FindPropertyRelative("animationCurveValue");
                     tempCurve.animationCurveValue = EditorGUI.CurveField(argpos, GUIContent.none, tempCurve.animationCurveValue);
+                    break;
+                case "System.Type":
+                    argpos.x += 10;
+                    EditorGUI.BeginChangeCheck();
+                    argument_cache.CurrentScript = EditorGUI.ObjectField(argpos, argument_cache.CurrentScript, typeof(MonoScript), false) as MonoScript;
+
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        var mono_class = argument_cache.CurrentScript?.GetClass();
+                        if(mono_class!=null)
+                        tProperty.FindPropertyRelative("stringValue").stringValue = mono_class.AssemblyQualifiedName;
+                        else
+                        {
+                            argument_cache.CurrentScript = null;
+                            tProperty.FindPropertyRelative("stringValue").stringValue = string.Empty;
+                        }
+                    }
                     break;
                 default:
                     if (String.IsNullOrEmpty(assemblyTypeName))
@@ -245,31 +287,38 @@ namespace EventsPlus
                     break;
             }
         }
-        private void DisplayReference(Rect rect,SerializedProperty argumentprop,GUIContent label,float minwidth)
+        private void DisplayReference(Rect rect,SerializedProperty argumentprop,GUIContent label)
         {
-            var style = new GUIStyle();
-            rect.x -= 50;
+            RawArgumentView argument_cache = ViewCache.GetRawArgumentCache(argumentprop);
+            //styling
+            var call = argumentprop.FindPropertyRelative("call_Reference");
+            var style = VisualEdiotrUtility.StandardStyle;
+            var labelrect = rect;
+            labelrect.x-= 50;
             style.CalcMinMaxWidth(label, out float min, out float max);
-            EditorGUI.LabelField(rect, label);
-            var refrect = rect;
-            refrect.x += max+10;
-            refrect.width -= (minwidth+50);
-            var argument_reference = GetRefference(argumentprop);
+            EditorGUI.LabelField(labelrect, label);
+            var refrect = labelrect;
+            refrect.x += max+30;
+            refrect.width -= (max+10);
+            //data 
+            var reference_cache = argument_cache.argumentReference;
+            var rawcallview = ViewCache.GetRawCallCacheFromRawReference(call);
+            int argumentindex = argumentprop.GetRawArgumentIndex();
+            if (reference_cache.reference_type != rawcallview.arguments[argumentindex].type)
+            {
+                Debug.Log("change");
+                var ParentArgumentType = rawcallview.arguments[argumentindex].type;
+                reference_cache.SetNewReferenceType(ParentArgumentType);
+                call.FindPropertyRelative("methodData").ClearArray();
+                call.FindPropertyRelative("m_isvaluetype").boolValue = ParentArgumentType.IsValueType;
+                call.FindPropertyRelative("isparentargstring").boolValue = ParentArgumentType == typeof(string);
+                call.serializedObject.ApplyModifiedProperties();
+            }
             EditorGUI.BeginChangeCheck();
-            var ref_obj = argumentprop.FindPropertyRelative("objectValue").objectReferenceValue;
-            ref_obj= EditorGUI.ObjectField(refrect, ref_obj, typeof(UnityEngine.Object), true);
+            EditorGUI.PropertyField(refrect, call, true);
             if (EditorGUI.EndChangeCheck())
             {
-                Debug.LogWarning("maybe this");
-                argumentprop.FindPropertyRelative("objectValue").objectReferenceValue = ref_obj;
-                argumentprop.serializedObject.ApplyModifiedProperties();
             }
-        }
-        private ArgumentReference GetRefference(SerializedProperty argumentprop)
-        {
-            if (!Argument_references.TryGetValue(argumentprop.propertyPath, out ArgumentReference arg_ref))
-                arg_ref = new ArgumentReference();
-            return arg_ref;
         }
     }
 }

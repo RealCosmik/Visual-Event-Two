@@ -14,52 +14,52 @@ namespace EventsPlusTest
 	}
 
 	[Serializable]
-	public class Publisher1 : Publisher<int>
+	public class Publisher1 : VisualDelegate<int>
 	{
 	}
 
 	[Serializable]
-	public class Publisher2 : Publisher<int,int>
+	public class Publisher2 : VisualDelegate<int,int>
 	{
 	}
 		
 	[Serializable]
-	public class Publisher3 : Publisher<int,int,int>
+	public class Publisher3 : VisualDelegate<int,int,int>
 	{
 	}
 
 	[Serializable]
-	public class Publisher4 : Publisher<int,int,int,int>
+	public class Publisher4 : VisualDelegate<int,int,int,int>
 	{
 	}
 	
 	[Serializable]
-	public class Publisher5 : Publisher<int,int,int,int,int>
+	public class Publisher5 : VisualDelegate<int,int,int,int,int>
 	{
 	}
 	
 	[Serializable]
-	public class Publisher6 : Publisher<int,int,int,int,int,int>
+	public class Publisher6 : VisualDelegate<int,int,int,int,int,int>
 	{
 	}
 	
 	[Serializable]
-	public class Publisher7 : Publisher<int,int,int,int,int,int,int>
+	public class Publisher7 : VisualDelegate<int,int,int,int,int,int,int>
 	{
 	}
 	
 	[Serializable]
-	public class Publisher8 : Publisher<int,int,int,int,int,int,int,int>
+	public class Publisher8 : VisualDelegate<int,int,int,int,int,int,int,int>
 	{
 	}
 	
 	[Serializable]
-	public class Publisher9 : Publisher<int,int,int,int,int,int,int,int,int>
+	public class Publisher9 : VisualDelegate<int,int,int,int,int,int,int,int,int>
 	{
 	}
 	
 	[Serializable]
-	public class Publisher10 : Publisher<int,int,int,int,int,int,int,int,int,int>
+	public class Publisher10 : VisualDelegate<int,int,int,int,int,int,int,int,int,int>
 	{
 	}
 
@@ -73,15 +73,15 @@ namespace EventsPlusTest
 		//=======================
 		[Header( "Speed Comparison" )]
 		public int iterations = 1000000;
-		public Publisher publisherMethodVoid;
-		public Publisher publisherMethodReturn;
+		public VisualDelegate publisherMethodVoid;
+		public VisualDelegate publisherMethodReturn;
 		public UnityEvent unityEventMethod;
 		public int speedTestVariable;
 		public Publisher1 publisherVariable;
 		public Publisher1 publisherProperty;
 		public UnityEventInt unityEventProperty;
 		[Header( "Delegate Test" )]
-		public Publisher publisher0;
+		public VisualDelegate publisher0;
 		public Publisher1 publisher1;
 		public int test1Variable;
 		public Publisher2 publisher2;

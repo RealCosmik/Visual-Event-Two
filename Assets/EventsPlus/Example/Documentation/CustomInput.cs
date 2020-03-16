@@ -5,7 +5,7 @@ using EventsPlus;
 namespace EventsPlusTest
 {
 	[Serializable]
-	public class PublisherFloat : Publisher<float>
+	public class PublisherFloat : VisualDelegate<float>
 	{
 	}
 	

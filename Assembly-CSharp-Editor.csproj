@@ -65,17 +65,20 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\Editor Debug\SerializedPropertyViewer.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Argument.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Editor\ArgumentReference.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Cache\ViewCache.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\CacheFilter.cs" />
+    <Compile Include="Assets\EventsPlus\Source\Editor\DelegateView\DelegateArguments\RawArgumentView.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\DelegateView\RawCallView.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\DelegateView\RawDelegateView.cs" />
+    <Compile Include="Assets\EventsPlus\Source\Editor\DelegateView\RawDynamicDelegateView.cs" />
+    <Compile Include="Assets\EventsPlus\Source\Editor\DelegateView\RawReferenceView.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Drawers\DrawerFilter.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Editor\Drawers\DrawerPublisher.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Drawers\DrawerRawArgument.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Drawers\DrawerRawCallView.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Drawers\DrawerRawDelegateView.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Editor\EditorUtility.cs" />
+    <Compile Include="Assets\EventsPlus\Source\Editor\Drawers\DrawerRawReferenceView.cs" />
+    <Compile Include="Assets\EventsPlus\Source\Editor\Drawers\DrawerRawRuntimeDelegate.cs" />
+    <Compile Include="Assets\EventsPlus\Source\Editor\Drawers\DrawerVisualDelegate.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Filter.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\HashedFilter.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Method Members\IMember.cs" />
@@ -85,6 +88,7 @@
     <Compile Include="Assets\EventsPlus\Source\Editor\Method Members\MemberProperty.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Namespace.cs" />
     <Compile Include="Assets\EventsPlus\Source\Editor\Settings.cs" />
+    <Compile Include="Assets\EventsPlus\Source\Editor\VisualEditorUtility.cs" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>

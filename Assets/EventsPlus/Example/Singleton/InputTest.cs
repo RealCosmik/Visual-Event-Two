@@ -6,8 +6,8 @@ namespace EventsPlusTest
 {
 	public class InputTest : MonoBehaviour
 	{
-		public Publisher onLeftClick;
-		public Publisher onRightClick;
+		public VisualDelegate onLeftClick;
+		public VisualDelegate onRightClick;
 		public KeyCode leftClickButton = KeyCode.Mouse0;
 		public KeyCode rightClickButton = KeyCode.Mouse1;
 		

@@ -5,7 +5,7 @@ namespace EventsPlusTest
 {
 	public class Explosion : MonoBehaviour
 	{
-		public Publisher onExplode;
+		public VisualDelegate onExplode;
 	
 		public void Awake()
 		{

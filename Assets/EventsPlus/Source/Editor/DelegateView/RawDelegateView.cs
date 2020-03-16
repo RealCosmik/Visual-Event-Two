@@ -12,7 +12,7 @@ namespace EventsPlus
     public abstract class RawDelegateView
     {
         /// <summary>Index of the currently selected member</summary>
-
+        protected const float DefaultHeight = 10f;
         //=======================
         // Variables 
         //=======================
@@ -29,12 +29,22 @@ namespace EventsPlus
         /// <summary>Gets/Sets the <see cref="selectedMemberIndex"/></summary>
         public virtual int selectedMemberIndex { get; protected set; }
         /// <summary>Gets the current selected member of the view</summary>
-        public IMember SelectedMember => CurrentMembers == null ? null : CurrentMembers[selectedMemberIndex];
+        public IMember SelectedMember => CurrentMembers == null || selectedMemberIndex >= CurrentMembers.Count ? null : CurrentMembers[selectedMemberIndex];
 
         /// <summary>Gets/Sets the selected target object; if set, regenerates the target's members</summary>
         public virtual UnityEngine.Object CurrentTarget { get; protected set; }
-        public string propertypath;
-
+        /// <summary>
+        /// The height in unity units of this current delegateview
+        /// </summary>
+        public float Height { get; set; } = DefaultHeight;
+        /// <summary>
+        /// Signal to property drawers that delegateview height needs to be recalculated
+        /// </summary>
+        public bool RequiresRecalculation = true;
+        /// <summary>
+        /// validation status of this current cache instance
+        /// </summary>
+        public bool isvalidated;
         /// <summary>
         /// Clears the data from this view when delegate is removed
         /// </summary>
@@ -44,7 +54,11 @@ namespace EventsPlus
             CurrentMembers = null;
             memberNames = null;
         }
-
+        /// <summary>
+        /// Returns the given Object from the delegatView's target tree
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public UnityEngine.Object GetObjectFromTree(int index) => AvailableTargetObjects[index];
         /// <summary>
         /// Sets the parent target of this delegate. This object will be used to construct delegate component tree
@@ -56,7 +70,10 @@ namespace EventsPlus
             CurrentTargetIndex = GenerateChildTargets(ParentObj, out AvailableTargetObjects, out _targetNames);
             GenerateNewTargetMembers(CurrentTargetIndex);
         }
-
+        /// <summary>
+        /// Updates the the current target from<see cref="AvailableTargetObjects"/>
+        /// </summary>
+        /// <param name="newTargetIndex"> index in <see cref="AvailableTargetObjects"/></param>
         public void UpdateSelectedTarget(int newTargetIndex)
         {
             if (AvailableTargetObjects != null)
@@ -85,7 +102,7 @@ namespace EventsPlus
                 // set selected target to second target obj in component tree
                 int tempTarget_index = 1;
                 // Try to get GameObject
-                GameObject FocusedTarget=null;
+                GameObject FocusedTarget = null;
                 if (new_target is GameObject)
                     FocusedTarget = new_target as GameObject;
                 // user may drag and drop component directly instead of gameobject
@@ -124,11 +141,11 @@ namespace EventsPlus
 
 
                     //here we artifically force add extension targets to the drop down for utility methods 
-                    var obj = UnityEditor.AssetDatabase.LoadAssetAtPath<UtilitySO>("Assets/Utility.asset");
+                    var obj = VisualEdiotrUtility.GetUtlitySO();
                     if (obj != null)
                     {
                         target_tree.Add(obj);
-                        targetnames.Add(obj?.name);
+                        targetnames.Add(obj.name);
                     }
 
 
@@ -139,22 +156,38 @@ namespace EventsPlus
                 // was not a gameobject OR a component??
                 else
                 {
-                    Debug.Log("in the else");
                     target_tree = new List<UnityEngine.Object> { null, new_target };
                     target_names = new string[] { "NONE", new_target.name };
                 }
-
-
-                return tempTarget_index;
+                return target_tree.IndexOf(new_target);
             }
-
             return 0;
         }
+
+        /// <summary>
+        /// Checks if any components have been added or removed from component tree
+        /// </summary>
+        /// <param name="delegateproperty"></param>
+        public void ValidateComponentTree()
+        {
+            if (AvailableTargetObjects != null)
+            {
+                var target_object = AvailableTargetObjects[1] as GameObject; // main object is always in the ssecond index
+
+                // we use count-3 because our list is always 3 elements more than component list.
+                // our list contains null,the gameobject,and the utiliy SO, so to compare componets we do count-3
+                if (target_object != null && target_object.GetComponents<Component>().Length != AvailableTargetObjects.Count - 3)
+                {
+                    SetParentTarget(AvailableTargetObjects[CurrentTargetIndex]);
+                }
+            }
+        }
+
         /// <summary>
         /// Generatess the target members from the gameobjet at given index in <see cref="AvailableTargetObjects"/>
         /// </summary>
         /// <param name="TargetIndex"></param>
-        private void GenerateNewTargetMembers(int TargetIndex)
+        protected virtual void GenerateNewTargetMembers(int TargetIndex)
         {
             // Generate members and names
             if (AvailableTargetObjects == null || CurrentTargetIndex == 0)
@@ -163,7 +196,7 @@ namespace EventsPlus
             {
                 CurrentMembers = AvailableTargetObjects[CurrentTargetIndex].GetType().GetMemberList();
                 int tempListLength = CurrentMembers.Count;
-                memberNames = new string[tempListLength];
+                memberNames = new string[tempListLength]; // update membernames
                 for (int i = (tempListLength - 1); i >= 0; --i)
                 {
                     memberNames[i] = CurrentMembers[i].GetdisplayName();
@@ -181,16 +214,16 @@ namespace EventsPlus
         /// <param name="seralizedTarget">Selected target property</param>
         /// <param name="seralizedMember">Selected member property</param>
         /// <returns>True if the data matches</returns> 
-        public virtual bool validateTarget(SerializedProperty seralizedTarget,SerializedProperty memberData)
+        public virtual bool validateTarget(SerializedProperty seralizedTarget, SerializedProperty memberData)
         {
             // on assembly recompile we must rebuild the view from the seralized values of the delegate
             if (AvailableTargetObjects == null && seralizedTarget.objectReferenceValue != null)
             {
                 UnityEngine.Object newtarget = seralizedTarget.objectReferenceValue;
                 //if selected target was a utility force the serializedObject to be target because Utility SO will have no component children
-                if (newtarget is UtilitySO)
+                if (newtarget is UtilitySO && this is RawCallView)
                 {
-                    Debug.Log("setting serazlied object instead");
+                    // Debug.Log("setting serazlied object instead");
                     newtarget = seralizedTarget.serializedObject.targetObject;
                 }
                 GenerateChildTargets(newtarget, out AvailableTargetObjects, out _targetNames);
@@ -200,18 +233,18 @@ namespace EventsPlus
             // if user reorders components in editor 
             else if (seralizedTarget.objectReferenceValue != null && seralizedTarget.objectReferenceValue != CurrentTarget && AvailableTargetObjects != null)
             {
-                Debug.Log("mis match targets");
+                //  Debug.Log("mis match targets");
                 int tempIndex = AvailableTargetObjects.IndexOf(seralizedTarget.objectReferenceValue);
                 if (tempIndex >= 0)
                 {
-                    Debug.LogWarning("found the index");
+                    //  Debug.LogWarning("found the index");
                     CurrentTargetIndex = tempIndex;
                     GenerateNewTargetMembers(CurrentTargetIndex);
                 }
                 //could not find target in seralized object so just force set
                 else
                 {
-                    Debug.LogWarning("setting here");
+                    // Debug.LogWarning("setting here");
                     CurrentTargetIndex = 0;
                     SetParentTarget(seralizedTarget.objectReferenceValue);
                 }
@@ -243,10 +276,10 @@ namespace EventsPlus
         /// <returns>True if the data matches</returns>
         public virtual bool validateMember(SerializedProperty memberDataprop)
         {
-            var seralizedMethodData = GetSeralizedMethodDataFromprop(memberDataprop);
-            if (CurrentMembers == null || seralizedMethodData==null)
+            var seralizedMethodData = GetSeralizedMemberDataFromprop(memberDataprop);
+            if (CurrentMembers == null || seralizedMethodData == null)
             {
-               // Debug.Log("no members");
+                // Debug.Log("no members");
                 UpdateSelectedMember(0);
                 return false;
             }
@@ -264,10 +297,9 @@ namespace EventsPlus
             //no member seralized member set
             if (seralizedmethodData.Length == 0 || seralizedmethodData == null)
             {
-                Debug.Log("no name");
                 index = 0;
             }
-
+            // search all members for the index
             else if (CurrentMembers != null && seralizedmethodData.Length > 0)
             {
                 //filters based on member type  (field,prop,method)
@@ -279,8 +311,9 @@ namespace EventsPlus
                         index = CurrentMembers.IndexOf(possibleMembers.ElementAt(i));
                         break;
                     }
-                } 
-            } 
+                }
+            }
+            //index was never found
             if (index == -1)
             {
                 Debug.Log(seralizedmethodData == null);
@@ -297,8 +330,12 @@ namespace EventsPlus
 
             return index;
         }
-            
-        protected string[] GetSeralizedMethodDataFromprop(SerializedProperty methodDataprop)
+        /// <summary>
+        /// Extract Seralized MebeerData from seralzied property propertty
+        /// </summary>
+        /// <param name="methodDataprop"></param>
+        /// <returns></returns>
+        protected string[] GetSeralizedMemberDataFromprop(SerializedProperty methodDataprop)
         {
             int array_size = methodDataprop.arraySize;
             string[] member_data = new string[array_size];

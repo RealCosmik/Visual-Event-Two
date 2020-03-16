@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class UtilitySO : ScriptableObject
 {
+    public int value;
+    public string DataText;
     public void LogMessage(string message,LogType logtype,UnityEngine.Object context)
     {
         switch (logtype)
