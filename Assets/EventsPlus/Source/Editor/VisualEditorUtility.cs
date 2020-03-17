@@ -52,12 +52,12 @@ namespace EventsPlus
         public static T GetTarget<T>(this SerializedProperty property)
         {
             if (property != null)
-            {
+            { 
                 object tempObject = property.serializedObject.targetObject;
                 string[] tempPaths = property.propertyPath.Replace("Array.data", "").Split('.');
                 int tempListLength = tempPaths.Length;
                 for (int i = 0; i < tempListLength; ++i)
-                {
+                { 
                     if (tempPaths[i][0] == '[')
                     {
                         int tempIndex = tempPaths[i][1] - '0';

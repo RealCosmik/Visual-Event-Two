@@ -5,40 +5,21 @@ using System.Collections.Generic;
 
 namespace EventsPlus
 {
-	//##########################
-	// Class Declaration
-	//##########################
-	/// <summary>Inspector class for rendering <see cref="RawDelegate"/>s in the inspector</summary>
-	public abstract class DrawerRawDelegateView<ViewType> :PropertyDrawer where ViewType:RawDelegateView
-	{
-       //pub[0] //._calls
-                //raw[0] //.m_arguments
-                        //ref[0]
-                        //ref[0]
-                        //ref[0]
-                //raw[1]
-                        //ref[0]
-                        //ref[0]
-                        //ref[0]
-                //raw[2]
-                        //ref[0]
-                        //ref[0]
-                        //ref[0]
-       //pub[1]
-       //pub[2]
-
-
-             
-
-		//=======================
-		// Initialization
-		/// <summary>Initializes the drawer and calculates the inspector height</summary>
-		/// <param name="tProperty">Serialized delegate property</param>
-		/// <param name="tLabel">GUI Label of the drawer</param>
-		/// <returns>Height of the drawer</returns>
-		public override float GetPropertyHeight( SerializedProperty tProperty, GUIContent tLabel )
-		{  
-            return base.GetPropertyHeight( tProperty, tLabel );
+    //##########################
+    // Class Declaration
+    //##########################
+    /// <summary>Inspector class for rendering <see cref="RawDelegate"/>s in the inspector</summary>
+    public abstract class DrawerRawDelegateView<ViewType> : PropertyDrawer where ViewType : RawDelegateView
+    {
+        //=======================
+        // Initialization
+        /// <summary>Initializes the drawer and calculates the inspector height</summary>
+        /// <param name="tProperty">Serialized delegate property</param>
+        /// <param name="tLabel">GUI Label of the drawer</param>
+        /// <returns>Height of the drawer</returns>
+        public override float GetPropertyHeight(SerializedProperty tProperty, GUIContent tLabel)
+        {
+            return base.GetPropertyHeight(tProperty, tLabel);
         }
 
 
@@ -50,7 +31,7 @@ namespace EventsPlus
         /// <param name="tProperty">Serialized delegate property</param>
         /// <param name="tLabel">GUI Label of the drawer</param>
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
-        { 
+        {
             tLabel.text = null;
 
             if (ViewCache.GetDelegateView(tProperty, out ViewType DelegateCache))
@@ -105,17 +86,18 @@ namespace EventsPlus
                     {
                         DelegateCache.UpdateSelectedMember(tempSelectedMember);
                         handleMemberUpdate(tProperty, DelegateCache);
-                    } 
+                    }
                 }
             }
         }
-		
 
-		/// <summary>Validates the delegate property against the <paramref name="tCache"/></summary>
-		/// <param name="tProperty">Serialized delegate property</param>
-		/// <param name="tCache">Cached delegate drop-down data</param>
-		protected virtual void validate( SerializedProperty tProperty, RawDelegateView tCache )
-		{
+
+        /// <summary>Validates the delegate property against the <paramref name="tCache"/></summary>
+        /// <param name="tProperty">Serialized delegate property</param>
+        /// <param name="tCache">Cached delegate drop-down data</param>
+        protected virtual void validate(SerializedProperty tProperty, RawDelegateView tCache)
+        {
+         
             //this method is only used because the cache gets deleted on editor recompiles so we have to reconstruct the cache
             //using the data from the seralized property to make recompilation seem seemless on the front end
 
@@ -138,13 +120,16 @@ namespace EventsPlus
         /// <summary>Applies the target property of the <see cref="RawDelegate"/></summary>
         /// <param name="tProperty">Serialized delegate property</param>
         /// <param name="tCache">Cached delegate drop-down data</param>
-        protected virtual void handleTargetUpdate( SerializedProperty tProperty, RawDelegateView tCache )
-		{
-			tProperty.FindPropertyRelative( "m_target" ).objectReferenceValue = tCache.CurrentTarget;
+        protected virtual void handleTargetUpdate(SerializedProperty tProperty, RawDelegateView tCache)
+        {
+            var targetobject = tProperty.serializedObject.targetObject;
+            Undo.RegisterCompleteObjectUndo(targetobject, "Delegate Target Change");
+            tProperty.FindPropertyRelative("m_target").objectReferenceValue = tCache.CurrentTarget;
             if (tProperty.serializedObject.hasModifiedProperties)
             {
-                if (PrefabUtility.IsPartOfAnyPrefab(tProperty.serializedObject.targetObject))
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
+               
+                if (PrefabUtility.IsPartOfAnyPrefab(targetobject))
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
                 tProperty.serializedObject.ApplyModifiedProperties();
 
             }
@@ -155,22 +140,24 @@ namespace EventsPlus
         /// <summary>Applies the member property of the <see cref="RawDelegate"/></summary>
         /// <param name="tProperty">Serialized delegate property</param>
         /// <param name="tCache">Cached delegate drop-down data</param>
-        protected virtual void handleMemberUpdate( SerializedProperty tProperty, RawDelegateView tCache )
-		{
+        protected virtual void handleMemberUpdate(SerializedProperty tProperty, RawDelegateView tCache)
+        {
+            var targetobject = tProperty.serializedObject.targetObject;
+            Undo.RegisterCompleteObjectUndo(targetobject, "DelegateMemberChange");
             var methodData_prop = tProperty.FindPropertyRelative("methodData");
             if (tCache.SelectedMember == null)
                 methodData_prop.arraySize = 0;
             else
                 VisualEdiotrUtility.CopySeralizedMethodDataToProp(methodData_prop, tCache.SelectedMember.SeralizedData);
-            
+
             if (tProperty.serializedObject.hasModifiedProperties)
             {
-                if(PrefabUtility.IsPartOfAnyPrefab(tProperty.serializedObject.targetObject))
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
+                if (PrefabUtility.IsPartOfAnyPrefab(targetobject))
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
                 tProperty.serializedObject.ApplyModifiedProperties();
             }
-		}
-        
-    
+        }
+
+
     }
 }

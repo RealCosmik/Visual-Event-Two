@@ -53,19 +53,19 @@ namespace EventsPlus
         public override void OnGUI(UnityEngine.Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         {
             var refpos = tPosition;
-            refpos.x = refpos.width - 50-EditorGUI.indentLevel;
+            refpos.x = refpos.width - 50 - EditorGUI.indentLevel;
             var style = VisualEdiotrUtility.StandardStyle;
             var reference_content = new GUIContent("useref");
             style.CalcMinMaxWidth(reference_content, out float min, out float max);
             EditorGUI.LabelField(refpos, reference_content);
             SerializedProperty useReference = tProperty.FindPropertyRelative("UseReference");
             var togglerect = refpos;
-            togglerect.x += max+10;
+            togglerect.x += max + 10;
             EditorGUI.BeginChangeCheck();
-            useReference.boolValue= EditorGUI.Toggle(togglerect, useReference.boolValue);
+            useReference.boolValue = EditorGUI.Toggle(togglerect, useReference.boolValue);
             if (EditorGUI.EndChangeCheck())
             {
-                var call_cache= ViewCache.GetRawCallCacheFromRawReference(tProperty.FindPropertyRelative("call_Reference"));
+                var call_cache = ViewCache.GetRawCallCacheFromRawReference(tProperty.FindPropertyRelative("call_Reference"));
                 call_cache.RequiresRecalculation = true;
             }
             var argumentpos = tPosition;
@@ -75,7 +75,9 @@ namespace EventsPlus
             else
                 DisplayReference(argumentpos, tProperty, tLabel);
             if (tProperty.serializedObject.hasModifiedProperties)
+            {
                 tProperty.serializedObject.ApplyModifiedProperties();
+            }
         }
         
         private void DisplayArgument(Rect rect, SerializedProperty tProperty,GUIContent paramLabel)

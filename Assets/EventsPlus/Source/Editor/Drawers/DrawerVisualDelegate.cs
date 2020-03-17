@@ -47,7 +47,6 @@ namespace EventsPlus
             // Initialize reorderable list
             SerializedProperty callsProperty = tProperty.FindPropertyRelative("m_calls");
             ReorderableList tempList;
-            var pubcache = ViewCache.GetViewDelegateInstanceCache(tProperty);
             if (!cache.TryGetValue(tProperty.propertyPath, out tempList))
             {
                 tempList = new ReorderableList(tProperty.serializedObject, callsProperty, true, true, true, true);
@@ -62,13 +61,13 @@ namespace EventsPlus
                 };
                 tempList.elementHeightCallback += (int index) =>
                 {
+                    var pubcache = ViewCache.GetViewDelegateInstanceCache(tProperty);
                     if (index < pubcache.RawCallCache.Count)
                         return pubcache.RawCallCache[index].delegateView.Height + EditorGUIUtility.standardVerticalSpacing;
                     else return 0;
                 };
                 cache.Add(tProperty.propertyPath, tempList);
-                tempList.onRemoveCallback += list => onElementDelete(list, callsProperty);
-                tempList.onAddCallback += list => onAddElement(list, callsProperty);
+               
                 tempList.onReorderCallbackWithDetails += (ReorderableList list, int oldindex, int newindex) =>
                   OnReorder(list, oldindex, newindex, tProperty);
 
@@ -77,7 +76,8 @@ namespace EventsPlus
                     if (Event.current.button == 1)  // right click
                         ShowRightClickMenu(tempList, callsProperty);
                 };
-
+                tempList.onRemoveCallback += onElementDelete;
+                tempList.onAddCallback += onAddElement;
             }
             // Calculate height 
             float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
@@ -134,13 +134,14 @@ namespace EventsPlus
         /// </summary>
         /// <param name="list"></param>
         /// <param name="arrayprop"></param>
-        private void onElementDelete(ReorderableList list, SerializedProperty arrayprop)
+        private void onElementDelete(ReorderableList list)
         {
             var removedindex = list.index;
+            var arrayprop = list.serializedProperty;
             if (list.index < arrayprop.arraySize)
             {
-                // Undo.RegisterCompleteObjectUndo(arrayprop.serializedObject.targetObject, "ElementDelete");
-                var delegateprop = arrayprop.GetArrayElementAtIndex(removedindex);
+              //  Undo.RegisterCompleteObjectUndo(arrayprop.serializedObject.targetObject, "ElementDelete");
+                var delegateprop = list.serializedProperty.GetArrayElementAtIndex(removedindex);
                 ViewCache.GetRawCallCache(delegateprop).ClearViewCache();
                 arrayprop.GetTarget<List<RawDelegate>>().RemoveAt(removedindex);
                 arrayprop.serializedObject.ApplyModifiedProperties();
@@ -151,12 +152,12 @@ namespace EventsPlus
         /// </summary>
         /// <param name="list"></param>
         /// <param name="arrayprop"></param>
-        private void onAddElement(ReorderableList list, SerializedProperty arrayprop)
+        private void onAddElement(ReorderableList list)
         {
-            // Undo.RegisterCompleteObjectUndo(arrayprop.serializedObject.targetObject, "ElementAdd");
-            arrayprop.GetTarget<List<EventsPlus.RawDelegate>>().Add(new RawCall());
+            var arrayprop = list.serializedProperty;
+             arrayprop.GetTarget<List<RawDelegate>>().Add(new RawCall());
             arrayprop.serializedObject.ApplyModifiedProperties();
-        }
+        } 
 
         private void OnReorder(ReorderableList list, int oldindex, int newindex, SerializedProperty ViewDelegateProp)
         {
@@ -268,7 +269,7 @@ namespace EventsPlus
                 else if (Event.current.commandName == Paste)
                     PasteDelegate(list, arrayprop);
                 else if (Event.current.commandName == Cut || Event.current.commandName == Delete)
-                    onElementDelete(list, arrayprop);
+                    onElementDelete(list);
             }
         }
     }

@@ -13,7 +13,7 @@ namespace EventsPlus
 	{
 		/// <summary>List of raw <see cref="RawCall"/> objects that this Publisher invokes using predefined arguments</summary>
 		[SerializeReference]
-		protected List<RawDelegate> m_calls;
+		protected List<RawDelegate> m_calls = new List<RawDelegate>(5);
 		/// <summary>Event for 0-Parameter delegates and calls</summary>
 		private Action onVoid;
 		

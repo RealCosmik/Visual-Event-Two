@@ -48,11 +48,18 @@ namespace EventsPlus
         /// <summary>
         /// Clears the data from this view when delegate is removed
         /// </summary>
+
+        public RawDelegateView()
+        {
+            Undo.undoRedoPerformed += ClearViewCache;
+        }
         public virtual void ClearViewCache()
         {
+            AvailableTargetObjects = null;
             CurrentTarget = null;
             CurrentMembers = null;
             memberNames = null;
+            isvalidated = false;
         }
         /// <summary>
         /// Returns the given Object from the delegatView's target tree

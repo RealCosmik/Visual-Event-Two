@@ -133,6 +133,7 @@ namespace EventsPlus
                 }
                 if (!rawcallcache.validateMember(tempMemberProperty, tempDynamicProperty))
                 {
+                    Debug.Log("member updating");
                     handleMemberUpdate(tProperty, rawcallcache);
                 }
                 rawcallcache.isvalidated = true;
@@ -182,6 +183,7 @@ namespace EventsPlus
         protected virtual void handleDynamicUpdate(SerializedProperty tProperty, RawCallView delegateCache)
         {
             // Properties
+            Undo.RegisterCompleteObjectUndo(tProperty.serializedObject.targetObject, "DynamicStateChange");
             SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
             SerializedProperty tempArgumentsProperty = tProperty.FindPropertyRelative("m_arguments");
 
