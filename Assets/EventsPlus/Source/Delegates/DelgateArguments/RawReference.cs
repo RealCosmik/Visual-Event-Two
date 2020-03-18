@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-namespace EventsPlus
+namespace VisualEvent
 {
     [System.Serializable]
     public class RawReference :RawDelegate

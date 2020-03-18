@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System;
-using EventsPlus;
+using VisualEvent;
 
 namespace EventsPlusTest
 {
@@ -124,14 +124,14 @@ namespace EventsPlusTest
 			float tempTime = Time.realtimeSinceStartup;
 			for ( int i = iterations; i >= 0; --i )
 			{
-				publisherMethodVoid.publish();
+				publisherMethodVoid.Invoke();
 			}
 			Debug.Log( "Speed Test: Publisher Method Void: " + ( Time.realtimeSinceStartup - tempTime ) );
 			
 			tempTime = Time.realtimeSinceStartup;
 			for ( int i = iterations; i >= 0; --i )
 			{
-				publisherMethodReturn.publish();
+				publisherMethodReturn.Invoke();
 			}
 			Debug.Log( "Speed Test: Publisher Method Return: " + ( Time.realtimeSinceStartup - tempTime ) );
 		
@@ -145,14 +145,14 @@ namespace EventsPlusTest
 			tempTime = Time.realtimeSinceStartup;
 			for ( int i = iterations; i >= 0; --i )
 			{
-				publisherVariable.publish( 999 );
+				publisherVariable.Invoke( 999 );
 			}
 			Debug.Log( "Speed Test: Publisher Variable: " + ( Time.realtimeSinceStartup - tempTime ) );
 			
 			tempTime = Time.realtimeSinceStartup;
 			for ( int i = iterations; i >= 0; --i )
 			{
-				publisherProperty.publish( 999 );
+				publisherProperty.Invoke( 999 );
 			}
 			Debug.Log( "Speed Test: Publisher Property: " + ( Time.realtimeSinceStartup - tempTime ) );
 			
@@ -165,8 +165,8 @@ namespace EventsPlusTest
 			
 			// Delegate Test
 			Debug.Log( "STARTING DELEGATE TEST" );
-			publisher0.publish();
-			publisher1.publish( 1 );
+			publisher0.Invoke();
+			publisher1.Invoke( 1 );
 			publisher2.publish( 2, 2 );
 			publisher3.publish( 3, 3, 3 );
 			publisher4.publish( 4, 4, 4, 4 );

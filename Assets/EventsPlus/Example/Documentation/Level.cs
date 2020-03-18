@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using EventsPlus;
+using VisualEvent;
 
 namespace EventsPlusTest
 {
@@ -14,7 +14,7 @@ namespace EventsPlusTest
 
 		public void reset()
 		{
-			onReset.publish();
+			onReset.Invoke();
 		}
 	}
 }

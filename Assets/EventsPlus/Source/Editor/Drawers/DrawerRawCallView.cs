@@ -2,7 +2,7 @@
 using UnityEditor;
 using System;
 using System.Reflection;
-namespace EventsPlus
+namespace VisualEvent
 {
     //##########################
     // Class Declaration
@@ -57,14 +57,15 @@ namespace EventsPlus
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         {
             // Inheritance
+            EditorGUI.BeginChangeCheck();
             base.OnGUI(tPosition, tProperty, tLabel);
 
             if (ViewCache.GetDelegateView(tProperty, out RawCallView delegateCache))
             {
+                EditorGUI.BeginProperty(tPosition, tLabel, tProperty);
                 SetInitialHeight(delegateCache, tProperty);
                 if (delegateCache.HasDelegateError)
                     HandleDelegeateError(tProperty, delegateCache);
-
                 if (delegateCache.CurrentTarget != null)
                 {
                     tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
@@ -116,27 +117,33 @@ namespace EventsPlus
                     if (delegateCache.CurrentTarget != null)
                         EditorGUI.indentLevel -= 1;
                 }
+                EditorGUI.EndProperty();
+                if (EditorGUI.EndChangeCheck())
+                {
+                    Debug.Log("change here");
+                }
             }
-            else Debug.Log("no");
         }
-        protected override void validate(SerializedProperty tProperty, RawDelegateView delegatecache)
+        protected override void validate(SerializedProperty tProperty, RawCallView delegatecache)
         {
-            var rawcallcache = delegatecache as RawCallView;
-            if (!rawcallcache.isvalidated)
+            if (!delegatecache.isvalidated)
             {
                 SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative("methodData");
                 SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
-                if (!rawcallcache.validateTarget(tProperty.FindPropertyRelative("m_target"), tempMemberProperty, tempDynamicProperty))
+                if (!delegatecache.validateTarget(tProperty.FindPropertyRelative("m_target"), tempMemberProperty, tempDynamicProperty))
                 {
-                    handleTargetUpdate(tProperty, rawcallcache);
+                    handleTargetUpdate(tProperty, delegatecache);
                     delegatecache.RequiresRecalculation = true;
                 }
-                if (!rawcallcache.validateMember(tempMemberProperty, tempDynamicProperty))
+                if (!delegatecache.validateMember(tempMemberProperty, tempDynamicProperty))
                 {
-                    Debug.Log("member updating");
-                    handleMemberUpdate(tProperty, rawcallcache);
+                    handleMemberUpdate(tProperty, delegatecache);
                 }
-                rawcallcache.isvalidated = true;
+                delegatecache.isvalidated = true;
+            } 
+            else if (delegatecache.CurrentTarget == null)
+            {
+                delegatecache.isvalidated = false;
             }
             delegatecache.ValidateComponentTree();
         }
@@ -159,7 +166,7 @@ namespace EventsPlus
             handleDynamicUpdate(tProperty, tCache as RawCallView);
         }
         private void HandleDelegeateError(SerializedProperty delegeateProp, RawCallView delegatecall)
-        {
+        { 
             Debug.Log("handle error");
             var methoData_prop = delegeateProp.FindPropertyRelative("methodData");
             var contextobj = delegeateProp.FindPropertyRelative("m_target").serializedObject.targetObject;
@@ -221,7 +228,6 @@ namespace EventsPlus
                     }
                 }
             }
-            if (tProperty.serializedObject.hasModifiedProperties)
                 tProperty.serializedObject.ApplyModifiedProperties();
         }
         /// <summary>

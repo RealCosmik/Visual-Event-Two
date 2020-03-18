@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9197153578938148609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1905315589474212680}
+  - component: {fileID: 7388130494366195828}
+  m_Layer: 0
+  m_Name: kljlj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1905315589474212680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9197153578938148609}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 29.4, y: 62.5, z: 6.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7388130494366195828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9197153578938148609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36daa77921fe6fa408e6c6586762f35c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pub:
+    m_calls:
+    - id: 0
+  visual_Text: {fileID: 0}
+  vecfield: {x: 1, y: 1, z: 1}
+  mynum: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: RawCall, ns: VisualEvent, asm: Assembly-CSharp}
+      data:
+        m_target: {fileID: 9197153578938148609}
+        methodData:
+        - 16
+        - layer
+        - set
+        GenericTypeName: 
+        m_arguments:
+        - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0,
+            Culture=neutral, PublicKeyToken=b77a5c561934e089
+          FullArgumentName: System.Int32
+          objectValue: {fileID: 0}
+          stringValue: 
+          _x1: 0
+          _x2: 0
+          _y1: 0
+          _y2: 0
+          _z1: 0
+          _z2: 0
+          longValue: 0
+          doubleValue: 0
+          animationCurveValue:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 0
+            m_PostInfinity: 0
+            m_RotationOrder: 0
+          methodData: []
+          UseReference: 0
+          call_Reference:
+            m_target: {fileID: 0}
+            methodData: []
+            GenericTypeName: 
+            ParentArgumentType: 
+            m_isvaluetype: 0
+            isparentargstring: 0
+        m_isDynamic: 0

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace EventsPlus
+namespace VisualEvent
 {
 	//##########################
 	// Struct Declaration

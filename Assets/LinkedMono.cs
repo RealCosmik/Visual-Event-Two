@@ -1,18 +1,16 @@
 ﻿using UnityEngine;
-using EventsPlus;
+using VisualEvent;
 using System.Collections.Generic;
 class LinkedMono : MonoBehaviour
 { 
-    public intpub pub;
+    public intpub pub; 
     public TMPro.TextMeshProUGUI visual_Text;
     public Vector3 vecfield = Vector3.one;
     public int RandomPropp { get => 2; set { Debug.Log("set value to be" + value); } }
     public int mynum;
     public void methodforikram() => Debug.Log("this is for ikram");
-    public void methodforikram(int x) => Debug.Log("this is for ikram");
-    private void DelegateInspector(System.Action del)
-    {
-    }
+    public void methodforikram(int x) => Debug.Log("printing as an int");
+    public void methodforikram(string s) => Debug.Log("print as a string");
     private void Start()
     {
         pub.initialize();
@@ -26,7 +24,7 @@ class LinkedMono : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            pub.publish();
+            pub.Invoke(2);
         }
     }
 

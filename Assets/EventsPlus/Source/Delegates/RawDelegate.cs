@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Linq.Expressions;
 using UnityEngine;
-namespace EventsPlus
+namespace VisualEvent
 {
     //##########################
     // Class Declaration
@@ -20,8 +20,6 @@ namespace EventsPlus
         /// <summary>Serialized name of the target member</summary>
         [SerializeField]
         private protected string[] methodData;
-        [SerializeField]
-        private protected string GenericTypeName;
         /// <summary>Cached delegate instance generated upon initialization</summary>
         public System.Delegate delegateInstance { get; private protected set; }
         /// <summary>Gets the <see cref="m_target"/> object of the delegate</summary>
@@ -211,7 +209,6 @@ namespace EventsPlus
                 else
                 {
                     var fieldfunc = FieldGetter as Func<A>;
-                    Debug.Log(fieldfunc == null);
                     return new Func<string>(() => fieldfunc.Invoke().ToString());
                 }
             }

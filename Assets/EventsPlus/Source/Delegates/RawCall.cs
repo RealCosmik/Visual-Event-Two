@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using UnityEngine;
-namespace EventsPlus
+using System.Linq.Expressions;
+using RawArg = VisualEvent.RawArgument;
+namespace VisualEvent
 {
     //##########################
     // Class Declaration
@@ -119,7 +121,7 @@ namespace EventsPlus
                             {
                                 return this.GetType().GetMethod("createActionCall0", Utility.InstanceFlags).Invoke(this, tempArguments) as System.Delegate;
                             }
-
+                            Debug.Log(tempParametersLength);
                             return this.GetType().GetMethod("createActionCall" + tempParametersLength, Utility.InstanceFlags).MakeGenericMethod(tempParameterTypes).Invoke(this, tempArguments) as System.Delegate;
                         }
 
@@ -153,18 +155,12 @@ namespace EventsPlus
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action<A> createFieldAction<T, A>(VisualDelegate tPublisher, T tTarget, FieldInfo tField)
         {
-            Action<A> tempAction = (A tA) =>
-            {
-                if (tTarget == null)
-                {
-                    tPublisher.removeCall(this);
-                }
-                else
-                {
-                    tField.SetValue(tTarget, tA);
-                }
-            };
-            return tempAction;
+            var field_instance = Expression.Field(Expression.Constant(tTarget), tField);
+            var param_expression=Expression.Parameter(typeof(object),"Value");
+            var assign_expression = Expression.Assign(field_instance, Expression.Unbox(param_expression,typeof(A)));
+            var boxed_lamda=Expression.Lambda<Action<object>>(assign_expression,param_expression).Compile();
+            return val => boxed_lamda(val);
+
         }
 
         /// <summary>Utility method for creating a field delegate with a predefined argument value from a <see cref="System.Reflection.FieldInfo"/></summary>
@@ -175,18 +171,11 @@ namespace EventsPlus
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
         protected virtual Action createFieldCall<T, A>(VisualDelegate tPublisher, T tTarget, FieldInfo tField, A tValue)
         {
-            Action tempCall = () =>
-            {
-                if (tTarget == null)
-                {
-                    tPublisher.removeCall(this);
-                }
-                else
-                {
-                    tField.SetValue(tTarget, tValue);
-                }
-            };
-            return tempCall;
+            var field_intance = Expression.Field(Expression.Constant(tTarget), tField);
+            var field_value_expression = Expression.Constant((object)tValue);
+            var setter_expression=Expression.Assign(field_intance, field_value_expression);
+            var setter_lamda = Expression.Lambda<Action>(setter_expression).Compile();
+            return setter_lamda;
         }
 
         //=======================
@@ -202,13 +191,9 @@ namespace EventsPlus
             Action<A> tempAction = (A tA) =>
             {
                 if (m_target == null)
-                {
                     tPublisher.removeCall(this);
-                }
                 else
-                {
                     tempDelegate(tA);
-                }
             };
 
             return tempAction;
@@ -219,37 +204,17 @@ namespace EventsPlus
         /// <param name="tProperty">PropertyInfo used to generate a delegate</param>
         /// <param name="tValue">Predefined argument value</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createPropertyCall<A>(VisualDelegate tPublisher, PropertyInfo tProperty, RawArgument arg1)
+        protected virtual Action createPropertyCall<A>(VisualDelegate tPublisher, PropertyInfo tProperty, RawArg arg1)
         {
             Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tProperty.GetSetMethod(), false) as Action<A>;
-            Action tempcall;
-            if (arg1.isUsingreference)
-            {
-                Func<A> reference_vale = arg1.CreateReferenceDelegate() as Func<A>;
-                Debug.Log(reference_vale == null);
-                tempcall = () =>
-                {
-                    if (m_target == null)
-                        tPublisher.removeCall(this);
-                    else tempDelegate(reference_vale.Invoke());
-                };
-            }
-            else
-            {
-                A tValue = (A)arg1.genericValue;
-                tempcall = () =>
-                {
-                    if (m_target == null)
-                    {
-                        tPublisher.removeCall(this);
-                    }
-                    else
-                    {
-                        tempDelegate(tValue);
-                    }
-                };
-            }
-
+            Func<A> property_input = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Action tempcall = () =>
+             {
+                 if (m_target == null)
+                     tPublisher.removeCall(this);
+                 else
+                     tempDelegate(property_input());
+             };
             return tempcall;
         }
 
@@ -304,33 +269,16 @@ namespace EventsPlus
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <param name="tA">Predefined argument value</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall1<A>(VisualDelegate tPublisher, MethodInfo tMethod, RawArgument arg1)
+        protected virtual Action createActionCall1<A>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1)
         {
             Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tMethod, false) as Action<A>;
-            Action tempaction;
-            if (arg1.isUsingreference)
+            Func<A> input = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Action tempaction = () =>
             {
-                Func<A> value_func = arg1.CreateReferenceDelegate() as Func<A>;
-                Debug.Log("making a func");
-                tempaction = () =>
-                {
-                    if (m_target == null)
-                        tPublisher.removeCall(this);
-                    else tempDelegate(value_func.Invoke());
-                };
-            }
-            else
-            {
-                A value = (A)arg1.genericValue;
-                tempaction = () =>
-                {
-                    if (m_target == null)
-                        tPublisher.removeCall(this);
-                    else
-                        tempDelegate(value);
-                };
-            }
-
+                if (m_target == null)
+                    tPublisher.removeCall(this);
+                else tempDelegate(input());
+            };
             return tempaction;
         }
 
@@ -362,19 +310,17 @@ namespace EventsPlus
         /// <param name="tA">Predefined argument value</param>
         /// <param name="tB">Predefined argument value</param>
         /// <returns>Generic 2-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall2<A, B>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB)
+        protected virtual Action createActionCall2<A, B>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2)
         {
             Action<A, B> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B>), m_target, tMethod, false) as Action<A, B>;
+            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
             Action tempAction = () =>
             {
                 if (m_target == null)
-                {
                     tPublisher.removeCall(this);
-                }
                 else
-                {
-                    tempDelegate(tA, tB);
-                }
+                    tempDelegate(input_1(), input_2());
             };
 
             return tempAction;
@@ -409,9 +355,12 @@ namespace EventsPlus
         /// <param name="tB">Predefined argument value</param>
         /// <param name="tC">Predefined argument value</param>
         /// <returns>Generic 3-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall3<A, B, C>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB, C tC)
+        protected virtual Action createActionCall3<A, B, C>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3)
         {
             Action<A, B, C> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C>), m_target, tMethod, false) as Action<A, B, C>;
+            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
+            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -420,7 +369,7 @@ namespace EventsPlus
                 }
                 else
                 {
-                    tempDelegate(tA, tB, tC);
+                    tempDelegate(input_1(), input_2(), input_3());
                 }
             };
 
@@ -457,9 +406,13 @@ namespace EventsPlus
         /// <param name="tC">Predefined argument value</param>
         /// <param name="tD">Predefined argument value</param>
         /// <returns>Generic 4-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall4<A, B, C, D>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB, C tC, D tD)
+        protected virtual Action createActionCall4<A, B, C, D>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4)
         {
             Action<A, B, C, D> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D>), m_target, tMethod, false) as Action<A, B, C, D>;
+            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
+            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
+            Func<D> input_4 = arg4.isUsingreference ? arg4.CreateReferenceDelegate<Func<D>>() : () => (D)arg4.genericValue;
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -468,7 +421,7 @@ namespace EventsPlus
                 }
                 else
                 {
-                    tempDelegate(tA, tB, tC, tD);
+                    tempDelegate(input_1(), input_2(), input_3(), input_4());
                 }
             };
 
@@ -506,9 +459,14 @@ namespace EventsPlus
         /// <param name="tD">Predefined argument value</param>
         /// <param name="tE">Predefined argument value</param>
         /// <returns>Generic 5-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall5<A, B, C, D, E>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB, C tC, D tD, E tE)
+        protected virtual Action createActionCall5<A, B, C, D, E>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5)
         {
             Action<A, B, C, D, E> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E>), m_target, tMethod, false) as Action<A, B, C, D, E>;
+            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
+            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
+            Func<D> input_4 = arg4.isUsingreference ? arg4.CreateReferenceDelegate<Func<D>>() : () => (D)arg4.genericValue;
+            Func<E> input_5 = arg5.isUsingreference ? arg5.CreateReferenceDelegate<Func<E>>() : () => (E)arg5.genericValue;
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -517,7 +475,7 @@ namespace EventsPlus
                 }
                 else
                 {
-                    tempDelegate(tA, tB, tC, tD, tE);
+                    tempDelegate(input_1(), input_2(), input_3(), input_4(), input_5());
                 }
             };
 
@@ -556,9 +514,15 @@ namespace EventsPlus
         /// <param name="tE">Predefined argument value</param>
         /// <param name="tF">Predefined argument value</param>
         /// <returns>Generic 6-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall6<A, B, C, D, E, F>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB, C tC, D tD, E tE, F tF)
+        protected virtual Action createActionCall6<A, B, C, D, E, F>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6)
         {
             Action<A, B, C, D, E, F> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F>), m_target, tMethod, false) as Action<A, B, C, D, E, F>;
+            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
+            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
+            Func<D> input_4 = arg4.isUsingreference ? arg4.CreateReferenceDelegate<Func<D>>() : () => (D)arg4.genericValue;
+            Func<E> input_5 = arg5.isUsingreference ? arg5.CreateReferenceDelegate<Func<E>>() : () => (E)arg5.genericValue;
+            Func<F> input_6 = arg6.isUsingreference ? arg6.CreateReferenceDelegate<Func<F>>() : () => (F)arg6.genericValue;
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -567,7 +531,7 @@ namespace EventsPlus
                 }
                 else
                 {
-                    tempDelegate(tA, tB, tC, tD, tE, tF);
+                    tempDelegate(input_1(), input_2(), input_3(), input_4(), input_5(), input_6());
                 }
             };
 
@@ -607,9 +571,16 @@ namespace EventsPlus
         /// <param name="tF">Predefined argument value</param>
         /// <param name="tG">Predefined argument value</param>
         /// <returns>Generic 7-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall7<A, B, C, D, E, F, G>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB, C tC, D tD, E tE, F tF, G tG)
+        protected virtual Action createActionCall7<A, B, C, D, E, F, G>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6, RawArg arg7)
         {
             Action<A, B, C, D, E, F, G> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G>;
+            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
+            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
+            Func<D> input_4 = arg4.isUsingreference ? arg4.CreateReferenceDelegate<Func<D>>() : () => (D)arg4.genericValue;
+            Func<E> input_5 = arg5.isUsingreference ? arg5.CreateReferenceDelegate<Func<E>>() : () => (E)arg5.genericValue;
+            Func<F> input_6 = arg6.isUsingreference ? arg6.CreateReferenceDelegate<Func<F>>() : () => (F)arg6.genericValue;
+            Func<G> input_7 = arg7.isUsingreference ? arg7.CreateReferenceDelegate<Func<G>>() : () => (G)arg7.genericValue;
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -618,7 +589,7 @@ namespace EventsPlus
                 }
                 else
                 {
-                    tempDelegate(tA, tB, tC, tD, tE, tF, tG);
+                    tempDelegate(input_1(), input_2(), input_3(), input_4(), input_5(), input_6(), input_7());
                 }
             };
 
@@ -659,9 +630,17 @@ namespace EventsPlus
         /// <param name="tG">Predefined argument value</param>
         /// <param name="tH">Predefined argument value</param>
         /// <returns>Generic 8-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall8<A, B, C, D, E, F, G, H>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH)
+        protected virtual Action createActionCall8<A, B, C, D, E, F, G, H>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6, RawArg arg7, RawArg arg8)
         {
             Action<A, B, C, D, E, F, G, H> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G, H>;
+            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
+            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
+            Func<D> input_4 = arg4.isUsingreference ? arg4.CreateReferenceDelegate<Func<D>>() : () => (D)arg4.genericValue;
+            Func<E> input_5 = arg5.isUsingreference ? arg5.CreateReferenceDelegate<Func<E>>() : () => (E)arg5.genericValue;
+            Func<F> input_6 = arg6.isUsingreference ? arg6.CreateReferenceDelegate<Func<F>>() : () => (F)arg6.genericValue;
+            Func<G> input_7 = arg7.isUsingreference ? arg7.CreateReferenceDelegate<Func<G>>() : () => (G)arg7.genericValue;
+            Func<H> input_8 = arg8.isUsingreference ? arg8.CreateReferenceDelegate<Func<H>>() : () => (H)arg8.genericValue;
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -670,120 +649,12 @@ namespace EventsPlus
                 }
                 else
                 {
-                    tempDelegate(tA, tB, tC, tD, tE, tF, tG, tH);
+                    tempDelegate(input_1(), input_2(), input_3(), input_4(), input_5(), input_6(), input_7(), input_8());
                 }
             };
 
             return tempAction;
         }
-
-        /// <summary>Utility method for creating a 9-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/></summary>
-        /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
-        /// <param name="tMethod">MethodInfo used to generate a delegate</param>
-        /// <returns>Generic 9-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B, C, D, E, F, G, H, I> createAction9<A, B, C, D, E, F, G, H, I>(VisualDelegate tPublisher, MethodInfo tMethod)
-        {
-            Action<A, B, C, D, E, F, G, H, I> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H, I>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G, H, I>;
-            Action<A, B, C, D, E, F, G, H, I> tempAction = (A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH, I tI) =>
-                    {
-                        if (m_target == null)
-                        {
-                            tPublisher.removeCall(this);
-                        }
-                        else
-                        {
-                            tempDelegate(tA, tB, tC, tD, tE, tF, tG, tH, tI);
-                        }
-                    };
-
-            return tempAction;
-        }
-
-        /// <summary>Utility method for creating a 9-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/> that applies predefined values</summary>
-        /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
-        /// <param name="tMethod">MethodInfo used to generate a delegate</param>
-        /// <param name="tA">Predefined argument value</param>
-        /// <param name="tB">Predefined argument value</param>
-        /// <param name="tC">Predefined argument value</param>
-        /// <param name="tD">Predefined argument value</param>
-        /// <param name="tE">Predefined argument value</param>
-        /// <param name="tF">Predefined argument value</param>
-        /// <param name="tG">Predefined argument value</param>
-        /// <param name="tH">Predefined argument value</param>
-        /// <param name="tI">Predefined argument value</param>
-        /// <returns>Generic 9-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall9<A, B, C, D, E, F, G, H, I>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH, I tI)
-        {
-            Action<A, B, C, D, E, F, G, H, I> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H, I>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G, H, I>;
-            Action tempAction = () =>
-            {
-                if (m_target == null)
-                {
-                    tPublisher.removeCall(this);
-                }
-                else
-                {
-                    tempDelegate(tA, tB, tC, tD, tE, tF, tG, tH, tI);
-                }
-            };
-
-            return tempAction;
-        }
-
-        /// <summary>Utility method for creating a 10-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/></summary>
-        /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
-        /// <param name="tMethod">MethodInfo used to generate a delegate</param>
-        /// <returns>Generic 10-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B, C, D, E, F, G, H, I, J> createAction10<A, B, C, D, E, F, G, H, I, J>(VisualDelegate tPublisher, MethodInfo tMethod)
-        {
-            Action<A, B, C, D, E, F, G, H, I, J> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H, I, J>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G, H, I, J>;
-            Action<A, B, C, D, E, F, G, H, I, J> tempAction = (A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH, I tI, J tJ) =>
-                     {
-                         if (m_target == null)
-                         {
-                             tPublisher.removeCall(this);
-                         }
-                         else
-                         {
-                             tempDelegate(tA, tB, tC, tD, tE, tF, tG, tH, tI, tJ);
-                         }
-                     };
-
-            return tempAction;
-        }
-
-        /// <summary>Utility method for creating a 10-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/> that applies predefined values</summary>
-        /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
-        /// <param name="tMethod">MethodInfo used to generate a delegate</param>
-        /// <param name="tA">Predefined argument value</param>
-        /// <param name="tB">Predefined argument value</param>
-        /// <param name="tC">Predefined argument value</param>
-        /// <param name="tD">Predefined argument value</param>
-        /// <param name="tE">Predefined argument value</param>
-        /// <param name="tF">Predefined argument value</param>
-        /// <param name="tG">Predefined argument value</param>
-        /// <param name="tH">Predefined argument value</param>
-        /// <param name="tI">Predefined argument value</param>
-        /// <param name="tJ">Predefined argument value</param>
-        /// <returns>Generic 10-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall10<A, B, C, D, E, F, G, H, I, J>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH, I tI, J tJ)
-        {
-            Action<A, B, C, D, E, F, G, H, I, J> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H, I, J>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G, H, I, J>;
-            Action tempAction = () =>
-            {
-                if (m_target == null)
-                {
-                    tPublisher.removeCall(this);
-                }
-                else
-                {
-                    tempDelegate(tA, tB, tC, tD, tE, tF, tG, tH, tI, tJ);
-                }
-            };
-
-            return tempAction;
-        }
-
         //=======================
         // Func
         //=======================
@@ -836,38 +707,18 @@ namespace EventsPlus
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <param name="tA">Predefined argument value</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createFuncCall1<A, T>(VisualDelegate tPublisher, MethodInfo tMethod, RawArgument arg1)
+        protected virtual Action createFuncCall1<A, T>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1)
         {
 
             Func<A, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, T>), m_target, tMethod, false) as Func<A, T>;
-            Action tempaction;
-            if (arg1.isUsingreference)
-            {
-                var reference_func = arg1.CreateReferenceDelegate() as Func<A>;
-                tempaction = () =>
-                {
-                    if (m_target == null)
-                        tPublisher.removeCall(this);
-                    else tempDelegate.Invoke(reference_func.Invoke());
-                };
-
-            }
-            else
-            {
-                A value = (A)arg1.genericValue;
-                tempaction = () =>
-                {
-                    if (m_target == null)
-                    {
-                        tPublisher.removeCall(this);
-                    }
-                    else
-                    {
-                        tempDelegate(value);
-                    }
-                };
-            }
-
+            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Action tempaction = () =>
+               {
+                   if (m_target == null)
+                       tPublisher.removeCall(this);
+                   else
+                       tempDelegate(input_1());
+               };
             return tempaction;
         }
 
@@ -1208,113 +1059,6 @@ namespace EventsPlus
                 else
                 {
                     tempDelegate(tA, tB, tC, tD, tE, tF, tG, tH);
-                }
-            };
-
-            return tempAction;
-        }
-
-        /// <summary>Utility method for creating a 9-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/> that has a return value</summary>
-        /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
-        /// <param name="tMethod">MethodInfo used to generate a delegate</param>
-        /// <returns>Generic action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B, C, D, E, F, G, H, I> createFunc9<A, B, C, D, E, F, G, H, I, T>(VisualDelegate tPublisher, MethodInfo tMethod)
-        {
-            Func<A, B, C, D, E, F, G, H, I, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, B, C, D, E, F, G, H, I, T>), m_target, tMethod, false) as Func<A, B, C, D, E, F, G, H, I, T>;
-            Action<A, B, C, D, E, F, G, H, I> tempAction = (A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH, I tI) =>
-                    {
-                        if (m_target == null)
-                        {
-                            tPublisher.removeCall(this);
-                        }
-                        else
-                        {
-                            tempDelegate(tA, tB, tC, tD, tE, tF, tG, tH, tI);
-                        }
-                    };
-
-            return tempAction;
-        }
-
-        /// <summary>Utility method for creating a 9-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/> (with a return type) that applies predefined values</summary>
-        /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
-        /// <param name="tMethod">MethodInfo used to generate a delegate</param>
-        /// <param name="tA">Predefined argument value</param>
-        /// <param name="tB">Predefined argument value</param>
-        /// <param name="tC">Predefined argument value</param>
-        /// <param name="tD">Predefined argument value</param>
-        /// <param name="tE">Predefined argument value</param>
-        /// <param name="tF">Predefined argument value</param>
-        /// <param name="tG">Predefined argument value</param>
-        /// <param name="tH">Predefined argument value</param>
-        /// <param name="tI">Predefined argument value</param>
-        /// <returns>Generic 9-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createFuncCall9<A, B, C, D, E, F, G, H, I, T>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH, I tI)
-        {
-            Func<A, B, C, D, E, F, G, H, I, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, B, C, D, E, F, G, H, I, T>), m_target, tMethod, false) as Func<A, B, C, D, E, F, G, H, I, T>;
-            Action tempAction = () =>
-            {
-                if (m_target == null)
-                {
-                    tPublisher.removeCall(this);
-                }
-                else
-                {
-                    tempDelegate(tA, tB, tC, tD, tE, tF, tG, tH, tI);
-                }
-            };
-
-            return tempAction;
-        }
-
-        /// <summary>Utility method for creating a 10-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/> that has a return value</summary>
-        /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
-        /// <param name="tMethod">MethodInfo used to generate a delegate</param>
-        /// <returns>Generic action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B, C, D, E, F, G, H, I, J> createFunc10<A, B, C, D, E, F, G, H, I, J, T>(VisualDelegate tPublisher, MethodInfo tMethod)
-        {
-            Func<A, B, C, D, E, F, G, H, I, J, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, B, C, D, E, F, G, H, I, J, T>), m_target, tMethod, false) as Func<A, B, C, D, E, F, G, H, I, J, T>;
-            Action<A, B, C, D, E, F, G, H, I, J> tempAction = (A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH, I tI, J tJ) =>
-                     {
-                         if (m_target == null)
-                         {
-                             tPublisher.removeCall(this);
-                         }
-                         else
-                         {
-                             tempDelegate(tA, tB, tC, tD, tE, tF, tG, tH, tI, tJ);
-                         }
-                     };
-
-            return tempAction;
-        }
-
-        /// <summary>Utility method for creating a 10-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/> (with a return type) that applies predefined values</summary>
-        /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
-        /// <param name="tMethod">MethodInfo used to generate a delegate</param>
-        /// <param name="tA">Predefined argument value</param>
-        /// <param name="tB">Predefined argument value</param>
-        /// <param name="tC">Predefined argument value</param>
-        /// <param name="tD">Predefined argument value</param>
-        /// <param name="tE">Predefined argument value</param>
-        /// <param name="tF">Predefined argument value</param>
-        /// <param name="tG">Predefined argument value</param>
-        /// <param name="tH">Predefined argument value</param>
-        /// <param name="tI">Predefined argument value</param>
-        /// <param name="tJ">Predefined argument value</param>
-        /// <returns>Generic 10-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createFuncCall10<A, B, C, D, E, F, G, H, I, J, T>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH, I tI, J tJ)
-        {
-            Func<A, B, C, D, E, F, G, H, I, J, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, B, C, D, E, F, G, H, I, J, T>), m_target, tMethod, false) as Func<A, B, C, D, E, F, G, H, I, J, T>;
-            Action tempAction = () =>
-            {
-                if (m_target == null)
-                {
-                    tPublisher.removeCall(this);
-                }
-                else
-                {
-                    tempDelegate(tA, tB, tC, tD, tE, tF, tG, tH, tI, tJ);
                 }
             };
 

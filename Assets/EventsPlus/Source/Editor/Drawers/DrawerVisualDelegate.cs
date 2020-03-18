@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditorInternal;
 using System.Linq;
 using System.Reflection;
-namespace EventsPlus
+namespace VisualEvent
 {
     //##########################
     // Class Declaration
@@ -57,17 +57,25 @@ namespace EventsPlus
                 };
                 tempList.drawElementCallback += (Rect rect, int index, bool tIsActive, bool tIsFocused) =>
                 {
+                    EditorGUI.BeginChangeCheck();
                     EditorGUI.PropertyField(rect, tempList.serializedProperty.GetArrayElementAtIndex(index), true);
+                    if (EditorGUI.EndChangeCheck() && EditorApplication.isPlaying)
+                    {
+                        tProperty.serializedObject.ApplyModifiedProperties();
+                        tProperty.GetTarget<VisualDelegate>()?.ReInitialize();
+                    }
                 };
                 tempList.elementHeightCallback += (int index) =>
                 {
                     var pubcache = ViewCache.GetViewDelegateInstanceCache(tProperty);
                     if (index < pubcache.RawCallCache.Count)
+                    {
                         return pubcache.RawCallCache[index].delegateView.Height + EditorGUIUtility.standardVerticalSpacing;
+                    }
                     else return 0;
                 };
                 cache.Add(tProperty.propertyPath, tempList);
-               
+
                 tempList.onReorderCallbackWithDetails += (ReorderableList list, int oldindex, int newindex) =>
                   OnReorder(list, oldindex, newindex, tProperty);
 
@@ -78,6 +86,7 @@ namespace EventsPlus
                 };
                 tempList.onRemoveCallback += onElementDelete;
                 tempList.onAddCallback += onAddElement;
+                tempList.list = new List<RawDelegate>();
             }
             // Calculate height 
             float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
@@ -103,30 +112,23 @@ namespace EventsPlus
         {
             ClearOldCache(tProperty);
             tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
-            var calls = tProperty.FindPropertyRelative("m_calls");
             tProperty.isExpanded = EditorGUI.Foldout(tPosition, tProperty.isExpanded, tProperty.displayName);
             if (tProperty.isExpanded)
             {
+                ReorderableList tempList = cache[tProperty.propertyPath];
                 ++EditorGUI.indentLevel;
                 // Calls
-                ReorderableList tempList = cache[tProperty.propertyPath];
                 int tempIndentLevel = EditorGUI.indentLevel;
                 EditorGUI.indentLevel = 0;
-
                 float tempIndentSize = tempIndentLevel * VisualEdiotrUtility.IndentSize;
                 tPosition.x += tempIndentSize;
                 tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
                 tPosition.x -= tempIndentSize;
                 tPosition.height = tempList.GetHeight();
-                EditorGUI.BeginChangeCheck();
                 tempList.DoList(tPosition);
-                if (EditorGUI.EndChangeCheck() && EditorApplication.isPlaying)
-                {
-                    tProperty.serializedObject.ApplyModifiedProperties();
-                    tProperty.GetViewDelegateObject()?.ReInitialize();
-                }
                 EditorGUI.indentLevel = tempIndentLevel - 1;
-                CopyPasteKeyboard(tempList, calls);
+
+                CopyPasteKeyboard(tempList, tempList.serializedProperty);
             }
         }
         /// <summary>
@@ -140,11 +142,17 @@ namespace EventsPlus
             var arrayprop = list.serializedProperty;
             if (list.index < arrayprop.arraySize)
             {
-              //  Undo.RegisterCompleteObjectUndo(arrayprop.serializedObject.targetObject, "ElementDelete");
                 var delegateprop = list.serializedProperty.GetArrayElementAtIndex(removedindex);
-                ViewCache.GetRawCallCache(delegateprop).ClearViewCache();
-                arrayprop.GetTarget<List<RawDelegate>>().RemoveAt(removedindex);
+                var cache = ViewCache.GetRawCallCache(delegateprop);
+                arrayprop.DeleteArrayElementAtIndex(removedindex);
                 arrayprop.serializedObject.ApplyModifiedProperties();
+                if (cache.CurrentTarget != null)
+                {
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(arrayprop.serializedObject.targetObject);
+                    PrefabUtility.ApplyPrefabInstance((arrayprop.serializedObject.targetObject as Component).gameObject,
+                        InteractionMode.UserAction);
+                }
+                cache.ClearViewCache();
             }
         }
         /// <summary>
@@ -155,9 +163,12 @@ namespace EventsPlus
         private void onAddElement(ReorderableList list)
         {
             var arrayprop = list.serializedProperty;
-             arrayprop.GetTarget<List<RawDelegate>>().Add(new RawCall());
+            var size = arrayprop.arraySize;
+            arrayprop.arraySize++;
+            arrayprop.GetArrayElementAtIndex(size).managedReferenceValue = new RawCall();
             arrayprop.serializedObject.ApplyModifiedProperties();
-        } 
+            PrefabUtility.RecordPrefabInstancePropertyModifications(arrayprop.serializedObject.targetObject);
+        }
 
         private void OnReorder(ReorderableList list, int oldindex, int newindex, SerializedProperty ViewDelegateProp)
         {
@@ -197,8 +208,9 @@ namespace EventsPlus
             var call_list = ViewCache.GetViewDelegateInstanceCache(ViewDelegateprop).RawCallCache;
             if (Array_size == 0 && call_list.Count != 0)
             {
-                Debug.Log("clearing cache");
-                //   Undo.RegisterCompleteObjectUndo(publisherprop.serializedObject.targetObject, "Clear Publisher list");
+                ViewDelegateprop.FindPropertyRelative("m_calls").ClearArray();
+                ViewDelegateprop.serializedObject.ApplyModifiedProperties();
+                PrefabUtility.RecordPrefabInstancePropertyModifications(ViewDelegateprop.serializedObject.targetObject);
                 call_list.Clear();
             }
         }

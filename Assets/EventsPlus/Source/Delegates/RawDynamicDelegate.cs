@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-namespace EventsPlus
+namespace VisualEvent
 {
     public class RawDynamicDelegate : RawDelegate
     {

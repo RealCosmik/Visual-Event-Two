@@ -2,7 +2,7 @@
 using System.Text;
 using System.Reflection;
 
-namespace EventsPlus
+namespace VisualEvent
 {
 	//##########################
 	// Class Declaration

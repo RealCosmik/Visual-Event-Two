@@ -3,7 +3,7 @@ using UnityEditor;
 using System;
 using System.Collections.Generic;
 
-namespace EventsPlus
+namespace VisualEvent
 {
     //##########################
     // Class Declaration
@@ -36,6 +36,7 @@ namespace EventsPlus
 
             if (ViewCache.GetDelegateView(tProperty, out ViewType DelegateCache))
             {
+                EditorGUI.BeginProperty(tPosition, tLabel, tProperty);
                 validate(tProperty, DelegateCache);
                 // Target  
                 float tempFieldWidth = (tPosition.width - EditorGUIUtility.labelWidth) * 0.5f;
@@ -43,10 +44,10 @@ namespace EventsPlus
                 tPosition.x -= 120;
                 tPosition.y += 5;
                 tPosition.width += 120;
+                EditorGUI.BeginChangeCheck();
                 if (DelegateCache.CurrentTarget == null) // empty field
                 {
                     DelegateCache.Height = tPosition.height + 10;
-                    EditorGUI.BeginChangeCheck();
                     UnityEngine.Object UserParentTarget = EditorGUI.ObjectField(tPosition, tLabel.text, null, typeof(UnityEngine.Object), true);
                     //on target change 
                     if (EditorGUI.EndChangeCheck())
@@ -72,8 +73,8 @@ namespace EventsPlus
                         DelegateCache.UpdateSelectedMember(DelegateCache.selectedMemberIndex);
                         handleMemberUpdate(tProperty, DelegateCache);
                     }
+                  
                 }
-
                 // Members
                 if (DelegateCache.CurrentTarget != null)
                 {
@@ -88,6 +89,7 @@ namespace EventsPlus
                         handleMemberUpdate(tProperty, DelegateCache);
                     }
                 }
+                EditorGUI.EndProperty();
             }
         }
 
@@ -95,9 +97,9 @@ namespace EventsPlus
         /// <summary>Validates the delegate property against the <paramref name="tCache"/></summary>
         /// <param name="tProperty">Serialized delegate property</param>
         /// <param name="tCache">Cached delegate drop-down data</param>
-        protected virtual void validate(SerializedProperty tProperty, RawDelegateView tCache)
+        protected virtual void validate(SerializedProperty tProperty, ViewType tCache)
         {
-         
+
             //this method is only used because the cache gets deleted on editor recompiles so we have to reconstruct the cache
             //using the data from the seralized property to make recompilation seem seemless on the front end
 
@@ -114,6 +116,10 @@ namespace EventsPlus
                 }
                 tCache.isvalidated = true;
             }
+            else if (tCache.CurrentTarget == null)
+            {
+                tCache.isvalidated = false;
+            }
             tCache.ValidateComponentTree();
         }
 
@@ -125,15 +131,8 @@ namespace EventsPlus
             var targetobject = tProperty.serializedObject.targetObject;
             Undo.RegisterCompleteObjectUndo(targetobject, "Delegate Target Change");
             tProperty.FindPropertyRelative("m_target").objectReferenceValue = tCache.CurrentTarget;
-            if (tProperty.serializedObject.hasModifiedProperties)
-            {
-               
-                if (PrefabUtility.IsPartOfAnyPrefab(targetobject))
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
-                tProperty.serializedObject.ApplyModifiedProperties();
-
-            }
-
+            tProperty.serializedObject.ApplyModifiedProperties();
+            PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
             //    handleMemberUpdate( tProperty, tCache );
         }
 
@@ -150,12 +149,8 @@ namespace EventsPlus
             else
                 VisualEdiotrUtility.CopySeralizedMethodDataToProp(methodData_prop, tCache.SelectedMember.SeralizedData);
 
-            if (tProperty.serializedObject.hasModifiedProperties)
-            {
-                if (PrefabUtility.IsPartOfAnyPrefab(targetobject))
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
-                tProperty.serializedObject.ApplyModifiedProperties();
-            }
+            tProperty.serializedObject.ApplyModifiedProperties();
+            PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
         }
 
 

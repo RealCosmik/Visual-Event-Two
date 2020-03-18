@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace EventsPlus
+namespace VisualEvent
 {
 	//##########################
 	// Class Declaration

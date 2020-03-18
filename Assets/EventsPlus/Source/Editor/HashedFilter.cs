@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace EventsPlus
+namespace VisualEvent
 {
 	//##########################
 	// Struct Declaration

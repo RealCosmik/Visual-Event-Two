@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using EventsPlus;
+using VisualEvent;
 
 namespace EventsPlusTest
 {
@@ -25,11 +25,11 @@ namespace EventsPlusTest
 		{
 			if ( Input.GetKeyDown( leftClickButton ) )
 			{
-				onLeftClick.publish();
+				onLeftClick.Invoke();
 			}
 			else if ( Input.GetKeyDown( rightClickButton ) )
 			{
-				onRightClick.publish();
+				onRightClick.Invoke();
 			}
 		}
 	}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
-namespace EventsPlus
+namespace VisualEvent
 {
     //##########################
     // Class Declaration
@@ -51,15 +51,19 @@ namespace EventsPlus
 
         public RawDelegateView()
         {
-            Undo.undoRedoPerformed += ClearViewCache;
+            Undo.undoRedoPerformed += () => ClearViewCache();
         }
         public virtual void ClearViewCache()
         {
-            AvailableTargetObjects = null;
-            CurrentTarget = null;
-            CurrentMembers = null;
-            memberNames = null;
-            isvalidated = false;
+            Debug.Log("nah this gets called alot");
+            // there seems to be a weird bug in unity where while drag and drops are being perfomed 
+            // undo/redo is constantly being called
+                AvailableTargetObjects = null;
+                CurrentTarget = null;
+                CurrentMembers = null;
+                memberNames = null;
+                isvalidated = false;
+                RequiresRecalculation = true;
         }
         /// <summary>
         /// Returns the given Object from the delegatView's target tree

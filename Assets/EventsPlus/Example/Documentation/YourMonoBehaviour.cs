@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using EventsPlus;
+using VisualEvent;
 
 namespace EventsPlusTest
 {
@@ -20,7 +20,7 @@ namespace EventsPlusTest
 		
 		public void Start()
 		{
-			publisher.publish( 5 );
+			publisher.Invoke( 5 );
 		}
 	}
 }

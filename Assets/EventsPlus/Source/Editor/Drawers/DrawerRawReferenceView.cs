@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
-namespace EventsPlus
+namespace VisualEvent
 {
     [CustomPropertyDrawer(typeof(RawReference),true)]
     class DrawerRawReferenceView : DrawerRawDelegateView<RawReferenceView>

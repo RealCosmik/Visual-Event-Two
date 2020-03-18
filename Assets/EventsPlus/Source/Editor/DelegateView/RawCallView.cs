@@ -3,22 +3,22 @@ using System.Reflection;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
-namespace EventsPlus
+namespace VisualEvent
 {
-	//##########################
-	// Class Declaration
-	//##########################
-	/// <summary>Stores cached data for call delegate drop-downs; used by <see cref="DrawerVisualDelegate"/></summary>
-	public class RawCallView : RawDelegateView
-	{
+    //##########################
+    // Class Declaration
+    //##########################
+    /// <summary>Stores cached data for call delegate drop-downs; used by <see cref="DrawerVisualDelegate"/></summary>
+    public class RawCallView : RawDelegateView
+    {
         //=======================
         // Variables
         //=======================
         /// <summary> Dynamic types are determined by the generics of the <see cref="VisualDelegate.types"/> the raw call resodes in  and <see cref="DrawerRawCallView.createCache(SerializedProperty)"/> 
         /// type definition used to determine if a delegate is treated as a direct invocation rather than having predefined arguments</summary>
         protected Type[] dynamicTypes;
-		/// <summary>True if the selected member can be invoked without predefined arguments</summary>
-		public bool isDynamicable { get; protected set; }
+        /// <summary>True if the selected member can be invoked without predefined arguments</summary>
+        public bool isDynamicable { get; protected set; }
         /// <summary>True if the selected member is to be invoked without predefined arguments</summary>
         protected bool m_isDynamic;
         /// <summary>Gets/Sets the <see cref="m_isDynamic"/> toggle</summary>
@@ -34,27 +34,27 @@ namespace EventsPlus
         /// <summary>Constructor</summary>
         /// <param name="tDynamicTypes">Type definition used to check if this call is <see cref="isDynamicable"/></param>
         public RawCallView(Type[] tDynamicTypes) => dynamicTypes = tDynamicTypes;
-		public void CopyDynamicTypes(RawCallView other)
+        public void CopyDynamicTypes(RawCallView other)
         {
             dynamicTypes = other.dynamicTypes;
         }
-		//=======================
-		// Target
-		//=======================
-		/// <summary>Checks for discrepancies between the <see cref="UnityEditor.SerializedProperty"/>s and the cached data; tries to match the cache to the properties</summary>
-		/// <param name="tTarget">Selected target property</param>
-		/// <param name="tMember">Selected member property</param>
-		/// <param name="tDynamic">Dynamic toggle property</param>
-		/// <returns>True if the data matches</returns>
-		public virtual bool validateTarget( SerializedProperty tTarget, SerializedProperty memberdataprop, SerializedProperty tDynamic )
-		{
-			if ( !base.validateTarget( tTarget, memberdataprop) )
-			{
-                 isDynamic = isDynamicable = tDynamic.boolValue;
-				return false;
-			}
-			return true;
-		}
+        //=======================
+        // Target
+        //=======================
+        /// <summary>Checks for discrepancies between the <see cref="UnityEditor.SerializedProperty"/>s and the cached data; tries to match the cache to the properties</summary>
+        /// <param name="tTarget">Selected target property</param>
+        /// <param name="tMember">Selected member property</param>
+        /// <param name="tDynamic">Dynamic toggle property</param>
+        /// <returns>True if the data matches</returns>
+        public virtual bool validateTarget(SerializedProperty tTarget, SerializedProperty memberdataprop, SerializedProperty tDynamic)
+        {
+            if (!base.validateTarget(tTarget, memberdataprop))
+            {
+                isDynamic = isDynamicable = tDynamic.boolValue;
+                return false;
+            }
+            return true;
+        }
         /// <summary>
         /// Called when user selects member and populates array for in editor parameter choosing
         /// </summary>
@@ -118,32 +118,30 @@ namespace EventsPlus
         /// <param name="tMember">Selected member property</param>
         /// <param name="tDynamic">Dynamic toggle property</param>
         /// <returns>True if the data matches</returns>
-        public virtual bool validateMember(SerializedProperty methodDataprop, SerializedProperty tDynamic )
-		{ 
-			if ( !base.validateMember(methodDataprop) )
-			{ 
+        public virtual bool validateMember(SerializedProperty methodDataprop, SerializedProperty tDynamic)
+        {
+            if (!base.validateMember(methodDataprop))
+            {
                 isDynamic = isDynamicable = tDynamic.boolValue;
 
                 return false;
-			}
-			
-			return true;
-		}
-        private void SetDelegateError() 
+            }
+
+            return true;
+        }
+        private void SetDelegateError()
         {
             Debug.LogError("issue");
             HasDelegateError = true;
             UpdateSelectedTarget(AvailableTargetObjects.Count - 1);
-            selectedMemberIndex= CurrentMembers.IndexOf(CurrentMembers.Single(m => m.SeralizedData[1] == "LogMessage"));
+            selectedMemberIndex = CurrentMembers.IndexOf(CurrentMembers.Single(m => m.SeralizedData[1] == "LogMessage"));
 
         }
         public override void ClearViewCache()
         {
-            Debug.Log("clearing");
-            base.ClearViewCache();
-            HasDelegateError = false;
-            arguments = null;
-            dynamicTypes = null;
+                base.ClearViewCache();
+                HasDelegateError = false;
+                arguments = null;
         }
         public void CopyCall(RawCallView othercall)
         {
@@ -153,7 +151,7 @@ namespace EventsPlus
             memberNames = othercall.memberNames;
             selectedMemberIndex = othercall.selectedMemberIndex;
             arguments = othercall.arguments;
-            dynamicTypes=othercall.dynamicTypes;
+            dynamicTypes = othercall.dynamicTypes;
             HasDelegateError = othercall.HasDelegateError;
         }
     }

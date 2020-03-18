@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEditor;
-namespace EventsPlus
+namespace VisualEvent
 {
     public class RawReferenceView : RawDelegateView
     {

@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
-namespace EventsPlus
+namespace VisualEvent
 {
     /// <summary>Utility class for delegate serialization</summary>
     public static class Utility

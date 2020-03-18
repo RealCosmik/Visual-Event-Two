@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using System.Collections.Generic;
-namespace EventsPlus
+namespace VisualEvent
 {
     public class RawArgumentView
     {

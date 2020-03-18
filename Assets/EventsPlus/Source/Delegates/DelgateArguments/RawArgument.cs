@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace EventsPlus
+namespace VisualEvent
 {
     //##########################
     // Class Declaration
@@ -51,11 +51,11 @@ namespace EventsPlus
         [SerializeField]
         RawReference call_Reference;
         public bool isUsingreference => UseReference && call_Reference.target != null;
-        public Delegate CreateReferenceDelegate()
+        public T CreateReferenceDelegate<T>() where T : Delegate
         {
             call_Reference.ParentArgumentType = assemblyQualifiedArgumentName;
             call_Reference.initialize();
-            return call_Reference.delegateInstance;
+            return call_Reference.delegateInstance as T;
         }
         //=======================
         // Accessors

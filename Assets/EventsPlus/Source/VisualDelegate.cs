@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EventsPlus
+namespace VisualEvent
 {
 	//##########################
 	// Class Declaration
@@ -41,7 +41,7 @@ namespace EventsPlus
 						if (currentdelegate is RawCall rawcall)
 							rawcall.initialize(this);
 						else currentdelegate.initialize();
-						effectsCallAdded(m_calls[i]);
+						AppendCallToInvocation(m_calls[i]);
 				//	}
 					//catch (System.Exception ex) //catch any reflection errors or type errors 
 					//{
@@ -68,54 +68,13 @@ namespace EventsPlus
 			m_calls = null;
 			onVoid = null;
 		}
-		
+
 		//=======================
 		// Types
 		//=======================
 		/// <summary>Gets array of Types that define this instance; this is used by the inspector to manage drop-downs</summary>
-		public virtual Type[] types
-		{
-			get
-			{
-				return null;
-			}
-		} 
+		public virtual Type[] types => null;
 
-		//=======================
-		// Calls
-		//=======================
-		/// <summary>Gets/sets the <see cref="m_calls"/> array</summary>
-		public List<RawDelegate> calls
-		{
-			get
-			{
-				return m_calls;
-			}
-			set
-			{
-				// Remove old
-				if ( m_calls != null )
-				{
-					for ( int i = ( m_calls.Count -1 ); i >= 0; --i )
-					{
-						removeCall( i );
-					}
-					
-					m_calls = null;
-				}
-				
-				// Add new
-				if ( value != null )
-				{
-					int tempListLength = value.Count;
-					for ( int i = 0; i < tempListLength; ++i )
-					{
-						addCall( value[i] );
-					}
-				}
-			}
-		}
-		
 		/// <summary>Attempts to add a <see cref="RawCall"/> to the Publisher's internal array and event(s)</summary>
 		/// <param name="tCall">RawCall to add</param>
 		/// <returns>True if successful</returns>
@@ -129,7 +88,7 @@ namespace EventsPlus
 				}
 				m_calls.Add( tCall );
 				
-				effectsCallAdded( tCall );
+				AppendCallToInvocation( tCall );
 				
 				return true;
 			}
@@ -139,7 +98,7 @@ namespace EventsPlus
 		
 		/// <summary>Handles the <see cref="RawCall"/> that was added and registers its delegate to the Publisher's matching event(s)</summary>
 		/// <param name="tCall">RawCall that was added</param>
-		protected virtual void effectsCallAdded( RawDelegate tCall )
+		protected virtual void AppendCallToInvocation( RawDelegate tCall )
 		{
 			Action tempDelegate = tCall.delegateInstance as Action;
 			if (tempDelegate != null)
@@ -171,7 +130,7 @@ namespace EventsPlus
 					m_calls = null;
 				}
 				
-				effectsCallRemoved( tempCall, tIndex );
+				RemoveCallFromInvocation( tempCall, tIndex );
 				
 				return true;
 			}
@@ -182,27 +141,19 @@ namespace EventsPlus
 		/// <summary>Handles the <see cref="RawCall"/> that was removed and removes its delegate from the Publisher's matching event(s)</summary>
 		/// <param name="tCall">RawCall that was removed</param>
 		/// <param name="tIndex">Index of the RawCall that was removed</param>
-		protected virtual void effectsCallRemoved( RawDelegate tCall, int tIndex )
+		protected virtual void RemoveCallFromInvocation( RawDelegate tCall, int tIndex )
 		{
-			Action tempDelegate = tCall.delegateInstance as Action;
-			if ( tempDelegate != null )
+			if (tCall.delegateInstance is Action tempDelegate)
 			{
 				onVoid -= tempDelegate;
 			}
 		}
-	
-		
+
+
 		// Publish
 		//=======================
 		/// <summary>Invokes the <see cref="onVoid"/> event</summary>
-		public void publish()
-		{
-			Action tempVoid = onVoid;
-			if ( tempVoid != null )
-			{
-				tempVoid();
-			}
-		}
+		public void Invoke() => onVoid?.Invoke();
 	}
 	
 	//##########################
@@ -215,7 +166,7 @@ namespace EventsPlus
 		// Variables
 		//=======================
 		/// <summary>Event for 1-Parameter delegates</summary>
-		public event Action<A> onEvent;
+		private Action<A> onEvent;
 		
 		//=======================
 		// Constructor
@@ -232,59 +183,38 @@ namespace EventsPlus
             onEvent = null;
             base.ReInitialize();
         }
-        //=======================
-        // Types
-        //=======================
-        public override Type[] types
-		{
-			get
-			{
-				return new Type[] { typeof( A ) };
-			}
-		}
+		//=======================
+		// Types
+		//=======================
+		public override Type[] types => new Type[] { typeof(A) };
 		
 		//=======================
 		// Call
 		//=======================
-		protected override void effectsCallAdded( RawDelegate tCall )
+		protected override void AppendCallToInvocation( RawDelegate tCall )
 		{
-			Action<A> tempDelegate = tCall.delegateInstance as Action<A>;
-			if ( tempDelegate == null )
-			{
-				base.effectsCallAdded( tCall );
-			}
+			if (tCall.delegateInstance is Action<A> tempDelegate)
+				onEvent += tempDelegate;
 			else
 			{
-				onEvent += tempDelegate;
+				var editor_act=tCall.delegateInstance as Action;
+				onEvent += new Action<A>(_ => editor_act.Invoke());
 			}
 		}
 		
-		protected override void effectsCallRemoved( RawDelegate tCall, int tIndex )
+		protected override void RemoveCallFromInvocation( RawDelegate tCall, int tIndex )
 		{
-			Action<A> tempDelegate = tCall.delegateInstance as Action<A>;
-			if ( tempDelegate == null )
-			{
-				base.effectsCallRemoved( tCall, tIndex );
-			}
-			else
-			{
+			if (tCall.delegateInstance is Action<A> tempDelegate)
 				onEvent -= tempDelegate;
-			}
 		}
 
         //=======================
         // Publish
         //=======================
         /// <summary>Invokes the <see cref="VisualDelegate.onVoid"/> and <see cref="onEvent"/> events</summary>
-        public void publish( A tA )
+        public void Invoke( A Argument )
 		{
-		   publish();
-			
-			Action<A> tempEvent = onEvent;
-			if ( tempEvent != null )
-			{
-				tempEvent( tA );
-			}
+			onEvent.Invoke(Argument);
 		}
 	}
 	
@@ -322,12 +252,12 @@ namespace EventsPlus
 		//=======================
 		// Call
 		//=======================
-		protected override void effectsCallAdded( RawDelegate tCall )
+		protected override void AppendCallToInvocation( RawDelegate tCall )
 		{
 			Action<A,B> tempDelegate = tCall.delegateInstance as Action<A,B>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallAdded( tCall );
+				base.AppendCallToInvocation( tCall );
 			}
 			else
 			{
@@ -335,12 +265,12 @@ namespace EventsPlus
 			}
 		}
 		
-		protected override void effectsCallRemoved( RawDelegate tCall, int tIndex )
+		protected override void RemoveCallFromInvocation( RawDelegate tCall, int tIndex )
 		{
 			Action<A,B> tempDelegate = tCall.delegateInstance as Action<A,B>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallRemoved( tCall, tIndex );
+				base.RemoveCallFromInvocation( tCall, tIndex );
 			}
 			else
 			{
@@ -355,7 +285,7 @@ namespace EventsPlus
 		/// <summary>Invokes the <see cref="VisualDelegate.onVoid"/> and <see cref="onEvent"/> events</summary>
 		public void publish( A tA, B tB )
 		{
-			publish();
+			Invoke();
 			
 			Action<A,B> tempEvent = onEvent;
 			if ( tempEvent != null )
@@ -399,12 +329,12 @@ namespace EventsPlus
 		//=======================
 		// Call
 		//=======================
-		protected override void effectsCallAdded( RawDelegate tCall )
+		protected override void AppendCallToInvocation( RawDelegate tCall )
 		{
 			Action<A,B,C> tempDelegate = tCall.delegateInstance as Action<A,B,C>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallAdded( tCall );
+				base.AppendCallToInvocation( tCall );
 			}
 			else
 			{
@@ -412,12 +342,12 @@ namespace EventsPlus
 			}
 		}
 		
-		protected override void effectsCallRemoved( RawDelegate tCall, int tIndex )
+		protected override void RemoveCallFromInvocation( RawDelegate tCall, int tIndex )
 		{
 			Action<A,B,C> tempDelegate = tCall.delegateInstance as Action<A,B,C>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallRemoved( tCall, tIndex );
+				base.RemoveCallFromInvocation( tCall, tIndex );
 			}
 			else
 			{
@@ -432,7 +362,7 @@ namespace EventsPlus
 		/// <summary>Invokes the <see cref="VisualDelegate.onVoid"/> and <see cref="onEvent"/> events</summary>
 		public void publish( A tA, B tB, C tC )
 		{
-			publish();
+			Invoke();
 			
 			Action<A,B,C> tempEvent = onEvent;
 			if ( tempEvent != null )
@@ -475,12 +405,12 @@ namespace EventsPlus
 		//=======================
 		// Call
 		//=======================
-		protected override void effectsCallAdded( RawDelegate tCall )
+		protected override void AppendCallToInvocation( RawDelegate tCall )
 		{
 			Action<A,B,C,D> tempDelegate = tCall.delegateInstance as Action<A,B,C,D>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallAdded( tCall );
+				base.AppendCallToInvocation( tCall );
 			}
 			else
 			{
@@ -488,12 +418,12 @@ namespace EventsPlus
 			}
 		}
 		
-		protected override void effectsCallRemoved( RawDelegate tCall, int tIndex )
+		protected override void RemoveCallFromInvocation( RawDelegate tCall, int tIndex )
 		{
 			Action<A,B,C,D> tempDelegate = tCall.delegateInstance as Action<A,B,C,D>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallRemoved( tCall, tIndex );
+				base.RemoveCallFromInvocation( tCall, tIndex );
 			}
 			else
 			{
@@ -508,7 +438,7 @@ namespace EventsPlus
 		/// <summary>Invokes the <see cref="VisualDelegate.onVoid"/> and <see cref="onEvent"/> events</summary>
 		public void publish( A tA, B tB, C tC, D tD )
 		{
-			publish();
+			Invoke();
 			
 			Action<A,B,C,D> tempEvent = onEvent;
 			if ( tempEvent != null )
@@ -553,12 +483,12 @@ namespace EventsPlus
 		//=======================
 		// Call
 		//=======================
-		protected override void effectsCallAdded( RawDelegate tCall )
+		protected override void AppendCallToInvocation( RawDelegate tCall )
 		{
 			Action<A,B,C,D,E> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallAdded( tCall );
+				base.AppendCallToInvocation( tCall );
 			}
 			else
 			{
@@ -566,12 +496,12 @@ namespace EventsPlus
 			}
 		}
 		
-		protected override void effectsCallRemoved( RawDelegate tCall, int tIndex )
+		protected override void RemoveCallFromInvocation( RawDelegate tCall, int tIndex )
 		{
 			Action<A,B,C,D,E> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallRemoved( tCall, tIndex );
+				base.RemoveCallFromInvocation( tCall, tIndex );
 			}
 			else
 			{
@@ -587,7 +517,7 @@ namespace EventsPlus
 		/// <summary>Invokes the <see cref="VisualDelegate.onVoid"/> and <see cref="onEvent"/> events</summary>
 		public void publish( A tA, B tB, C tC, D tD, E tE )
 		{
-			publish();
+			Invoke();
 			
 			Action<A,B,C,D,E> tempEvent = onEvent;
 			if ( tempEvent != null )
@@ -632,12 +562,12 @@ namespace EventsPlus
 		//=======================
 		// Call
 		//=======================
-		protected override void effectsCallAdded( RawDelegate tCall )
+		protected override void AppendCallToInvocation( RawDelegate tCall )
 		{
 			Action<A,B,C,D,E,F> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E,F>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallAdded( tCall );
+				base.AppendCallToInvocation( tCall );
 			}
 			else
 			{
@@ -645,12 +575,12 @@ namespace EventsPlus
 			}
 		}
 		
-		protected override void effectsCallRemoved( RawDelegate tCall, int tIndex )
+		protected override void RemoveCallFromInvocation( RawDelegate tCall, int tIndex )
 		{
 			Action<A,B,C,D,E,F> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E,F>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallRemoved( tCall, tIndex );
+				base.RemoveCallFromInvocation( tCall, tIndex );
 			}
 			else
 			{
@@ -666,7 +596,7 @@ namespace EventsPlus
 		/// <summary>Invokes the <see cref="VisualDelegate.onVoid"/> and <see cref="onEvent"/> events</summary>
 		public void publish( A tA, B tB, C tC, D tD, E tE, F tF )
 		{
-			publish();
+			Invoke();
 			
 			Action<A,B,C,D,E,F> tempEvent = onEvent;
 			if ( tempEvent != null )
@@ -710,12 +640,12 @@ namespace EventsPlus
 		//=======================
 		// Call
 		//=======================
-		protected override void effectsCallAdded( RawDelegate tCall )
+		protected override void AppendCallToInvocation( RawDelegate tCall )
 		{
 			Action<A,B,C,D,E,F,G> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E,F,G>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallAdded( tCall );
+				base.AppendCallToInvocation( tCall );
 			}
 			else
 			{
@@ -723,12 +653,12 @@ namespace EventsPlus
 			}
 		}
 		
-		protected override void effectsCallRemoved( RawDelegate tCall, int tIndex )
+		protected override void RemoveCallFromInvocation( RawDelegate tCall, int tIndex )
 		{
 			Action<A,B,C,D,E,F,G> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E,F,G>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallRemoved( tCall, tIndex );
+				base.RemoveCallFromInvocation( tCall, tIndex );
 			}
 			else
 			{
@@ -744,7 +674,7 @@ namespace EventsPlus
 		/// <summary>Invokes the <see cref="VisualDelegate.onVoid"/> and <see cref="onEvent"/> events</summary>
 		public void publish( A tA, B tB, C tC, D tD, E tE, F tF, G tG )
 		{
-			publish();
+			Invoke();
 			
 			Action<A,B,C,D,E,F,G> tempEvent = onEvent;
 			if ( tempEvent != null )
@@ -789,12 +719,12 @@ namespace EventsPlus
 		//=======================
 		// Call
 		//=======================
-		protected override void effectsCallAdded( RawDelegate tCall )
+		protected override void AppendCallToInvocation( RawDelegate tCall )
 		{
 			Action<A,B,C,D,E,F,G,H> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E,F,G,H>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallAdded( tCall );
+				base.AppendCallToInvocation( tCall );
 			}
 			else
 			{
@@ -802,12 +732,12 @@ namespace EventsPlus
 			}
 		}
 		
-		protected override void effectsCallRemoved( RawDelegate tCall, int tIndex )
+		protected override void RemoveCallFromInvocation( RawDelegate tCall, int tIndex )
 		{
 			Action<A,B,C,D,E,F,G,H> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E,F,G,H>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallRemoved( tCall, tIndex );
+				base.RemoveCallFromInvocation( tCall, tIndex );
 			}
 			else
 			{
@@ -823,7 +753,7 @@ namespace EventsPlus
 		/// <summary>Invokes the <see cref="VisualDelegate.onVoid"/> and <see cref="onEvent"/> events</summary>
 		public void publish( A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH )
 		{
-			publish();
+			Invoke();
 			
 			Action<A,B,C,D,E,F,G,H> tempEvent = onEvent;
 			if ( tempEvent != null )
@@ -866,12 +796,12 @@ namespace EventsPlus
 		//=======================
 		// Call
 		//=======================
-		protected override void effectsCallAdded( RawDelegate tCall )
+		protected override void AppendCallToInvocation( RawDelegate tCall )
 		{
 			Action<A,B,C,D,E,F,G,H,I> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E,F,G,H,I>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallAdded( tCall );
+				base.AppendCallToInvocation( tCall );
 			}
 			else
 			{
@@ -879,12 +809,12 @@ namespace EventsPlus
 			}
 		}
 		
-		protected override void effectsCallRemoved( RawDelegate tCall, int tIndex )
+		protected override void RemoveCallFromInvocation( RawDelegate tCall, int tIndex )
 		{
 			Action<A,B,C,D,E,F,G,H,I> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E,F,G,H,I>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallRemoved( tCall, tIndex );
+				base.RemoveCallFromInvocation( tCall, tIndex );
 			}
 			else
 			{
@@ -899,7 +829,7 @@ namespace EventsPlus
 		/// <summary>Invokes the <see cref="VisualDelegate.onVoid"/> and <see cref="onEvent"/> events</summary>
 		public void publish( A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH, I tI )
 		{
-			publish();
+			Invoke();
 			
 			Action<A,B,C,D,E,F,G,H,I> tempEvent = onEvent;
 			if ( tempEvent != null )
@@ -943,12 +873,12 @@ namespace EventsPlus
 		//=======================
 		// Call
 		//=======================
-		protected override void effectsCallAdded( RawDelegate tCall )
+		protected override void AppendCallToInvocation( RawDelegate tCall )
 		{
 			Action<A,B,C,D,E,F,G,H,I,J> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E,F,G,H,I,J>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallAdded( tCall );
+				base.AppendCallToInvocation( tCall );
 			}
 			else
 			{
@@ -956,12 +886,12 @@ namespace EventsPlus
 			}
 		}
 		
-		protected override void effectsCallRemoved( RawDelegate tCall, int tIndex )
+		protected override void RemoveCallFromInvocation( RawDelegate tCall, int tIndex )
 		{
 			Action<A,B,C,D,E,F,G,H,I,J> tempDelegate = tCall.delegateInstance as Action<A,B,C,D,E,F,G,H,I,J>;
 			if ( tempDelegate == null )
 			{
-				base.effectsCallRemoved( tCall, tIndex );
+				base.RemoveCallFromInvocation( tCall, tIndex );
 			}
 			else
 			{
@@ -975,7 +905,7 @@ namespace EventsPlus
 		/// <summary>Invokes the <see cref="VisualDelegate.onVoid"/> and <see cref="onEvent"/> events</summary>
 		public void publish( A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH, I tI, J tJ )
 		{
-			publish();
+			Invoke();
 			
 			Action<A,B,C,D,E,F,G,H,I,J> tempEvent = onEvent;
 			if ( tempEvent != null )

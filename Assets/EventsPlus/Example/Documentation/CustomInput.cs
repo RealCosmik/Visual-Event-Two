@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using EventsPlus;
+using VisualEvent;
 
 namespace EventsPlusTest
 {
@@ -24,7 +24,7 @@ namespace EventsPlusTest
 		{
 			if ( Input.GetKeyDown( jumpKey ) )
 			{
-				onJumpInput.publish( jumpHeight );
+				onJumpInput.Invoke( jumpHeight );
 			}
 		}
 	}

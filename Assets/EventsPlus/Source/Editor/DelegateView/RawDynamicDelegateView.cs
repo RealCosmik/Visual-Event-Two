@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-namespace EventsPlus
+namespace VisualEvent
 {
     public class RawDynamicDelegateView: RawDelegateView
     {
