@@ -45,14 +45,15 @@ namespace VisualEvent
         /// validation status of this current cache instance
         /// </summary>
         public bool isvalidated;
-        /// <summary>
-        /// Clears the data from this view when delegate is removed
-        /// </summary>
+        public bool HasDelegateError;
 
         public RawDelegateView()
         {
             Undo.undoRedoPerformed += () => ClearViewCache();
         }
+        /// <summary>
+        /// Clears the data from this view when delegate is removed
+        /// </summary>
         public virtual void ClearViewCache()
         {
             Debug.Log("nah this gets called alot");

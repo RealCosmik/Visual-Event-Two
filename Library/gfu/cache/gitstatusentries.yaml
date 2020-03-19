@@ -13,547 +13,205 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-03-18T02:58:45.898-04:00
-  initializedAtString: 2020-03-18T02:58:29.728-04:00
+  lastUpdatedAtString: 2020-03-19T03:55:57.825-04:00
+  initializedAtString: 2020-03-18T03:44:33.157-04:00
   entries:
   - path: Assembly-CSharp.csproj
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assembly-CSharp.csproj
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assembly-CSharp.csproj
     projectPath: Assembly-CSharp.csproj
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\another_Test.prefab
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\another_Test.prefab
-    projectPath: Assets\another_Test.prefab
+  - path: Assembly-CSharp-Editor.csproj
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assembly-CSharp-Editor.csproj
+    projectPath: Assembly-CSharp-Editor.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assembly-CSharp-Editor-firstpass.csproj
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assembly-CSharp-Editor-firstpass.csproj
+    projectPath: Assembly-CSharp-Editor-firstpass.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets/bouncu.physicsMaterial2D
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/bouncu.physicsMaterial2D
+    projectPath: Assets/bouncu.physicsMaterial2D
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Assets\another_Test.prefab.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\another_Test.prefab.meta
-    projectPath: Assets\another_Test.prefab.meta
+  - path: Assets/bouncu.physicsMaterial2D.meta
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/bouncu.physicsMaterial2D.meta
+    projectPath: Assets/bouncu.physicsMaterial2D.meta
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Assets\del_obj.prefab
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\del_obj.prefab
-    projectPath: Assets\del_obj.prefab
+  - path: Assets/bouncy 3D.physicMaterial
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/bouncy
+      3D.physicMaterial
+    projectPath: Assets/bouncy 3D.physicMaterial
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Assets\del_obj.prefab.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\del_obj.prefab.meta
-    projectPath: Assets\del_obj.prefab.meta
+  - path: Assets/bouncy 3D.physicMaterial.meta
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/bouncy
+      3D.physicMaterial.meta
+    projectPath: Assets/bouncy 3D.physicMaterial.meta
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Assets\EventsPlus\Example\Benchmark\Test.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Example\Benchmark\Test.cs
-    projectPath: Assets\EventsPlus\Example\Benchmark\Test.cs
+  - path: Assets/EventsPlus/Source/Delegates/DelgateArguments/RawArgument.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Delegates/DelgateArguments/RawArgument.cs
+    projectPath: Assets/EventsPlus/Source/Delegates/DelgateArguments/RawArgument.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Example\Documentation\Character.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Example\Documentation\Character.cs
-    projectPath: Assets\EventsPlus\Example\Documentation\Character.cs
+  - path: Assets/EventsPlus/Source/Delegates/RawCall.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Delegates/RawCall.cs
+    projectPath: Assets/EventsPlus/Source/Delegates/RawCall.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Example\Documentation\CustomInput.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Example\Documentation\CustomInput.cs
-    projectPath: Assets\EventsPlus\Example\Documentation\CustomInput.cs
+  - path: Assets/EventsPlus/Source/Delegates/RawDelegate.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Delegates/RawDelegate.cs
+    projectPath: Assets/EventsPlus/Source/Delegates/RawDelegate.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Example\Documentation\Explosion.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Example\Documentation\Explosion.cs
-    projectPath: Assets\EventsPlus\Example\Documentation\Explosion.cs
+  - path: Assets/EventsPlus/Source/Delegates/RawDynamicDelegate.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Delegates/RawDynamicDelegate.cs
+    projectPath: Assets/EventsPlus/Source/Delegates/RawDynamicDelegate.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Example\Documentation\Level.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Example\Documentation\Level.cs
-    projectPath: Assets\EventsPlus\Example\Documentation\Level.cs
+  - path: Assets/EventsPlus/Source/Editor/DelegateView/RawCallView.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/DelegateView/RawCallView.cs
+    projectPath: Assets/EventsPlus/Source/Editor/DelegateView/RawCallView.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Example\Documentation\Scoreboard.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Example\Documentation\Scoreboard.cs
-    projectPath: Assets\EventsPlus\Example\Documentation\Scoreboard.cs
+  - path: Assets/EventsPlus/Source/Editor/DelegateView/RawDelegateView.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/DelegateView/RawDelegateView.cs
+    projectPath: Assets/EventsPlus/Source/Editor/DelegateView/RawDelegateView.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Example\Documentation\YourGame.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Example\Documentation\YourGame.cs
-    projectPath: Assets\EventsPlus\Example\Documentation\YourGame.cs
+  - path: Assets/EventsPlus/Source/Editor/Drawers/DrawerRawArgument.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/Drawers/DrawerRawArgument.cs
+    projectPath: Assets/EventsPlus/Source/Editor/Drawers/DrawerRawArgument.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Example\Documentation\YourMonoBehaviour.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Example\Documentation\YourMonoBehaviour.cs
-    projectPath: Assets\EventsPlus\Example\Documentation\YourMonoBehaviour.cs
+  - path: Assets/EventsPlus/Source/Editor/Drawers/DrawerRawCallView.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/Drawers/DrawerRawCallView.cs
+    projectPath: Assets/EventsPlus/Source/Editor/Drawers/DrawerRawCallView.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Example\Singleton\InputTest.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Example\Singleton\InputTest.cs
-    projectPath: Assets\EventsPlus\Example\Singleton\InputTest.cs
+  - path: Assets/EventsPlus/Source/Editor/Drawers/DrawerRawDelegateView.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/Drawers/DrawerRawDelegateView.cs
+    projectPath: Assets/EventsPlus/Source/Editor/Drawers/DrawerRawDelegateView.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Example\Singleton\Singleton.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Example\Singleton\Singleton.cs
-    projectPath: Assets\EventsPlus\Example\Singleton\Singleton.cs
+  - path: Assets/EventsPlus/Source/Editor/Drawers/DrawerRawReferenceView.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/Drawers/DrawerRawReferenceView.cs
+    projectPath: Assets/EventsPlus/Source/Editor/Drawers/DrawerRawReferenceView.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Delegates\DelgateArguments\RawArgument.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Delegates\DelgateArguments\RawArgument.cs
-    projectPath: Assets\EventsPlus\Source\Delegates\DelgateArguments\RawArgument.cs
+  - path: Assets/EventsPlus/Source/Editor/Drawers/DrawerVisualDelegate.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/Drawers/DrawerVisualDelegate.cs
+    projectPath: Assets/EventsPlus/Source/Editor/Drawers/DrawerVisualDelegate.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Delegates\DelgateArguments\RawReference.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Delegates\DelgateArguments\RawReference.cs
-    projectPath: Assets\EventsPlus\Source\Delegates\DelgateArguments\RawReference.cs
+  - path: Assets/EventsPlus/Source/Editor/Method Members/IMember.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/Method
+      Members/IMember.cs
+    projectPath: Assets/EventsPlus/Source/Editor/Method Members/IMember.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Delegates\RawCall.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Delegates\RawCall.cs
-    projectPath: Assets\EventsPlus\Source\Delegates\RawCall.cs
+  - path: Assets/EventsPlus/Source/Editor/Method Members/Member.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/Method
+      Members/Member.cs
+    projectPath: Assets/EventsPlus/Source/Editor/Method Members/Member.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Delegates\RawDelegate.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Delegates\RawDelegate.cs
-    projectPath: Assets\EventsPlus\Source\Delegates\RawDelegate.cs
+  - path: Assets/EventsPlus/Source/Editor/Method Members/MemberField.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/Method
+      Members/MemberField.cs
+    projectPath: Assets/EventsPlus/Source/Editor/Method Members/MemberField.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Delegates\RawDynamicDelegate.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Delegates\RawDynamicDelegate.cs
-    projectPath: Assets\EventsPlus\Source\Delegates\RawDynamicDelegate.cs
+  - path: Assets/EventsPlus/Source/Editor/Method Members/MemberMethod.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/Method
+      Members/MemberMethod.cs
+    projectPath: Assets/EventsPlus/Source/Editor/Method Members/MemberMethod.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Argument.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Argument.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Argument.cs
+  - path: Assets/EventsPlus/Source/Editor/Method Members/MemberProperty.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/Editor/Method
+      Members/MemberProperty.cs
+    projectPath: Assets/EventsPlus/Source/Editor/Method Members/MemberProperty.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Cache\ViewCache.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Cache\ViewCache.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Cache\ViewCache.cs
+  - path: Assets/EventsPlus/Source/VisualDelegate.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/EventsPlus/Source/VisualDelegate.cs
+    projectPath: Assets/EventsPlus/Source/VisualDelegate.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\CacheFilter.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\CacheFilter.cs
-    projectPath: Assets\EventsPlus\Source\Editor\CacheFilter.cs
+  - path: Assets/IK.prefab
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/IK.prefab
+    projectPath: Assets/IK.prefab
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\DelegateView\DelegateArguments\RawArgumentView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\DelegateView\DelegateArguments\RawArgumentView.cs
-    projectPath: Assets\EventsPlus\Source\Editor\DelegateView\DelegateArguments\RawArgumentView.cs
+  - path: Assets/LinkedMono.cs
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/LinkedMono.cs
+    projectPath: Assets/LinkedMono.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\DelegateView\RawCallView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\DelegateView\RawCallView.cs
-    projectPath: Assets\EventsPlus\Source\Editor\DelegateView\RawCallView.cs
+  - path: Assets/Scenes/SampleScene.unity
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Scenes/SampleScene.unity
+    projectPath: Assets/Scenes/SampleScene.unity
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\DelegateView\RawDelegateView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\DelegateView\RawDelegateView.cs
-    projectPath: Assets\EventsPlus\Source\Editor\DelegateView\RawDelegateView.cs
+  - path: Assets/Utility.asset
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Assets/Utility.asset
+    projectPath: Assets/Utility.asset
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\DelegateView\RawDynamicDelegateView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\DelegateView\RawDynamicDelegateView.cs
-    projectPath: Assets\EventsPlus\Source\Editor\DelegateView\RawDynamicDelegateView.cs
+  - path: Library/SceneVisibilityState.asset
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/SceneVisibilityState.asset
+    projectPath: Library/SceneVisibilityState.asset
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\DelegateView\RawReferenceView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\DelegateView\RawReferenceView.cs
-    projectPath: Assets\EventsPlus\Source\Editor\DelegateView\RawReferenceView.cs
+  - path: Library/ScriptMapper
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/Library/ScriptMapper
+    projectPath: Library/ScriptMapper
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerFilter.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerFilter.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerFilter.cs
+  - path: ProjectSettings/GraphicsSettings.asset
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/ProjectSettings/GraphicsSettings.asset
+    projectPath: ProjectSettings/GraphicsSettings.asset
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawArgument.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerRawArgument.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawArgument.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawCallView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerRawCallView.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawCallView.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawDelegateView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerRawDelegateView.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawDelegateView.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawReferenceView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerRawReferenceView.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawReferenceView.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawRuntimeDelegate.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerRawRuntimeDelegate.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawRuntimeDelegate.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerVisualDelegate.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerVisualDelegate.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerVisualDelegate.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Filter.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Filter.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Filter.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\HashedFilter.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\HashedFilter.cs
-    projectPath: Assets\EventsPlus\Source\Editor\HashedFilter.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Method Members\IMember.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Method
-      Members\IMember.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Method Members\IMember.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Method Members\Member.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Method
-      Members\Member.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Method Members\Member.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Method Members\MemberField.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Method
-      Members\MemberField.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Method Members\MemberField.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Method Members\MemberMethod.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Method
-      Members\MemberMethod.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Method Members\MemberMethod.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Method Members\MemberProperty.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Method
-      Members\MemberProperty.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Method Members\MemberProperty.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Namespace.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Namespace.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Namespace.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\Settings.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Settings.cs
-    projectPath: Assets\EventsPlus\Source\Editor\Settings.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Editor\VisualEditorUtility.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\VisualEditorUtility.cs
-    projectPath: Assets\EventsPlus\Source\Editor\VisualEditorUtility.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Utility\Utility.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Utility\Utility.cs
-    projectPath: Assets\EventsPlus\Source\Utility\Utility.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\VisualDelegate.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\VisualDelegate.cs
-    projectPath: Assets\EventsPlus\Source\VisualDelegate.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\fresh_start.prefab
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\fresh_start.prefab
-    projectPath: Assets\fresh_start.prefab
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\fresh_start.prefab.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\fresh_start.prefab.meta
-    projectPath: Assets\fresh_start.prefab.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\GameObject (1).prefab
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\GameObject
-      (1).prefab
-    projectPath: Assets\GameObject (1).prefab
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\GameObject (1).prefab.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\GameObject
-      (1).prefab.meta
-    projectPath: Assets\GameObject (1).prefab.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\GameObject.prefab
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\GameObject.prefab
-    projectPath: Assets\GameObject.prefab
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\GameObject.prefab.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\GameObject.prefab.meta
-    projectPath: Assets\GameObject.prefab.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\IK.prefab
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\IK.prefab
-    projectPath: Assets\IK.prefab
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\IK.prefab.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\IK.prefab.meta
-    projectPath: Assets\IK.prefab.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\kljlj.prefab
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\kljlj.prefab
-    projectPath: Assets\kljlj.prefab
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\kljlj.prefab.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\kljlj.prefab.meta
-    projectPath: Assets\kljlj.prefab.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\LinkedMono.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\LinkedMono.cs
-    projectPath: Assets\LinkedMono.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Scenes\SampleScene.unity
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Scenes\SampleScene.unity
-    projectPath: Assets\Scenes\SampleScene.unity
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\SignalExtension.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\SignalExtension.cs
-    projectPath: Assets\SignalExtension.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\SignalExtension.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\SignalExtension.cs.meta
-    projectPath: Assets\SignalExtension.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\UtilitySO.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\UtilitySO.cs
-    projectPath: Assets\UtilitySO.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ArtifactDB
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ArtifactDB
-    projectPath: Library\ArtifactDB
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\CurrentLayout-default.dwlt
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\CurrentLayout-default.dwlt
-    projectPath: Library\CurrentLayout-default.dwlt
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\EditorUserBuildSettings.asset
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\EditorUserBuildSettings.asset
-    projectPath: Library\EditorUserBuildSettings.asset
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\gfu\cache\gitlocks.yaml
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\gitlocks.yaml
-    projectPath: Library\gfu\cache\gitlocks.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\gfu\cache\gitlog.yaml
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\gitlog.yaml
-    projectPath: Library\gfu\cache\gitlog.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Library\gfu\cache\gitstatusentries.yaml
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\gitstatusentries.yaml
-    projectPath: Library\gfu\cache\gitstatusentries.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\gfu\cache\gittrackingstatus.yaml
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\gittrackingstatus.yaml
-    projectPath: Library\gfu\cache\gittrackingstatus.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\gfu\cache\repoinfo.yaml
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\repoinfo.yaml
-    projectPath: Library\gfu\cache\repoinfo.yaml
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\InspectorExpandedItems.asset
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\InspectorExpandedItems.asset
-    projectPath: Library\InspectorExpandedItems.asset
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\SceneVisibilityState.asset
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\SceneVisibilityState.asset
-    projectPath: Library\SceneVisibilityState.asset
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Assembly-CSharp.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Assembly-CSharp.dll
-    projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Assembly-CSharp-Editor.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Assembly-CSharp-Editor.dll
-    projectPath: Library\ScriptAssemblies\Assembly-CSharp-Editor.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
-    projectPath: Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\com.unity.quicksearch.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\com.unity.quicksearch.dll
-    projectPath: Library\ScriptAssemblies\com.unity.quicksearch.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-    projectPath: Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Unity.Rider.Editor.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.Rider.Editor.dll
-    projectPath: Library\ScriptAssemblies\Unity.Rider.Editor.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Unity.TextMeshPro.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Unity.Timeline.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.Timeline.dll
-    projectPath: Library\ScriptAssemblies\Unity.Timeline.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-    projectPath: Library\ScriptAssemblies\Unity.Timeline.Editor.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-    projectPath: Library\ScriptAssemblies\Unity.VSCode.Editor.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-    projectPath: Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\UnityEditor.UI.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEditor.UI.dll
-    projectPath: Library\ScriptAssemblies\UnityEditor.UI.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-    projectPath: Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\UnityEngine.UI.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEngine.UI.dll
-    projectPath: Library\ScriptAssemblies\UnityEngine.UI.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ShaderCache\EditorEncounteredVariants
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ShaderCache\EditorEncounteredVariants
-    projectPath: Library\ShaderCache\EditorEncounteredVariants
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\SourceAssetDB
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\SourceAssetDB
-    projectPath: Library\SourceAssetDB
+  - path: ProjectSettings/QualitySettings.asset
+    fullPath: /Users/mike/Desktop/untitled folder/Visual-Event-Two/ProjectSettings/QualitySettings.asset
+    projectPath: ProjectSettings/QualitySettings.asset
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

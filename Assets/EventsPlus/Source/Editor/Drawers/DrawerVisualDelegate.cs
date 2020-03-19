@@ -57,13 +57,10 @@ namespace VisualEvent
                 };
                 tempList.drawElementCallback += (Rect rect, int index, bool tIsActive, bool tIsFocused) =>
                 {
-                    EditorGUI.BeginChangeCheck();
-                    EditorGUI.PropertyField(rect, tempList.serializedProperty.GetArrayElementAtIndex(index), true);
-                    if (EditorGUI.EndChangeCheck() && EditorApplication.isPlaying)
-                    {
-                        tProperty.serializedObject.ApplyModifiedProperties();
-                        tProperty.GetTarget<VisualDelegate>()?.ReInitialize();
-                    }
+                    var prop = tempList.serializedProperty.GetArrayElementAtIndex(index);
+                    EditorGUI.BeginProperty(rect, null, prop);
+                    EditorGUI.PropertyField(rect, prop, true);
+                    EditorGUI.EndProperty();
                 };
                 tempList.elementHeightCallback += (int index) =>
                 {
@@ -110,6 +107,7 @@ namespace VisualEvent
         /// <param name="tLabel">GUI Label of the drawer</param>
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         {
+            EditorGUI.BeginChangeCheck();
             ClearOldCache(tProperty);
             tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
             tProperty.isExpanded = EditorGUI.Foldout(tPosition, tProperty.isExpanded, tProperty.displayName);
@@ -129,6 +127,13 @@ namespace VisualEvent
                 EditorGUI.indentLevel = tempIndentLevel - 1;
 
                 CopyPasteKeyboard(tempList, tempList.serializedProperty);
+            }
+            if (EditorGUI.EndChangeCheck())
+            {
+                tProperty.serializedObject.ApplyModifiedProperties();
+                PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
+                if (EditorApplication.isPlaying)
+                    tProperty.GetTarget<VisualDelegate>()?.ReInitialize();
             }
         }
         /// <summary>
@@ -154,7 +159,7 @@ namespace VisualEvent
                 }
                 cache.ClearViewCache();
             }
-        }
+        } 
         /// <summary>
         /// On Add element list
         /// </summary>
@@ -162,12 +167,15 @@ namespace VisualEvent
         /// <param name="arrayprop"></param>
         private void onAddElement(ReorderableList list)
         {
+            Undo.RegisterCompleteObjectUndo(list.serializedProperty.serializedObject.targetObject,"add");
             var arrayprop = list.serializedProperty;
             var size = arrayprop.arraySize;
-            arrayprop.arraySize++;
-            arrayprop.GetArrayElementAtIndex(size).managedReferenceValue = new RawCall();
-            arrayprop.serializedObject.ApplyModifiedProperties();
+            arrayprop.InsertArrayElementAtIndex(size);
+            var delegateprop = arrayprop.GetArrayElementAtIndex(size);
+            delegateprop.FindPropertyRelative("m_target").objectReferenceValue = null;
+            //arrayprop.GetArrayElementAtIndex(size).managedReferenceValue = new RawCall();
             PrefabUtility.RecordPrefabInstancePropertyModifications(arrayprop.serializedObject.targetObject);
+            arrayprop.serializedObject.ApplyModifiedProperties();
         }
 
         private void OnReorder(ReorderableList list, int oldindex, int newindex, SerializedProperty ViewDelegateProp)

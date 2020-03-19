@@ -36,5 +36,6 @@ namespace VisualEvent
             //Custom seralize it here so that at run time we can decode it and retrieve the member data
             m_seralizeData = Utility.QuickSeralizer(tInfo);
 		}
-	}
+        public abstract bool isvaluetype { get; }
+    }
 }

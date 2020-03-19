@@ -45,17 +45,30 @@ namespace VisualEvent
         [SerializeField]
         private AnimationCurve animationCurveValue;
         [SerializeField]
-        string[] methodData;
-        [SerializeField]
-        bool UseReference;
+        private bool UseReference;
         [SerializeField]
         RawReference call_Reference;
         public bool isUsingreference => UseReference && call_Reference.target != null;
-        public T CreateReferenceDelegate<T>() where T : Delegate
+
+        public Func<ArgType> CreateArgumentDelegate<ArgType>()
         {
-            call_Reference.ParentArgumentType = assemblyQualifiedArgumentName;
-            call_Reference.initialize();
-            return call_Reference.delegateInstance as T;
+            if (isUsingreference)
+            {
+                call_Reference.ParentArgumentType = assemblyQualifiedArgumentName;
+                call_Reference.initialize();
+                if (call_Reference.delegateInstance is Func<ArgType> casted_del)
+                    return casted_del;
+                else
+                {
+                    var boxed_func = call_Reference.delegateInstance as Func<object>;
+                    return casted_del = () => (ArgType)boxed_func.Invoke();
+                }
+            }
+            else
+            {
+                ArgType static_value = (ArgType)genericValue;
+                return () => static_value;
+            }
         }
         //=======================
         // Accessors

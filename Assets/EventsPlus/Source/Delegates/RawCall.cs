@@ -30,6 +30,9 @@ namespace VisualEvent
 
         /// <summary>Gets the <see cref="m_isDynamic"/> value</summary>
         internal bool isDynamic => m_isDynamic;
+        public bool m_runtime;
+        [SerializeField]
+        string TargetType;
 
         //=======================
         // Initialization
@@ -41,7 +44,19 @@ namespace VisualEvent
             if (m_target != null)
                 delegateInstance = createDelegate(tPublisher, Utility.QuickDeseralizer(m_target.GetType(), methodData));
         }
-
+        public override void initialize()
+        {
+            if (methodData?.Length > 0)
+            {
+                var deltype = Type.GetType(TargetType);
+                var method = Utility.QuickDeseralizer(deltype, methodData);
+                if (m_target != null)
+                    delegateInstance = createDelegate(method, m_target);
+                else
+                    delegateInstance = createDelegate(method, Activator.CreateInstance(deltype));
+            }
+        }
+        public RawCall(bool isruntime) => m_runtime = isruntime;
         //=======================
         // Delegate
         //=======================
@@ -59,10 +74,10 @@ namespace VisualEvent
                         FieldInfo tempField = tMember as FieldInfo;
                         if (m_isDynamic)
                         {
-                            return this.GetType().GetMethod("createFieldAction", Utility.InstanceFlags).MakeGenericMethod(tempField.ReflectedType, tempField.FieldType).Invoke(this, new object[] { tPublisher, m_target, tempField }) as System.Delegate;
+                            return this.GetType().GetMethod("createFieldAction", Utility.InstanceFlags).MakeGenericMethod(tempField.FieldType).Invoke(this, new object[] { tPublisher, m_target, tempField }) as System.Delegate;
                         }
-                        dynamic arg = m_arguments[0].genericValue;
-                        return this.GetType().GetMethod("createFieldCall", Utility.InstanceFlags).MakeGenericMethod(tempField.ReflectedType, tempField.FieldType).Invoke(this, new object[] { tPublisher, m_target, tempField, arg }) as System.Delegate;
+                        var arg = m_arguments[0];
+                        return this.GetType().GetMethod("createFieldCall", Utility.InstanceFlags).MakeGenericMethod(tempField.FieldType).Invoke(this, new object[] { tPublisher, m_target, tempField, arg }) as System.Delegate;
                     case MemberTypes.Property:
                         PropertyInfo tempProperty = tMember as PropertyInfo;
                         if (m_isDynamic)
@@ -121,7 +136,6 @@ namespace VisualEvent
                             {
                                 return this.GetType().GetMethod("createActionCall0", Utility.InstanceFlags).Invoke(this, tempArguments) as System.Delegate;
                             }
-                            Debug.Log(tempParametersLength);
                             return this.GetType().GetMethod("createActionCall" + tempParametersLength, Utility.InstanceFlags).MakeGenericMethod(tempParameterTypes).Invoke(this, tempArguments) as System.Delegate;
                         }
 
@@ -144,6 +158,8 @@ namespace VisualEvent
         public void AOTFIX()
         {
             createActionCall1<int>(null, null, null);
+            createFieldAction<int>(null, null, null);
+            createFieldCall<int>(null, null, null, default);
         }
         //=======================
         // Field
@@ -153,11 +169,14 @@ namespace VisualEvent
         /// <param name="tTarget">Target owner of the <paramref name="tField"/></param>
         /// <param name="tField">FieldInfo used to generate a delegate</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A> createFieldAction<T, A>(VisualDelegate tPublisher, T tTarget, FieldInfo tField)
+        protected virtual Action<A> createFieldAction<A>(VisualDelegate tPublisher, UnityEngine.Object target, FieldInfo tField)
         {
-            var field_instance = Expression.Field(Expression.Constant(tTarget), tField);
+            var field_instance = Expression.Field(Expression.Constant(target), tField);
             var param_expression=Expression.Parameter(typeof(object),"Value");
-            var assign_expression = Expression.Assign(field_instance, Expression.Unbox(param_expression,typeof(A)));
+            BinaryExpression assign_expression;
+            if (typeof(A).IsValueType)
+                assign_expression = Expression.Assign(field_instance, Expression.Unbox(param_expression, typeof(A)));
+            else assign_expression = Expression.Assign(field_instance, param_expression);
             var boxed_lamda=Expression.Lambda<Action<object>>(assign_expression,param_expression).Compile();
             return val => boxed_lamda(val);
 
@@ -169,13 +188,17 @@ namespace VisualEvent
         /// <param name="tField">FieldInfo used to generate a delegate</param>
         /// <param name="tValue">Predefined argument value</param>
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createFieldCall<T, A>(VisualDelegate tPublisher, T tTarget, FieldInfo tField, A tValue)
+        protected virtual Action createFieldCall<A>(VisualDelegate tPublisher, UnityEngine.Object tTarget, FieldInfo tField, RawArg arg1)
         {
-            var field_intance = Expression.Field(Expression.Constant(tTarget), tField);
-            var field_value_expression = Expression.Constant((object)tValue);
-            var setter_expression=Expression.Assign(field_intance, field_value_expression);
-            var setter_lamda = Expression.Lambda<Action>(setter_expression).Compile();
-            return setter_lamda;
+            var field_instance = Expression.Field(Expression.Constant(tTarget), tField);
+            var field_value_expression = Expression.Parameter(typeof(object), "Value");
+            BinaryExpression setter_expression;
+            if (typeof(A).IsValueType)
+                setter_expression = Expression.Assign(field_instance, Expression.Unbox(field_value_expression, typeof(A)));
+            else setter_expression=Expression.Assign(field_instance,field_value_expression);
+            var setter_lamda = Expression.Lambda<Action<object>>(setter_expression,field_value_expression).Compile();
+            var value = arg1.CreateArgumentDelegate<A>();
+            return () => setter_lamda(value);
         }
 
         //=======================
@@ -207,7 +230,7 @@ namespace VisualEvent
         protected virtual Action createPropertyCall<A>(VisualDelegate tPublisher, PropertyInfo tProperty, RawArg arg1)
         {
             Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tProperty.GetSetMethod(), false) as Action<A>;
-            Func<A> property_input = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Func<A> property_input = arg1.CreateArgumentDelegate<A>();
             Action tempcall = () =>
              {
                  if (m_target == null)
@@ -272,7 +295,7 @@ namespace VisualEvent
         protected virtual Action createActionCall1<A>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1)
         {
             Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tMethod, false) as Action<A>;
-            Func<A> input = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Func<A> input = arg1.CreateArgumentDelegate<A>();
             Action tempaction = () =>
             {
                 if (m_target == null)
@@ -313,8 +336,8 @@ namespace VisualEvent
         protected virtual Action createActionCall2<A, B>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2)
         {
             Action<A, B> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B>), m_target, tMethod, false) as Action<A, B>;
-            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
-            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
+            Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
+            Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -358,9 +381,9 @@ namespace VisualEvent
         protected virtual Action createActionCall3<A, B, C>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3)
         {
             Action<A, B, C> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C>), m_target, tMethod, false) as Action<A, B, C>;
-            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
-            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
-            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
+            Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
+            Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
+            Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -409,10 +432,10 @@ namespace VisualEvent
         protected virtual Action createActionCall4<A, B, C, D>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4)
         {
             Action<A, B, C, D> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D>), m_target, tMethod, false) as Action<A, B, C, D>;
-            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
-            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
-            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
-            Func<D> input_4 = arg4.isUsingreference ? arg4.CreateReferenceDelegate<Func<D>>() : () => (D)arg4.genericValue;
+            Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
+            Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
+            Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
+            Func<D> input_4 = arg4.CreateArgumentDelegate<D>();
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -462,11 +485,11 @@ namespace VisualEvent
         protected virtual Action createActionCall5<A, B, C, D, E>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5)
         {
             Action<A, B, C, D, E> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E>), m_target, tMethod, false) as Action<A, B, C, D, E>;
-            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
-            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
-            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
-            Func<D> input_4 = arg4.isUsingreference ? arg4.CreateReferenceDelegate<Func<D>>() : () => (D)arg4.genericValue;
-            Func<E> input_5 = arg5.isUsingreference ? arg5.CreateReferenceDelegate<Func<E>>() : () => (E)arg5.genericValue;
+            Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
+            Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
+            Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
+            Func<D> input_4 = arg4.CreateArgumentDelegate<D>();
+            Func<E> input_5 = arg5.CreateArgumentDelegate<E>();
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -517,12 +540,12 @@ namespace VisualEvent
         protected virtual Action createActionCall6<A, B, C, D, E, F>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6)
         {
             Action<A, B, C, D, E, F> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F>), m_target, tMethod, false) as Action<A, B, C, D, E, F>;
-            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
-            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
-            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
-            Func<D> input_4 = arg4.isUsingreference ? arg4.CreateReferenceDelegate<Func<D>>() : () => (D)arg4.genericValue;
-            Func<E> input_5 = arg5.isUsingreference ? arg5.CreateReferenceDelegate<Func<E>>() : () => (E)arg5.genericValue;
-            Func<F> input_6 = arg6.isUsingreference ? arg6.CreateReferenceDelegate<Func<F>>() : () => (F)arg6.genericValue;
+            Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
+            Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
+            Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
+            Func<D> input_4 = arg4.CreateArgumentDelegate<D>();
+            Func<E> input_5 = arg5.CreateArgumentDelegate<E>();
+            Func<F> input_6 = arg6.CreateArgumentDelegate<F>();
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -574,13 +597,13 @@ namespace VisualEvent
         protected virtual Action createActionCall7<A, B, C, D, E, F, G>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6, RawArg arg7)
         {
             Action<A, B, C, D, E, F, G> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G>;
-            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
-            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
-            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
-            Func<D> input_4 = arg4.isUsingreference ? arg4.CreateReferenceDelegate<Func<D>>() : () => (D)arg4.genericValue;
-            Func<E> input_5 = arg5.isUsingreference ? arg5.CreateReferenceDelegate<Func<E>>() : () => (E)arg5.genericValue;
-            Func<F> input_6 = arg6.isUsingreference ? arg6.CreateReferenceDelegate<Func<F>>() : () => (F)arg6.genericValue;
-            Func<G> input_7 = arg7.isUsingreference ? arg7.CreateReferenceDelegate<Func<G>>() : () => (G)arg7.genericValue;
+            Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
+            Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
+            Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
+            Func<D> input_4 = arg4.CreateArgumentDelegate<D>();
+            Func<E> input_5 = arg5.CreateArgumentDelegate<E>();
+            Func<F> input_6 = arg6.CreateArgumentDelegate<F>();
+            Func<G> input_7 = arg7.CreateArgumentDelegate<G>();
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -633,14 +656,14 @@ namespace VisualEvent
         protected virtual Action createActionCall8<A, B, C, D, E, F, G, H>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6, RawArg arg7, RawArg arg8)
         {
             Action<A, B, C, D, E, F, G, H> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G, H>;
-            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
-            Func<B> input_2 = arg2.isUsingreference ? arg2.CreateReferenceDelegate<Func<B>>() : () => (B)arg2.genericValue;
-            Func<C> input_3 = arg3.isUsingreference ? arg3.CreateReferenceDelegate<Func<C>>() : () => (C)arg3.genericValue;
-            Func<D> input_4 = arg4.isUsingreference ? arg4.CreateReferenceDelegate<Func<D>>() : () => (D)arg4.genericValue;
-            Func<E> input_5 = arg5.isUsingreference ? arg5.CreateReferenceDelegate<Func<E>>() : () => (E)arg5.genericValue;
-            Func<F> input_6 = arg6.isUsingreference ? arg6.CreateReferenceDelegate<Func<F>>() : () => (F)arg6.genericValue;
-            Func<G> input_7 = arg7.isUsingreference ? arg7.CreateReferenceDelegate<Func<G>>() : () => (G)arg7.genericValue;
-            Func<H> input_8 = arg8.isUsingreference ? arg8.CreateReferenceDelegate<Func<H>>() : () => (H)arg8.genericValue;
+            Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
+            Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
+            Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
+            Func<D> input_4 = arg4.CreateArgumentDelegate<D>();
+            Func<E> input_5 = arg5.CreateArgumentDelegate<E>();
+            Func<F> input_6 = arg6.CreateArgumentDelegate<F>();
+            Func<G> input_7 = arg7.CreateArgumentDelegate<G>();
+            Func<H> input_8 = arg8.CreateArgumentDelegate<H>();
             Action tempAction = () =>
             {
                 if (m_target == null)
@@ -711,7 +734,7 @@ namespace VisualEvent
         {
 
             Func<A, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, T>), m_target, tMethod, false) as Func<A, T>;
-            Func<A> input_1 = arg1.isUsingreference ? arg1.CreateReferenceDelegate<Func<A>>() : () => (A)arg1.genericValue;
+            Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Action tempaction = () =>
                {
                    if (m_target == null)

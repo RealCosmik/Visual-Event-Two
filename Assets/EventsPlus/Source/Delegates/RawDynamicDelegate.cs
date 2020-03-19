@@ -5,7 +5,7 @@ namespace VisualEvent
     public class RawDynamicDelegate : RawDelegate
     {
         [SerializeField]
-        string TargetType, TargetName;
+        string TargetType;
         public override void initialize()
         {
             if (methodData.Length > 0)

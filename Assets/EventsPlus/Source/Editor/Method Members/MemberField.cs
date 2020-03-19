@@ -15,7 +15,7 @@ namespace VisualEvent
                 m_seralizeData[2] = "SET";
             else m_seralizeData[2] = "GET";
         }
-		
-		public override string GetdisplayName()=>$"{m_info.FieldType.GetKeyword()} {m_seralizeData[2]} {m_info.Name}";
+        public override bool isvaluetype => m_info.FieldType.IsValueType;
+        public override string GetdisplayName()=>$"{m_info.FieldType.GetKeyword()} {m_seralizeData[2]} {m_info.Name}";
 	}
 }

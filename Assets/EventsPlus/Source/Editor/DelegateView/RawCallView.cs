@@ -26,7 +26,6 @@ namespace VisualEvent
         /// <summary>Cached predefined arguments of the selected member</summary>
         public Argument[] arguments { get; protected set; }
 
-        public bool HasDelegateError;
         public bool isexpanded;
         //=======================
         // Constructor
@@ -140,7 +139,6 @@ namespace VisualEvent
         public override void ClearViewCache()
         {
                 base.ClearViewCache();
-                HasDelegateError = false;
                 arguments = null;
         }
         public void CopyCall(RawCallView othercall)

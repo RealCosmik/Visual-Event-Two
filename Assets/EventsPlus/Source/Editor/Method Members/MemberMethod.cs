@@ -11,8 +11,8 @@ namespace VisualEvent
 	public sealed class MemberMethod : Member<MethodInfo>
 	{
 		public MemberMethod( MethodInfo tInfo ) : base( tInfo) { }
-		
-		public override string GetdisplayName()
+        public override bool isvaluetype => m_info.ReturnType.IsValueType;
+        public override string GetdisplayName()
 		{
 				StringBuilder tempName = new StringBuilder( m_info.ReturnType.GetKeyword() );
 				tempName.Append( " " );

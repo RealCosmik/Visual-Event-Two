@@ -294,8 +294,6 @@ namespace VisualEvent
         }
         private void DisplayReference(Rect rect, SerializedProperty argumentprop, GUIContent label)
         {
-            RawArgumentView argument_cache = ViewCache.GetRawArgumentCache(argumentprop);
-            //styling
             var call = argumentprop.FindPropertyRelative("call_Reference");
             var style = VisualEdiotrUtility.StandardStyle;
             var labelrect = rect;
@@ -305,25 +303,18 @@ namespace VisualEvent
             var refrect = labelrect;
             refrect.x += max + 30;
             refrect.width -= (max + 10);
-            //data 
-            var reference_cache = argument_cache.argumentReference;
-            var rawcallview = ViewCache.GetRawCallCacheFromRawReference(call);
-            int argumentindex = argumentprop.GetRawArgumentIndex();
-            if (reference_cache.reference_type != rawcallview.arguments[argumentindex].type)
-            {
-                Debug.Log("change");
-                var ParentArgumentType = rawcallview.arguments[argumentindex].type;
-                reference_cache.SetNewReferenceType(ParentArgumentType);
-                call.FindPropertyRelative("methodData").ClearArray();
-                call.FindPropertyRelative("m_isvaluetype").boolValue = ParentArgumentType.IsValueType;
-                call.FindPropertyRelative("isparentargstring").boolValue = ParentArgumentType == typeof(string);
-                call.serializedObject.ApplyModifiedProperties();
-            }
-            EditorGUI.BeginChangeCheck();
             EditorGUI.PropertyField(refrect, call, true);
-            if (EditorGUI.EndChangeCheck())
-            {
-            }
+            //data 
+            //if (reference_cache.reference_type != rawcallview.arguments[argumentindex].type)
+            //{
+            //    Debug.LogWarning("ref change");
+            //    var ParentArgumentType = rawcallview.arguments[argumentindex].type;
+            //    reference_cache.SetNewReferenceType(ParentArgumentType);
+            //    call.FindPropertyRelative("methodData").ClearArray();
+            //    call.FindPropertyRelative("m_isvaluetype").boolValue = reference_cache.SelectedMember.isvaluetype;
+            //    call.FindPropertyRelative("isparentargstring").boolValue = ParentArgumentType == typeof(string);
+            //    call.serializedObject.ApplyModifiedProperties();
+            //}
         }
     }
 }

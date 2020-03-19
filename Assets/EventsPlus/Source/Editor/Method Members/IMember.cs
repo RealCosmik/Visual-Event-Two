@@ -13,5 +13,6 @@ namespace VisualEvent
 		string serializedName { get; }
         string GetdisplayName();
         string[] SeralizedData { get;}
+        bool isvaluetype { get; }
 	}
 }

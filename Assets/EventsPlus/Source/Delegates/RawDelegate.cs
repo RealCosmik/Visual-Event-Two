@@ -21,7 +21,7 @@ namespace VisualEvent
         [SerializeField]
         private protected string[] methodData;
         /// <summary>Cached delegate instance generated upon initialization</summary>
-        public System.Delegate delegateInstance { get; private protected set; }
+        public System.Delegate delegateInstance { get; set; }
         /// <summary>Gets the <see cref="m_target"/> object of the delegate</summary>
         public UnityEngine.Object target => m_target;
 
@@ -37,9 +37,8 @@ namespace VisualEvent
         }
         private void fixer()
         {
-            CreateFieldGetter<UtilitySO, int>(null, null);
+            CreateFieldGetter<int>(null, null);
         }
-
         /// <summary>Creates a delegate instance using the <see cref="m_target"/> and an input <see cref="System.Reflection.MemberInfo"/></summary>
         /// <param name="tMember">MemberInfo to be cast into a delegate</param>
         /// <returns>Member delegate if successful, null if not able to properly convert</returns>
@@ -52,7 +51,7 @@ namespace VisualEvent
                     case MemberTypes.Field:
                         FieldInfo tempField = tMember as FieldInfo;
                         if (methodData[2] == "GET")
-                            return typeof(RawDelegate).GetMethod("CreateFieldGetter", Utility.memberBinding).MakeGenericMethod(tempField.ReflectedType, tempField.FieldType).Invoke(this, new object[] { target, tempField }) as Delegate;
+                            return typeof(RawDelegate).GetMethod("CreateFieldGetter", Utility.memberBinding).MakeGenericMethod(tempField.FieldType).Invoke(this, new object[] { target, tempField }) as Delegate;
                         else return typeof(RawDelegate).GetMethod("CreateFieldAction", BindingFlags.Static | BindingFlags.NonPublic).MakeGenericMethod(tempField.ReflectedType, tempField.FieldType).Invoke(this, new object[] { target, tempField }) as System.Delegate;
                     case MemberTypes.Property:
                         PropertyInfo tempProperty = tMember as PropertyInfo;
@@ -158,90 +157,29 @@ namespace VisualEvent
         /// <param name="tTarget">Target owner of the <paramref name="tField"/></param>
         /// <param name="tField">FieldInfo used to generate a delegate</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A> CreateFieldAction<T, A>(T tTarget, FieldInfo tField)
+        protected virtual Action<A> CreateFieldAction<A>(UnityEngine.Object target, FieldInfo tField)
         {
-#if UNITY_IOS
-				Action<A> tempAction = ( A tA ) =>
-				{
-					tField.SetValue( tTarget, tA );
-				};
-				
-				return tempAction;
-#else
-            Action<T, A> tempSetter = CreateFieldSetter<T, A>(tField);
-            Action<A> tempAction = (A tA) =>
-            {
-                tempSetter(tTarget, tA);
-            };
+            var field_instance = Expression.Field(Expression.Constant(target), tField);
+            var param_expression = Expression.Parameter(typeof(object), "Value");
+            BinaryExpression assign_expression;
+            if (typeof(A).IsValueType)
+                assign_expression = Expression.Assign(field_instance, Expression.Unbox(param_expression, typeof(A)));
+            else assign_expression = Expression.Assign(field_instance, param_expression);
+            var boxed_lamda = Expression.Lambda<Action<object>>(assign_expression, param_expression).Compile();
+            return val => boxed_lamda(val);
 
-            return tempAction;
-#endif
         }
-        protected virtual Delegate CreateFieldGetter<T, A>(T target, FieldInfo info)
+        protected virtual Delegate CreateFieldGetter<A>(UnityEngine.Object target, FieldInfo info)
         {
-            Debug.Log("wow");
-            var refdel = this as RawReference;
-            var targetExpression = Expression.Constant(target, typeof(T));
+            var targetExpression = Expression.Constant(target);
             var fieldexprssion = Expression.Field(targetExpression, info);
-            var isvaluetype = refdel.isvaluetype;
-            Delegate FieldGetter;
-            if (isvaluetype)
-            {
-                Debug.Log("value typing");
-                var boxed_object = Expression.Convert(fieldexprssion, typeof(object));
-                var boxed_field = Expression.Lambda<Func<object>>(boxed_object);
-                FieldGetter = boxed_field.Compile();
-            }
-            else
-            {
-                Debug.Log("non val");
-                var field_object = Expression.Convert(fieldexprssion, typeof(A));
-                var get_field = Expression.Lambda<Func<A>>(field_object);
-                FieldGetter = get_field.Compile();
-            }
-            if (refdel.isparentargumentstring)
-            {
-                if (isvaluetype)
-                {
-                    var fieldfunc = FieldGetter as Func<object>;
-                    return new Func<string>(() => fieldfunc.Invoke().ToString());
-                }
-                else
-                {
-                    var fieldfunc = FieldGetter as Func<A>;
-                    return new Func<string>(() => fieldfunc.Invoke().ToString());
-                }
-            }
-            else
-            {
-                if (isvaluetype)
-                {
-                    var fieldfunc = FieldGetter as Func<object>;
-                    var newdel = new Func<A>(() => (A)fieldfunc.Invoke());
-                    return newdel;
-                }
-                return FieldGetter;
-            }
+            var boxed_object = Expression.Convert(fieldexprssion, typeof(object));
+            var boxed_field = Expression.Lambda<Func<object>>(boxed_object);
+            var FieldGetter = boxed_field.Compile();
+            Debug.Log(FieldGetter == null);
+            if ((this as RawReference)?.isparentargumentstring == true)
+                return new Func<string>(() => FieldGetter.Invoke().ToString());
+            else return FieldGetter;
         }
-
-#if !UNITY_IOS
-        /// <summary>Utility function for creating a field delegate from a <see cref="System.Reflection.FieldInfo"/></summary>
-        /// <param name="tField">FieldInfo used to generate a delegate</param>
-        /// <returns>Generic 2-parameter action delegate if successful, null if not able to convert</returns>
-        protected static Action<T, A> CreateFieldSetter<T, A>(FieldInfo tField)
-        {
-            return null;
-            //DynamicMethod tempMethod = new DynamicMethod( ( tField.ReflectedType.FullName + ".set_" + tField.Name ), null, new Type[2] { tField.ReflectedType, tField.FieldType }, true );
-
-            //ILGenerator tempGenerator = tempMethod.GetILGenerator();
-            //tempGenerator.Emit( OpCodes.Ldarg_0 );
-            //tempGenerator.Emit( OpCodes.Ldarg_1 );
-            //tempGenerator.Emit( OpCodes.Stfld, tField );
-            //tempGenerator.Emit( OpCodes.Ret );
-
-            //return tempMethod.CreateDelegate( typeof( Action<T,A> ) ) as Action<T,A>;
-        }
-
-#endif
     }
 }

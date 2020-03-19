@@ -17,5 +17,6 @@ namespace VisualEvent
             else m_seralizeData[2] = "get";
 
         }
-	}
+        public override bool isvaluetype => m_info.PropertyType.IsValueType;
+    }
 }

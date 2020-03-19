@@ -9,7 +9,7 @@ namespace VisualEvent
     // Class Declaration
     //##########################
     /// <summary>Inspector class for rendering <see cref="RawDelegate"/>s in the inspector</summary>
-    public abstract class DrawerRawDelegateView<ViewType> : PropertyDrawer where ViewType : RawDelegateView
+    public class DrawerRawDelegateView<ViewType> : PropertyDrawer where ViewType : RawDelegateView
     {
         //=======================
         // Initialization
@@ -36,7 +36,6 @@ namespace VisualEvent
 
             if (ViewCache.GetDelegateView(tProperty, out ViewType DelegateCache))
             {
-                EditorGUI.BeginProperty(tPosition, tLabel, tProperty);
                 validate(tProperty, DelegateCache);
                 // Target  
                 float tempFieldWidth = (tPosition.width - EditorGUIUtility.labelWidth) * 0.5f;
@@ -52,6 +51,7 @@ namespace VisualEvent
                     //on target change 
                     if (EditorGUI.EndChangeCheck())
                     {
+                        DelegateCache.HasDelegateError = false;
                         DelegateCache.SetParentTarget(UserParentTarget);
                         handleTargetUpdate(tProperty, DelegateCache);
                         DelegateCache.UpdateSelectedMember(DelegateCache.selectedMemberIndex);
@@ -67,6 +67,7 @@ namespace VisualEvent
                     // on memberchange 
                     if (EditorGUI.EndChangeCheck())
                     {
+                        DelegateCache.HasDelegateError = false;
                         EditorGUIUtility.PingObject(DelegateCache.GetObjectFromTree(UserSelectedTarget));
                         DelegateCache.UpdateSelectedTarget(UserSelectedTarget);
                         handleTargetUpdate(tProperty, DelegateCache);
@@ -85,11 +86,12 @@ namespace VisualEvent
                     int tempSelectedMember = EditorGUI.Popup(tPosition, DelegateCache.selectedMemberIndex, DelegateCache.memberNames);
                     if (EditorGUI.EndChangeCheck())
                     {
+                        DelegateCache.HasDelegateError = false;
                         DelegateCache.UpdateSelectedMember(tempSelectedMember);
                         handleMemberUpdate(tProperty, DelegateCache);
+
                     }
                 }
-                EditorGUI.EndProperty();
             }
         }
 
@@ -99,7 +101,6 @@ namespace VisualEvent
         /// <param name="tCache">Cached delegate drop-down data</param>
         protected virtual void validate(SerializedProperty tProperty, ViewType tCache)
         {
-
             //this method is only used because the cache gets deleted on editor recompiles so we have to reconstruct the cache
             //using the data from the seralized property to make recompilation seem seemless on the front end
 
