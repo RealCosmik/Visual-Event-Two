@@ -781,18 +781,19 @@ PrefabInstance:
     - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: del.m_calls.Array.data[0].methodData.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: del.m_calls.Array.data[0].m_arguments.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: del.m_calls.Array.data[0].m_target
       value: 
-      objectReference: {fileID: 786270578}
+      objectReference: {fileID: 11400000, guid: 04220cc16f25d9d4ea6eba9519d33fb7,
+        type: 2}
     - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: del.m_calls.Array.data[0].methodData.Array.data[0]
@@ -801,23 +802,22 @@ PrefabInstance:
     - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: del.m_calls.Array.data[0].methodData.Array.data[1]
-      value: methodforikra
+      value: LogMessage
       objectReference: {fileID: 0}
     - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: del.m_calls.Array.data[0].methodData.Array.data[2]
-      value: SET
+      value: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       objectReference: {fileID: 0}
     - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: del.m_calls.Array.data[0].m_arguments.Array.data[0].assemblyQualifiedArgumentName
-      value: VisualEvent.VisualDelegate, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
+      value: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
       objectReference: {fileID: 0}
     - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: del.m_calls.Array.data[0].m_arguments.Array.data[0].FullArgumentName
-      value: VisualEvent.VisualDelegate
+      value: System.String
       objectReference: {fileID: 0}
     - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
@@ -833,7 +833,7 @@ PrefabInstance:
     - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: del.m_calls.Array.data[0].m_arguments.Array.data[0].stringValue
-      value: 'Field: "del" was removed or renamed in type: "LinkedMono"'
+      value: 'Method: "methodforikra" was removed or renamed in type: "LinkedMono"'
       objectReference: {fileID: 0}
     - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
