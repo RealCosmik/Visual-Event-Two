@@ -40,9 +40,9 @@ namespace VisualEvent
                 // Target  
                 float tempFieldWidth = (tPosition.width - EditorGUIUtility.labelWidth) * 0.5f;
                 tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
-                tPosition.x -= 120;
+                tPosition.x -= 140;
                 tPosition.y += 5;
-                tPosition.width += 120;
+                tPosition.width += 130;
                 EditorGUI.BeginChangeCheck();
                 if (DelegateCache.CurrentTarget == null) // empty field
                 {
@@ -68,13 +68,15 @@ namespace VisualEvent
                     if (EditorGUI.EndChangeCheck())
                     {
                         DelegateCache.HasDelegateError = false;
-                        EditorGUIUtility.PingObject(DelegateCache.GetObjectFromTree(UserSelectedTarget));
-                        DelegateCache.UpdateSelectedTarget(UserSelectedTarget);
-                        handleTargetUpdate(tProperty, DelegateCache);
-                        DelegateCache.UpdateSelectedMember(DelegateCache.selectedMemberIndex);
-                        handleMemberUpdate(tProperty, DelegateCache);
+                        if (UserSelectedTarget != DelegateCache.CurrentTargetIndex)
+                        {
+                            DelegateCache.UpdateSelectedTarget(UserSelectedTarget);
+                            handleTargetUpdate(tProperty, DelegateCache);
+                            DelegateCache.UpdateSelectedMember(DelegateCache.selectedMemberIndex);
+                            handleMemberUpdate(tProperty, DelegateCache);
+                        }
+                        EditorGUIUtility.PingObject(DelegateCache.CurrentTarget);
                     }
-                  
                 }
                 // Members
                 if (DelegateCache.CurrentTarget != null)
@@ -106,8 +108,9 @@ namespace VisualEvent
 
             if (!tCache.isvalidated) //validation only needs to occur once in a caches lifecycle
             {
+                SerializedProperty isStatic_prop = tProperty.FindPropertyRelative("isStatic");
                 SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative("methodData");
-                if (!tCache.validateTarget(tProperty.FindPropertyRelative("m_target"), tempMemberProperty))
+                if (!tCache.validateTarget(tProperty.FindPropertyRelative("m_target"), isStatic_prop))
                 {
                     handleTargetUpdate(tProperty, tCache);
                 }
@@ -127,20 +130,22 @@ namespace VisualEvent
         /// <summary>Applies the target property of the <see cref="RawDelegate"/></summary>
         /// <param name="tProperty">Serialized delegate property</param>
         /// <param name="tCache">Cached delegate drop-down data</param>
-        protected virtual void handleTargetUpdate(SerializedProperty tProperty, RawDelegateView tCache)
+        protected virtual void handleTargetUpdate(SerializedProperty tProperty, ViewType tCache)
         {
             var targetobject = tProperty.serializedObject.targetObject;
             Undo.RegisterCompleteObjectUndo(targetobject, "Delegate Target Change");
             tProperty.FindPropertyRelative("m_target").objectReferenceValue = tCache.CurrentTarget;
+            tProperty.FindPropertyRelative("isStatic").boolValue = tCache.hasStaticTarget;
             tProperty.serializedObject.ApplyModifiedProperties();
             PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
+
             //    handleMemberUpdate( tProperty, tCache );
         }
 
         /// <summary>Applies the member property of the <see cref="RawDelegate"/></summary>
         /// <param name="tProperty">Serialized delegate property</param>
         /// <param name="tCache">Cached delegate drop-down data</param>
-        protected virtual void handleMemberUpdate(SerializedProperty tProperty, RawDelegateView tCache)
+        protected virtual void handleMemberUpdate(SerializedProperty tProperty, ViewType tCache)
         {
             var targetobject = tProperty.serializedObject.targetObject;
             Undo.RegisterCompleteObjectUndo(targetobject, "DelegateMemberChange");

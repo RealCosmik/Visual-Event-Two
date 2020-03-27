@@ -24,6 +24,8 @@ namespace VisualEvent
         public System.Delegate delegateInstance { get; set; }
         /// <summary>Gets the <see cref="m_target"/> object of the delegate</summary>
         public UnityEngine.Object target => m_target;
+        [SerializeField]
+        protected bool isStatic;
 
         //=======================
         // Initialization
@@ -33,6 +35,8 @@ namespace VisualEvent
         {
             if (m_target != null)
                 delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData), m_target);
+            else if (isStatic)
+                delegateInstance = createDelegate(Utility.QuickDeseralizer(typeof(UtilHelper),methodData),null);
             else throw new UnityException("cannot create delegate with null target");
         }
         private void fixer()
@@ -176,10 +180,22 @@ namespace VisualEvent
             var boxed_object = Expression.Convert(fieldexprssion, typeof(object));
             var boxed_field = Expression.Lambda<Func<object>>(boxed_object);
             var FieldGetter = boxed_field.Compile();
-            Debug.Log(FieldGetter == null);
+            Debug.Log((this as RawReference)?.isparentargumentstring);
             if ((this as RawReference)?.isparentargumentstring == true)
                 return new Func<string>(() => FieldGetter.Invoke().ToString());
-            else return FieldGetter;
+
+            else
+            {
+                Func<A> safegetter = () => (A)FieldGetter.Invoke();
+                if (this is RawReference rawref && rawref.isDelegate)
+                {
+                    Debug.LogWarning("is del");
+                    Func<Func<A>> nested_func = () => safegetter;
+                    return nested_func;
+                }
+                else return safegetter;
+            }
+           
         }
     }
 }

@@ -53,16 +53,6 @@ namespace EventsPlusTest
 	{
 	}
 	
-	[Serializable]
-	public class Publisher9 : VisualDelegate<int,int,int,int,int,int,int,int,int>
-	{
-	}
-	
-	[Serializable]
-	public class Publisher10 : VisualDelegate<int,int,int,int,int,int,int,int,int,int>
-	{
-	}
-
 	//##########################
 	// Class Declaration
 	//##########################
@@ -91,8 +81,6 @@ namespace EventsPlusTest
 		public Publisher6 publisher6;
 		public Publisher7 publisher7;
 		public Publisher8 publisher8;
-		public Publisher9 publisher9;
-		public Publisher10 publisher10;
 		
 		//=======================
 		// Initialize
@@ -113,8 +101,6 @@ namespace EventsPlusTest
 			publisher6.initialize();
 			publisher7.initialize();
 			publisher8.initialize();
-			publisher9.initialize();
-			publisher10.initialize();
 		}
 		
 		protected virtual void Start()
@@ -167,15 +153,13 @@ namespace EventsPlusTest
 			Debug.Log( "STARTING DELEGATE TEST" );
 			publisher0.Invoke();
 			publisher1.Invoke( 1 );
-			publisher2.publish( 2, 2 );
-			publisher3.publish( 3, 3, 3 );
-			publisher4.publish( 4, 4, 4, 4 );
-			publisher5.publish( 5, 5, 5, 5, 5 );
-			publisher6.publish( 6, 6, 6, 6, 6, 6 );
-			publisher7.publish( 7, 7, 7, 7, 7, 7, 7 );
-			publisher8.publish( 8, 8, 8, 8, 8, 8, 8, 8 );
-			publisher9.publish( 9, 9, 9, 9, 9, 9, 9, 9, 9 );
-			publisher10.publish( 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 );
+			publisher2.Invoke( 2, 2 );
+			publisher3.Invoke( 3, 3, 3 );
+			publisher4.Invoke( 4, 4, 4, 4 );
+			publisher5.Invoke( 5, 5, 5, 5, 5 );
+			publisher6.Invoke( 6, 6, 6, 6, 6, 6 );
+			publisher7.Invoke( 7, 7, 7, 7, 7, 7, 7 );
+			publisher8.Invoke( 8, 8, 8, 8, 8, 8, 8, 8 );
 		}
 		
 		//=======================

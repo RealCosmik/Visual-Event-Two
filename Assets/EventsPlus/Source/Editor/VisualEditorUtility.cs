@@ -16,7 +16,6 @@ namespace VisualEvent
     {
         static Dictionary<string, string[]> ParseData = new Dictionary<string, string[]>();
         public static GUIStyle StandardStyle { get; private set; } = new GUIStyle();
-        private static UtilitySO UtilityObject;
         //=======================
         // Settings
         //=======================
@@ -36,11 +35,66 @@ namespace VisualEvent
 
             Selection.activeObject = tempSettings;
         }
-        public static UtilitySO GetUtlitySO()
+        /// <summary>Converts a type into its short-hand keyword</summary>
+        /// <param name="tType">Type to convert</param>
+        /// <returns>Keyword if successfully read, null if not</returns>
+        public static string GetKeyword(this Type tType)
         {
-            if (UtilityObject == null)
-                UtilityObject = AssetDatabase.LoadAssetAtPath<UtilitySO>("Assets/Utility.asset");
-            return UtilityObject;
+            if (tType == typeof(void))
+            {
+                return "void";
+            }
+            else if (tType == typeof(System.Delegate))
+            {
+                return "delegate";
+            }
+            else if (tType == typeof(System.Enum))
+            {
+                return "enum";
+            }
+            else
+            {
+                switch (Type.GetTypeCode(tType))
+                {
+                    case TypeCode.Boolean:
+                        return "bool";
+                    case TypeCode.Byte:
+                        return "byte";
+                    case TypeCode.Char:
+                        return "char";
+                    case TypeCode.Decimal:
+                        return "decimal";
+                    case TypeCode.Double:
+                        return "double";
+                    case TypeCode.Int16:
+                        return "short";
+                    case TypeCode.Int32:
+                        return "int";
+                    case TypeCode.Int64:
+                        return "long";
+                    case TypeCode.Object:
+                        if (tType == typeof(object))
+                        {
+                            return "object";
+                        }
+
+                        return tType.Name;
+                    case TypeCode.SByte:
+                        return "sbyte";
+                    case TypeCode.Single:
+                        return "float";
+                    case TypeCode.String:
+                        return "string";
+                    case TypeCode.UInt16:
+                        return "ushort";
+                    case TypeCode.UInt32:
+                        return "uint";
+                    case TypeCode.UInt64:
+                        return "ulong";
+                }
+            }
+
+            return null;
         }
 
         //=======================
@@ -52,12 +106,12 @@ namespace VisualEvent
         public static T GetTarget<T>(this SerializedProperty property)
         {
             if (property != null)
-            { 
+            {
                 object tempObject = property.serializedObject.targetObject;
                 string[] tempPaths = property.propertyPath.Replace("Array.data", "").Split('.');
                 int tempListLength = tempPaths.Length;
                 for (int i = 0; i < tempListLength; ++i)
-                { 
+                {
                     if (tempPaths[i][0] == '[')
                     {
                         int tempIndex = tempPaths[i][1] - '0';
@@ -79,16 +133,16 @@ namespace VisualEvent
             }
             return default;
         }
-        /// <summary>Returns the <see cref="VisualDelegate"/> instance that owns <paramref name="oroperty"/></summary>
-        /// <param name="oroperty">Property owned by the Publisher instance</param>
+        /// <summary>Returns the <see cref="VisualDelegateBase"/> instance that owns <paramref name="prop"/></summary>
+        /// <param name="prop">Property owned by the Publisher instance</param>
         /// <returns>Publisher instance</returns>
-        public static VisualDelegate GetViewDelegateObject(this SerializedProperty oroperty)
+        public static VisualDelegateBase GetVisualDelegateObject(this SerializedProperty prop)
         {
-            if (oroperty != null)
+            if (prop != null)
             {
-                object tempObject = oroperty.serializedObject.targetObject;
+                object tempObject = prop.serializedObject.targetObject;
 
-                string[] tempPaths = oroperty.propertyPath.Replace("Array.data", "").Split('.');
+                string[] tempPaths = prop.propertyPath.Replace("Array.data", "").Split('.');
                 int tempListLength = tempPaths.Length;
                 for (int i = 0; i < tempListLength; ++i)
                 {
@@ -109,7 +163,7 @@ namespace VisualEvent
                         tempObject = tempObject.GetType().GetField(tempPaths[i], Utility.InstanceFlags).GetValue(tempObject);
                     }
 
-                    if (tempObject is VisualDelegate visiualDelegate)
+                    if (tempObject is VisualDelegateBase visiualDelegate)
                         return visiualDelegate;
                 }
             }
@@ -192,7 +246,7 @@ namespace VisualEvent
         /// <param name="CurrentType">Type to search</param>
         /// <param name="tIsFiltered">If true, will attempt to filter members defined in the <see cref="Settings"/></param>
         /// <returns>List of members</returns>
-        public static List<IMember> GetMemberList(this Type CurrentType, bool tIsFiltered = true)
+        public static List<IMember> GetMemberList(this Type CurrentType, bool tIsFiltered = true,bool staticmembers=false)
         {
             if (CurrentType != null)
             {
@@ -231,7 +285,7 @@ namespace VisualEvent
                 }
 
                 // Methods
-                List<MemberMethod> tempMethods = CurrentType.GetMethodList(tIsFiltered);
+                List<MemberMethod> tempMethods = CurrentType.GetMethodList(tIsFiltered,staticmembers);
                 if (tempMethods != null)
                 {
                     if (tempMembers == null)
@@ -345,12 +399,14 @@ namespace VisualEvent
         /// <param name="tType">Type to search</param>
         /// <param name="tIsFiltered">If true, will attempt to filter methods defined in the <see cref="Settings"/></param>
         /// <returns>List of methods</returns>
-        public static List<MemberMethod> GetMethodList(this Type tType, bool tIsFiltered = true)
+        public static List<MemberMethod> GetMethodList(this Type tType, bool tIsFiltered = true,bool getstatic=false)
         {
             if (tType != null)
             {
                 // Flags
                 BindingFlags tempFlags = BindingFlags.Public | BindingFlags.Instance;
+                if (getstatic)
+                    tempFlags |= BindingFlags.Static | BindingFlags.NonPublic;
                 if (Settings.instance.isPrivateDisplayed)
                 {
                     tempFlags |= BindingFlags.NonPublic;
@@ -414,7 +470,7 @@ namespace VisualEvent
                     else return (member.info as FieldInfo).FieldType == ReturnType && member.SeralizedData[2] == "GET";
                 case MemberTypes.Property:
                     var prop_info = member.info as PropertyInfo;
-                    if (istypestring) 
+                    if (istypestring)
                         return prop_info.CanRead; //if the returntype is a string any property will suffice because we can just .ToString() it
                     else return prop_info.CanRead && prop_info.PropertyType == ReturnType;
                 case MemberTypes.Method:
@@ -459,7 +515,7 @@ namespace VisualEvent
         }
         public static int GetRawCallIndex(this SerializedProperty rawcallProperty)
         {
-           //viewdelegate._calls[0] OR viewdeelgateArray[0]._calls[0]  are the potential paths types
+            //viewdelegate._calls[0] OR viewdeelgateArray[0]._calls[0]  are the potential paths types
             string path = rawcallProperty.propertyPath;
             var propertyData = ParseData[path];
             if (propertyData.Length >= 4) // +/- 1 on the index if the rawcall is part of any array or not
@@ -472,13 +528,13 @@ namespace VisualEvent
         /// <param name="rawArgumentprop"></param>
         /// <returns></returns>
         public static int GetRawCallIndexFromArgumentprop(this SerializedProperty rawArgumentprop)
-        { 
-                //0         //1  //2    //3      //4
+        {
+            //0         //1  //2    //3      //4
             //ViewDelegate._calls[0].m_arguments[0]
             string path = rawArgumentprop.propertyPath;
             var propertydata = ParseData[path];
             // length-3 gives us [0] that is adjacent to ._calls and the [1] is the second charachter in that string which is the index number
-            return propertydata[propertydata.Length - 3][1] - '0'; 
+            return propertydata[propertydata.Length - 3][1] - '0';
         }
         /// <summary>
         /// Returns the index of the <see cref="RawCallView"/>
@@ -501,7 +557,7 @@ namespace VisualEvent
         /// <param name="rawreferenceprop"></param>
         /// <returns></returns>
         public static int GetRawArgumentIndexFromArgumentReference(this SerializedProperty rawreferenceprop)
-        { 
+        {
             //0             //1  //2    //3     //4    //5
             //ViewDelegate._calls[0].m_arguments[0].m_reference 
 
@@ -547,11 +603,11 @@ namespace VisualEvent
             var member_name = methodData_prop.GetArrayElementAtIndex(1).stringValue;
             return $@"{member_type}: ""{member_name}"" was removed or renamed in type: ""{ErrorObject.GetType()}""";
         }
-    /// <summary>
-    /// Copies the data between 2 <see cref="RawArgument"/> references
-    /// </summary>
-    /// <param name="DestinationArgument"></param>
-    /// <param name="originargument"></param>
+        /// <summary>
+        /// Copies the data between 2 <see cref="RawArgument"/> references
+        /// </summary>
+        /// <param name="DestinationArgument"></param>
+        /// <param name="originargument"></param>
         public static void CopyDelegateArguments(SerializedProperty DestinationArgument, SerializedProperty originargument)
         {
             DestinationArgument.FindPropertyRelative("objectValue").objectReferenceValue = originargument.FindPropertyRelative("objectValue").objectReferenceValue;

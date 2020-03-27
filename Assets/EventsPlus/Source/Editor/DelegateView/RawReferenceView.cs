@@ -29,6 +29,7 @@ namespace VisualEvent
         }
         public void SetNewReferenceType(Type new_type)
         {
+            UnityEngine.Debug.Log(new_type);
             reference_type = new_type;
             GenerateNewTargetMembers(CurrentTargetIndex);
             selectedMemberIndex = 0;

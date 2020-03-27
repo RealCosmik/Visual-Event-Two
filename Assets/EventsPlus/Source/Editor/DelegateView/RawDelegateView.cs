@@ -46,7 +46,7 @@ namespace VisualEvent
         /// </summary>
         public bool isvalidated;
         public bool HasDelegateError;
-
+        public bool hasStaticTarget { get; protected set; }
         public RawDelegateView()
         {
             Undo.undoRedoPerformed += () => ClearViewCache();
@@ -59,19 +59,24 @@ namespace VisualEvent
             Debug.Log("nah this gets called alot");
             // there seems to be a weird bug in unity where while drag and drops are being perfomed 
             // undo/redo is constantly being called
-                AvailableTargetObjects = null;
-                CurrentTarget = null;
-                CurrentMembers = null;
-                memberNames = null;
-                isvalidated = false;
-                RequiresRecalculation = true;
+            AvailableTargetObjects = null;
+            CurrentTarget = null;
+            CurrentMembers = null;
+            memberNames = null;
+            isvalidated = false;
+            RequiresRecalculation = true;
         }
         /// <summary>
         /// Returns the given Object from the delegatView's target tree
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public UnityEngine.Object GetObjectFromTree(int index) => AvailableTargetObjects[index];
+        public UnityEngine.Object GetObjectFromTree(int index)
+        {
+            if (index < AvailableTargetObjects.Count)
+                return AvailableTargetObjects[index];
+            else return null;
+        }
         /// <summary>
         /// Sets the parent target of this delegate. This object will be used to construct delegate component tree
         /// </summary>
@@ -87,11 +92,29 @@ namespace VisualEvent
         /// </summary>
         /// <param name="newTargetIndex"> index in <see cref="AvailableTargetObjects"/></param>
         public void UpdateSelectedTarget(int newTargetIndex)
-        {
+        { 
             if (AvailableTargetObjects != null)
             {
                 CurrentTargetIndex = newTargetIndex < 0 ? 0 : newTargetIndex;
-                CurrentTarget = AvailableTargetObjects[CurrentTargetIndex];
+                var availability_count = AvailableTargetObjects.Count;
+                if (CurrentTargetIndex == availability_count - 1) // this can be static OR scriptable object
+                {
+                    if (AvailableTargetObjects[CurrentTargetIndex] == null) // if last item is null its static utility
+                        hasStaticTarget = true;
+                    else
+                    {
+                        //if its not null it was a scriptable objects since they have no children components
+                        CurrentTarget = AvailableTargetObjects[CurrentTargetIndex]; 
+                        hasStaticTarget = false;
+                    }
+                }
+                // any other index thats not the bottom of the list is some component child
+                else
+                {
+                   
+                    CurrentTarget = AvailableTargetObjects[CurrentTargetIndex];
+                    hasStaticTarget = false;
+                }
                 GenerateNewTargetMembers(CurrentTargetIndex);
             }
             else Debug.LogError("No parent target was set for this delegate");
@@ -153,14 +176,8 @@ namespace VisualEvent
 
 
                     //here we artifically force add extension targets to the drop down for utility methods 
-                    var obj = VisualEdiotrUtility.GetUtlitySO();
-                    if (obj != null)
-                    {
-                        target_tree.Add(obj);
-                        targetnames.Add(obj.name);
-                    }
-
-
+                    target_tree.Add(null);
+                    targetnames.Add("Utility");
                     // here we populate array of all potential targetname 
                     target_names = targetnames.ToArray();
 
@@ -203,20 +220,22 @@ namespace VisualEvent
         {
             // Generate members and names
             if (AvailableTargetObjects == null || CurrentTargetIndex == 0)
-                ClearViewCache();
-            else
             {
-                CurrentMembers = AvailableTargetObjects[CurrentTargetIndex].GetType().GetMemberList();
-                int tempListLength = CurrentMembers.Count;
-                memberNames = new string[tempListLength]; // update membernames
-                for (int i = (tempListLength - 1); i >= 0; --i)
-                {
-                    memberNames[i] = CurrentMembers[i].GetdisplayName();
-                }
+                ClearViewCache();
+                return;
             }
-#if LOG
 
-#endif
+            if (hasStaticTarget)
+                CurrentMembers = typeof(UtilHelper).GetMemberList(true, true);
+            else
+                CurrentMembers = AvailableTargetObjects[CurrentTargetIndex].GetType().GetMemberList();
+
+            int tempListLength = CurrentMembers.Count;
+            memberNames = new string[tempListLength]; // update membernames
+            for (int i = (tempListLength - 1); i >= 0; --i)
+            {
+                memberNames[i] = CurrentMembers[i].GetdisplayName();
+            }
             // Select member
             selectedMemberIndex = 0;
         }
@@ -226,26 +245,39 @@ namespace VisualEvent
         /// <param name="seralizedTarget">Selected target property</param>
         /// <param name="seralizedMember">Selected member property</param>
         /// <returns>True if the data matches</returns> 
-        public virtual bool validateTarget(SerializedProperty seralizedTarget, SerializedProperty memberData)
-        {
-            // on assembly recompile we must rebuild the view from the seralized values of the delegate
+        public virtual bool validateTarget(SerializedProperty seralizedTarget, SerializedProperty isstaticTarget)
+        { 
+            //  on assembly recompile we must rebuild the view from the seralized values of the delegate
             if (AvailableTargetObjects == null && seralizedTarget.objectReferenceValue != null)
             {
+                
                 UnityEngine.Object newtarget = seralizedTarget.objectReferenceValue;
-                //if selected target was a utility force the serializedObject to be target because Utility SO will have no component children
-                if (newtarget is UtilitySO && this is RawCallView)
+                if (this is RawReferenceView)
                 {
-                    // Debug.Log("setting serazlied object instead");
-                    newtarget = seralizedTarget.serializedObject.targetObject;
+                    Debug.Log(newtarget.name);
                 }
                 GenerateChildTargets(newtarget, out AvailableTargetObjects, out _targetNames);
-                UpdateSelectedTarget(AvailableTargetObjects.IndexOf(seralizedTarget.objectReferenceValue));
+                if (isstaticTarget.boolValue)
+                { 
+                    Debug.Log("setting static target");
+                    hasStaticTarget = true;
+                    CurrentTarget = seralizedTarget.objectReferenceValue;
+                    UpdateSelectedTarget(AvailableTargetObjects.Count - 1);
+                }
+                else
+                {
+                    if (this is RawReferenceView)
+                        Debug.Log("non static ref");
+                    UpdateSelectedTarget(AvailableTargetObjects.IndexOf(seralizedTarget.objectReferenceValue));
+                }
                 return false;
             }
             // if user reorders components in editor 
             else if (seralizedTarget.objectReferenceValue != null && seralizedTarget.objectReferenceValue != CurrentTarget && AvailableTargetObjects != null)
             {
-                //  Debug.Log("mis match targets");
+                if (this is RawReferenceView)
+                    Debug.Log("checking next");
+                // Debug.Log("mis match targets");
                 int tempIndex = AvailableTargetObjects.IndexOf(seralizedTarget.objectReferenceValue);
                 if (tempIndex >= 0)
                 {
@@ -260,20 +292,13 @@ namespace VisualEvent
                     CurrentTargetIndex = 0;
                     SetParentTarget(seralizedTarget.objectReferenceValue);
                 }
-                //var SeralizedMethodData = GetSeralizedMethodDataFromprop(memberData);
-                //GenerateNewTargetMembers(CurrentTargetIndex);
-                //selectedMemberIndex = findMember(SeralizedMethodData);
-                //memberData.arraySize = SelectedMember?.SeralizedData.Length ?? 0;
-                //for (int i = 0; i < memberData.arraySize; i++)
-                //{
-                //    memberData.GetArrayElementAtIndex(i).stringValue = SelectedMember.SeralizedData[i];
-                //}
-                //memberData.serializedObject.ApplyModifiedProperties();
                 return false;
             }
             // on return from playmode
             else if (AvailableTargetObjects != null && CurrentTarget == null && seralizedTarget.objectReferenceValue != null)
             {
+                if (this is RawReferenceView)
+                    Debug.Log("checking last");
                 CurrentTarget = seralizedTarget.objectReferenceValue;
                 return false;
             }
@@ -331,8 +356,9 @@ namespace VisualEvent
                 Debug.Log(seralizedmethodData == null);
                 Debug.Log(seralizedmethodData.Length == 0);
                 Debug.Log(CurrentMembers == null);
-
-                Debug.Log(CurrentTarget.GetType().FullName);
+               // Debug.Log(CurrentMembers[0].GetdisplayName());
+                 
+               // Debug.Log(CurrentTarget.GetType().FullName);
                 for (int i = 0; i < seralizedmethodData.Length; i++)
                 {
                     Debug.Log(seralizedmethodData[i]);

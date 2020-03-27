@@ -47,22 +47,22 @@ namespace VisualEvent
         [SerializeField]
         private bool UseReference;
         [SerializeField]
-        RawReference call_Reference;
+        private bool hasCustomType;
+        [SerializeField]
+        public RawReference call_Reference;
+        //[SerializeReference]
+        //IVisualArgument custom;
         public bool isUsingreference => UseReference && call_Reference.target != null;
 
+        //func<func<int>>;
         public Func<ArgType> CreateArgumentDelegate<ArgType>()
         {
             if (isUsingreference)
             {
                 call_Reference.ParentArgumentType = assemblyQualifiedArgumentName;
                 call_Reference.initialize();
-                if (call_Reference.delegateInstance is Func<ArgType> casted_del)
-                    return casted_del;
-                else
-                {
-                    var boxed_func = call_Reference.delegateInstance as Func<object>;
-                    return casted_del = () => (ArgType)boxed_func.Invoke();
-                }
+                var reference_func = call_Reference.delegateInstance as Func<ArgType>;
+                return reference_func;
             }
             else
             {
@@ -70,6 +70,10 @@ namespace VisualEvent
                 return () => static_value;
             }
         }
+        public Func<nest> otherdel<nest>() where nest : Delegate
+        {
+           return ()=> call_Reference.delegateInstance as nest;
+        } 
         //=======================
         // Accessors
         //=======================

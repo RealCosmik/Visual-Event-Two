@@ -3,6 +3,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using System.Collections;
 namespace VisualEvent
 {
     //##########################
@@ -25,6 +26,8 @@ namespace VisualEvent
         public virtual bool isDynamic { get => m_isDynamic; set => m_isDynamic = value && isDynamicable; }
         /// <summary>Cached predefined arguments of the selected member</summary>
         public Argument[] arguments { get; protected set; }
+        private bool isIenmuatorCall;
+        public bool isYieldable => isIenmuatorCall && CurrentTarget is MonoBehaviour;
 
         public bool isexpanded;
         //=======================
@@ -45,9 +48,9 @@ namespace VisualEvent
         /// <param name="tMember">Selected member property</param>
         /// <param name="tDynamic">Dynamic toggle property</param>
         /// <returns>True if the data matches</returns>
-        public virtual bool validateTarget(SerializedProperty tTarget, SerializedProperty memberdataprop, SerializedProperty tDynamic)
+        public virtual bool validateTarget(SerializedProperty tTarget, SerializedProperty isStatic_prop, SerializedProperty tDynamic)
         {
-            if (!base.validateTarget(tTarget, memberdataprop))
+            if (!base.validateTarget(tTarget, isStatic_prop))
             {
                 isDynamic = isDynamicable = tDynamic.boolValue;
                 return false;
@@ -85,7 +88,8 @@ namespace VisualEvent
                         isDynamicable = dynamicTypes != null && dynamicTypes.Length == 1 && dynamicTypes[0] == arguments[0].type;
                         break;
                     case MemberTypes.Method:
-                        ParameterInfo[] tempParameters = (tempMember.info as MethodInfo).GetParameters();
+                        var method_info = tempMember.info as MethodInfo;
+                        ParameterInfo[] tempParameters = method_info.GetParameters();
                         if (tempParameters != null)
                         {
                             int tempListLength = tempParameters.Length;
@@ -102,6 +106,7 @@ namespace VisualEvent
                                 }
                             }
                         }
+                        isIenmuatorCall = method_info.ReturnType == typeof(IEnumerator);
                         break;
                     default:
                         break;
@@ -132,6 +137,7 @@ namespace VisualEvent
         {
             Debug.LogError("issue");
             HasDelegateError = true;
+            hasStaticTarget = true;
             UpdateSelectedTarget(AvailableTargetObjects.Count - 1);
             selectedMemberIndex = CurrentMembers.IndexOf(CurrentMembers.Single(m => m.SeralizedData[1] == "LogMessage"));
 
@@ -140,17 +146,6 @@ namespace VisualEvent
         {
                 base.ClearViewCache();
                 arguments = null;
-        }
-        public void CopyCall(RawCallView othercall)
-        {
-            CurrentTarget = othercall.CurrentTarget;
-            AvailableTargetObjects = othercall.AvailableTargetObjects;
-            CurrentMembers = othercall.CurrentMembers;
-            memberNames = othercall.memberNames;
-            selectedMemberIndex = othercall.selectedMemberIndex;
-            arguments = othercall.arguments;
-            dynamicTypes = othercall.dynamicTypes;
-            HasDelegateError = othercall.HasDelegateError;
         }
     }
 }

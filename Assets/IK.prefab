@@ -43,9 +43,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36daa77921fe6fa408e6c6586762f35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  del:
-    m_calls: []
+  Cosmik:
+    m_calls:
+    - m_target: {fileID: 6735216595992633621}
+      methodData:
+      - 8
+      - WaitForSwitch
+      - System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      isStatic: 0
+      m_arguments:
+      - assemblyQualifiedArgumentName: System.Boolean, mscorlib, Version=4.0.0.0,
+          Culture=neutral, PublicKeyToken=b77a5c561934e089
+        FullArgumentName: System.Boolean
+        objectValue: {fileID: 0}
+        stringValue: 
+        _x1: 1
+        _x2: 0
+        _y1: 0
+        _y2: 0
+        _z1: 0
+        _z2: 0
+        longValue: 0
+        doubleValue: 0
+        animationCurveValue:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 0
+          m_PostInfinity: 0
+          m_RotationOrder: 0
+        UseReference: 1
+        hasCustomType: 0
+        call_Reference:
+          m_target: {fileID: 11400000, guid: 40324b5356407452b8b3e56acbe700a8, type: 2}
+          methodData:
+          - 4
+          - isdead
+          - GET
+          isStatic: 0
+          ParentArgumentType: 
+          m_isvaluetype: 1
+          isparentargstring: 0
+      m_isDynamic: 0
+      m_runtime: 0
+      TargetType: 
+      m_isYieldableCall: 1
     isinitialized: 0
-  visual_Text: {fileID: 0}
+  unity:
+    m_PersistentCalls:
+      m_Calls: []
   vecfield: {x: 1, y: 1, z: 1}
   mynum: 0
+  ExampleSwitch: 0
+  input: 3

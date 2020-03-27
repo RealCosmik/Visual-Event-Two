@@ -29,7 +29,7 @@ public static class ViewCache
     /// </summary>
     /// <param name="objectInstanceID">Instance ID of component with publishers</param>
     /// <returns></returns>
-    public static Dictionary<string, List<VisiualDelegateCacheContainer>> GetViewDelegateCacheFromObject(int objectInstanceID)
+    public static Dictionary<string, List<VisiualDelegateCacheContainer>> GetVisualDelegateCacheFromObject(int objectInstanceID)
     {
         if (!ObjectCache.TryGetValue(objectInstanceID, out Dictionary<string, List<VisiualDelegateCacheContainer>> PublisherCache))
         {
@@ -48,7 +48,7 @@ public static class ViewCache
         // in the instance that the seralized property is just a field of type publisher than this list will always have one index.
         //if the property is an array than we should populate cache for each element in the array
         var ID = property.serializedObject.targetObject.GetInstanceID();
-        var publisherCache = GetViewDelegateCacheFromObject(ID);
+        var publisherCache = GetVisualDelegateCacheFromObject(ID);
         string key = property.GetViewDelegateKey();
         // this instance ID has not been added to the dictonary so its a new object
         if (!publisherCache.TryGetValue(key, out List<VisiualDelegateCacheContainer> instanceCache))
@@ -57,12 +57,6 @@ public static class ViewCache
             instanceCache = new List<VisiualDelegateCacheContainer>() { new VisiualDelegateCacheContainer() };
             publisherCache.Add(key, instanceCache);
         }
-        else // we have seen this component or GO before
-        {
-            int index = property.GetViewDelegateIndex(); 
-            if (index >= instanceCache.Count) // this is a new publisher so incrase cache size ++;
-                instanceCache.Add(new VisiualDelegateCacheContainer());
-        }
         return instanceCache;
     }
     /// <summary>
@@ -70,10 +64,12 @@ public static class ViewCache
     /// </summary>
     /// <param name="property"></param>
     /// <returns></returns>
-    public static VisiualDelegateCacheContainer GetViewDelegateInstanceCache(SerializedProperty property)
+    public static VisiualDelegateCacheContainer GetVisualDelegateInstanceCache(SerializedProperty property)
     {
         var instanceCache = GetCacheFromPublisherInstance(property);
         var index = property.GetViewDelegateIndex();
+        if (index >= instanceCache.Count)
+            instanceCache.Add(new VisiualDelegateCacheContainer());
         return instanceCache[index];
     }
     /// <summary>
@@ -85,7 +81,7 @@ public static class ViewCache
     /// <returns></returns>
     public static bool GetDelegateView<T>(SerializedProperty delegateprop, out T DelegateView) where T : RawDelegateView
     {
-        GetViewDelegateCacheFromObject(delegateprop.serializedObject.targetObject.GetInstanceID());
+        GetVisualDelegateCacheFromObject(delegateprop.serializedObject.targetObject.GetInstanceID());
         if (typeof(T) == typeof(RawCallView))
             DelegateView = GetRawCallCache(delegateprop) as T;
         else if (typeof(T) == typeof(RawDynamicDelegateView))
@@ -96,8 +92,7 @@ public static class ViewCache
     }
     public static RawReferenceView GetRawReferenceCache(SerializedProperty delegateprop)
     {
-
-        var publisherCache = GetViewDelegateInstanceCache(delegateprop);
+        var publisherCache = GetVisualDelegateInstanceCache(delegateprop);
         int call_index = delegateprop.GetRawCallIndexFromArgumentReference();
         var rawcall_cache = publisherCache.RawCallCache[call_index];
         var argument_list = rawcall_cache.argumentViewCache;
@@ -106,7 +101,7 @@ public static class ViewCache
     }
     public static RawArgumentView GetRawArgumentCache(SerializedProperty argumentprop)
     {
-        var publisercache = GetViewDelegateInstanceCache(argumentprop);
+        var publisercache = GetVisualDelegateInstanceCache(argumentprop);
         int call_index = argumentprop.GetRawCallIndexFromArgumentprop();
         var rawcall_cache = publisercache.RawCallCache[call_index];
         var argument_index = argumentprop.GetRawArgumentIndex();
@@ -123,18 +118,24 @@ public static class ViewCache
     }
     public static RawCallView GetRawCallCacheFromRawReference(SerializedProperty property)
     {
-        var publisherCache = GetViewDelegateInstanceCache(property);
+        var publisherCache = GetVisualDelegateInstanceCache(property);
         int index = property.GetRawCallIndexFromArgumentReference();
         return publisherCache.RawCallCache[index].delegateView as RawCallView;
     }
+    public static RawCallView getRawCallCacheFromRawArgument(SerializedProperty argumentprop)
+    {
+        var publisherCache = GetVisualDelegateInstanceCache(argumentprop);
+        var rawCallIndex = argumentprop.GetRawCallIndexFromArgumentprop();
+        return publisherCache.RawCallCache[rawCallIndex].delegateView as RawCallView;
+    }
     public static RawCallView GetRawCallCache(SerializedProperty rawCallProp)
     {
-        var publisherCache = GetViewDelegateInstanceCache(rawCallProp);
+        var publisherCache = GetVisualDelegateInstanceCache(rawCallProp);
         int index = rawCallProp.GetRawCallIndex();
         if (index >= publisherCache.RawCallCache.Count) // if the cache list is too small make room for the new cache
         {
             var currentCache = new RawCallViewCacheContainer();
-            currentCache.delegateView = new RawCallView(rawCallProp.GetViewDelegateObject()?.types ?? null);
+            currentCache.delegateView = new RawCallView(rawCallProp.GetVisualDelegateObject()?.types ?? null);
             publisherCache.RawCallCache.Add(currentCache);
         }
         if (publisherCache.RawCallCache[index].dynamic_Cache==true) // if there is a dynamic delegate in a raw call slot remove it
@@ -146,7 +147,7 @@ public static class ViewCache
     }
     public static RawDynamicDelegateView GetRawDyanmicDelegateCache(SerializedProperty DynamicDelegateprop)
     {
-        var publisherCache = GetViewDelegateInstanceCache(DynamicDelegateprop);
+        var publisherCache = GetVisualDelegateInstanceCache(DynamicDelegateprop);
         int index = DynamicDelegateprop.GetRawCallIndex();
         if (index >= publisherCache.RawCallCache.Count) // if the list is too small make room for the new cache
         { 

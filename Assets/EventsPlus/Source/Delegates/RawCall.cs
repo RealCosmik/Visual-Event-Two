@@ -2,6 +2,7 @@
 using System.Reflection;
 using UnityEngine;
 using System.Linq.Expressions;
+using System.Collections;
 using RawArg = VisualEvent.RawArgument;
 namespace VisualEvent
 {
@@ -11,7 +12,7 @@ namespace VisualEvent
     /// <summary>Serialized form of a delegate that can contain predefined arguments</summary>
     [Serializable]
     public class RawCall : RawDelegate
-    {
+    { 
         //=======================
         // Variables
         //=======================
@@ -33,15 +34,22 @@ namespace VisualEvent
         public bool m_runtime;
         [SerializeField]
         string TargetType;
+        [SerializeField]
+        bool m_isYieldableCall;
+        public bool isYieldable => m_isYieldableCall;
 
         //=======================
         // Initialization
         //=======================
         /// <summary>Initializes and deserializes the <see cref="RawDelegate.m_target"/> and <see cref="RawDelegate._member"/> information into an actual delegate using a <see cref="VisualDelegate"/> reference</summary>
         /// <param name="tPublisher">Publisher passed in the delegate used for automatic memory management</param>
-        public virtual void initialize(VisualDelegate tPublisher)
+        public virtual void initialize(VisualDelegateBase tPublisher)
         {
-            if (m_target != null)
+            if (isStatic)
+            {
+                delegateInstance = createDelegate(tPublisher, Utility.QuickDeseralizer(typeof(UtilHelper), methodData));
+            }
+            else if (m_target != null)
                 delegateInstance = createDelegate(tPublisher, Utility.QuickDeseralizer(m_target.GetType(), methodData));
         }
         public override void initialize()
@@ -64,7 +72,7 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMember">MemberInfo to be cast into a delegate</param>
         /// <returns>Member delegate if successful, null if not able to properly convert</returns>
-        private protected virtual System.Delegate createDelegate(VisualDelegate tPublisher, MemberInfo tMember)
+        private protected virtual System.Delegate createDelegate(VisualDelegateBase tPublisher, MemberInfo tMember)
         {
             if (tMember != null)
             {
@@ -89,7 +97,6 @@ namespace VisualEvent
                     case MemberTypes.Method:
                         MethodInfo tempMethod = tMember as MethodInfo;
                         bool tempIsAction = tempMethod.ReturnType == typeof(void);
-
                         // Parameters
                         ParameterInfo[] tempParameters = tempMethod.GetParameters();
                         int tempParametersLength = tempParameters.Length;
@@ -123,7 +130,6 @@ namespace VisualEvent
                                 tempArguments[i + 2] = m_arguments[i];
                             }
                         }
-
                         // Action
                         if (tempIsAction)
                         {
@@ -155,7 +161,7 @@ namespace VisualEvent
             return new Action(() => Debug.LogError($@"Cannot find {mem_type} ""{methodData[1]}"" in class  ""{m_target.GetType().FullName}""+ 
                 member was renamed or removed on gameobject ""{m_target.name}""", m_target));
         }
-        public void AOTFIX()
+        private void AOTFIX()
         {
             createActionCall1<int>(null, null, null);
             createFieldAction<int>(null, null, null);
@@ -169,15 +175,15 @@ namespace VisualEvent
         /// <param name="tTarget">Target owner of the <paramref name="tField"/></param>
         /// <param name="tField">FieldInfo used to generate a delegate</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A> createFieldAction<A>(VisualDelegate tPublisher, UnityEngine.Object target, FieldInfo tField)
+        protected virtual Action<A> createFieldAction<A>(VisualDelegateBase tPublisher, UnityEngine.Object target, FieldInfo tField)
         {
             var field_instance = Expression.Field(Expression.Constant(target), tField);
-            var param_expression=Expression.Parameter(typeof(object),"Value");
+            var param_expression = Expression.Parameter(typeof(object), "Value");
             BinaryExpression assign_expression;
             if (typeof(A).IsValueType)
                 assign_expression = Expression.Assign(field_instance, Expression.Unbox(param_expression, typeof(A)));
             else assign_expression = Expression.Assign(field_instance, param_expression);
-            var boxed_lamda=Expression.Lambda<Action<object>>(assign_expression,param_expression).Compile();
+            var boxed_lamda = Expression.Lambda<Action<object>>(assign_expression, param_expression).Compile();
             return val => boxed_lamda(val);
 
         }
@@ -188,15 +194,15 @@ namespace VisualEvent
         /// <param name="tField">FieldInfo used to generate a delegate</param>
         /// <param name="tValue">Predefined argument value</param>
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createFieldCall<A>(VisualDelegate tPublisher, UnityEngine.Object tTarget, FieldInfo tField, RawArg arg1)
+        protected virtual Action createFieldCall<A>(VisualDelegateBase tPublisher, UnityEngine.Object tTarget, FieldInfo tField, RawArg arg1)
         {
             var field_instance = Expression.Field(Expression.Constant(tTarget), tField);
             var field_value_expression = Expression.Parameter(typeof(object), "Value");
             BinaryExpression setter_expression;
             if (typeof(A).IsValueType)
                 setter_expression = Expression.Assign(field_instance, Expression.Unbox(field_value_expression, typeof(A)));
-            else setter_expression=Expression.Assign(field_instance,field_value_expression);
-            var setter_lamda = Expression.Lambda<Action<object>>(setter_expression,field_value_expression).Compile();
+            else setter_expression = Expression.Assign(field_instance, field_value_expression);
+            var setter_lamda = Expression.Lambda<Action<object>>(setter_expression, field_value_expression).Compile();
             var value = arg1.CreateArgumentDelegate<A>();
             return () => setter_lamda(value);
         }
@@ -208,9 +214,10 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tProperty">PropertyInfo used to generate a delegate</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A> createPropertyAction<A>(VisualDelegate tPublisher, PropertyInfo tProperty)
+        protected virtual Delegate createPropertyAction<A>(VisualDelegateBase tPublisher, PropertyInfo tProperty)
         {
             Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tProperty.GetSetMethod(), false) as Action<A>;
+
             Action<A> tempAction = (A tA) =>
             {
                 if (m_target == null)
@@ -218,8 +225,10 @@ namespace VisualEvent
                 else
                     tempDelegate(tA);
             };
-
-            return tempAction;
+            var typeCorrected = tPublisher as VisualDelegate<A>;
+            if (!typeCorrected.hasyield)
+                return typeCorrected.CreateYieldableDynamicDelegate(tempAction);
+            else return tempAction;
         }
 
         /// <summary>Utility method for creating a delegate from a <see cref="System.Reflection.PropertyInfo"/> that applies a predefined value</summary>
@@ -227,9 +236,10 @@ namespace VisualEvent
         /// <param name="tProperty">PropertyInfo used to generate a delegate</param>
         /// <param name="tValue">Predefined argument value</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createPropertyCall<A>(VisualDelegate tPublisher, PropertyInfo tProperty, RawArg arg1)
+        protected virtual Delegate createPropertyCall<A>(VisualDelegateBase tPublisher, PropertyInfo tProperty, RawArg arg1)
         {
-            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tProperty.GetSetMethod(), false) as Action<A>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), delegate_target, tProperty.GetSetMethod(), false) as Action<A>;
             Func<A> property_input = arg1.CreateArgumentDelegate<A>();
             Action tempcall = () =>
              {
@@ -238,7 +248,10 @@ namespace VisualEvent
                  else
                      tempDelegate(property_input());
              };
-            return tempcall;
+
+            if (!tPublisher.hasyield)
+                return tPublisher.CreateTypeSafeAction(tempcall);
+            else return tPublisher.CreateYieldableCall(tempcall);
         }
 
         //=======================
@@ -248,30 +261,42 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall0(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Delegate createActionCall0(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            Action tempDelegate = Delegate.CreateDelegate(typeof(Action), m_target, tMethod, false) as Action;
+            var delegate_target = isStatic ? null : m_target;
+            Action tempDelegate = Delegate.CreateDelegate(typeof(Action), delegate_target, tMethod, false) as Action;
             Action tempAction = () =>
             {
-                if (m_target == null)
+                try
                 {
-                    tPublisher.removeCall(this);
+                    if (m_target == null)
+                    {
+                        tPublisher.removeCall(this);
+                    }
+                    else
+                    {
+                        tempDelegate();
+                    }
                 }
-                else
+
+                catch (Exception ex)
                 {
-                    tempDelegate();
+                    Debug.LogError(ex);
                 }
             };
-            return tempAction;
+            if (!tPublisher.hasyield)
+                return tPublisher.CreateTypeSafeAction(tempAction);
+            else return tPublisher.CreateYieldableCall(tempAction);
         }
 
         /// <summary>Utility method for creating a 1-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/></summary>
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A> createAction1<A>(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Action<A> createAction1<A>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tMethod, false) as Action<A>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), delegate_target, tMethod, false) as Action<A>;
             Action<A> tempAction = (A tA) =>
             {
                 if (m_target == null)
@@ -292,9 +317,10 @@ namespace VisualEvent
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <param name="tA">Predefined argument value</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall1<A>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1)
+        protected virtual Delegate createActionCall1<A>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1)
         {
-            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tMethod, false) as Action<A>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), delegate_target, tMethod, false) as Action<A>;
             Func<A> input = arg1.CreateArgumentDelegate<A>();
             Action tempaction = () =>
             {
@@ -302,16 +328,17 @@ namespace VisualEvent
                     tPublisher.removeCall(this);
                 else tempDelegate(input());
             };
-            return tempaction;
+            return tPublisher.CreateTypeSafeAction(tempaction);
         }
 
         /// <summary>Utility method for creating a 2-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/></summary>
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic 2-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B> createAction2<A, B>(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Action<A, B> createAction2<A, B>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            Action<A, B> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B>), m_target, tMethod, false) as Action<A, B>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B>), delegate_target, tMethod, false) as Action<A, B>;
             Action<A, B> tempAction = (A tA, B tB) =>
              {
                  if (m_target == null)
@@ -333,9 +360,10 @@ namespace VisualEvent
         /// <param name="tA">Predefined argument value</param>
         /// <param name="tB">Predefined argument value</param>
         /// <returns>Generic 2-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall2<A, B>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2)
+        protected virtual Action createActionCall2<A, B>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2)
         {
-            Action<A, B> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B>), m_target, tMethod, false) as Action<A, B>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B>), delegate_target, tMethod, false) as Action<A, B>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Action tempAction = () =>
@@ -353,9 +381,10 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MemberInfo used to generate a delegate</param>
         /// <returns>Generic 3-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B, C> createAction3<A, B, C>(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Action<A, B, C> createAction3<A, B, C>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            Action<A, B, C> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C>), m_target, tMethod, false) as Action<A, B, C>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C>), delegate_target, tMethod, false) as Action<A, B, C>;
             Action<A, B, C> tempAction = (A tA, B tB, C tC) =>
               {
                   if (m_target == null)
@@ -378,9 +407,10 @@ namespace VisualEvent
         /// <param name="tB">Predefined argument value</param>
         /// <param name="tC">Predefined argument value</param>
         /// <returns>Generic 3-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall3<A, B, C>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3)
+        protected virtual Action createActionCall3<A, B, C>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3)
         {
-            Action<A, B, C> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C>), m_target, tMethod, false) as Action<A, B, C>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C>), delegate_target, tMethod, false) as Action<A, B, C>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -403,9 +433,10 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic 4-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B, C, D> createAction4<A, B, C, D>(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Action<A, B, C, D> createAction4<A, B, C, D>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            Action<A, B, C, D> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D>), m_target, tMethod, false) as Action<A, B, C, D>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C, D> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D>), delegate_target, tMethod, false) as Action<A, B, C, D>;
             Action<A, B, C, D> tempAction = (A tA, B tB, C tC, D tD) =>
                {
                    if (m_target == null)
@@ -429,9 +460,10 @@ namespace VisualEvent
         /// <param name="tC">Predefined argument value</param>
         /// <param name="tD">Predefined argument value</param>
         /// <returns>Generic 4-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall4<A, B, C, D>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4)
+        protected virtual Action createActionCall4<A, B, C, D>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4)
         {
-            Action<A, B, C, D> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D>), m_target, tMethod, false) as Action<A, B, C, D>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C, D> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D>), delegate_target, tMethod, false) as Action<A, B, C, D>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -455,9 +487,10 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic 5-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B, C, D, E> createAction5<A, B, C, D, E>(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Action<A, B, C, D, E> createAction5<A, B, C, D, E>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            Action<A, B, C, D, E> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E>), m_target, tMethod, false) as Action<A, B, C, D, E>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C, D, E> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E>), delegate_target, tMethod, false) as Action<A, B, C, D, E>;
             Action<A, B, C, D, E> tempAction = (A tA, B tB, C tC, D tD, E tE) =>
                 {
                     if (m_target == null)
@@ -482,9 +515,10 @@ namespace VisualEvent
         /// <param name="tD">Predefined argument value</param>
         /// <param name="tE">Predefined argument value</param>
         /// <returns>Generic 5-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall5<A, B, C, D, E>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5)
+        protected virtual Action createActionCall5<A, B, C, D, E>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5)
         {
-            Action<A, B, C, D, E> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E>), m_target, tMethod, false) as Action<A, B, C, D, E>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C, D, E> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E>), delegate_target, tMethod, false) as Action<A, B, C, D, E>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -509,9 +543,10 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic 6-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B, C, D, E, F> createAction6<A, B, C, D, E, F>(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Action<A, B, C, D, E, F> createAction6<A, B, C, D, E, F>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            Action<A, B, C, D, E, F> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F>), m_target, tMethod, false) as Action<A, B, C, D, E, F>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C, D, E, F> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F>;
             Action<A, B, C, D, E, F> tempAction = (A tA, B tB, C tC, D tD, E tE, F tF) =>
                  {
                      if (m_target == null)
@@ -537,9 +572,10 @@ namespace VisualEvent
         /// <param name="tE">Predefined argument value</param>
         /// <param name="tF">Predefined argument value</param>
         /// <returns>Generic 6-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall6<A, B, C, D, E, F>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6)
+        protected virtual Action createActionCall6<A, B, C, D, E, F>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6)
         {
-            Action<A, B, C, D, E, F> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F>), m_target, tMethod, false) as Action<A, B, C, D, E, F>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C, D, E, F> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -565,9 +601,10 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic 7-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B, C, D, E, F, G> createAction7<A, B, C, D, E, F, G>(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Action<A, B, C, D, E, F, G> createAction7<A, B, C, D, E, F, G>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            Action<A, B, C, D, E, F, G> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C, D, E, F, G> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F, G>;
             Action<A, B, C, D, E, F, G> tempAction = (A tA, B tB, C tC, D tD, E tE, F tF, G tG) =>
                   {
                       if (m_target == null)
@@ -594,9 +631,10 @@ namespace VisualEvent
         /// <param name="tF">Predefined argument value</param>
         /// <param name="tG">Predefined argument value</param>
         /// <returns>Generic 7-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall7<A, B, C, D, E, F, G>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6, RawArg arg7)
+        protected virtual Action createActionCall7<A, B, C, D, E, F, G>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6, RawArg arg7)
         {
-            Action<A, B, C, D, E, F, G> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C, D, E, F, G> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F, G>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -623,9 +661,10 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic 8-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B, C, D, E, F, G, H> createAction8<A, B, C, D, E, F, G, H>(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Action<A, B, C, D, E, F, G, H> createAction8<A, B, C, D, E, F, G, H>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            Action<A, B, C, D, E, F, G, H> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G, H>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C, D, E, F, G, H> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F, G, H>;
             Action<A, B, C, D, E, F, G, H> tempAction = (A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH) =>
                    {
                        if (m_target == null)
@@ -653,9 +692,10 @@ namespace VisualEvent
         /// <param name="tG">Predefined argument value</param>
         /// <param name="tH">Predefined argument value</param>
         /// <returns>Generic 8-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createActionCall8<A, B, C, D, E, F, G, H>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6, RawArg arg7, RawArg arg8)
+        protected virtual Action createActionCall8<A, B, C, D, E, F, G, H>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6, RawArg arg7, RawArg arg8)
         {
-            Action<A, B, C, D, E, F, G, H> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G, H>;
+            var delegate_target = isStatic ? null : m_target;
+            Action<A, B, C, D, E, F, G, H> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F, G, H>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -685,31 +725,44 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createFuncCall0<T>(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Delegate createFuncCall0<T>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            Func<T> tempDelegate = Delegate.CreateDelegate(typeof(Func<T>), m_target, tMethod, false) as Func<T>;
-            Action tempAction = () =>
+            var delegate_target = isStatic ? null : m_target;
+            Func<T> tempDelegate = Delegate.CreateDelegate(typeof(Func<T>), delegate_target, tMethod, false) as Func<T>;
+            if (isYieldable)
+                return tPublisher.CreateTypeSafeCoroutine(tempDelegate as Func<IEnumerator>);
+            else
             {
-                if (m_target == null)
+                Action tempAction = () =>
                 {
-                    tPublisher.removeCall(this);
-                }
-                else
-                {
-                    tempDelegate();
-                }
-            };
+                    if (m_target == null)
 
-            return tempAction;
+                    {
+                        tPublisher.removeCall(this);
+                    }
+                    else
+                    {
+                        tempDelegate();
+                    }
+
+                };
+                if (tPublisher.hasyield)
+                    return tPublisher.CreateYieldableCall(tempAction);
+                else return tPublisher.CreateTypeSafeAction(tempAction);
+            }
         }
+
 
         /// <summary>Utility method for creating a 1-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/> that has a return value</summary>
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A> createFunc1<A, T>(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Delegate createFunc1<A, T>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
             Func<A, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, T>), m_target, tMethod, false) as Func<A, T>;
+            bool flag = isYieldable || (isYieldable && tPublisher.hasyield);
+            if (isYieldable)
+                return tempDelegate;
             Action<A> tempAction = (A tA) =>
             {
                 if (m_target == null)
@@ -730,11 +783,20 @@ namespace VisualEvent
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <param name="tA">Predefined argument value</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createFuncCall1<A, T>(VisualDelegate tPublisher, MethodInfo tMethod, RawArg arg1)
+        protected virtual Delegate createFuncCall1<A, T>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1)
         {
 
             Func<A, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, T>), m_target, tMethod, false) as Func<A, T>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
+            Debug.Log(input_1 == null);
+            if (isYieldable)
+            {
+                Func<IEnumerator> yieldedDelgate = () =>
+                 {
+                     return tempDelegate(input_1()) as IEnumerator;
+                 };
+                return tPublisher.CreateTypeSafeCoroutine(yieldedDelgate);
+            }
             Action tempaction = () =>
                {
                    if (m_target == null)
@@ -773,22 +835,29 @@ namespace VisualEvent
         /// <param name="tA">Predefined argument value</param>
         /// <param name="tB">Predefined argument value</param>
         /// <returns>Generic 2-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action createFuncCall2<A, B, T>(VisualDelegate tPublisher, MethodInfo tMethod, A tA, B tB)
+        protected virtual Delegate createFuncCall2<A, B, T>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2)
         {
             Func<A, B, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, B, T>), m_target, tMethod, false) as Func<A, B, T>;
-            Action tempAction = () =>
+            Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
+            Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
+
+
+            if (isYieldable)
+            {
+                Func<IEnumerator> yieldedDelgate = () =>
+                {
+                    return tempDelegate(input_1(),input_2()) as IEnumerator;
+                };
+                return tPublisher.CreateTypeSafeCoroutine(yieldedDelgate);
+            }
+            Action tempaction = () =>
             {
                 if (m_target == null)
-                {
                     tPublisher.removeCall(this);
-                }
                 else
-                {
-                    tempDelegate(tA, tB);
-                }
+                    tempDelegate(input_1(),input_2());
             };
-
-            return tempAction;
+            return tempaction;
         }
 
         /// <summary>Utility method for creating a 3-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/> that has a return value</summary>

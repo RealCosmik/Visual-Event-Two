@@ -11,6 +11,9 @@ namespace VisualEvent
     [CustomPropertyDrawer(typeof(RawCall), true)]
     public class DrawerRawCallView : DrawerRawDelegateView<RawCallView>
     {
+        static GUIContent Dynamic_Content = new GUIContent("Is Dyanmic");
+        static GUIContent Yield_Content = new GUIContent("Yield");
+
         //=======================
         // Initialization
         //=======================
@@ -21,7 +24,7 @@ namespace VisualEvent
             RawCallView tempCache = ViewCache.GetRawCallCache(tProperty) as RawCallView;
             if (tempCache.CurrentTarget != null)
             {
-                if (tempCache.isDynamicable)
+                if (tempCache.isDynamicable||tempCache.isYieldable)
                 {
                     tempHeight += EditorGUI.GetPropertyHeight(tempDynamicProperty) + EditorGUIUtility.standardVerticalSpacing;
                 }
@@ -71,20 +74,48 @@ namespace VisualEvent
                 if (delegateCache.CurrentTarget != null)
                 {
                     tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
+
                     if (delegateCache.isDynamicable)
                     {
                         SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
-
+                        VisualEdiotrUtility.StandardStyle.CalcMinMaxWidth(Dynamic_Content, out float min, out float max);
                         tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing + 5;
                         tPosition.height = EditorGUI.GetPropertyHeight(tempDynamicProperty);
-
+                        var dynamic_rect = tPosition; 
+                        dynamic_rect.width = max*1.5f;
                         EditorGUI.BeginChangeCheck();
-                        bool tempIsDynamic = EditorGUI.ToggleLeft(tPosition, tempDynamicProperty.displayName, delegateCache.isDynamic);
+                        bool tempIsDynamic = EditorGUI.ToggleLeft(dynamic_rect, Dynamic_Content, delegateCache.isDynamic);
                         if (EditorGUI.EndChangeCheck())
                         {
                             delegateCache.isDynamic = tempIsDynamic;
                             handleDynamicUpdate(tProperty, delegateCache);
                             delegateCache.RequiresRecalculation = true;
+                        }
+                    }  
+                    if (delegateCache.isYieldable)
+                    {
+                        SerializedProperty isYieldCall_prop = tProperty.FindPropertyRelative("m_isYieldableCall");
+                        VisualEdiotrUtility.StandardStyle.CalcMinMaxWidth(Yield_Content, out float min, out float max);
+                        Rect yield_rect;
+                        if (delegateCache.isDynamicable)
+                        {
+                            yield_rect = tPosition;
+                            yield_rect.x += 100;
+                        }
+                        else
+                        {
+                            tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing + 5;
+                            tPosition.height = EditorGUI.GetPropertyHeight(isYieldCall_prop);
+                            yield_rect = tPosition;
+                        }
+                        yield_rect.width = max * 3;
+                        EditorGUI.BeginChangeCheck();
+                        isYieldCall_prop.boolValue = EditorGUI.ToggleLeft(yield_rect, Yield_Content, isYieldCall_prop.boolValue);
+                        if (EditorGUI.EndChangeCheck())
+                        {
+                            tProperty.serializedObject.ApplyModifiedProperties();
+                            if (EditorApplication.isPlaying)
+                                tProperty.GetVisualDelegateObject()?.ReInitialize();
                         }
                     }
                     // Arguments
@@ -172,10 +203,12 @@ namespace VisualEvent
             if (!delegatecache.isvalidated)
             {
                 SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative("methodData");
+                SerializedProperty isStatic_prop = tProperty.FindPropertyRelative("isStatic");
                 SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
-                if (!delegatecache.validateTarget(tProperty.FindPropertyRelative("m_target"), tempMemberProperty, tempDynamicProperty))
+                if (!delegatecache.validateTarget(tProperty.FindPropertyRelative("m_target"), isStatic_prop, tempDynamicProperty))
                 {
                     handleTargetUpdate(tProperty, delegatecache);
+                    isStatic_prop.boolValue = delegatecache.hasStaticTarget;
                     delegatecache.RequiresRecalculation = true;
                 }
                 if (!delegatecache.validateMember(tempMemberProperty, tempDynamicProperty))
@@ -187,10 +220,14 @@ namespace VisualEvent
             }
             else if (delegatecache.CurrentTarget == null && delegatecache.memberNames != null)
                 delegatecache.isvalidated = false;
-            var methodName = tProperty.FindPropertyRelative("methodData").GetArrayElementAtIndex(1).stringValue;
-            if (delegatecache.HasDelegateError || !methodName.Equals(delegatecache.SelectedMember.SeralizedData[1]))
+
+            if (delegatecache.CurrentTarget != null)
             {
-                HandleDelegeateError(tProperty, delegatecache);
+                var methodName = tProperty.FindPropertyRelative("methodData").GetArrayElementAtIndex(1).stringValue;
+                if (delegatecache.HasDelegateError || !methodName.Equals(delegatecache.SelectedMember.SeralizedData[1]))
+                {
+                    HandleDelegeateError(tProperty, delegatecache);
+                }
             }
             delegatecache.ValidateComponentTree();
         }
@@ -207,9 +244,11 @@ namespace VisualEvent
             EditorGUI.PropertyField(tPosition, tArgument, new GUIContent(tCache.arguments[tIndex].name));
         }
 
-        protected override void handleMemberUpdate(SerializedProperty tProperty, RawDelegateView tCache)
+        protected override void handleMemberUpdate(SerializedProperty tProperty, RawCallView tCache)
         {
             base.handleMemberUpdate(tProperty, tCache);
+            if (!tCache.isYieldable)
+                tProperty.FindPropertyRelative("m_isYieldableCall").boolValue = false;
             handleDynamicUpdate(tProperty, tCache as RawCallView);
         }
         private void HandleDelegeateError(SerializedProperty delegeateProp, RawCallView delegatecache)
@@ -229,7 +268,7 @@ namespace VisualEvent
             VisualEdiotrUtility.CopySeralizedMethodDataToProp(methoData_prop, delegatecache.SelectedMember.SeralizedData);
             handleDynamicUpdate(delegeateProp, delegatecache);
             if (EditorApplication.isPlaying)
-                delegeateProp.GetViewDelegateObject()?.ReInitialize();
+                delegeateProp.GetVisualDelegateObject()?.ReInitialize();
             delegatecache.HasDelegateError = false;
         }
 
@@ -247,7 +286,7 @@ namespace VisualEvent
             if (delegateCache.isDynamic)
             {
                 tempDynamicProperty.boolValue = true;
-                // tempArgumentsProperty.ClearArray();
+                tempArgumentsProperty.ClearArray();
             }
             // Not dynamic, generate arguments if not void
             else
@@ -256,14 +295,12 @@ namespace VisualEvent
                 Argument[] tempArguments = delegateCache.arguments;
                 if (tempArguments == null)
                 {
+                    tempArgumentsProperty.ClearArray();
                 }
                 else
                 {
-                    if (delegateCache.CurrentTarget != null)
-                    {
-                        tempArgumentsProperty.arraySize = tempArguments.Length;
-                        delegateCache.RequiresRecalculation = true;
-                    }
+                    tempArgumentsProperty.arraySize = tempArguments.Length;
+                    delegateCache.RequiresRecalculation = true;
                     for (int i = (tempArguments.Length - 1); i >= 0; --i)
                     {
                         var assemblytypename = tempArguments[i].type.AssemblyQualifiedName;
@@ -271,9 +308,6 @@ namespace VisualEvent
                         var currentargumentproperty = tempArgumentsProperty.GetArrayElementAtIndex(i);
                         currentargumentproperty.FindPropertyRelative("assemblyQualifiedArgumentName").stringValue = assemblytypename;
                         currentargumentproperty.FindPropertyRelative("FullArgumentName").stringValue = fulltypename;
-                        if (currentargumentproperty.FindPropertyRelative("UseReference").boolValue)
-                        {
-                        }
                     }
                 }
             }
