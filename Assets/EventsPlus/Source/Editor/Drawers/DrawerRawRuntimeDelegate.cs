@@ -2,7 +2,7 @@
 using UnityEngine;
 namespace VisualEvent
 {
-    [CustomPropertyDrawer(typeof(RawDynamicDelegate))]
+    [CustomPropertyDrawer(typeof(RawRuntimeDelegate))]
     class DrawerRawRuntimeDelegate : DrawerRawDelegateView<RawDynamicDelegateView>
     {
         private void AddTarget(SerializedProperty delegateprop,RawDynamicDelegateView cache,object target)
@@ -36,7 +36,7 @@ namespace VisualEvent
                 var methodData_prop = property.FindPropertyRelative("methodData");
                 if (methodData_prop.arraySize == 0)
                 {
-                    var dynamicdelgate = property.GetTarget<RawDynamicDelegate>();
+                    var dynamicdelgate = property.GetTarget<RawRuntimeDelegate>();
                     AddTarget(property, cache, dynamicdelgate.delegateInstance.Target);
                     var seralizedMethodData = Utility.QuickSeralizer(dynamicdelgate.delegateInstance.Method);
                     VisualEdiotrUtility.CopySeralizedMethodDataToProp(methodData_prop, seralizedMethodData);

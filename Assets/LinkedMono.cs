@@ -16,12 +16,50 @@ class LinkedMono : MonoBehaviour
     public void throwexception() => throw new UnityException("TRY AND STOP THIS");
     public void methodforikram(string s) => Debug.Log("print as a string");
     private List<Func<IEnumerator>> coroutine_delegate;
+    [SerializeField] Testmono mymonotest;
     public bool ExampleSwitch;
 
     public int input = 3;
     private void Start()
     {
-       Cosmik.initialize();
+        Cosmik.OnInvoke += val => Debug.Log("wow");
+       // Cosmik.initialize();
+    }
+    private async System.Threading.Tasks.Task dostuff()
+    {
+    }
+    IEnumerator first()
+    {
+        Debug.Log("first");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("first end");
+    }
+    IEnumerator second()
+    {
+        Debug.Log("second");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("second end");
+    }
+
+
+    IEnumerator testerco(IEnumerator routine)
+    {
+        while (true)
+        {
+            object Current;
+            try
+            {
+                Current = routine.Current;
+                if (!routine.MoveNext())
+                    yield break;
+            }
+            catch (MissingReferenceException)
+            {
+                yield break;
+            }
+            yield return Current;
+
+        }
     }
     public void hope(Func<int> f) => Debug.Log(f());
     private void saythis() => Debug.Log("im saying something");
@@ -60,7 +98,7 @@ class LinkedMono : MonoBehaviour
 
     private void methodWithNum(int x)
     {
-        Debug.Log("ayeeeeeee" + x );
+        Debug.Log("ayeeeeeee" + x);
     }
     public IEnumerator _Coroutinetest2()
     {
@@ -80,7 +118,7 @@ class LinkedMono : MonoBehaviour
     public void doDamage() => Destroy(this);
     private void Update()
     {
-        UnityEngine.Profiling.Profiler.BeginSample("delgate invoke", this);
+        //UnityEngine.Profiling.Profiler.BeginSample("delgate invoke", this);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -88,22 +126,15 @@ class LinkedMono : MonoBehaviour
             // StartCoroutine(RunDelegate());
             // UnityEditor.EditorApplication.isPlaying = false;
         }
-        UnityEngine.Profiling.Profiler.EndSample();
-        UnityEngine.Profiling.Profiler.BeginSample("delgate init", this);
+        //UnityEngine.Profiling.Profiler.EndSample();
+        //UnityEngine.Profiling.Profiler.BeginSample("delgate init", this);
 
-        UnityEngine.Profiling.Profiler.EndSample();
-    }
-    private IEnumerator RunDelegate()
-    {
-        for (int i = 0; i < coroutine_delegate.Count; i++)
-        {
-            yield return StartCoroutine(coroutine_delegate[i].Invoke());
-        }
+        //UnityEngine.Profiling.Profiler.EndSample();
     }
 }
 [System.Serializable]
 public class intpub : VisualDelegate<int> { }
 [System.Serializable]
-public class visual4 : VisualDelegate<int,string,bool,char> { }
+public class visual4 : VisualDelegate<int, string, bool, char> { }
 [System.Serializable]
 public class stringpub : VisualDelegate<string> { }

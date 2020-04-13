@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1264901152908359742}
-  - component: {fileID: 6735216595992633621}
+  - component: {fileID: 5554281316162476594}
   m_Layer: 0
   m_Name: IK
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6735216595992633621
+--- !u!114 &5554281316162476594
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,53 +45,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cosmik:
     m_calls:
-    - m_target: {fileID: 6735216595992633621}
-      methodData:
-      - 8
-      - WaitForSwitch
-      - System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      isStatic: 0
-      m_arguments:
-      - assemblyQualifiedArgumentName: System.Boolean, mscorlib, Version=4.0.0.0,
-          Culture=neutral, PublicKeyToken=b77a5c561934e089
-        FullArgumentName: System.Boolean
-        objectValue: {fileID: 0}
-        stringValue: 
-        _x1: 1
-        _x2: 0
-        _y1: 0
-        _y2: 0
-        _z1: 0
-        _z2: 0
-        longValue: 0
-        doubleValue: 0
-        animationCurveValue:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 0
-          m_PostInfinity: 0
-          m_RotationOrder: 0
-        UseReference: 1
-        hasCustomType: 0
-        call_Reference:
-          m_target: {fileID: 11400000, guid: 40324b5356407452b8b3e56acbe700a8, type: 2}
-          methodData:
-          - 4
-          - isdead
-          - GET
-          isStatic: 0
-          ParentArgumentType: 
-          m_isvaluetype: 1
-          isparentargstring: 0
-      m_isDynamic: 0
-      m_runtime: 0
-      TargetType: 
-      m_isYieldableCall: 1
-    isinitialized: 0
+    - id: 0
+    hasyield: 0
   unity:
     m_PersistentCalls:
       m_Calls: []
   vecfield: {x: 1, y: 1, z: 1}
   mynum: 0
+  mymonotest: {fileID: 0}
   ExampleSwitch: 0
   input: 3
+  references:
+    version: 1
+    00000000:
+      type: {class: RawCall, ns: VisualEvent, asm: Assembly-CSharp}
+      data:
+        m_target: {fileID: 6800263704652912433}
+        methodData:
+        - 16
+        - layer
+        - set
+        isStatic: 0
+        m_isYieldableCall: 0
+        m_arguments:
+        - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0,
+            Culture=neutral, PublicKeyToken=b77a5c561934e089
+          FullArgumentName: System.Int32
+          objectValue: {fileID: 0}
+          stringValue: 
+          _x1: 0
+          _x2: 0
+          _y1: 0
+          _y2: 0
+          _z1: 0
+          _z2: 0
+          longValue: 0
+          doubleValue: 0
+          animationCurveValue:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 0
+            m_PostInfinity: 0
+            m_RotationOrder: 0
+          UseReference: 0
+          hasCustomType: 0
+          call_Reference:
+            m_target: {fileID: 0}
+            methodData: []
+            isStatic: 0
+            m_isYieldableCall: 0
+            ParentArgumentType: 
+            m_isvaluetype: 0
+            isparentargstring: 0
+            m_isDelegate: 0
+        m_isDynamic: 0
+        m_runtime: 0
+        TargetType: 

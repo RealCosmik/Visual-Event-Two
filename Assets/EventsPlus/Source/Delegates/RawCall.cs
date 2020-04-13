@@ -34,16 +34,13 @@ namespace VisualEvent
         public bool m_runtime;
         [SerializeField]
         string TargetType;
-        [SerializeField]
-        bool m_isYieldableCall;
-        public bool isYieldable => m_isYieldableCall;
 
         //=======================
         // Initialization
         //=======================
         /// <summary>Initializes and deserializes the <see cref="RawDelegate.m_target"/> and <see cref="RawDelegate._member"/> information into an actual delegate using a <see cref="VisualDelegate"/> reference</summary>
         /// <param name="tPublisher">Publisher passed in the delegate used for automatic memory management</param>
-        public virtual void initialize(VisualDelegateBase tPublisher)
+        public void initialize(VisualDelegateBase tPublisher)
         {
             if (isStatic)
             {
@@ -52,19 +49,6 @@ namespace VisualEvent
             else if (m_target != null)
                 delegateInstance = createDelegate(tPublisher, Utility.QuickDeseralizer(m_target.GetType(), methodData));
         }
-        public override void initialize()
-        {
-            if (methodData?.Length > 0)
-            {
-                var deltype = Type.GetType(TargetType);
-                var method = Utility.QuickDeseralizer(deltype, methodData);
-                if (m_target != null)
-                    delegateInstance = createDelegate(method, m_target);
-                else
-                    delegateInstance = createDelegate(method, Activator.CreateInstance(deltype));
-            }
-        }
-        public RawCall(bool isruntime) => m_runtime = isruntime;
         //=======================
         // Delegate
         //=======================
@@ -729,7 +713,7 @@ namespace VisualEvent
         {
             var delegate_target = isStatic ? null : m_target;
             Func<T> tempDelegate = Delegate.CreateDelegate(typeof(Func<T>), delegate_target, tMethod, false) as Func<T>;
-            if (isYieldable)
+            if (tPublisher.hasyield)
                 return tPublisher.CreateTypeSafeCoroutine(tempDelegate as Func<IEnumerator>);
             else
             {
@@ -746,9 +730,7 @@ namespace VisualEvent
                     }
 
                 };
-                if (tPublisher.hasyield)
-                    return tPublisher.CreateYieldableCall(tempAction);
-                else return tPublisher.CreateTypeSafeAction(tempAction);
+                return tPublisher.CreateTypeSafeAction(tempAction);
             }
         }
 

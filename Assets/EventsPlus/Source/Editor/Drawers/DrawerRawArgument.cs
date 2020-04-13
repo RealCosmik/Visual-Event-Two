@@ -23,21 +23,29 @@ namespace VisualEvent
         /// <returns>Height of the drawer</returns>
         public override float GetPropertyHeight(SerializedProperty tProperty, GUIContent tLabel)
         {
-            float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
-            string argumentName = tProperty.FindPropertyRelative("FullArgumentName").stringValue;
             var usingref = tProperty.FindPropertyRelative("UseReference").boolValue;
-            if (argumentName == "UnityEngine.Rect")
-                tempHeight += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
-            else if (argumentName == "UnityEngine.Bounds")
-                tempHeight += (EditorGUIUtility.singleLineHeight) + EditorGUIUtility.standardVerticalSpacing;
+            float tempHeight = 0;
             if (usingref)
             {
                 tempHeight += EditorGUI.GetPropertyHeight(tProperty.FindPropertyRelative("call_Reference"));
             }
-            var argumentCache = ViewCache.GetRawArgumentCache(tProperty);
-            if (argumentCache.hasCustomType)
-                tempHeight += EditorGUI.GetPropertyHeight(tProperty.FindPropertyRelative("custom"));
-            ValidateArgumentCache(tProperty, argumentName, argumentCache);
+            else
+            {
+                tempHeight = base.GetPropertyHeight(tProperty, tLabel);
+                string argumentName = tProperty.FindPropertyRelative("FullArgumentName").stringValue;
+                if (argumentName == "UnityEngine.Rect")
+                    tempHeight += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+                else if (argumentName == "UnityEngine.Bounds")
+                    tempHeight += (EditorGUIUtility.singleLineHeight) + EditorGUIUtility.standardVerticalSpacing;
+                if (usingref)
+                {
+                    tempHeight += EditorGUI.GetPropertyHeight(tProperty.FindPropertyRelative("call_Reference"));
+                }
+                var argumentCache = ViewCache.GetRawArgumentCache(tProperty);
+                if (argumentCache.hasCustomType)
+                    tempHeight += EditorGUI.GetPropertyHeight(tProperty.FindPropertyRelative("custom"));
+                ValidateArgumentCache(tProperty, argumentName, argumentCache);
+            }
             return tempHeight;
         }
         private void ValidateArgumentCache(SerializedProperty argumentprop, string argumentTypename, RawArgumentView argumentCache)
@@ -57,7 +65,7 @@ namespace VisualEvent
             var argument_cache = ViewCache.GetRawArgumentCache(tProperty);
             var refpos = tPosition;
             var style = VisualEdiotrUtility.StandardStyle;
-            var reference_content = new GUIContent("Use Reference");
+            var reference_content = new GUIContent("Use ref");
             style.CalcMinMaxWidth(reference_content, out float min, out float max);
             refpos.x = (refpos.width - max) - 20;
             EditorGUI.LabelField(refpos, reference_content);
@@ -83,7 +91,7 @@ namespace VisualEvent
             if (!useReference.boolValue)
                 DisplayArgument(argumentpos, tProperty, paramLabel);
             else
-                DisplayReference(argumentpos, tProperty, paramLabel, argument_cache);
+                DisplayReference(argumentpos, tProperty, paramLabel, reference_content, argument_cache);
             if (EditorGUI.EndChangeCheck() && EditorApplication.isPlaying)
             {
                 tProperty.serializedObject.ApplyModifiedProperties();
@@ -336,13 +344,14 @@ namespace VisualEvent
             // TODO: 
             //  tProperty.FindPropertyRelative("hasCustomType").boolValue = argument_cache.hasCustomType;
         }
-        private void DisplayReference(Rect rect, SerializedProperty argumentprop, GUIContent label, RawArgumentView argCache)
+        private void DisplayReference(Rect rect, SerializedProperty argumentprop, GUIContent label,GUIContent labeltwo, RawArgumentView argCache)
         {
             var call = argumentprop.FindPropertyRelative("call_Reference");
             argCache.hasCustomType = false;
-            rect.y += 5;
-            rect.x += 10;
-            EditorGUI.PropertyField(rect, call, true);
+            VisualEdiotrUtility.StandardStyle.CalcMinMaxWidth(label, out float min, out float max);
+            VisualEdiotrUtility.StandardStyle.CalcMinMaxWidth(labeltwo, out float min_two, out float max_twp);
+            rect.x += 10f;
+            EditorGUI.PropertyField(rect, call, GUIContent.none, true);
         }
     }
 }

@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -120,6 +121,83 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &208692812 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6800263704652912433, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 5333563347481002445}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &208692813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208692812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36daa77921fe6fa408e6c6586762f35c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cosmik:
+    m_calls:
+    - id: 0
+    Yield_target: {fileID: 208692813}
+    hasyield: 1
+  unity:
+    m_PersistentCalls:
+      m_Calls: []
+  vecfield: {x: 1, y: 1, z: 1}
+  mynum: 0
+  mymonotest: {fileID: 0}
+  ExampleSwitch: 0
+  input: 3
+  references:
+    version: 1
+    00000000:
+      type: {class: RawCall, ns: VisualEvent, asm: Assembly-CSharp}
+      data:
+        m_target: {fileID: 208692813}
+        methodData:
+        - 8
+        - WaitForSeconds
+        - System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        isStatic: 0
+        m_isYieldableCall: 0
+        m_arguments:
+        - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0,
+            Culture=neutral, PublicKeyToken=b77a5c561934e089
+          FullArgumentName: System.Int32
+          objectValue: {fileID: 0}
+          stringValue: 
+          _x1: 0
+          _x2: 0
+          _y1: 0
+          _y2: 0
+          _z1: 0
+          _z2: 0
+          longValue: 0
+          doubleValue: 0
+          animationCurveValue:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 0
+            m_PostInfinity: 0
+            m_RotationOrder: 0
+          UseReference: 0
+          hasCustomType: 0
+          call_Reference:
+            m_target: {fileID: 0}
+            methodData: []
+            isStatic: 0
+            m_isYieldableCall: 0
+            ParentArgumentType: 
+            m_isvaluetype: 0
+            isparentargstring: 0
+            m_isDelegate: 0
+        m_isDynamic: 0
+        m_runtime: 0
+        TargetType: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,18 +611,49 @@ RectTransform:
   m_AnchoredPosition: {x: 349.45, y: 184.99998}
   m_SizeDelta: {x: 185.9, y: 66.1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1239298947 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-    type: 3}
-  m_PrefabInstance: {fileID: 5333563347481002445}
+--- !u!1 &958707263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 958707265}
+  - component: {fileID: 958707264}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &958707264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958707263}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36daa77921fe6fa408e6c6586762f35c, type: 3}
+  m_Script: {fileID: 11500000, guid: 95dc6a5621cb6874198e2537dd9ebe32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &958707265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958707263}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 29.4, y: 62.5, z: 6.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1587212668
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,17 +829,17 @@ PrefabInstance:
     - target: {fileID: 1264901152908359742, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29.4
+      value: 14.47
       objectReference: {fileID: 0}
     - target: {fileID: 1264901152908359742, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 62.5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1264901152908359742, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.12
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1264901152908359742, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
@@ -772,344 +881,204 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.methodData.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].call_Reference.methodData.Array.size
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].methodData.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[0].call_Reference.methodData.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[1].call_Reference.methodData.Array.size
+      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.size
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.data[1]
-      value: WaitforIntValue
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.methodData.Array.size
+      value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.data[2]
-      value: System.Func`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089]], mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[2].call_Reference.methodData.Array.size
+      value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.data[3]
-      value: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      propertyPath: Cosmik.m_calls.Array.size
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].assemblyQualifiedArgumentName
-      value: System.Func`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089]], mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].FullArgumentName
-      value: System.Func`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089]]
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].assemblyQualifiedArgumentName
-      value: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].FullArgumentName
-      value: System.Int32
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1]._x1
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].UseReference
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.m_target
-      value: 
-      objectReference: {fileID: 11400000, guid: 40324b5356407452b8b3e56acbe700a8,
-        type: 2}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.methodData.Array.data[0]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.methodData.Array.data[1]
-      value: isdead
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.methodData.Array.data[2]
-      value: GET
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.m_isvaluetype
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].UseReference
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.data[4]
-      value: UnityEngine.Object, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].stringValue
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0]._x1
+      propertyPath: Cosmik.m_calls.Array.data[0].m_isDynamic
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].call_Reference.m_target
       value: 
       objectReference: {fileID: 11400000, guid: 40324b5356407452b8b3e56acbe700a8,
         type: 2}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].call_Reference.m_isvaluetype
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].call_Reference.methodData.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].call_Reference.methodData.Array.data[1]
+      value: isdead
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].call_Reference.methodData.Array.data[2]
+      value: GET
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].m_target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.data[0]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.data[1]
+      value: WaitForSwitch
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.data[2]
+      value: System.Func`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089]], mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].assemblyQualifiedArgumentName
+      value: System.Func`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089]], mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].FullArgumentName
+      value: System.Func`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089]]
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].isStatic
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.data[3]
+      value: LogType, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.data[4]
+      value: UnityEngine.Object, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].assemblyQualifiedArgumentName
+      value: LogType, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].FullArgumentName
+      value: LogType
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.m_target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.methodData.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.methodData.Array.data[1]
+      value: mynum
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.methodData.Array.data[2]
+      value: GET
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[2].assemblyQualifiedArgumentName
       value: UnityEngine.Object, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[2].FullArgumentName
       value: UnityEngine.Object
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[2].objectValue
-      value: 
-      objectReference: {fileID: 1239298947}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].methodData.Array.data[0]
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_isYieldableCall
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].stringValue
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[2].call_Reference.m_target
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].methodData.Array.data[0]
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].methodData.Array.data[1]
-      value: methodforikra
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].methodData.Array.data[2]
-      value: SET
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].methodData.Array.data[3]
-      value: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[0].assemblyQualifiedArgumentName
-      value: intpub, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[0].FullArgumentName
-      value: intpub
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[0].stringValue
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[0].UseReference
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[1].assemblyQualifiedArgumentName
-      value: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[1].FullArgumentName
-      value: System.Int32
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[1].stringValue
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].call_Reference.methodData.Array.data[1]
-      value: health
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].call_Reference.methodData.Array.data[0]
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[2].call_Reference.methodData.Array.data[0]
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_target
-      value: 
-      objectReference: {fileID: 1239298947}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].call_Reference.methodData.Array.data[2]
-      value: GET
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].call_Reference.isStatic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: mynum
-      value: 42
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[0].call_Reference.m_target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[0].call_Reference.methodData.Array.data[0]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[0].call_Reference.methodData.Array.data[1]
-      value: isdead
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[0].call_Reference.methodData.Array.data[2]
-      value: GET
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[1]._x1
-      value: 121
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[1].call_Reference.m_target
-      value: 
-      objectReference: {fileID: 1239298947}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[1].call_Reference.methodData.Array.data[0]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[1].call_Reference.methodData.Array.data[1]
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[2].call_Reference.methodData.Array.data[1]
       value: mynum
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_arguments.Array.data[1].call_Reference.methodData.Array.data[2]
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[2].call_Reference.methodData.Array.data[2]
       value: GET
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_isYieldableCall
-      value: 0
+      propertyPath: Cosmik.hasyield
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0].call_Reference.m_isDelegate
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[1].m_target
+      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[0]._x1
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea,
+        type: 3}
+      propertyPath: Cosmik.Yield_target
       value: 
-      objectReference: {fileID: 1239298947}
-    - target: {fileID: 6735216595992633621, guid: 3308c2b3aeeba4145bdba23382f275ea,
-        type: 3}
-      propertyPath: Cosmik.m_calls.Array.data[0].m_arguments.Array.data[1].call_Reference.m_isDelegate
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6800263704652912433, guid: 3308c2b3aeeba4145bdba23382f275ea,
         type: 3}
       propertyPath: m_Name
       value: IK
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5554281316162476594, guid: 3308c2b3aeeba4145bdba23382f275ea, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3308c2b3aeeba4145bdba23382f275ea, type: 3}

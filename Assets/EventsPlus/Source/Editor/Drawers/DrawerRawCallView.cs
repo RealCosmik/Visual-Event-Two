@@ -59,12 +59,6 @@ namespace VisualEvent
         //=======================
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         {
-            var isruntime = tProperty.FindPropertyRelative("m_runtime").boolValue;
-            if (isruntime)
-            {
-                DrawRunTimeCall(tPosition, tProperty);
-                return;
-            }
             // Inheritance
             base.OnGUI(tPosition, tProperty, tLabel);
 
@@ -73,16 +67,15 @@ namespace VisualEvent
                 SetInitialHeight(delegateCache, tProperty);
                 if (delegateCache.CurrentTarget != null)
                 {
-                    tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
-
+                    tPosition.height = delegateCache.Height;
                     if (delegateCache.isDynamicable)
                     {
                         SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
                         VisualEdiotrUtility.StandardStyle.CalcMinMaxWidth(Dynamic_Content, out float min, out float max);
-                        tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing + 5;
                         tPosition.height = EditorGUI.GetPropertyHeight(tempDynamicProperty);
-                        var dynamic_rect = tPosition; 
-                        dynamic_rect.width = max*1.5f;
+                        tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
+                        var dynamic_rect = tPosition;
+                        dynamic_rect.width = max * 1.5f;
                         EditorGUI.BeginChangeCheck();
                         bool tempIsDynamic = EditorGUI.ToggleLeft(dynamic_rect, Dynamic_Content, delegateCache.isDynamic);
                         if (EditorGUI.EndChangeCheck())
@@ -91,7 +84,7 @@ namespace VisualEvent
                             handleDynamicUpdate(tProperty, delegateCache);
                             delegateCache.RequiresRecalculation = true;
                         }
-                    }  
+                    }
                     if (delegateCache.isYieldable)
                     {
                         SerializedProperty isYieldCall_prop = tProperty.FindPropertyRelative("m_isYieldableCall");
@@ -104,8 +97,8 @@ namespace VisualEvent
                         }
                         else
                         {
-                            tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing + 5;
                             tPosition.height = EditorGUI.GetPropertyHeight(isYieldCall_prop);
+                            tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing + 5;
                             yield_rect = tPosition;
                         }
                         yield_rect.width = max * 3;
@@ -130,9 +123,9 @@ namespace VisualEvent
                                 delegateCache.RequiresRecalculation = true;
                                 delegateCache.isexpanded = tempArgumentsProperty.isExpanded;
                             }
-                            tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing + 5;
+                            // tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing + 5;
                             tPosition.height = EditorGUI.GetPropertyHeight(tempArgumentsProperty, false);
-
+                            tPosition.y += 25f;
                             tempArgumentsProperty.isExpanded = EditorGUI.Foldout(tPosition, tempArgumentsProperty.isExpanded, tempArgumentsProperty.displayName);
                             if (tempArgumentsProperty.isExpanded)
                             {
@@ -151,53 +144,7 @@ namespace VisualEvent
                 }
             }
         }
-        private void DrawRunTimeCall(Rect position, SerializedProperty property)
-        {
-            if (EditorApplication.isPlaying && ViewCache.GetDelegateView(property, out RawDynamicDelegateView cache))
-            {
-                var methodData_prop = property.FindPropertyRelative("methodData");
-                if (methodData_prop.arraySize == 0)
-                {
-                    var dynamicdelgate = property.GetTarget<RawCall>();
-                    AddTarget(property, cache, dynamicdelgate.delegateInstance.Target);
-                    var seralizedMethodData = Utility.QuickSeralizer(dynamicdelgate.delegateInstance.Method);
-                    VisualEdiotrUtility.CopySeralizedMethodDataToProp(methodData_prop, seralizedMethodData);
-                    cache.MethodName = ParseMethodName(seralizedMethodData[1]);
-                    cache.CalcHeight();
-                    property.serializedObject.ApplyModifiedProperties();
-                }
-                Rect targetRect = position;
-                targetRect.height *= .5f;
-                Rect methodRect = targetRect;
-                methodRect.y += methodRect.height;
-                EditorGUI.LabelField(targetRect, cache.TargetContent);
-                EditorGUI.LabelField(methodRect, cache.MethodContent);
-            }
-        }
-        private void AddTarget(SerializedProperty delegateprop, RawDynamicDelegateView cache, object target)
-        {
-            var target_type = target.GetType();
-            if (target is UnityEngine.Object unity_object)
-                delegateprop.FindPropertyRelative("m_target").objectReferenceValue = unity_object;
-            delegateprop.FindPropertyRelative("TargetType").stringValue = target_type.AssemblyQualifiedName;
-            cache.TargetName = ParseTargetName(target_type.FullName);
-        }
-        private string ParseMethodName(string methodname)
-        {
-            if (methodname[0] == '<')//anon method
-            {
-                return $@"Method: Anonymous method created in ""{methodname.Substring(1, methodname.IndexOf('>') - 1)}""";
-            }
-            else return $@"Method: ""{methodname}""";
-        }
-        private string ParseTargetName(string TargetType)
-        {
-            if (TargetType.Contains("+"))
-            {
-                return $@"Target: Anonymous Type Created in ""{TargetType.Substring(0, TargetType.IndexOf('+'))}""";
-            }
-            return $@"Target: ""{TargetType}""";
-        }
+    
         protected override void validate(SerializedProperty tProperty, RawCallView delegatecache)
         {
             if (!delegatecache.isvalidated)
@@ -239,16 +186,18 @@ namespace VisualEvent
         /// <param name="tCache">Cached call drop-down data</param>
         protected static void DrawArgument(ref Rect tPosition, SerializedProperty tArgument, int tIndex, RawCallView tCache)
         {
-            tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
-            tPosition.height = EditorGUI.GetPropertyHeight(tArgument);
-            EditorGUI.PropertyField(tPosition, tArgument, new GUIContent(tCache.arguments[tIndex].name));
+            var argument_height = EditorGUI.GetPropertyHeight(tArgument);
+            tPosition.y += argument_height +EditorGUIUtility.standardVerticalSpacing;
+            var pos = tPosition;
+            // pos.y += 10f;
+            //tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
+            pos.height = argument_height;
+            EditorGUI.PropertyField(pos, tArgument, new GUIContent(tCache.arguments[tIndex].name));
         }
 
         protected override void handleMemberUpdate(SerializedProperty tProperty, RawCallView tCache)
         {
             base.handleMemberUpdate(tProperty, tCache);
-            if (!tCache.isYieldable)
-                tProperty.FindPropertyRelative("m_isYieldableCall").boolValue = false;
             handleDynamicUpdate(tProperty, tCache as RawCallView);
         }
         private void HandleDelegeateError(SerializedProperty delegeateProp, RawCallView delegatecache)
@@ -311,15 +260,8 @@ namespace VisualEvent
                     }
                 }
             }
+            PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
             tProperty.serializedObject.ApplyModifiedProperties();
-        }
-        /// <summary>
-        /// TODO: needs implementation
-        /// </summary>
-        /// <param name="tprop"></param>
-        private void HandleDrag(SerializedProperty tprop)
-        {
-            //TODO: implment this later
         }
     }
 }

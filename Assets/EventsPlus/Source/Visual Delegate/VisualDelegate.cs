@@ -20,7 +20,7 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    UpdateEditorCallList(value);
+                    AddRuntimeDelegateEditor(value);
             }
             remove
             {
@@ -34,7 +34,7 @@ namespace VisualEvent
         protected override Delegate oninvoke { get => m_oninvoke; set => m_oninvoke = value as Action; }
         private protected override void InitializeYieldList(int initialYieldIndex)
         {
-            YieldedDelegates = YieldedDelegates ?? new List<Func<IEnumerator>>(m_calls.Count - initialYieldIndex);
+            YieldedDelegates = YieldedDelegates ?? new List<Func<IEnumerator>>(m_calls.Count);
 
         }
         public override void ReInitialize()
@@ -44,7 +44,7 @@ namespace VisualEvent
         }
         /// <summary>Handles the <see cref="RawCall"/> that was added and registers its delegate to the Publisher's matching event(s)</summary>
         /// <param name="tCall">RawCall that was added</param>
-        protected override void AppendCallToInvocation(RawCall tCall)
+        protected override void AppendCallToInvocation(RawDelegate tCall)
         {
             if (!hasyield)
             {
@@ -62,7 +62,7 @@ namespace VisualEvent
         /// <summary>Handles the <see cref="RawCall"/> that was removed and removes its delegate from the Publisher's matching event(s)</summary>
         /// <param name="tCall">RawCall that was removed</param>
         /// <param name="tIndex">Index of the RawCall that was removed</param>
-        protected override void RemoveCallFromInvocation(RawCall tCall)
+        protected override void RemoveCallFromInvocation(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action;
         }
@@ -135,7 +135,7 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    UpdateEditorCallList(value);
+                    AddRuntimeDelegateEditor(value);
             }
             remove
             {
@@ -162,7 +162,7 @@ namespace VisualEvent
             YieldedDelegates = YieldedDelegates ?? new List<Func<A, IEnumerator>>(m_calls.Count - initialYieldIndex);
         }
 
-        protected override void AppendCallToInvocation(RawCall tCall)
+        protected override void AppendCallToInvocation(RawDelegate tCall)
         {
             if (!hasyield)
             {
@@ -176,7 +176,7 @@ namespace VisualEvent
             }
         }
 
-        protected override void RemoveCallFromInvocation(RawCall tCall)
+        protected override void RemoveCallFromInvocation(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A>;
         }
@@ -263,7 +263,7 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    UpdateEditorCallList(value);
+                    AddRuntimeDelegateEditor(value);
             }
             remove
             {
@@ -297,7 +297,7 @@ namespace VisualEvent
             YieldedDelegates = YieldedDelegates ?? new List<Func<A, B, IEnumerator>>(m_calls.Count - initialYieldIndex);
         }
 
-        protected override void AppendCallToInvocation(RawCall tCall)
+        protected override void AppendCallToInvocation(RawDelegate tCall)
         {
             if (!hasyield)
             {
@@ -311,7 +311,7 @@ namespace VisualEvent
             }
         }
 
-        protected override void RemoveCallFromInvocation(RawCall tCall)
+        protected override void RemoveCallFromInvocation(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B>;
         }
@@ -387,7 +387,7 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    UpdateEditorCallList(value);
+                    AddRuntimeDelegateEditor(value);
             }
             remove
             {
@@ -427,7 +427,7 @@ namespace VisualEvent
             YieldedDelegates = YieldedDelegates ?? new List<Func<A, B, C, IEnumerator>>(m_calls.Count - initialYieldIndex);
         }
 
-        protected override void AppendCallToInvocation(RawCall tCall)
+        protected override void AppendCallToInvocation(RawDelegate tCall)
         {
             if (!hasyield)
             {
@@ -441,7 +441,7 @@ namespace VisualEvent
             }
         }
 
-        protected override void RemoveCallFromInvocation(RawCall tCall)
+        protected override void RemoveCallFromInvocation(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C>;
         }
@@ -498,7 +498,7 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    UpdateEditorCallList(value);
+                    AddRuntimeDelegateEditor(value);
             }
             remove
             {
@@ -527,7 +527,7 @@ namespace VisualEvent
         //=======================
         // Call
         //=======================
-        protected override void AppendCallToInvocation(RawCall tCall)
+        protected override void AppendCallToInvocation(RawDelegate tCall)
         {
             if (tCall.delegateInstance is Action<A, B, C, D> tempDelegate)
                 m_oninvoke += tempDelegate;
@@ -540,7 +540,7 @@ namespace VisualEvent
             }
         }
 
-        protected override void RemoveCallFromInvocation(RawCall tCall)
+        protected override void RemoveCallFromInvocation(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D>;
         }
@@ -597,7 +597,7 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    UpdateEditorCallList(value);
+                    AddRuntimeDelegateEditor(value);
             }
             remove
             {
@@ -627,7 +627,7 @@ namespace VisualEvent
         //=======================
         // Call
         //=======================
-        protected override void AppendCallToInvocation(RawCall tCall)
+        protected override void AppendCallToInvocation(RawDelegate tCall)
         {
             if (tCall.delegateInstance is Action<A, B, C, D, E> tempDelegate)
                 m_oninvoke += tempDelegate;
@@ -640,7 +640,7 @@ namespace VisualEvent
             }
         }
 
-        protected override void RemoveCallFromInvocation(RawCall tCall)
+        protected override void RemoveCallFromInvocation(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D, E>;
         }
@@ -697,7 +697,7 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    UpdateEditorCallList(value);
+                    AddRuntimeDelegateEditor(value);
             }
             remove
             {
@@ -727,7 +727,7 @@ namespace VisualEvent
         //=======================
         // Call
         //=======================
-        protected override void AppendCallToInvocation(RawCall tCall)
+        protected override void AppendCallToInvocation(RawDelegate tCall)
         {
             if (tCall.delegateInstance is Action<A, B, C, D, E, F> tempDelegate)
                 m_oninvoke += tempDelegate;
@@ -740,7 +740,7 @@ namespace VisualEvent
             }
         }
 
-        protected override void RemoveCallFromInvocation(RawCall tCall)
+        protected override void RemoveCallFromInvocation(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D, E, F>;
         }
@@ -798,7 +798,7 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    UpdateEditorCallList(value);
+                    AddRuntimeDelegateEditor(value);
             }
             remove
             {
@@ -829,7 +829,7 @@ namespace VisualEvent
         //=======================
         // Call
         //=======================
-        protected override void AppendCallToInvocation(RawCall tCall)
+        protected override void AppendCallToInvocation(RawDelegate tCall)
         {
             if (tCall.delegateInstance is Action<A, B, C, D, E, F, G> tempDelegate)
                 m_oninvoke += tempDelegate;
@@ -842,7 +842,7 @@ namespace VisualEvent
             }
         }
 
-        protected override void RemoveCallFromInvocation(RawCall tCall)
+        protected override void RemoveCallFromInvocation(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D, E, F, G>;
         }
@@ -900,7 +900,7 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    UpdateEditorCallList(value);
+                    AddRuntimeDelegateEditor(value);
             }
             remove
             {
@@ -931,7 +931,7 @@ namespace VisualEvent
         //=======================
         // Call
         //=======================
-        protected override void AppendCallToInvocation(RawCall tCall)
+        protected override void AppendCallToInvocation(RawDelegate tCall)
         {
             if (tCall.delegateInstance is Action<A, B, C, D, E, F, G, H> tempDelegate)
                 m_oninvoke += tempDelegate;
@@ -944,7 +944,7 @@ namespace VisualEvent
             }
         }
 
-        protected override void RemoveCallFromInvocation(RawCall tCall)
+        protected override void RemoveCallFromInvocation(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D, E, F, G, H>;
         }

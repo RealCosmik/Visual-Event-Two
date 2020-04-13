@@ -26,6 +26,9 @@ namespace VisualEvent
         public UnityEngine.Object target => m_target;
         [SerializeField]
         protected bool isStatic;
+        [SerializeField]
+        bool m_isYieldableCall;
+        public bool isYieldable => m_isYieldableCall;
 
         //=======================
         // Initialization

@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System;
-using System.Collections.Generic;
 
 namespace VisualEvent
 {
@@ -32,25 +30,24 @@ namespace VisualEvent
         /// <param name="tLabel">GUI Label of the drawer</param>
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         {
-            tLabel.text = null;
-
+            VisualEdiotrUtility.StandardStyle.CalcMinMaxWidth(tLabel, out float min, out float max);
             if (ViewCache.GetDelegateView(tProperty, out ViewType DelegateCache))
             {
+                tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
                 validate(tProperty, DelegateCache);
                 // Target  
-                float tempFieldWidth = (tPosition.width - EditorGUIUtility.labelWidth) * 0.5f;
-                tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
-                tPosition.x -= 140;
-                tPosition.y += 5;
-                tPosition.width += 130;
+                var targetpos = tPosition;
+               // tPosition.x -= 120;
+               // tPosition.y += 5;
+               // tPosition.width += 120;
                 EditorGUI.BeginChangeCheck();
                 if (DelegateCache.CurrentTarget == null) // empty field
                 {
-                    DelegateCache.Height = tPosition.height + 10;
-                    UnityEngine.Object UserParentTarget = EditorGUI.ObjectField(tPosition, tLabel.text, null, typeof(UnityEngine.Object), true);
+                    //DelegateCache.Height = tPosition.height + 10;
+                    UnityEngine.Object UserParentTarget = EditorGUI.ObjectField(targetpos, tLabel.text, null, typeof(UnityEngine.Object), true);
                     //on target change 
                     if (EditorGUI.EndChangeCheck())
-                    {
+                    { 
                         DelegateCache.HasDelegateError = false;
                         DelegateCache.SetParentTarget(UserParentTarget);
                         handleTargetUpdate(tProperty, DelegateCache);
@@ -61,9 +58,10 @@ namespace VisualEvent
                 }
                 else // Target drop-down
                 {
-                    tPosition.width = tempFieldWidth + EditorGUIUtility.labelWidth + 30;
+                  //  tPosition.width = tempFieldWidth + EditorGUIUtility.labelWidth + 30;
                     EditorGUI.BeginChangeCheck();
-                    int UserSelectedTarget = EditorGUI.Popup(tPosition, tLabel.text, DelegateCache.CurrentTargetIndex, DelegateCache._targetNames);
+                    targetpos.width = tPosition.width / 3;
+                    int UserSelectedTarget = EditorGUI.Popup(targetpos, tLabel.text, DelegateCache.CurrentTargetIndex, DelegateCache._targetNames);
                     // on memberchange 
                     if (EditorGUI.EndChangeCheck())
                     {
@@ -81,11 +79,13 @@ namespace VisualEvent
                 // Members
                 if (DelegateCache.CurrentTarget != null)
                 {
-                    float tempIndentSize = (EditorGUI.indentLevel - 1) * VisualEdiotrUtility.IndentSize;
-                    tPosition.x += tPosition.width - 13 - tempIndentSize + 10;
-                    tPosition.width = tempFieldWidth + 13 + tempIndentSize + 70;
+                //    float tempIndentSize = (EditorGUI.indentLevel - 1) * VisualEdiotrUtility.IndentSize;
+                    var memberpos = targetpos;
+                    memberpos.x += memberpos.width;
+                    memberpos.width = targetpos.width * 2;
+                    //tPosition.width = tempFieldWidth + 13 + tempIndentSize + 70;
                     EditorGUI.BeginChangeCheck();
-                    int tempSelectedMember = EditorGUI.Popup(tPosition, DelegateCache.selectedMemberIndex, DelegateCache.memberNames);
+                    int tempSelectedMember = EditorGUI.Popup(memberpos, DelegateCache.selectedMemberIndex, DelegateCache.memberNames);
                     if (EditorGUI.EndChangeCheck())
                     {
                         DelegateCache.HasDelegateError = false;

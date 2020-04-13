@@ -172,12 +172,9 @@ public class VisiualDelegateCacheContainer
 /// <summary>
 /// Cache data for rawcalls that reside inside <see cref="VisiualDelegateCacheContainer"/>
 /// </summary>
-public class RawCallViewCacheContainer
+public class RawCallViewCacheContainer :RawDelegateCacheContainer
 {
-    /// <summary>
-    /// Delegate view in this cache container
-    /// </summary>
-    public RawDelegateView delegateView;
+  
     /// <summary>
     /// list of arguments if <see cref="delegateView"/> is a <see cref="RawCallView"/>
     /// </summary>
@@ -186,4 +183,16 @@ public class RawCallViewCacheContainer
     /// Determining if this cache container is a cache for a <see cref="RawDynamicDelegateView"/>
     /// </summary>
     public bool dynamic_Cache;
+}
+
+public abstract class RawDelegateCacheContainer
+{
+    /// <summary>
+    /// Delegate view in this cache container
+    /// </summary>
+    public RawDelegateView delegateView;
+}
+public class RawRuntimeDelegateContainer
+{
+
 }
