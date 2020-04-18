@@ -17,14 +17,6 @@ namespace VisualEvent
                 var rawcallview = ViewCache.GetRawCallCacheFromRawReference(tProperty);
                 int argument_index = tProperty.GetRawArgumentIndexFromArgumentReference();
                 var argument_type = rawcallview.arguments[argument_index].type;
-                EditorGUI.BeginChangeCheck();
-                if (EditorGUI.EndChangeCheck())
-                {
-                    Debug.Log("local type change");
-                    if(delgateview.SelectedMember!=null)
-                    tProperty.FindPropertyRelative("m_isvaluetype").boolValue = delgateview.SelectedMember.isvaluetype;
-                    tProperty.FindPropertyRelative("isparentargstring").boolValue = argument_type == typeof(string);
-                }
                 bool isdelegate = false;
                 if (argument_type.IsSubclassOf(typeof(Delegate)))
                 {
@@ -33,15 +25,38 @@ namespace VisualEvent
                 }
 
                 if (argument_type != delgateview.reference_type)
-                {
-                   // tProperty.FindPropertyRelative("methodData").ClearArray();
+                { 
+                    // tProperty.FindPropertyRelative("methodData").ClearArray();
                     tProperty.serializedObject.ApplyModifiedProperties();
                     delgateview.SetNewReferenceType(argument_type);
                     tProperty.FindPropertyRelative("m_isDelegate").boolValue = isdelegate;
+                    tProperty.FindPropertyRelative("m_isvaluetype").boolValue = delgateview.SelectedMember?.isvaluetype??false;
+                    tProperty.FindPropertyRelative("isparentargstring").boolValue = argument_type == typeof(string);
+                    handleMemberUpdate(tProperty, delgateview);
                 }
+                
+                EditorGUI.BeginChangeCheck();
+                base.OnGUI(tPosition, tProperty, tLabel);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    Debug.Log("local type change");
+                    tProperty.FindPropertyRelative("m_isvaluetype").boolValue = delgateview.SelectedMember.isvaluetype;
+                    tProperty.FindPropertyRelative("isparentargstring").boolValue = argument_type == typeof(string);
+                    handleMemberUpdate(tProperty, delgateview);
+                }
+               
             }
-            base.OnGUI(tPosition, tProperty, tLabel);
         }
-
+        protected override void handleMemberUpdate(SerializedProperty tProperty, RawReferenceView tCache)
+        {
+            Debug.LogError(tCache.CurrentTarget == null);
+            if(tCache.CurrentTarget!=null&&tCache.SelectedMember!=null)
+            base.handleMemberUpdate(tProperty, tCache);
+        }
+        protected override void handleTargetUpdate(SerializedProperty tProperty, RawReferenceView tCache)
+        {
+            if (tCache.CurrentTarget != null && tCache.SelectedMember != null)
+                base.handleTargetUpdate(tProperty, tCache);
+        }
     }
 }

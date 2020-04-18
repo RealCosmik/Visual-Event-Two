@@ -8,9 +8,11 @@ namespace VisualEvent
         public RawReferenceView(Type newtype) => reference_type = newtype;
         protected override void GenerateNewTargetMembers(int TargetIndex)
         {
-            if (CurrentTarget != null && AvailableTargetObjects != null||CurrentTargetIndex!=0)
+            if (CurrentTarget != null && AvailableTargetObjects != null || CurrentTargetIndex != 0 && !EditorApplication.isPlayingOrWillChangePlaymode)
             {
+                UnityEngine.Debug.Log(CurrentTarget == null);
                 base.GenerateNewTargetMembers(TargetIndex);
+                CurrentMembers = CurrentTarget.GetType().GetMemberList();
                 CurrentMembers = CurrentMembers.GetMemberList(reference_type);
                 int membercount = CurrentMembers.Count;
                 if (membercount == 0)
@@ -24,7 +26,7 @@ namespace VisualEvent
                     {
                         memberNames[i] = CurrentMembers[i].GetdisplayName();
                     }
-                }
+                } 
             }
         }
         public void SetNewReferenceType(Type new_type)
@@ -33,6 +35,10 @@ namespace VisualEvent
             reference_type = new_type;
             GenerateNewTargetMembers(CurrentTargetIndex);
             selectedMemberIndex = 0;
+        }
+        public override bool validateTarget(SerializedProperty seralizedTarget, SerializedProperty isstaticTarget)
+        {
+            return base.validateTarget(seralizedTarget, isstaticTarget);
         }
     }
 }

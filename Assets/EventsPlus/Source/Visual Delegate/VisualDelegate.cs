@@ -32,7 +32,7 @@ namespace VisualEvent
         public override Type[] types => null;
 
         protected override Delegate oninvoke { get => m_oninvoke; set => m_oninvoke = value as Action; }
-        private protected override void InitializeYieldList(int initialYieldIndex)
+        private protected override void InitializeYieldList()
         {
             YieldedDelegates = YieldedDelegates ?? new List<Func<IEnumerator>>(m_calls.Count);
 
@@ -66,8 +66,8 @@ namespace VisualEvent
         {
             m_oninvoke -= tCall.delegateInstance as Action;
         }
-        internal override Delegate CreateTypeSafeAction(Action action) => action;
-        internal override Delegate CreateYieldableCall(Action action) => CreateYieldableDyanimcDelegate(action);
+        // internal override Delegate CreateTypeSafeActioncall(Action action) => action;
+        //  internal override Delegate CreateYieldableCall(Action action) => CreateYieldableDyanimcDelegate(action);
         internal Delegate CreateYieldableDyanimcDelegate(Action action)
         {
             Func<IEnumerator> yieldable_delegate = () =>
@@ -77,7 +77,7 @@ namespace VisualEvent
             };
             return yieldable_delegate;
         }
-      
+
         // Publish
         //=======================
         /// <summary>Invokes the <see cref="m_oninvoke"/> event</summary>
@@ -107,7 +107,7 @@ namespace VisualEvent
         }
 
 
-       
+
 
         ~VisualDelegate()
         {
@@ -157,50 +157,56 @@ namespace VisualEvent
             base.ReInitialize();
         }
 
-        private protected override void InitializeYieldList(int initialYieldIndex)
+        private protected override void InitializeYieldList()
         {
-            YieldedDelegates = YieldedDelegates ?? new List<Func<A, IEnumerator>>(m_calls.Count - initialYieldIndex);
+            YieldedDelegates = YieldedDelegates ?? new List<Func<A, IEnumerator>>(m_calls.Count);
         }
 
-        protected override void AppendCallToInvocation(RawDelegate tCall)
+        protected  override void AppendCallToInvocation(RawDelegate call)
         {
-            if (!hasyield)
+            var raw_delegate_instance = call.delegateInstance;
+            // here we know that the delegate is either void method or a method with pre-defined args
+            if (raw_delegate_instance is Action call_delegate)
             {
-                var temp_action = tCall.delegateInstance as Action<A>;
-                m_oninvoke += temp_action;
+                if (!hasyield)
+                    m_oninvoke += _ => call_delegate();
+                else
+                    YieldedDelegates.Add(CreateYieldableCall(call_delegate));
             }
-            else
+            // this will only have happen if the call is labeled as dynamic
+            else if (raw_delegate_instance is Action<A> dynamic_call)
             {
-                var yielded_delegate = tCall.delegateInstance as Func<A, IEnumerator>;
-                YieldedDelegates.Add(yielded_delegate);
+                if (!hasyield)
+                    m_oninvoke += dynamic_call;
+                else YieldedDelegates.Add(CreateYieldableDynamicDelegate(dynamic_call));
             }
+            // if the call is an coroutine or a corutine with pre-defined arguments
+            else if (raw_delegate_instance is Func<IEnumerator> corutineCall)
+            {
+                YieldedDelegates.Add(_ => corutineCall());
+            }
+            // corutine thats dynamic 
+            else if (raw_delegate_instance is Func<A, IEnumerator> DynamicRoutineCall)
+            {
+                YieldedDelegates.Add(DynamicRoutineCall);
+            }
+            else Debug.LogWarning("no case found");
         }
-
         protected override void RemoveCallFromInvocation(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A>;
         }
-        internal override Delegate CreateTypeSafeAction(Action action)
+        internal Func<A, IEnumerator> CreateYieldableCall(Action action)
         {
-            Action<A> safe_action = (val1) => action.Invoke();
-            return safe_action;
-        }
-        internal override Delegate CreateTypeSafeCoroutine(Func<IEnumerator> routine)
-        {
-            Func<A, IEnumerator> safe_routine = val1 => CreateDelegeateCoroutine(routine);
-            return safe_routine;
-        }
-        internal override Delegate CreateYieldableCall(Action action)
-        {
-            Func<A, IEnumerator> yieldableCall = val =>
+            Func<A, IEnumerator> yieldableCall = _ =>
              {
                  action();
                  return BreakYield();
              };
             return yieldableCall;
         }
-      
-        internal Delegate CreateYieldableDynamicDelegate(Action<A> action)
+
+        internal Func<A, IEnumerator> CreateYieldableDynamicDelegate(Action<A> action)
         {
             Func<A, IEnumerator> yieldable_delegate = val =>
              {
@@ -218,12 +224,8 @@ namespace VisualEvent
         {
             m_oninvoke?.Invoke(val1);
             if (hasyield)
-                ExecuteYieldedDelegates(val1);
+                Yield_target.StartCoroutine(RunYieldDelegates(val1));
 
-        }
-        private void ExecuteYieldedDelegates(A val1)
-        {
-            Yield_target.StartCoroutine(RunYieldDelegates(val1));
         }
         private IEnumerator RunYieldDelegates(A val1)
         {
@@ -292,9 +294,9 @@ namespace VisualEvent
             base.ReInitialize();
         }
 
-        private protected override void InitializeYieldList(int initialYieldIndex)
+        private protected override void InitializeYieldList()
         {
-            YieldedDelegates = YieldedDelegates ?? new List<Func<A, B, IEnumerator>>(m_calls.Count - initialYieldIndex);
+            YieldedDelegates = YieldedDelegates ?? new List<Func<A, B, IEnumerator>>(m_calls.Count);
         }
 
         protected override void AppendCallToInvocation(RawDelegate tCall)
@@ -315,20 +317,20 @@ namespace VisualEvent
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B>;
         }
-        internal override Delegate CreateTypeSafeAction(Action action)
-        {
-            Action<A, B> safe_action = (val1, val2) => action.Invoke();
-            return safe_action;
-        }
-        internal override Delegate CreateYieldableCall(Action action)
-        {
-            Func<A, B, IEnumerator> yieldable_delegate = (val1, val2) =>
-            {
-                action();
-                return BreakYield();
-            };
-            return yieldable_delegate;
-        }
+        //internal override Delegate CreateTypeSafeActioncall(Action action)
+        //{
+        //    Action<A, B> safe_action = (val1, val2) => action.Invoke();
+        //    return safe_action;
+        //}
+        //internal override Delegate CreateYieldableCall(Action action)
+        //{
+        //    Func<A, B, IEnumerator> yieldable_delegate = (val1, val2) =>
+        //    {
+        //        action();
+        //        return BreakYield();
+        //    };
+        //    return yieldable_delegate;
+        //}
 
         internal Delegate CreateYieldableDynamicDelegate(Action<A, B> action)
         {
@@ -347,13 +349,9 @@ namespace VisualEvent
         {
             m_oninvoke?.Invoke(val1, val2);
             if (hasyield)
-                ExecuteYieldedDelegates(val1, val2);
+                Yield_target.StartCoroutine(RunYieldDelegates(val1, val2));
         }
-        private void ExecuteYieldedDelegates(A val1,B val2)
-        {
-            Yield_target.StartCoroutine(RunYieldDelegates(val1, val2));
-        }
-        private IEnumerator RunYieldDelegates(A val1,B val2)
+        private IEnumerator RunYieldDelegates(A val1, B val2)
         {
             int delegate_count = YieldedDelegates.Count;
             for (int i = 0; i < delegate_count; i++)
@@ -373,7 +371,7 @@ namespace VisualEvent
     // Class Declaration
     //##########################
     /// <summary>3-Parameter Publisher</summary>
-    public class VisualDelegate<A, B, C> : VisualDelegate<A,B>
+    public class VisualDelegate<A, B, C> : VisualDelegate<A, B>
     {
 
         //=======================
@@ -422,9 +420,9 @@ namespace VisualEvent
             base.ReInitialize();
         }
 
-        private protected override void InitializeYieldList(int initialYieldIndex)
+        private protected override void InitializeYieldList()
         {
-            YieldedDelegates = YieldedDelegates ?? new List<Func<A, B, C, IEnumerator>>(m_calls.Count - initialYieldIndex);
+            YieldedDelegates = YieldedDelegates ?? new List<Func<A, B, C, IEnumerator>>(m_calls.Count);
         }
 
         protected override void AppendCallToInvocation(RawDelegate tCall)
@@ -445,21 +443,21 @@ namespace VisualEvent
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C>;
         }
-        internal override Delegate CreateTypeSafeAction(Action action)
-        {
-            Action<A, B, C> safe_action = (val1, val2, val3) => action.Invoke();
-            return safe_action;
-        }
+        //internal override Delegate CreateTypeSafeActioncall(Action action)
+        //{
+        //    Action<A, B, C> safe_action = (val1, val2, val3) => action.Invoke();
+        //    return safe_action;
+        //}
 
-        internal override Delegate CreateYieldableCall(Action action)
-        {
-            Func<A, B, C, IEnumerator> yieldable_delegate = (val1, val2, val3) =>
-            {
-                action();
-                return BreakYield();
-            };
-            return yieldable_delegate;
-        }
+        //internal override Delegate CreateYieldableCall(Action action)
+        //{
+        //    Func<A, B, C, IEnumerator> yieldable_delegate = (val1, val2, val3) =>
+        //    {
+        //        action();
+        //        return BreakYield();
+        //    };
+        //    return yieldable_delegate;
+        //}
 
 
         internal Delegate CreateYieldableDelegate(Action<A, B, C> action)
@@ -485,7 +483,7 @@ namespace VisualEvent
     // Class Declaration
     //##########################
     /// <summary>4-Parameter Publisher</summary>
-    public class VisualDelegate<A, B, C, D> : VisualDelegate<A,B,C>
+    public class VisualDelegate<A, B, C, D> : VisualDelegate<A, B, C>
     {
         //=======================
         // Variables
@@ -545,21 +543,21 @@ namespace VisualEvent
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D>;
         }
 
-        internal override Delegate CreateTypeSafeAction(Action action)
-        {
-            Action<A, B, C, D> safe_action = (val1, val2, val3, val4) => action.Invoke();
-            return safe_action;
-        }
+        //internal override Delegate CreateTypeSafeActioncall(Action action)
+        //{
+        //    Action<A, B, C, D> safe_action = (val1, val2, val3, val4) => action.Invoke();
+        //    return safe_action;
+        //}
 
-        internal override Delegate CreateYieldableCall(Action action)
-        {
-            Func<A, B, C, D, IEnumerator> yieldable_delegate = (val1, val2, val3, val4) =>
-             {
-                 action();
-                 return BreakYield();
-             };
-            return yieldable_delegate;
-        }
+        //internal override Delegate CreateYieldableCall(Action action)
+        //{
+        //    Func<A, B, C, D, IEnumerator> yieldable_delegate = (val1, val2, val3, val4) =>
+        //     {
+        //         action();
+        //         return BreakYield();
+        //     };
+        //    return yieldable_delegate;
+        //}
 
         internal Delegate CreateYieldableDelegate(Action<A, B, C, D> action)
         {
@@ -645,21 +643,21 @@ namespace VisualEvent
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D, E>;
         }
 
-        internal override Delegate CreateTypeSafeAction(Action action)
-        {
-            Action<A, B, C, D, E> safe_action = (val1, val2, val3, val4, val5) => action.Invoke();
-            return safe_action;
-        }
+        //internal override Delegate CreateTypeSafeActioncall(Action action)
+        //{
+        //    Action<A, B, C, D, E> safe_action = (val1, val2, val3, val4, val5) => action.Invoke();
+        //    return safe_action;
+        //}
 
-        internal override Delegate CreateYieldableCall(Action action)
-        {
-            Func<A, B, C, D, E, IEnumerator> yieldable_delegate = (val1, val2, val3, val4, val5) =>
-             {
-                 action();
-                 return BreakYield();
-             };
-            return yieldable_delegate;
-        }
+        //internal override Delegate CreateYieldableCall(Action action)
+        //{
+        //    Func<A, B, C, D, E, IEnumerator> yieldable_delegate = (val1, val2, val3, val4, val5) =>
+        //     {
+        //         action();
+        //         return BreakYield();
+        //     };
+        //    return yieldable_delegate;
+        //}
 
         internal Delegate CreateYieldableDelegate(Action<A, B, C, D, E> action)
         {
@@ -745,21 +743,21 @@ namespace VisualEvent
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D, E, F>;
         }
 
-        internal override Delegate CreateTypeSafeAction(Action action)
-        {
-            Action<A, B, C, D, E, F> safe_action = (val1, val2, val3, val4, val5, val6) => action.Invoke();
-            return safe_action;
-        }
+        //internal override Delegate CreateTypeSafeActioncall(Action action)
+        //{
+        //    Action<A, B, C, D, E, F> safe_action = (val1, val2, val3, val4, val5, val6) => action.Invoke();
+        //    return safe_action;
+        //}
 
-        internal override Delegate CreateYieldableCall(Action action)
-        {
-            Func<A, B, C, D, E, F, IEnumerator> yieldable_delegate = (val1, val2, val3, val4, val5, val6) =>
-              {
-                  action();
-                  return BreakYield();
-              };
-            return yieldable_delegate;
-        }
+        //internal override Delegate CreateYieldableCall(Action action)
+        //{
+        //    Func<A, B, C, D, E, F, IEnumerator> yieldable_delegate = (val1, val2, val3, val4, val5, val6) =>
+        //      {
+        //          action();
+        //          return BreakYield();
+        //      };
+        //    return yieldable_delegate;
+        //}
 
         internal Delegate CreateYieldableDelegate(Action<A, B, C, D, E, F> action)
         {
@@ -847,21 +845,21 @@ namespace VisualEvent
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D, E, F, G>;
         }
 
-        internal override Delegate CreateTypeSafeAction(Action action)
-        {
-            Action<A, B, C, D, E, F, G> safe_action = (val1, val2, val3, val4, val5, val6, val7) => action.Invoke();
-            return safe_action;
-        }
+        //internal override Delegate CreateTypeSafeActioncall(Action action)
+        //{
+        //    Action<A, B, C, D, E, F, G> safe_action = (val1, val2, val3, val4, val5, val6, val7) => action.Invoke();
+        //    return safe_action;
+        //}
 
-        internal override Delegate CreateYieldableCall(Action action)
-        {
-            Func<A, B, C, D, E, F, G, IEnumerator> yieldable_delegate = (val1, val2, val3, val4, val5, val6, val7) =>
-            {
-                action();
-                return BreakYield();
-            };
-            return yieldable_delegate;
-        }
+        //internal override Delegate CreateYieldableCall(Action action)
+        //{
+        //    Func<A, B, C, D, E, F, G, IEnumerator> yieldable_delegate = (val1, val2, val3, val4, val5, val6, val7) =>
+        //    {
+        //        action();
+        //        return BreakYield();
+        //    };
+        //    return yieldable_delegate;
+        //}
 
         internal Delegate CreateYieldableDelegate(Action<A, B, C, D, E, F, G> action)
         {
@@ -950,21 +948,21 @@ namespace VisualEvent
         }
 
 
-        internal override Delegate CreateTypeSafeAction(Action action)
-        {
-            Action<A, B, C, D, E, F, G, H> safe_action = (val1, val2, val3, val4, val5, val6, val7, Val8) => action.Invoke();
-            return safe_action;
-        }
+        //internal override Delegate CreateTypeSafeActioncall(Action action)
+        //{
+        //    Action<A, B, C, D, E, F, G, H> safe_action = (val1, val2, val3, val4, val5, val6, val7, Val8) => action.Invoke();
+        //    return safe_action;
+        //}
 
-        internal override Delegate CreateYieldableCall(Action action)
-        {
-            Func<A, B, C, D, E, F, G, H, IEnumerator> yieldable_delegate = (val1, val2, val3, val4, val5, val6, val7, val8) =>
-             {
-                 action();
-                 return BreakYield();
-             };
-            return yieldable_delegate;
-        }
+        //internal override Delegate CreateYieldableCall(Action action)
+        //{
+        //    Func<A, B, C, D, E, F, G, H, IEnumerator> yieldable_delegate = (val1, val2, val3, val4, val5, val6, val7, val8) =>
+        //     {
+        //         action();
+        //         return BreakYield();
+        //     };
+        //    return yieldable_delegate;
+        //}
 
         internal Delegate CreateYieldableDelegate(Action<A, B, C, D, E, F, G> action)
         {

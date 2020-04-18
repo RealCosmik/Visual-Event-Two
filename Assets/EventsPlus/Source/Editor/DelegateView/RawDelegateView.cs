@@ -21,7 +21,7 @@ namespace VisualEvent
         /// <summary>Display names of each target in a drop-down</summary>
         public string[] _targetNames;
         /// <summary>Index of the currently selected target</summary> 
-        public int CurrentTargetIndex;
+        public int CurrentTargetIndex; 
         /// <summary>Display names of each of the members belonging to the selected target</summary>
         public string[] memberNames { get; protected set; }
         /// <summary>Cached members belonging to the selected target</summary>
@@ -252,10 +252,6 @@ namespace VisualEvent
             {
                 
                 UnityEngine.Object newtarget = seralizedTarget.objectReferenceValue;
-                if (this is RawReferenceView)
-                {
-                    Debug.Log(newtarget.name);
-                }
                 GenerateChildTargets(newtarget, out AvailableTargetObjects, out _targetNames);
                 if (isstaticTarget.boolValue)
                 { 
@@ -328,23 +324,28 @@ namespace VisualEvent
         /// <summary>Finds the index of a serialized member name within the <see cref="CurrentMembers"/> list</summary>
         /// <param name="tSerializedName">Serialized name of the member being searched</param>
         /// <returns>Index if found, -1 if not, 0 if member is null or empty</returns>
-        public int findMember(string[] seralizedmethodData)
+        public  int findMember(string[] seralizedmethodData)
         {
             int index = -1;
             //no member seralized member set
             if (seralizedmethodData.Length == 0 || seralizedmethodData == null)
             {
+                Debug.LogWarning("in here");
                 index = 0;
             }
             // search all members for the index
             else if (CurrentMembers != null && seralizedmethodData.Length > 0)
-            {
+            {  
+                Debug.Log((System.Reflection.MemberTypes)int.Parse(seralizedmethodData[0]));
                 //filters based on member type  (field,prop,method)
                 var possibleMembers = CurrentMembers.Where(m => m.SeralizedData[0] == seralizedmethodData[0]);
                 for (int i = 0; i < possibleMembers.Count(); i++)
                 {
+                    if (CurrentTarget is PlayerData)
+                        Debug.Log(possibleMembers.ElementAt(i).SeralizedData[1]);
                     if (possibleMembers.ElementAt(i).SeralizedData.SequenceEqual(seralizedmethodData))
                     {
+                       
                         index = CurrentMembers.IndexOf(possibleMembers.ElementAt(i));
                         break;
                     }
@@ -356,6 +357,8 @@ namespace VisualEvent
                 Debug.Log(seralizedmethodData == null);
                 Debug.Log(seralizedmethodData.Length == 0);
                 Debug.Log(CurrentMembers == null);
+                Debug.Log(CurrentTarget.name);
+                Debug.Log(AvailableTargetObjects == null);
                // Debug.Log(CurrentMembers[0].GetdisplayName());
                  
                // Debug.Log(CurrentTarget.GetType().FullName);
@@ -378,7 +381,7 @@ namespace VisualEvent
             int array_size = methodDataprop.arraySize;
             string[] member_data = new string[array_size];
             for (int i = 0; i < array_size; i++)
-            {
+            {  
                 member_data[i] = methodDataprop.GetArrayElementAtIndex(i).stringValue;
             }
             return member_data;

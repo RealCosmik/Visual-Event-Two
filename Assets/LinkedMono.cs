@@ -22,11 +22,8 @@ class LinkedMono : MonoBehaviour
     public int input = 3;
     private void Start()
     {
-        Cosmik.OnInvoke += val => Debug.Log("wow");
-       // Cosmik.initialize();
-    }
-    private async System.Threading.Tasks.Task dostuff()
-    {
+        //Cosmik.OnInvoke += val => Debug.Log("wow");
+      // Cosmik.initialize();
     }
     IEnumerator first()
     {
@@ -76,6 +73,12 @@ class LinkedMono : MonoBehaviour
         Debug.Log("wow");
         yield return new WaitUntil(Activation);
         Debug.Log("made it past here");
+    }
+    public IEnumerator WaitforIntValue(Func<int> value)
+    {
+        Debug.Log("got in here");
+        yield return new WaitUntil(()=>value() == 748);
+        Debug.Log("finally got a good value");
     }
     public IEnumerator WaitforIntValue(Func<int> value, int targetValue)
     {
@@ -127,9 +130,13 @@ class LinkedMono : MonoBehaviour
             // UnityEditor.EditorApplication.isPlaying = false;
         }
         //UnityEngine.Profiling.Profiler.EndSample();
-        //UnityEngine.Profiling.Profiler.BeginSample("delgate init", this);
-
-        //UnityEngine.Profiling.Profiler.EndSample();
+        UnityEngine.Profiling.Profiler.BeginSample("delgate init", this);
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Cosmik.initialize();
+            Debug.Break();
+        }
+       UnityEngine.Profiling.Profiler.EndSample();
     }
 }
 [System.Serializable]

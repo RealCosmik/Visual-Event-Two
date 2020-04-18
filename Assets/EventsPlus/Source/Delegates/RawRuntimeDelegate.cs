@@ -11,7 +11,7 @@ namespace VisualEvent
             if (methodData.Length > 0)
             {
                 var deltype = Type.GetType(TargetType);
-                var method = Utility.QuickDeseralizer(deltype, methodData);
+                var method = Utility.QuickDeseralizer(deltype, methodData,out paramtypes);
                 if (m_target != null)
                     delegateInstance = createDelegate(method, m_target);
                 else

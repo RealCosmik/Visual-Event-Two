@@ -30,6 +30,8 @@ namespace VisualEvent
         bool m_isYieldableCall;
         public bool isYieldable => m_isYieldableCall;
 
+        protected Type[] paramtypes;
+
         //=======================
         // Initialization
         //=======================
@@ -37,9 +39,9 @@ namespace VisualEvent
         public virtual void initialize()
         {
             if (m_target != null)
-                delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData), m_target);
+                delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData, out paramtypes), m_target);
             else if (isStatic)
-                delegateInstance = createDelegate(Utility.QuickDeseralizer(typeof(UtilHelper),methodData),null);
+                delegateInstance = createDelegate(Utility.QuickDeseralizer(typeof(UtilHelper), methodData, out paramtypes),null);
             else throw new UnityException("cannot create delegate with null target");
         }
         private void fixer()

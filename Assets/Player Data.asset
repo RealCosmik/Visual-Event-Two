@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Player Data
   m_EditorClassIdentifier: 
   isdead: 1
-  health: 100
+  health: 748

@@ -262,6 +262,44 @@ namespace VisualEvent
             }
             PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
             tProperty.serializedObject.ApplyModifiedProperties();
+            UpdateMethodName(tProperty, delegateCache);
+        }
+
+        private void UpdateMethodName(SerializedProperty tproperty, RawCallView rawcallview)
+        {
+            SerializedProperty creationmethodprop = tproperty.FindPropertyRelative("Creationmethod");
+            var argumentlength = rawcallview.arguments.Length;
+            MemberInfo info = rawcallview.SelectedMember.info;
+            if(info is MethodInfo method_info)
+            {
+                if (method_info.ReturnType == typeof(void))
+                {
+                    if (rawcallview.isDynamic)
+                        creationmethodprop.stringValue = "createAction" + argumentlength;
+                    else creationmethodprop.stringValue = "createActionCall" + argumentlength;
+                }
+                else
+                {
+                    if (rawcallview.isDynamic)
+                        creationmethodprop.stringValue = "createFunc" + argumentlength;
+                    else creationmethodprop.stringValue = "createFuncCall" + argumentlength;
+                }
+            }
+            else if(info is FieldInfo)
+            {
+                if (rawcallview.isDynamic)
+                    creationmethodprop.stringValue = "createFieldAction";
+                else creationmethodprop.stringValue = "createFieldCall";
+            }
+            else
+            {
+                if (rawcallview.isDynamic)
+                    creationmethodprop.stringValue = "createPropertyAction";
+                else creationmethodprop.stringValue = "createPropertyCall";
+            }
+            Debug.Log(creationmethodprop.stringValue);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(tproperty.serializedObject.targetObject);
+            tproperty.serializedObject.ApplyModifiedProperties();
         }
     }
 }

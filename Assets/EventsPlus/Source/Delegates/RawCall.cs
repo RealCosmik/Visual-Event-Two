@@ -12,7 +12,10 @@ namespace VisualEvent
     /// <summary>Serialized form of a delegate that can contain predefined arguments</summary>
     [Serializable]
     public class RawCall : RawDelegate
-    { 
+    {
+        static Type raw_calltype = typeof(RawCall);
+
+        [SerializeField] string Creationmethod;
         //=======================
         // Variables
         //=======================
@@ -44,10 +47,10 @@ namespace VisualEvent
         {
             if (isStatic)
             {
-                delegateInstance = createDelegate(tPublisher, Utility.QuickDeseralizer(typeof(UtilHelper), methodData));
+                delegateInstance = createDelegate(tPublisher, Utility.QuickDeseralizer(typeof(UtilHelper), methodData, out paramtypes));
             }
             else if (m_target != null)
-                delegateInstance = createDelegate(tPublisher, Utility.QuickDeseralizer(m_target.GetType(), methodData));
+                delegateInstance = createDelegate(tPublisher, Utility.QuickDeseralizer(m_target.GetType(), methodData, out paramtypes));
         }
         //=======================
         // Delegate
@@ -56,7 +59,7 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMember">MemberInfo to be cast into a delegate</param>
         /// <returns>Member delegate if successful, null if not able to properly convert</returns>
-        private protected virtual System.Delegate createDelegate(VisualDelegateBase tPublisher, MemberInfo tMember)
+        private protected System.Delegate createDelegate(VisualDelegateBase tPublisher, MemberInfo tMember)
         {
             if (tMember != null)
             {
@@ -66,37 +69,24 @@ namespace VisualEvent
                         FieldInfo tempField = tMember as FieldInfo;
                         if (m_isDynamic)
                         {
-                            return this.GetType().GetMethod("createFieldAction", Utility.InstanceFlags).MakeGenericMethod(tempField.FieldType).Invoke(this, new object[] { tPublisher, m_target, tempField }) as System.Delegate;
+                            return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(tempField.FieldType).Invoke(this, new object[] { tPublisher, m_target, tempField }) as System.Delegate;
                         }
                         var arg = m_arguments[0];
-                        return this.GetType().GetMethod("createFieldCall", Utility.InstanceFlags).MakeGenericMethod(tempField.FieldType).Invoke(this, new object[] { tPublisher, m_target, tempField, arg }) as System.Delegate;
+                        return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(tempField.FieldType).Invoke(this, new object[] { tPublisher, m_target, tempField, arg }) as System.Delegate;
                     case MemberTypes.Property:
                         PropertyInfo tempProperty = tMember as PropertyInfo;
                         if (m_isDynamic)
                         {
-                            return this.GetType().GetMethod("createPropertyAction", Utility.InstanceFlags).MakeGenericMethod(tempProperty.PropertyType).Invoke(this, new object[] { tPublisher, tempProperty }) as System.Delegate;
+                            return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(tempProperty.PropertyType).Invoke(this, new object[] { tPublisher, tempProperty }) as System.Delegate;
                         }
                         arg = m_arguments[0];
-                        return this.GetType().GetMethod("createPropertyCall", Utility.InstanceFlags).MakeGenericMethod(tempProperty.PropertyType).Invoke(this, new object[] { tPublisher, tempProperty, arg }) as System.Delegate;
+                        return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags)
+                            .MakeGenericMethod(tempProperty.PropertyType).Invoke(this, new object[] { tPublisher, tempProperty, arg }) as Delegate;
                     case MemberTypes.Method:
                         MethodInfo tempMethod = tMember as MethodInfo;
                         bool tempIsAction = tempMethod.ReturnType == typeof(void);
-                        // Parameters
-                        ParameterInfo[] tempParameters = tempMethod.GetParameters();
-                        int tempParametersLength = tempParameters.Length;
-                        Type[] tempParameterTypes = null;
-                        if (tempParametersLength > 0)
-                        {
-                            tempParameterTypes = new Type[tempParametersLength + (tempIsAction ? 0 : 1)];
-                            for (int i = (tempParametersLength - 1); i >= 0; --i)
-                            {
-                                tempParameterTypes[i] = tempParameters[i].ParameterType;
-                            }
-                        }
-                        else if (!tempIsAction)
-                        {
-                            tempParameterTypes = new Type[1];
-                        }
+                        int tempParametersLength = paramtypes?.Length ?? 0;
+
                         // Arguments
                         object[] tempArguments;
                         if (m_arguments == null || m_isDynamic)
@@ -117,26 +107,21 @@ namespace VisualEvent
                         // Action
                         if (tempIsAction)
                         {
-                            if (m_isDynamic)
-                            {
-                                return this.GetType().GetMethod("createAction" + tempParametersLength, Utility.InstanceFlags).MakeGenericMethod(tempParameterTypes).Invoke(this, tempArguments) as System.Delegate;
-                            }
-
-                            if (tempParametersLength == 0)
-                            {
-                                return this.GetType().GetMethod("createActionCall0", Utility.InstanceFlags).Invoke(this, tempArguments) as System.Delegate;
-                            }
-                            return this.GetType().GetMethod("createActionCall" + tempParametersLength, Utility.InstanceFlags).MakeGenericMethod(tempParameterTypes).Invoke(this, tempArguments) as System.Delegate;
+                            if(tempParametersLength==0)
+                                return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).Invoke(this, tempArguments) as System.Delegate;
+                            else return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes).Invoke(this, tempArguments) as System.Delegate;
                         }
-
+                        Type[] func_paramtypes = new Type[paramtypes.Length + 1];
+                        paramtypes.CopyTo(func_paramtypes, 0);
+                        func_paramtypes[func_paramtypes.Length - 1] = tempMethod.ReturnType;
                         // Func
-                        tempParameterTypes[tempParametersLength] = tempMethod.ReturnType;
+                        //  tempParameterTypes[tempParametersLength] = tempMethod.ReturnType;
                         if (m_isDynamic)
                         {
-                            return this.GetType().GetMethod("createFunc" + tempParametersLength, Utility.InstanceFlags).MakeGenericMethod(tempParameterTypes).Invoke(this, tempArguments) as System.Delegate;
+                            return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(func_paramtypes).Invoke(this, tempArguments) as System.Delegate;
                         }
 
-                        return this.GetType().GetMethod("createFuncCall" + tempParametersLength, Utility.InstanceFlags).MakeGenericMethod(tempParameterTypes).Invoke(this, tempArguments) as System.Delegate;
+                        return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(func_paramtypes).Invoke(this, tempArguments) as System.Delegate;
                     default:
                         break;
                 }
@@ -232,10 +217,7 @@ namespace VisualEvent
                  else
                      tempDelegate(property_input());
              };
-
-            if (!tPublisher.hasyield)
-                return tPublisher.CreateTypeSafeAction(tempcall);
-            else return tPublisher.CreateYieldableCall(tempcall);
+            return tempcall;
         }
 
         //=======================
@@ -245,7 +227,7 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
-        protected virtual Delegate createActionCall0(VisualDelegateBase tPublisher, MethodInfo tMethod)
+        protected Delegate createActionCall0(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
             var delegate_target = isStatic ? null : m_target;
             Action tempDelegate = Delegate.CreateDelegate(typeof(Action), delegate_target, tMethod, false) as Action;
@@ -268,31 +250,37 @@ namespace VisualEvent
                     Debug.LogError(ex);
                 }
             };
-            if (!tPublisher.hasyield)
-                return tPublisher.CreateTypeSafeAction(tempAction);
-            else return tPublisher.CreateYieldableCall(tempAction);
+            return tempAction;
         }
 
         /// <summary>Utility method for creating a 1-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/></summary>
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A> createAction1<A>(VisualDelegateBase tPublisher, MethodInfo tMethod)
+        protected Delegate createAction1<A>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
             var delegate_target = isStatic ? null : m_target;
             Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), delegate_target, tMethod, false) as Action<A>;
             Action<A> tempAction = (A tA) =>
             {
-                if (m_target == null)
+                try
                 {
-                    tPublisher.removeCall(this);
+                    if (m_target == null)
+                    {
+                        tPublisher.removeCall(this);
+                    }
+                    else
+                    {
+                        tempDelegate(tA);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    tempDelegate(tA);
+                    Debug.LogError(ex);
+                    throw;
                 }
-            };
 
+            };
             return tempAction;
         }
 
@@ -312,7 +300,7 @@ namespace VisualEvent
                     tPublisher.removeCall(this);
                 else tempDelegate(input());
             };
-            return tPublisher.CreateTypeSafeAction(tempaction);
+            return tempaction;
         }
 
         /// <summary>Utility method for creating a 2-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/></summary>
@@ -713,8 +701,8 @@ namespace VisualEvent
         {
             var delegate_target = isStatic ? null : m_target;
             Func<T> tempDelegate = Delegate.CreateDelegate(typeof(Func<T>), delegate_target, tMethod, false) as Func<T>;
-            if (tPublisher.hasyield)
-                return tPublisher.CreateTypeSafeCoroutine(tempDelegate as Func<IEnumerator>);
+            if (isYieldable)
+                return tempDelegate;
             else
             {
                 Action tempAction = () =>
@@ -730,7 +718,7 @@ namespace VisualEvent
                     }
 
                 };
-                return tPublisher.CreateTypeSafeAction(tempAction);
+                return tempDelegate;
             }
         }
 
@@ -770,14 +758,10 @@ namespace VisualEvent
 
             Func<A, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, T>), m_target, tMethod, false) as Func<A, T>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
-            Debug.Log(input_1 == null);
-            if (isYieldable)
+            if (tPublisher.hasyield)
             {
-                Func<IEnumerator> yieldedDelgate = () =>
-                 {
-                     return tempDelegate(input_1()) as IEnumerator;
-                 };
-                return tPublisher.CreateTypeSafeCoroutine(yieldedDelgate);
+                Func<IEnumerator> del = () => tempDelegate(input_1()) as IEnumerator;
+                return del;
             }
             Action tempaction = () =>
                {
@@ -823,21 +807,20 @@ namespace VisualEvent
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
 
-
-            if (isYieldable)
+            if (tPublisher.hasyield)
             {
                 Func<IEnumerator> yieldedDelgate = () =>
                 {
-                    return tempDelegate(input_1(),input_2()) as IEnumerator;
+                    return tempDelegate(input_1(), input_2()) as IEnumerator;
                 };
-                return tPublisher.CreateTypeSafeCoroutine(yieldedDelgate);
+                return yieldedDelgate;
             }
             Action tempaction = () =>
             {
                 if (m_target == null)
                     tPublisher.removeCall(this);
                 else
-                    tempDelegate(input_1(),input_2());
+                    tempDelegate(input_1(), input_2());
             };
             return tempaction;
         }

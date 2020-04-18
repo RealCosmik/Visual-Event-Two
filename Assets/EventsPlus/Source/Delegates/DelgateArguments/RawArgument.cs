@@ -70,10 +70,6 @@ namespace VisualEvent
                 return () => static_value;
             }
         }
-        public Func<nest> otherdel<nest>() where nest : Delegate
-        {
-           return ()=> call_Reference.delegateInstance as nest;
-        } 
         //=======================
         // Accessors
         //=======================
@@ -86,37 +82,37 @@ namespace VisualEvent
                 {
                     switch (FullArgumentName)
                     {
-                        case "System.String":
+                        case Utility.STRING_TYPE_NAME:
                             return stringValue;
-                        case "System.Type":
+                        case Utility.DOTNET_TYPE_NAME:
                             return System.Type.GetType(stringValue);
-                        case "System.Boolean":
+                        case Utility.BOOLEAN_TYPE_NAME:
                             return boolValue;
-                        case "System.Int32":
+                        case Utility.INTEGER_TYPE_NAME:
                             return intValue;
-                        case "System.Int64":
+                        case Utility.LONG_TYPE_NAME:
                             return longValue;
-                        case "System.Single":
+                        case Utility.FLOAT_TYPE_NAME:
                             return floatValue;
-                        case "System.Double":
+                        case Utility.DOUBLE_TYPE_NAME:
                             return doubleValue;
-                        case "UnityEngine.Vector2":
+                        case Utility.VECTOR2_TYPE_NAME:
                             return vector2Value;
-                        case "UnityEngine.Vector3":
+                        case Utility.VECTOR3_TYPE_NAME:
                             return vector3Value;
-                        case "UnityEngine.Vector4":
+                        case Utility.VECTOR4_TYPE_NAME:
                             return vector4Value;
-                        case "UnityEngine.Quaternion":
+                        case Utility.QUATERNION_TYPE_NAME:
                             return quaternionValue;
-                        case "UnityEngine.Rect":
+                        case Utility.UNITYRECT_TYPE_NAME:
                             return rectValue;
-                        case "UnityEngine.Bounds":
+                        case Utility.UNITYBOUNDS_TYPE_NAME:
                             return boundsValue;
-                        case "UnityEngine.Color":
+                        case Utility.UNITYCOLOR_TYPE_NAME:
                             return colorValue;
-                        case "UnityEngine.AnimationCurve":
+                        case Utility.UNITYCURVE_TYPE_NAME:
                             return animationCurveValue;
-                        case "UnityEngine.Object":
+                        case Utility.UNITYOBJECt_TYPE_NAME:
                             return objectValue;
                         default:
                             Type tempType = Type.GetType(assemblyQualifiedArgumentName);

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Collections;
 namespace VisualEvent
 {
-    /// <summary>Utility class for delegate serialization</summary>
     public static class Utility
     {
         public const BindingFlags memberBinding = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
@@ -44,39 +43,48 @@ namespace VisualEvent
         /// <param name="methodata"></param>
         /// <param name="memberflags"></param>
         /// <returns></returns>
-        public static MemberInfo QuickDeseralizer(Type CurrentType, string[] methodata, BindingFlags memberflags = memberBinding)
+        public static MemberInfo QuickDeseralizer(Type CurrentType, string[] methodata, out Type[] paramtypes, BindingFlags memberflags = memberBinding)
         {
             MemberInfo member_info = null;
-            var member_type = (MemberTypes)int.Parse(methodata[0]);
+            var member_type = (MemberTypes)ConvertStringToInt(methodata[0]);
             var member_name = methodata[1];
             if (member_type != MemberTypes.Method) //field or property
             {
                 var reflected_members = CurrentType.GetMember(member_name, member_type, memberflags);
                 if (reflected_members != null && reflected_members.Length > 0)
                     member_info = reflected_members[0];
+                paramtypes = null;
             }
             // here we do work if the reflected member is a method
             else
             {
+                paramtypes = null;
+                MethodInfo method_info;
                 // data only contiains membertype and method name i.e its a void method
                 if (methodata.Length == 2)
-                {
-                    member_info = CurrentType.GetMethod(member_name, memberflags, null, Type.EmptyTypes, null);
-                }
+                    method_info = CurrentType.GetMethod(member_name, memberflags, null, Type.EmptyTypes, null);
                 else
                 {
-                    var paramtypes = new Type[methodata.Length - 2];
+                    paramtypes = new Type[methodata.Length - 2];
                     for (int i = 2; i < methodata.Length; i++)
                     {
                         paramtypes[i - 2] = Type.GetType(methodata[i]);
                     }
-                    member_info = CurrentType.GetMethod(member_name, memberflags, null, paramtypes, null);
+                    method_info = CurrentType.GetMethod(member_name, memberflags, null, paramtypes, null);
                 }
+                //method_info.MethodHandle.GetFunctionPointer();
+                member_info = method_info;
             }
-            Debug.Log(member_info == null);
+            //  Debug.Log(member_info == null);
             return member_info;
         }
-
+        private static int ConvertStringToInt(string membertype)
+        {
+            int num = 0;
+            for (int i = 0; i < membertype.Length; i++)
+                num = (num * 10) + (membertype[i] - '0');
+            return num;
+        }
 
         //=======================
         // Delegates
@@ -89,5 +97,24 @@ namespace VisualEvent
                 return BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
             }
         }
+
+        //TYPE NAMES
+        public const string STRING_TYPE_NAME = "System.String";
+        public const string DOTNET_TYPE_NAME = "System.Type";
+        public const string BOOLEAN_TYPE_NAME = "System.Boolean";
+        public const string INTEGER_TYPE_NAME = "System.Int32";
+        public const string LONG_TYPE_NAME = "System.Int64";
+        public const string FLOAT_TYPE_NAME = "System.Single";
+        public const string DOUBLE_TYPE_NAME = "System.Double";
+        public const string VECTOR2_TYPE_NAME = "UnityEngine.Vector2";
+        public const string VECTOR3_TYPE_NAME = "UnityEngine.Vector3";
+        public const string VECTOR4_TYPE_NAME = "UnityEngine.Vector4";
+        public const string QUATERNION_TYPE_NAME = "UnityEngine.Quaternion";
+        public const string UNITYRECT_TYPE_NAME = "UnityEngine.Rect";
+        public const string UNITYBOUNDS_TYPE_NAME = "UnityEngine.Bounds";
+        public const string UNITYCOLOR_TYPE_NAME = "UnityEngine.Color";
+        public const string UNITYCURVE_TYPE_NAME = "UnityEngine.AnimationCurve";
+        public const string UNITYOBJECt_TYPE_NAME = "UnityEngine.Object";
+
     }
 }

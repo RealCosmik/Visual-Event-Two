@@ -20,36 +20,25 @@ namespace VisualEvent
         private int pre_initcalls;
         protected abstract void AppendCallToInvocation(RawDelegate raw_call);
         protected abstract void RemoveCallFromInvocation(RawDelegate raw_call);
-        private protected abstract void InitializeYieldList(int initialYieldIndex);
-        internal abstract Delegate CreateTypeSafeAction(Action action);
-        internal virtual  Delegate CreateTypeSafeCoroutine(Func<IEnumerator> routine)
-        {
-            return null;
-        }
-        internal abstract Delegate CreateYieldableCall(Action action);
+        private protected abstract void InitializeYieldList();
         public abstract Type[] types { get; }
 
         protected abstract Delegate oninvoke { get; set; }
 
         public void initialize()
         {
+            if (hasyield)
+                InitializeYieldList();
             if (m_calls != null)
             { 
                 int tempListLength = m_calls.Count;
                 for (int i = 0; i < tempListLength; ++i)
                 {
                     var currentdelegate = m_calls[i];
-                    //if (Application.isEditor)
-                    //{
-                    //    EditorIntialize(currentdelegate);
-                    //}
-                    // else
-                    // {
                     if (currentdelegate is RawCall rawdelegatecall)
                         rawdelegatecall.initialize(this);
                     else currentdelegate.initialize();
                         AppendCallToInvocation(currentdelegate);
-                  //  }
                 }
             }
             isinitialized = true;
@@ -96,10 +85,6 @@ namespace VisualEvent
         protected IEnumerator BreakYield()
         {
             yield break;
-        }
-        protected IEnumerator CreateDelegeateCoroutine(Func<IEnumerator> routine)
-        {
-            yield return routine();
         }
         private void EditorIntialize(RawDelegate raw_delegate)
         {
