@@ -86,6 +86,7 @@
     <Compile Include="Assets\IVisualArgument.cs" />
     <Compile Include="Assets\LinkedMono.cs" />
     <Compile Include="Assets\Logger.cs" />
+    <Compile Include="Assets\Person.cs" />
     <Compile Include="Assets\PlayerData.cs" />
     <Compile Include="Assets\Testmono.cs" />
     <Compile Include="Assets\UtilitySO.cs" />

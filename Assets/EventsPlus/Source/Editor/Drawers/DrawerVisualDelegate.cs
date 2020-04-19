@@ -152,7 +152,6 @@ namespace VisualEvent
                             break;
                         }
                     }
-                    Debug.Log(hasyeild);
                     tProperty.FindPropertyRelative("hasyield").boolValue = hasyeild;
                     if (hasyeild)
                         tProperty.FindPropertyRelative("Yield_target").objectReferenceValue = tProperty.serializedObject.targetObject;

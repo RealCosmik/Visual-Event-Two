@@ -84,6 +84,8 @@ namespace VisualEvent
                     {
                         case Utility.STRING_TYPE_NAME:
                             return stringValue;
+                        case Utility.CHAR_TYPE_NAME:
+                            return stringValue[0];
                         case Utility.DOTNET_TYPE_NAME:
                             return System.Type.GetType(stringValue);
                         case Utility.BOOLEAN_TYPE_NAME:
@@ -120,7 +122,7 @@ namespace VisualEvent
                             {
                                 if (tempType.IsEnum)
                                 {
-                                    return enumValue;
+                                    return GetEnumValue(tempType);
                                 }
                                 // for custom types that may inherit from unityobject
                                 else if (tempType.IsClass && tempType.IsSubclassOf(typeof(UnityEngine.Object)))
@@ -167,25 +169,10 @@ namespace VisualEvent
             }
         }
 
-        /// <summary>Gets the enumeration value of the argument</summary>
-        private Enum enumValue
+        private Enum GetEnumValue(Type enumtype)
         {
-            get
-            {
-                Type tempType = Type.GetType(assemblyQualifiedArgumentName);
-                if (tempType != null && tempType.IsEnum)
-                {
-                    return (Enum)Enum.ToObject(tempType, (int)_x1);
-                }
-
-                return default(Enum);
-            }
-            set
-            {
-                _x1 = Convert.ToInt32(value);
-            }
+            return Enum.ToObject(enumtype, (int)_x1) as Enum;
         }
-
         /// <summary>Gets the floating point value of the argument</summary>
         private float floatValue
         {

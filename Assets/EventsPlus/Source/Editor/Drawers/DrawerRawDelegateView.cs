@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-
+using RoboRyanTron.SearchableEnum.Editor;
 namespace VisualEvent
 {
     //##########################
@@ -37,9 +37,9 @@ namespace VisualEvent
                 validate(tProperty, DelegateCache);
                 // Target  
                 var targetpos = tPosition;
-               // tPosition.x -= 120;
-               // tPosition.y += 5;
-               // tPosition.width += 120;
+                // tPosition.x -= 120;
+                // tPosition.y += 5;
+                // tPosition.width += 120;
                 EditorGUI.BeginChangeCheck();
                 if (DelegateCache.CurrentTarget == null) // empty field
                 {
@@ -47,7 +47,7 @@ namespace VisualEvent
                     UnityEngine.Object UserParentTarget = EditorGUI.ObjectField(targetpos, tLabel.text, null, typeof(UnityEngine.Object), true);
                     //on target change 
                     if (EditorGUI.EndChangeCheck())
-                    { 
+                    {
                         DelegateCache.HasDelegateError = false;
                         DelegateCache.SetParentTarget(UserParentTarget);
                         handleTargetUpdate(tProperty, DelegateCache);
@@ -58,7 +58,7 @@ namespace VisualEvent
                 }
                 else // Target drop-down
                 {
-                  //  tPosition.width = tempFieldWidth + EditorGUIUtility.labelWidth + 30;
+                    //  tPosition.width = tempFieldWidth + EditorGUIUtility.labelWidth + 30;
                     EditorGUI.BeginChangeCheck();
                     targetpos.width = tPosition.width / 3;
                     int UserSelectedTarget = EditorGUI.Popup(targetpos, tLabel.text, DelegateCache.CurrentTargetIndex, DelegateCache._targetNames);
@@ -79,22 +79,35 @@ namespace VisualEvent
                 // Members
                 if (DelegateCache.CurrentTarget != null)
                 {
-                //    float tempIndentSize = (EditorGUI.indentLevel - 1) * VisualEdiotrUtility.IndentSize;
                     var memberpos = targetpos;
                     memberpos.x += memberpos.width;
                     memberpos.width = targetpos.width * 2;
-                    //tPosition.width = tempFieldWidth + 13 + tempIndentSize + 70;
-                    EditorGUI.BeginChangeCheck();
-                    int tempSelectedMember = EditorGUI.Popup(memberpos, DelegateCache.selectedMemberIndex, DelegateCache.memberNames);
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        DelegateCache.HasDelegateError = false;
-                        DelegateCache.UpdateSelectedMember(tempSelectedMember);
-                        handleMemberUpdate(tProperty, DelegateCache);
 
+                    int idHash = (tProperty.propertyPath + tProperty.serializedObject.targetObject.GetInstanceID().ToString()).GetHashCode();
+                    int id = GUIUtility.GetControlID(idHash, FocusType.Keyboard, memberpos);
+                    GUIContent buttonText = new GUIContent();
+                    buttonText.text = DelegateCache.memberNames[DelegateCache.selectedMemberIndex];
+
+                    if (DropdownButton(id, memberpos, buttonText))
+                    {
+                        var seratchWindowPos = memberpos;
+                        seratchWindowPos.x += 70f;
+                        System.Action<int> onSelect = i => DelegateCache.UpdateSelectedMember(i);
+                        SearchablePopup.Show(seratchWindowPos, DelegateCache.memberNames,
+                            DelegateCache.selectedMemberIndex, onSelect);
                     }
+
+                    //int tempSelectedMember = EditorGUI.Popup(memberpos, DelegateCache.selectedMemberIndex, DelegateCache.memberNames);
+                    //if (EditorGUI.EndChangeCheck())
+                    //{
+                    //    DelegateCache.HasDelegateError = false;
+                    //    DelegateCache.UpdateSelectedMember(tempSelectedMember);
+                    //    handleMemberUpdate(tProperty, DelegateCache);
+                    //}
                 }
+
             }
+
         }
 
 
@@ -159,6 +172,30 @@ namespace VisualEvent
             PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
         }
 
-
+        private static bool DropdownButton(int id, Rect position, GUIContent content)
+        {
+            Event current = Event.current;
+            switch (current.type)
+            {
+                case EventType.MouseDown:
+                    if (position.Contains(current.mousePosition) && current.button == 0)
+                    {
+                        Event.current.Use();
+                        return true;
+                    }
+                    break;
+                case EventType.KeyDown:
+                    if (GUIUtility.keyboardControl == id && current.character == '\n')
+                    {
+                        Event.current.Use();
+                        return true;
+                    }
+                    break;
+                case EventType.Repaint:
+                    EditorStyles.popup.Draw(position, content, id, false);
+                    break;
+            }
+            return false;
+        }
     }
 }

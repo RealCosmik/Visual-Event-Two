@@ -14,7 +14,9 @@ namespace VisualEvent
     public class RawCall : RawDelegate
     {
         static Type raw_calltype = typeof(RawCall);
-
+        /// <summary>
+        /// name of method calling in reflection. populated during editor time
+        /// </summary>
         [SerializeField] string Creationmethod;
         //=======================
         // Variables
@@ -107,21 +109,19 @@ namespace VisualEvent
                         // Action
                         if (tempIsAction)
                         {
-                            if(tempParametersLength==0)
-                                return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).Invoke(this, tempArguments) as System.Delegate;
+                            if (tempParametersLength == 0)
+                                return createActionCall0(tPublisher, tempMethod);
                             else return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes).Invoke(this, tempArguments) as System.Delegate;
                         }
-                        Type[] func_paramtypes = new Type[paramtypes.Length + 1];
-                        paramtypes.CopyTo(func_paramtypes, 0);
-                        func_paramtypes[func_paramtypes.Length - 1] = tempMethod.ReturnType;
+
                         // Func
-                        //  tempParameterTypes[tempParametersLength] = tempMethod.ReturnType;
+                        paramtypes = CreateFuncParam(tempMethod);
                         if (m_isDynamic)
                         {
-                            return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(func_paramtypes).Invoke(this, tempArguments) as System.Delegate;
+                            return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes).Invoke(this, tempArguments) as System.Delegate;
                         }
 
-                        return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(func_paramtypes).Invoke(this, tempArguments) as System.Delegate;
+                        return raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes).Invoke(this, tempArguments) as System.Delegate;
                     default:
                         break;
                 }
@@ -189,15 +189,20 @@ namespace VisualEvent
 
             Action<A> tempAction = (A tA) =>
             {
-                if (m_target == null)
-                    tPublisher.removeCall(this);
-                else
-                    tempDelegate(tA);
+                try
+                {
+                    if (m_target == null)
+                        tPublisher.removeCall(this);
+                    else
+                        tempDelegate(tA);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError(ex);
+                }
+
             };
-            var typeCorrected = tPublisher as VisualDelegate<A>;
-            if (!typeCorrected.hasyield)
-                return typeCorrected.CreateYieldableDynamicDelegate(tempAction);
-            else return tempAction;
+            return tempAction;
         }
 
         /// <summary>Utility method for creating a delegate from a <see cref="System.Reflection.PropertyInfo"/> that applies a predefined value</summary>
@@ -212,10 +217,18 @@ namespace VisualEvent
             Func<A> property_input = arg1.CreateArgumentDelegate<A>();
             Action tempcall = () =>
              {
-                 if (m_target == null)
-                     tPublisher.removeCall(this);
-                 else
-                     tempDelegate(property_input());
+                 try
+                 {
+                     if (m_target == null)
+                         tPublisher.removeCall(this);
+                     else
+                         tempDelegate(property_input());
+                 }
+                 catch (Exception ex)
+                 {
+                     Debug.LogError(ex);
+                 }
+
              };
             return tempcall;
         }
@@ -236,13 +249,9 @@ namespace VisualEvent
                 try
                 {
                     if (m_target == null)
-                    {
                         tPublisher.removeCall(this);
-                    }
                     else
-                    {
                         tempDelegate();
-                    }
                 }
 
                 catch (Exception ex)
@@ -266,18 +275,13 @@ namespace VisualEvent
                 try
                 {
                     if (m_target == null)
-                    {
                         tPublisher.removeCall(this);
-                    }
                     else
-                    {
                         tempDelegate(tA);
-                    }
                 }
                 catch (Exception ex)
                 {
                     Debug.LogError(ex);
-                    throw;
                 }
 
             };
@@ -296,9 +300,17 @@ namespace VisualEvent
             Func<A> input = arg1.CreateArgumentDelegate<A>();
             Action tempaction = () =>
             {
-                if (m_target == null)
-                    tPublisher.removeCall(this);
-                else tempDelegate(input());
+                try
+                {
+                    if (m_target == null)
+                        tPublisher.removeCall(this);
+                    else tempDelegate(input());
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError(ex);
+                }
+
             };
             return tempaction;
         }
@@ -313,14 +325,18 @@ namespace VisualEvent
             Action<A, B> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B>), delegate_target, tMethod, false) as Action<A, B>;
             Action<A, B> tempAction = (A tA, B tB) =>
              {
-                 if (m_target == null)
+                 try
                  {
-                     tPublisher.removeCall(this);
+                     if (m_target == null)
+                         tPublisher.removeCall(this);
+                     else
+                         tempDelegate(tA, tB);
                  }
-                 else
+                 catch (Exception ex)
                  {
-                     tempDelegate(tA, tB);
+                     Debug.LogError(ex);
                  }
+
              };
 
             return tempAction;
@@ -340,10 +356,18 @@ namespace VisualEvent
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Action tempAction = () =>
             {
-                if (m_target == null)
-                    tPublisher.removeCall(this);
-                else
-                    tempDelegate(input_1(), input_2());
+                try
+                {
+                    if (m_target == null)
+                        tPublisher.removeCall(this);
+                    else
+                        tempDelegate(input_1(), input_2());
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError(ex);
+                }
+
             };
 
             return tempAction;
@@ -359,14 +383,18 @@ namespace VisualEvent
             Action<A, B, C> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C>), delegate_target, tMethod, false) as Action<A, B, C>;
             Action<A, B, C> tempAction = (A tA, B tB, C tC) =>
               {
-                  if (m_target == null)
+                  try
                   {
-                      tPublisher.removeCall(this);
+                      if (m_target == null)
+                          tPublisher.removeCall(this);
+                      else
+                          tempDelegate(tA, tB, tC);
                   }
-                  else
+                  catch (Exception ex)
                   {
-                      tempDelegate(tA, tB, tC);
+                      Debug.LogError(ex);
                   }
+                 
               };
 
             return tempAction;
@@ -388,14 +416,18 @@ namespace VisualEvent
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
             Action tempAction = () =>
             {
-                if (m_target == null)
+                try
                 {
-                    tPublisher.removeCall(this);
+                    if (m_target == null)
+                        tPublisher.removeCall(this);
+                    else
+                        tempDelegate(input_1(), input_2(), input_3());
                 }
-                else
+                catch (Exception ex)
                 {
-                    tempDelegate(input_1(), input_2(), input_3());
+                    Debug.LogError(ex);
                 }
+
             };
 
             return tempAction;

@@ -334,11 +334,9 @@ namespace VisualEvent
                         if (!tempField.IsInitOnly && !tempField.IsLiteral) //not readonly field and not const field
                         {
                             MemberField tempMember = new MemberField(tempField);
-                            MemberField tempGetter = new MemberField(tempField, false);
                             if (!tIsFiltered || !Settings.instance.isMemberFiltered(tempField.DeclaringType, tempField.ReflectedType, tempMember))
                             {
                                 tempOut.Add(tempMember);
-                                tempOut.Add(tempGetter);
                             }
                         }
                     }
@@ -465,16 +463,17 @@ namespace VisualEvent
             switch (member.info.MemberType)
             {
                 case MemberTypes.Field:
-                    if (istypestring && member.SeralizedData[2] == "GET")
+                    if (istypestring)
                         return true;
-                    else return (member.info as FieldInfo).FieldType == ReturnType && member.SeralizedData[2] == "GET";
+                    else return (member.info as FieldInfo).FieldType == ReturnType;
                 case MemberTypes.Property:
                     var prop_info = member.info as PropertyInfo;
                     if (istypestring)
                         return prop_info.CanRead; //if the returntype is a string any property will suffice because we can just .ToString() it
                     else return prop_info.CanRead && prop_info.PropertyType == ReturnType;
                 case MemberTypes.Method:
-                    return (member.info as MethodInfo).ReturnType == ReturnType;
+                    var method_info = member.info as MethodInfo;
+                    return method_info.ReturnType == ReturnType && method_info.GetParameters().Length == 0;
                 default:
                     return false;
             }

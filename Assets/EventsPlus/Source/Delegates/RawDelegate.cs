@@ -41,13 +41,22 @@ namespace VisualEvent
             if (m_target != null)
                 delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData, out paramtypes), m_target);
             else if (isStatic)
-                delegateInstance = createDelegate(Utility.QuickDeseralizer(typeof(UtilHelper), methodData, out paramtypes),null);
+                delegateInstance = createDelegate(Utility.QuickDeseralizer(typeof(UtilHelper), methodData, out paramtypes), null);
             else throw new UnityException("cannot create delegate with null target");
         }
-        private void fixer()
+        /// <summary>
+        /// Creates a new type array that contains the return type of the method for delegates that will be funcs
+        /// </summary>
+        /// <param name="method_info"></param>
+        /// <returns></returns>
+        private protected Type[] CreateFuncParam(MethodInfo method_info)
         {
-            CreateFieldGetter<int>(null, null);
+            Type[] func_paramtypes = new Type[paramtypes.Length + 1];
+            paramtypes.CopyTo(func_paramtypes, 0);
+            func_paramtypes[func_paramtypes.Length - 1] = method_info.ReturnType;
+            return func_paramtypes;
         }
+
         /// <summary>Creates a delegate instance using the <see cref="m_target"/> and an input <see cref="System.Reflection.MemberInfo"/></summary>
         /// <param name="tMember">MemberInfo to be cast into a delegate</param>
         /// <returns>Member delegate if successful, null if not able to properly convert</returns>
@@ -59,9 +68,7 @@ namespace VisualEvent
                 {
                     case MemberTypes.Field:
                         FieldInfo tempField = tMember as FieldInfo;
-                        if (methodData[2] == "GET")
-                            return typeof(RawDelegate).GetMethod("CreateFieldGetter", Utility.memberBinding).MakeGenericMethod(tempField.FieldType).Invoke(this, new object[] { target, tempField }) as Delegate;
-                        else return typeof(RawDelegate).GetMethod("CreateFieldAction", BindingFlags.Static | BindingFlags.NonPublic).MakeGenericMethod(tempField.ReflectedType, tempField.FieldType).Invoke(this, new object[] { target, tempField }) as System.Delegate;
+                        return typeof(RawDelegate).GetMethod("CreateFieldAction", BindingFlags.Static | BindingFlags.NonPublic).MakeGenericMethod(tempField.ReflectedType, tempField.FieldType).Invoke(this, new object[] { target, tempField }) as System.Delegate;
                     case MemberTypes.Property:
                         PropertyInfo tempProperty = tMember as PropertyInfo;
                         return Delegate.CreateDelegate(typeof(Action<>).MakeGenericType(tempProperty.PropertyType), target, tempProperty.GetSetMethod(), false);
@@ -70,22 +77,7 @@ namespace VisualEvent
                         bool tempIsAction = tempMethod.ReturnType == typeof(void);
 
                         // Parameters
-                        ParameterInfo[] tempParameters = tempMethod.GetParameters();
-                        int tempParametersLength = tempParameters.Length;
-                        Type[] tempParameterTypes = null;
-                        if (tempParametersLength > 0)
-                        {
-                            tempParameterTypes = new Type[tempParametersLength + (tempIsAction ? 0 : 1)];
-                            for (int i = (tempParametersLength - 1); i >= 0; --i)
-                            {
-                                tempParameterTypes[i] = tempParameters[i].ParameterType;
-                            }
-                        }
-                        else if (!tempIsAction)
-                        {
-                            tempParameterTypes = new Type[1];
-                        }
-
+                        int tempParametersLength = paramtypes?.Length ?? 0;
                         // Action
                         if (tempIsAction)
                         {
@@ -94,25 +86,25 @@ namespace VisualEvent
                                 case 0:
                                     return Delegate.CreateDelegate(typeof(Action), target, tempMethod, false);
                                 case 1:
-                                    return Delegate.CreateDelegate(typeof(Action<>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                    return Delegate.CreateDelegate(typeof(Action<>).MakeGenericType(paramtypes), target, tempMethod, false);
                                 case 2:
-                                    return Delegate.CreateDelegate(typeof(Action<,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                    return Delegate.CreateDelegate(typeof(Action<,>).MakeGenericType(paramtypes), target, tempMethod, false);
                                 case 3:
-                                    return Delegate.CreateDelegate(typeof(Action<,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                    return Delegate.CreateDelegate(typeof(Action<,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                                 case 4:
-                                    return Delegate.CreateDelegate(typeof(Action<,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                    return Delegate.CreateDelegate(typeof(Action<,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                                 case 5:
-                                    return Delegate.CreateDelegate(typeof(Action<,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                    return Delegate.CreateDelegate(typeof(Action<,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                                 case 6:
-                                    return Delegate.CreateDelegate(typeof(Action<,,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                    return Delegate.CreateDelegate(typeof(Action<,,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                                 case 7:
-                                    return Delegate.CreateDelegate(typeof(Action<,,,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                    return Delegate.CreateDelegate(typeof(Action<,,,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                                 case 8:
-                                    return Delegate.CreateDelegate(typeof(Action<,,,,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                    return Delegate.CreateDelegate(typeof(Action<,,,,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                                 case 9:
-                                    return Delegate.CreateDelegate(typeof(Action<,,,,,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                    return Delegate.CreateDelegate(typeof(Action<,,,,,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                                 case 10:
-                                    return Delegate.CreateDelegate(typeof(Action<,,,,,,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                    return Delegate.CreateDelegate(typeof(Action<,,,,,,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                                 default:
                                     break;
                             }
@@ -121,32 +113,32 @@ namespace VisualEvent
                         }
 
                         // Func
-                        tempParameterTypes[tempParametersLength] = tempMethod.ReturnType;
 
+                        paramtypes = CreateFuncParam(tempMethod);
                         switch (tempParametersLength)
                         {
                             case 0:
-                                return Delegate.CreateDelegate(typeof(Func<>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                return Delegate.CreateDelegate(typeof(Func<>).MakeGenericType(paramtypes), target, tempMethod, false);
                             case 1:
-                                return Delegate.CreateDelegate(typeof(Func<,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                return Delegate.CreateDelegate(typeof(Func<,>).MakeGenericType(paramtypes), target, tempMethod, false);
                             case 2:
-                                return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                return Delegate.CreateDelegate(typeof(Func<,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                             case 3:
-                                return Delegate.CreateDelegate(typeof(Func<,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                return Delegate.CreateDelegate(typeof(Func<,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                             case 4:
-                                return Delegate.CreateDelegate(typeof(Func<,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                return Delegate.CreateDelegate(typeof(Func<,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                             case 5:
-                                return Delegate.CreateDelegate(typeof(Func<,,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                return Delegate.CreateDelegate(typeof(Func<,,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                             case 6:
-                                return Delegate.CreateDelegate(typeof(Func<,,,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                return Delegate.CreateDelegate(typeof(Func<,,,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                             case 7:
-                                return Delegate.CreateDelegate(typeof(Func<,,,,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                return Delegate.CreateDelegate(typeof(Func<,,,,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                             case 8:
-                                return Delegate.CreateDelegate(typeof(Func<,,,,,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                return Delegate.CreateDelegate(typeof(Func<,,,,,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                             case 9:
-                                return Delegate.CreateDelegate(typeof(Func<,,,,,,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                return Delegate.CreateDelegate(typeof(Func<,,,,,,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                             case 10:
-                                return Delegate.CreateDelegate(typeof(Func<,,,,,,,,,,>).MakeGenericType(tempParameterTypes), target, tempMethod, false);
+                                return Delegate.CreateDelegate(typeof(Func<,,,,,,,,,,>).MakeGenericType(paramtypes), target, tempMethod, false);
                             default:
                                 break;
                         }
@@ -177,30 +169,6 @@ namespace VisualEvent
             var boxed_lamda = Expression.Lambda<Action<object>>(assign_expression, param_expression).Compile();
             return val => boxed_lamda(val);
 
-        }
-        protected virtual Delegate CreateFieldGetter<A>(UnityEngine.Object target, FieldInfo info)
-        {
-            var targetExpression = Expression.Constant(target);
-            var fieldexprssion = Expression.Field(targetExpression, info);
-            var boxed_object = Expression.Convert(fieldexprssion, typeof(object));
-            var boxed_field = Expression.Lambda<Func<object>>(boxed_object);
-            var FieldGetter = boxed_field.Compile();
-            Debug.Log((this as RawReference)?.isparentargumentstring);
-            if ((this as RawReference)?.isparentargumentstring == true)
-                return new Func<string>(() => FieldGetter.Invoke().ToString());
-
-            else
-            {
-                Func<A> safegetter = () => (A)FieldGetter.Invoke();
-                if (this is RawReference rawref && rawref.isDelegate)
-                {
-                    Debug.LogWarning("is del");
-                    Func<Func<A>> nested_func = () => safegetter;
-                    return nested_func;
-                }
-                else return safegetter;
-            }
-           
         }
     }
 }

@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Text;
 using System.Reflection;
-using System.Linq;
-using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
 namespace VisualEvent
 {
     public static class Utility
     {
         public const BindingFlags memberBinding = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
-
         //=======================
         // Serialization
         //=======================
@@ -31,9 +26,6 @@ namespace VisualEvent
                 for (int i = 0; i < method_params.Length; i++)
                     member_data.Add(method_params[i].ParameterType.AssemblyQualifiedName);
             }
-            else
-                // place holder to be populated by member to tell if it will be treated on deseralize as setfield or get field
-                member_data.Add(null);
             return member_data.ToArray();
         }
         /// <summary>
@@ -78,11 +70,11 @@ namespace VisualEvent
             //  Debug.Log(member_info == null);
             return member_info;
         }
-        private static int ConvertStringToInt(string membertype)
+        private static int ConvertStringToInt(string value)
         {
             int num = 0;
-            for (int i = 0; i < membertype.Length; i++)
-                num = (num * 10) + (membertype[i] - '0');
+            for (int i = 0; i < value.Length; i++)
+                num = (num * 10) + (value[i] - '0');
             return num;
         }
 
@@ -100,6 +92,7 @@ namespace VisualEvent
 
         //TYPE NAMES
         public const string STRING_TYPE_NAME = "System.String";
+        public const string CHAR_TYPE_NAME = "System.Char";
         public const string DOTNET_TYPE_NAME = "System.Type";
         public const string BOOLEAN_TYPE_NAME = "System.Boolean";
         public const string INTEGER_TYPE_NAME = "System.Int32";
@@ -115,6 +108,5 @@ namespace VisualEvent
         public const string UNITYCOLOR_TYPE_NAME = "UnityEngine.Color";
         public const string UNITYCURVE_TYPE_NAME = "UnityEngine.AnimationCurve";
         public const string UNITYOBJECt_TYPE_NAME = "UnityEngine.Object";
-
     }
 }

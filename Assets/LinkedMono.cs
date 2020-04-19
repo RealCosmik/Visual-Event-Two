@@ -18,8 +18,12 @@ class LinkedMono : MonoBehaviour
     private List<Func<IEnumerator>> coroutine_delegate;
     [SerializeField] Testmono mymonotest;
     public bool ExampleSwitch;
-
+    public char idk;
+     
+    public enum nums { one,two,thre,four,five}
+    public nums mynumss;
     public int input = 3;
+    public void customtype(Person p) => Debug.Log("custom type");
     private void Start()
     {
         //Cosmik.OnInvoke += val => Debug.Log("wow");

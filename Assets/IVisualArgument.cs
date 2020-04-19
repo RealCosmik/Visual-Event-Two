@@ -1,1 +1,1 @@
-﻿internal interface IVisualArgument { }
+﻿public interface IVisualArgument { }

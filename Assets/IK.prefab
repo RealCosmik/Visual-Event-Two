@@ -46,8 +46,8 @@ MonoBehaviour:
   Cosmik:
     m_calls:
     - id: 0
-    Yield_target: {fileID: 208692813}
-    hasyield: 1
+    Yield_target: {fileID: 0}
+    hasyield: 0
   unity:
     m_PersistentCalls:
       m_Calls: []
@@ -55,26 +55,28 @@ MonoBehaviour:
   mynum: 0
   mymonotest: {fileID: 0}
   ExampleSwitch: 0
+  idk: 97
+  mynumss: 2
   input: 3
   references:
     version: 1
     00000000:
       type: {class: RawCall, ns: VisualEvent, asm: Assembly-CSharp}
       data:
-        m_target: {fileID: 208692813}
+        m_target: {fileID: 6800263704652912433}
         methodData:
         - 8
-        - WaitForSwitch
+        - SetActive
         - System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         isStatic: 0
-        m_isYieldableCall: 1
-        Creationmethod: createFuncCall1
+        m_isYieldableCall: 0
+        Creationmethod: createActionCall1
         m_arguments:
         - assemblyQualifiedArgumentName: System.Boolean, mscorlib, Version=4.0.0.0,
             Culture=neutral, PublicKeyToken=b77a5c561934e089
           FullArgumentName: System.Boolean
           objectValue: {fileID: 0}
-          stringValue: 
+          stringValue: 'Property: "layer" was removed or renamed in type: "LinkedMono"'
           _x1: -1
           _x2: 0
           _y1: 0

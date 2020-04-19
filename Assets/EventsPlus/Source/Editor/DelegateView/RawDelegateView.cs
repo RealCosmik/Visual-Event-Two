@@ -330,13 +330,11 @@ namespace VisualEvent
             //no member seralized member set
             if (seralizedmethodData.Length == 0 || seralizedmethodData == null)
             {
-                Debug.LogWarning("in here");
                 index = 0;
             }
             // search all members for the index
             else if (CurrentMembers != null && seralizedmethodData.Length > 0)
             {  
-                Debug.Log((System.Reflection.MemberTypes)int.Parse(seralizedmethodData[0]));
                 //filters based on member type  (field,prop,method)
                 var possibleMembers = CurrentMembers.Where(m => m.SeralizedData[0] == seralizedmethodData[0]);
                 for (int i = 0; i < possibleMembers.Count(); i++)
@@ -357,7 +355,7 @@ namespace VisualEvent
                 Debug.Log(seralizedmethodData == null);
                 Debug.Log(seralizedmethodData.Length == 0);
                 Debug.Log(CurrentMembers == null);
-                Debug.Log(CurrentTarget.name);
+                Debug.Log(CurrentTarget?.name);
                 Debug.Log(AvailableTargetObjects == null);
                // Debug.Log(CurrentMembers[0].GetdisplayName());
                  

@@ -13,12 +13,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-04-18T01:09:09.459-04:00
-  initializedAtString: 2020-04-17T20:23:40.838-04:00
+  lastUpdatedAtString: 2020-04-19T00:50:06.941-04:00
+  initializedAtString: 2020-04-18T22:40:43.875-04:00
   entries:
+  - path: Assembly-CSharp.csproj
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assembly-CSharp.csproj
+    projectPath: Assembly-CSharp.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assembly-CSharp-Editor.csproj
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assembly-CSharp-Editor.csproj
+    projectPath: Assembly-CSharp-Editor.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Editor\Code\Editor\SearchableEnumDrawer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Code\Editor\SearchableEnumDrawer.cs
+    projectPath: Assets\Editor\Code\Editor\SearchableEnumDrawer.cs
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Editor\Code\Editor\SearchableEnumDrawer.cs.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Code\Editor\SearchableEnumDrawer.cs.meta
+    projectPath: Assets\Editor\Code\Editor\SearchableEnumDrawer.cs.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Editor\Code\Editor\SearchablePopup.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Code\Editor\SearchablePopup.cs
+    projectPath: Assets\Editor\Code\Editor\SearchablePopup.cs
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Editor\Code\Editor\SearchablePopup.cs.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Code\Editor\SearchablePopup.cs.meta
+    projectPath: Assets\Editor\Code\Editor\SearchablePopup.cs.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Editor\Code\SearchableEnumAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Code\SearchableEnumAttribute.cs
+    projectPath: Assets\Editor\Code\SearchableEnumAttribute.cs
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Editor\Code\SearchableEnumAttribute.cs.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Code\SearchableEnumAttribute.cs.meta
+    projectPath: Assets\Editor\Code\SearchableEnumAttribute.cs.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Editor\Code\SearchableEnumDemo.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Code\SearchableEnumDemo.cs
+    projectPath: Assets\Editor\Code\SearchableEnumDemo.cs
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Editor\Code\SearchableEnumDemo.cs.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Code\SearchableEnumDemo.cs.meta
+    projectPath: Assets\Editor\Code\SearchableEnumDemo.cs.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
   - path: Assets\EventsPlus\Source\Delegates\DelgateArguments\RawArgument.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Delegates\DelgateArguments\RawArgument.cs
     projectPath: Assets\EventsPlus\Source\Delegates\DelgateArguments\RawArgument.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\EventsPlus\Source\Delegates\DelgateArguments\RawReference.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Delegates\DelgateArguments\RawReference.cs
+    projectPath: Assets\EventsPlus\Source\Delegates\DelgateArguments\RawReference.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -34,12 +100,6 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Delegates\RawRuntimeDelegate.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Delegates\RawRuntimeDelegate.cs
-    projectPath: Assets\EventsPlus\Source\Delegates\RawRuntimeDelegate.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Assets\EventsPlus\Source\Editor\DelegateView\RawDelegateView.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\DelegateView\RawDelegateView.cs
     projectPath: Assets\EventsPlus\Source\Editor\DelegateView\RawDelegateView.cs
@@ -52,15 +112,53 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawArgument.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerRawArgument.cs
+    projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawArgument.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawCallView.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerRawCallView.cs
     projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawCallView.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawDelegateView.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerRawDelegateView.cs
+    projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawDelegateView.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawReferenceView.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerRawReferenceView.cs
     projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerRawReferenceView.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\EventsPlus\Source\Editor\Drawers\DrawerVisualDelegate.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Drawers\DrawerVisualDelegate.cs
+    projectPath: Assets\EventsPlus\Source\Editor\Drawers\DrawerVisualDelegate.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\EventsPlus\Source\Editor\Method Members\MemberField.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Method
+      Members\MemberField.cs
+    projectPath: Assets\EventsPlus\Source\Editor\Method Members\MemberField.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\EventsPlus\Source\Editor\Method Members\MemberProperty.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\Method
+      Members\MemberProperty.cs
+    projectPath: Assets\EventsPlus\Source\Editor\Method Members\MemberProperty.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\EventsPlus\Source\Editor\VisualEditorUtility.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Editor\VisualEditorUtility.cs
+    projectPath: Assets\EventsPlus\Source\Editor\VisualEditorUtility.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -77,16 +175,15 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\EventsPlus\Source\Visual Delegate\VisualDelegateBase.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventsPlus\Source\Visual
-      Delegate\VisualDelegateBase.cs
-    projectPath: Assets\EventsPlus\Source\Visual Delegate\VisualDelegateBase.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Assets\IK.prefab
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\IK.prefab
     projectPath: Assets\IK.prefab
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\IVisualArgument.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\IVisualArgument.cs
+    projectPath: Assets\IVisualArgument.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -96,13 +193,18 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Player Data.asset
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Player
-      Data.asset
-    projectPath: Assets\Player Data.asset
+  - path: Assets\Person.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Person.cs
+    projectPath: Assets\Person.cs
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Person.cs.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Person.cs.meta
+    projectPath: Assets\Person.cs.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
   - path: Assets\Scenes\Pong.unity
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Scenes\Pong.unity
     projectPath: Assets\Scenes\Pong.unity
@@ -142,6 +244,18 @@ MonoBehaviour:
   - path: Library\gfu\cache\repoinfo.yaml
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\repoinfo.yaml
     projectPath: Library\gfu\cache\repoinfo.yaml
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\InspectorExpandedItems.asset
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\InspectorExpandedItems.asset
+    projectPath: Library\InspectorExpandedItems.asset
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\SceneVisibilityState.asset
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\SceneVisibilityState.asset
+    projectPath: Library\SceneVisibilityState.asset
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

@@ -3,7 +3,7 @@ using UnityEngine;
 using System;
 namespace VisualEvent
 {
-    [CustomPropertyDrawer(typeof(RawReference),true)]
+    [CustomPropertyDrawer(typeof(RawReference), true)]
     class DrawerRawReferenceView : DrawerRawDelegateView<RawReferenceView>
     {
         public override float GetPropertyHeight(SerializedProperty tProperty, GUIContent tLabel)
@@ -11,8 +11,8 @@ namespace VisualEvent
             return base.GetPropertyHeight(tProperty, tLabel);
         }
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
-        { 
-            if (ViewCache.GetDelegateView(tProperty,out RawReferenceView delgateview))
+        {
+            if (ViewCache.GetDelegateView(tProperty, out RawReferenceView delgateview))
             {
                 var rawcallview = ViewCache.GetRawCallCacheFromRawReference(tProperty);
                 int argument_index = tProperty.GetRawArgumentIndexFromArgumentReference();
@@ -25,33 +25,36 @@ namespace VisualEvent
                 }
 
                 if (argument_type != delgateview.reference_type)
-                { 
+                {
                     // tProperty.FindPropertyRelative("methodData").ClearArray();
                     tProperty.serializedObject.ApplyModifiedProperties();
                     delgateview.SetNewReferenceType(argument_type);
                     tProperty.FindPropertyRelative("m_isDelegate").boolValue = isdelegate;
-                    tProperty.FindPropertyRelative("m_isvaluetype").boolValue = delgateview.SelectedMember?.isvaluetype??false;
+                    tProperty.FindPropertyRelative("m_isvaluetype").boolValue = delgateview.SelectedMember?.isvaluetype ?? false;
                     tProperty.FindPropertyRelative("isparentargstring").boolValue = argument_type == typeof(string);
                     handleMemberUpdate(tProperty, delgateview);
                 }
-                
+
                 EditorGUI.BeginChangeCheck();
                 base.OnGUI(tPosition, tProperty, tLabel);
                 if (EditorGUI.EndChangeCheck())
                 {
-                    Debug.Log("local type change");
-                    tProperty.FindPropertyRelative("m_isvaluetype").boolValue = delgateview.SelectedMember.isvaluetype;
+                   // Debug.Log("local type change");
+                    tProperty.FindPropertyRelative("m_isvaluetype").boolValue = delgateview.SelectedMember?.isvaluetype ?? false;
                     tProperty.FindPropertyRelative("isparentargstring").boolValue = argument_type == typeof(string);
                     handleMemberUpdate(tProperty, delgateview);
                 }
-               
+                if (delgateview.CurrentTarget == null)
+                {
+                    tProperty.FindPropertyRelative("methodData").ClearArray();
+                    tProperty.FindPropertyRelative("m_target").objectReferenceValue = null;
+                }
             }
         }
         protected override void handleMemberUpdate(SerializedProperty tProperty, RawReferenceView tCache)
         {
-            Debug.LogError(tCache.CurrentTarget == null);
-            if(tCache.CurrentTarget!=null&&tCache.SelectedMember!=null)
-            base.handleMemberUpdate(tProperty, tCache);
+            if (tCache.CurrentTarget != null && tCache.SelectedMember != null)
+                base.handleMemberUpdate(tProperty, tCache);
         }
         protected override void handleTargetUpdate(SerializedProperty tProperty, RawReferenceView tCache)
         {

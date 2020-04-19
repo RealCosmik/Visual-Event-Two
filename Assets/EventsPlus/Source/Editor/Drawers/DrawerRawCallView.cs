@@ -191,7 +191,7 @@ namespace VisualEvent
             var pos = tPosition;
             // pos.y += 10f;
             //tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
-            pos.height = argument_height;
+           // pos.height = argument_height;
             EditorGUI.PropertyField(pos, tArgument, new GUIContent(tCache.arguments[tIndex].name));
         }
 
@@ -264,42 +264,49 @@ namespace VisualEvent
             tProperty.serializedObject.ApplyModifiedProperties();
             UpdateMethodName(tProperty, delegateCache);
         }
-
+        /// <summary>
+        /// used populate string with method name that will be called at runtime
+        /// </summary>
+        /// <param name="tproperty"></param>
+        /// <param name="rawcallview"></param>
         private void UpdateMethodName(SerializedProperty tproperty, RawCallView rawcallview)
         {
             SerializedProperty creationmethodprop = tproperty.FindPropertyRelative("Creationmethod");
-            var argumentlength = rawcallview.arguments.Length;
-            MemberInfo info = rawcallview.SelectedMember.info;
-            if(info is MethodInfo method_info)
+            if (rawcallview.arguments != null)
             {
-                if (method_info.ReturnType == typeof(void))
+                var argumentlength = rawcallview.arguments.Length;
+                MemberInfo info = rawcallview.SelectedMember.info;
+                if (info is MethodInfo method_info)
+                {
+                    if (method_info.ReturnType == typeof(void))
+                    {
+                        if (rawcallview.isDynamic)
+                            creationmethodprop.stringValue = "createAction" + argumentlength;
+                        else creationmethodprop.stringValue = "createActionCall" + argumentlength;
+                    }
+                    else
+                    {
+                        if (rawcallview.isDynamic)
+                            creationmethodprop.stringValue = "createFunc" + argumentlength;
+                        else creationmethodprop.stringValue = "createFuncCall" + argumentlength;
+                    }
+                }
+                else if (info is FieldInfo)
                 {
                     if (rawcallview.isDynamic)
-                        creationmethodprop.stringValue = "createAction" + argumentlength;
-                    else creationmethodprop.stringValue = "createActionCall" + argumentlength;
+                        creationmethodprop.stringValue = "createFieldAction";
+                    else creationmethodprop.stringValue = "createFieldCall";
                 }
                 else
                 {
                     if (rawcallview.isDynamic)
-                        creationmethodprop.stringValue = "createFunc" + argumentlength;
-                    else creationmethodprop.stringValue = "createFuncCall" + argumentlength;
+                        creationmethodprop.stringValue = "createPropertyAction";
+                    else creationmethodprop.stringValue = "createPropertyCall";
                 }
+                Debug.Log(creationmethodprop.stringValue);
+                PrefabUtility.RecordPrefabInstancePropertyModifications(tproperty.serializedObject.targetObject);
+                tproperty.serializedObject.ApplyModifiedProperties();
             }
-            else if(info is FieldInfo)
-            {
-                if (rawcallview.isDynamic)
-                    creationmethodprop.stringValue = "createFieldAction";
-                else creationmethodprop.stringValue = "createFieldCall";
-            }
-            else
-            {
-                if (rawcallview.isDynamic)
-                    creationmethodprop.stringValue = "createPropertyAction";
-                else creationmethodprop.stringValue = "createPropertyCall";
-            }
-            Debug.Log(creationmethodprop.stringValue);
-            PrefabUtility.RecordPrefabInstancePropertyModifications(tproperty.serializedObject.targetObject);
-            tproperty.serializedObject.ApplyModifiedProperties();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEditor;
+using UnityEngine;
 namespace VisualEvent
 {
     public class RawReferenceView : RawDelegateView
@@ -10,14 +11,16 @@ namespace VisualEvent
         {
             if (CurrentTarget != null && AvailableTargetObjects != null || CurrentTargetIndex != 0 && !EditorApplication.isPlayingOrWillChangePlaymode)
             {
-                UnityEngine.Debug.Log(CurrentTarget == null);
                 base.GenerateNewTargetMembers(TargetIndex);
-                CurrentMembers = CurrentTarget.GetType().GetMemberList();
                 CurrentMembers = CurrentMembers.GetMemberList(reference_type);
                 int membercount = CurrentMembers.Count;
                 if (membercount == 0)
                 {
-                    memberNames = new string[] { "No Applicalbe members" };
+                    if (CurrentTarget != null)
+                    {
+                        Debug.LogError($"{CurrentTarget.name} has no members that match the type {reference_type.FullName}");
+                        CurrentTarget = null;
+                    }
                 }
                 else
                 {

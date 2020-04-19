@@ -13,7 +13,6 @@ namespace VisualEvent
     [CustomPropertyDrawer(typeof(RawArgument), true)]
     public class DrawerRawArgument : PropertyDrawer
     {
-        const string DotNetType = "System.Type";
         //=======================
         // Render
         //=======================
@@ -24,26 +23,26 @@ namespace VisualEvent
         public override float GetPropertyHeight(SerializedProperty tProperty, GUIContent tLabel)
         {
             var usingref = tProperty.FindPropertyRelative("UseReference").boolValue;
+            var argumentCache = ViewCache.GetRawArgumentCache(tProperty);
             float tempHeight = 0;
             if (usingref)
             {
                 tempHeight += EditorGUI.GetPropertyHeight(tProperty.FindPropertyRelative("call_Reference"));
             }
-            else
+            else if (argumentCache.hasCustomType)
             {
+                  tempHeight = base.GetPropertyHeight(tProperty, tLabel);
+
+                tempHeight = EditorGUI.GetPropertyHeight(tProperty.FindPropertyRelative("custom"));
+            }
+            else
+            { 
                 tempHeight = base.GetPropertyHeight(tProperty, tLabel);
                 string argumentName = tProperty.FindPropertyRelative("FullArgumentName").stringValue;
                 if (argumentName == "UnityEngine.Rect")
                     tempHeight += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
                 else if (argumentName == "UnityEngine.Bounds")
                     tempHeight += (EditorGUIUtility.singleLineHeight) + EditorGUIUtility.standardVerticalSpacing;
-                if (usingref)
-                {
-                    tempHeight += EditorGUI.GetPropertyHeight(tProperty.FindPropertyRelative("call_Reference"));
-                }
-                var argumentCache = ViewCache.GetRawArgumentCache(tProperty);
-                if (argumentCache.hasCustomType)
-                    tempHeight += EditorGUI.GetPropertyHeight(tProperty.FindPropertyRelative("custom"));
                 ValidateArgumentCache(tProperty, argumentName, argumentCache);
             }
             return tempHeight;
@@ -51,7 +50,7 @@ namespace VisualEvent
         private void ValidateArgumentCache(SerializedProperty argumentprop, string argumentTypename, RawArgumentView argumentCache)
         {
             var arg_type = Type.GetType(argumentprop.FindPropertyRelative("stringValue").stringValue);
-            if (arg_type != null && argumentTypename == DotNetType && argumentCache.CurrentScript == null)
+            if (arg_type != null && argumentTypename == Utility.DOTNET_TYPE_NAME && argumentCache.CurrentScript == null)
             {
                 argumentCache.CurrentScript = Resources.FindObjectsOfTypeAll<MonoScript>().First(m => m.GetClass() == arg_type);
             }
@@ -97,13 +96,13 @@ namespace VisualEvent
                 tProperty.serializedObject.ApplyModifiedProperties();
                 tProperty.GetVisualDelegateObject()?.ReInitialize();
             }
-            //if (!argument_cache.hasCustomType&&argument_cache.CurrentCustomType!=null)
-            //{
-            //    argument_cache.hasCustomType = false;
-            //    argument_cache.CurrentCustomType = null;
-            //    tProperty.FindPropertyRelative("custom").managedReferenceValue = null;
-            //    ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
-            //}
+            if (!argument_cache.hasCustomType && argument_cache.CurrentCustomType != null)
+            {
+                argument_cache.hasCustomType = false;
+                argument_cache.CurrentCustomType = null;
+                tProperty.FindPropertyRelative("custom").managedReferenceValue = null;
+                ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
+            }
         }
 
         private void DisplayArgument(Rect argpos, SerializedProperty tProperty, GUIContent paramLabel)
@@ -120,6 +119,13 @@ namespace VisualEvent
                     if (!EditorApplication.isPlaying)
                         tempString.stringValue = EditorGUI.TextField(argpos, tempString.stringValue);
                     else tempString.stringValue = EditorGUI.DelayedTextField(argpos, tempString.stringValue);
+                    break;
+                case "System.Char":
+                    argument_cache.hasCustomType = false;
+                    tempString = tProperty.FindPropertyRelative("stringValue");
+                    if (!EditorApplication.isPlaying)
+                        tempString.stringValue = EditorGUI.TextField(argpos, tempString.stringValue)[0].ToString();
+                    else tempString.stringValue = EditorGUI.DelayedTextField(argpos, tempString.stringValue)[0].ToString();
                     break;
                 case "System.Boolean":
                     argument_cache.hasCustomType = false;
@@ -322,13 +328,15 @@ namespace VisualEvent
                             //    var customprop = tProperty.FindPropertyRelative("custom");
                             //    if (argument_cache.CurrentCustomType != current_type)
                             //    {
+                            //        Debug.Log("catch up");
                             //        argument_cache.hasCustomType = true;
                             //        ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
                             //        argument_cache.CurrentCustomType = current_type;
                             //        customprop.managedReferenceValue = Activator.CreateInstance(current_type);
-                            //    }
+                            //    } 
                             //    customprop.isExpanded = true;
-                            //    EditorGUI.PropertyField(argpos, customprop, GUIContent.none, true);
+                            //    argpos.y -= 50f;
+                            //    EditorGUI.PropertyField(argpos, customprop,GUIContent.none,true);
                             //}
                             else
                             {

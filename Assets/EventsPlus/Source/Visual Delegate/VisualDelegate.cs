@@ -173,14 +173,14 @@ namespace VisualEvent
                 else
                     YieldedDelegates.Add(CreateYieldableCall(call_delegate));
             }
-            // this will only have happen if the call is labeled as dynamic
+            // this will only have happen if the call is labeled as dynamic because it matches the param of this delegate
             else if (raw_delegate_instance is Action<A> dynamic_call)
             {
                 if (!hasyield)
                     m_oninvoke += dynamic_call;
                 else YieldedDelegates.Add(CreateYieldableDynamicDelegate(dynamic_call));
             }
-            // if the call is an coroutine or a corutine with pre-defined arguments
+            // if the call is an  void coroutine or a corutine with pre-defined arguments
             else if (raw_delegate_instance is Func<IEnumerator> corutineCall)
             {
                 YieldedDelegates.Add(_ => corutineCall());
