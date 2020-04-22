@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
+using System.Threading.Tasks;
 using System.Linq;
 namespace VisualEvent
 {
@@ -16,6 +16,8 @@ namespace VisualEvent
     {
         static Dictionary<string, string[]> ParseData = new Dictionary<string, string[]>();
         public static GUIStyle StandardStyle { get; private set; } = new GUIStyle();
+        public static Type inspector_type = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.InspectorWindow");
+
         //=======================
         // Settings
         //=======================
@@ -621,7 +623,24 @@ namespace VisualEvent
             DestinationArgument.FindPropertyRelative("doubleValue").doubleValue = originargument.FindPropertyRelative("doubleValue").doubleValue;
             DestinationArgument.FindPropertyRelative("animationCurveValue").animationCurveValue = originargument.FindPropertyRelative("animationCurveValue").animationCurveValue;
         }
-
+        public static async void TweenBox(Rect boxpos,VisiualDelegateCacheContainer containter)
+        {
+            containter.color = Color.green;
+            Debug.LogWarning("begin");
+            if (!containter.istweening)
+            {
+                containter.istweening = true;
+                while (containter.color.a > 0f)
+                {
+                    Debug.Log("tweening");
+                    containter.color.a -= .02f;
+                    await Task.Delay(50);
+                }
+                Debug.LogError("end tween");
+                containter.istweening = false;
+            }
+            else containter.color.a = 1f;
+        }
         //=======================
         // Inspector
         //=======================

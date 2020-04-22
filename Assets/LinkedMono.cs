@@ -26,14 +26,23 @@ class LinkedMono : MonoBehaviour
     public void customtype(Person p) => Debug.Log("custom type");
     private void Start()
     {
-        //Cosmik.OnInvoke += val => Debug.Log("wow");
-      // Cosmik.initialize();
+       ///Cosmik.initialize();
     }
+    private void IkramislookingProgrammer(int x) => Debug.Log("<color=blue> she loves me with code</color>");
+    public void IkramislookingArt(int x) => Debug.Log("<color=blue> she loves me without code </color>");
     IEnumerator first()
     {
         Debug.Log("first");
         yield return new WaitForSeconds(1f);
         Debug.Log("first end");
+    }
+    public IEnumerator infinity()
+    { 
+        while (true)
+        {
+            Debug.Log("forever");
+            yield return null;
+        }
     }
     IEnumerator second()
     {

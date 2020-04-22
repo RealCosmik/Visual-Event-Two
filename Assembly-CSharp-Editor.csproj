@@ -102,9 +102,6 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -117,14 +114,8 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
@@ -332,6 +323,9 @@
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="Ludiq.OdinSerializer">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Ludiq/Ludiq.PeekCore/Runtime/Dependencies/OdinSerializer/EditorOnly/Ludiq.OdinSerializer.dll</HintPath>
     </Reference>
     <Reference Include="GitHub.Api.45">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll</HintPath>
@@ -723,6 +717,26 @@
     <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
       <Project>{2C160ACC-0D6D-840F-A916-BAAD7125C36D}</Project>
       <Name>Assembly-CSharp-Editor-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="Ludiq.PeekCore.Editor.csproj">
+      <Project>{C8243B33-E43E-72D1-EC97-F4042CDAE438}</Project>
+      <Name>Ludiq.PeekCore.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="EnhancedHierarchyEditor.csproj">
+      <Project>{82528A73-D0DA-0353-72B9-5713AD7BCF19}</Project>
+      <Name>EnhancedHierarchyEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="FullscreenEditor.csproj">
+      <Project>{CC15318B-C837-38B6-3924-5BF8213D9F05}</Project>
+      <Name>FullscreenEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Ludiq.Peek.Editor.csproj">
+      <Project>{6C8C3A77-3A50-858E-37BF-8EEA174B0FD6}</Project>
+      <Name>Ludiq.Peek.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Ludiq.PeekCore.Runtime.csproj">
+      <Project>{73A687DC-CE99-BEEA-342F-BE90B5C8A80D}</Project>
+      <Name>Ludiq.PeekCore.Runtime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

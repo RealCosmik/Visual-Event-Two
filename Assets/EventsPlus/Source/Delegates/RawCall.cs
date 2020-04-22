@@ -256,7 +256,7 @@ namespace VisualEvent
 
                 catch (Exception ex)
                 {
-                    Debug.LogError(ex);
+                    Debug.LogError(ex,m_target);
                 }
             };
             return tempAction;

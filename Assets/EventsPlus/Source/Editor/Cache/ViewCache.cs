@@ -135,7 +135,10 @@ public static class ViewCache
         if (index >= publisherCache.RawCallCache.Count) // if the cache list is too small make room for the new cache
         {
             var currentCache = new RawCallViewCacheContainer();
-            currentCache.delegateView = new RawCallView(rawCallProp.GetVisualDelegateObject()?.types ?? null);
+            var typearguments = rawCallProp.GetVisualDelegateObject()?.GetType().BaseType.GenericTypeArguments;
+            if (typearguments?.Length == 0)
+                typearguments = null;
+            currentCache.delegateView = new RawCallView(typearguments);
             publisherCache.RawCallCache.Add(currentCache);
         }
         if (publisherCache.RawCallCache[index].dynamic_Cache==true) // if there is a dynamic delegate in a raw call slot remove it
@@ -165,6 +168,8 @@ public static class ViewCache
 /// </summary>
 public class VisiualDelegateCacheContainer
 {
+    public Color color;
+    public bool istweening;
     // on the game side a visualdelegate can have list of raw calls so the visual delegate cache
     //will have a list of rawcalls caches
     public List<RawCallViewCacheContainer> RawCallCache = new List<RawCallViewCacheContainer>();

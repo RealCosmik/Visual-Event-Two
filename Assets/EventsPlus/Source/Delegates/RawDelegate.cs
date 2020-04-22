@@ -51,7 +51,9 @@ namespace VisualEvent
         /// <returns></returns>
         private protected Type[] CreateFuncParam(MethodInfo method_info)
         {
-            Type[] func_paramtypes = new Type[paramtypes.Length + 1];
+            int length = paramtypes?.Length ?? 0;
+            Type[] func_paramtypes = new Type[length+ 1];
+            if(paramtypes!=null)
             paramtypes.CopyTo(func_paramtypes, 0);
             func_paramtypes[func_paramtypes.Length - 1] = method_info.ReturnType;
             return func_paramtypes;

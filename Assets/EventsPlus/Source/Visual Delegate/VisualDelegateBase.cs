@@ -7,7 +7,9 @@ namespace VisualEvent
 {
     public abstract class VisualDelegateBase
     {
-
+        [SerializeField] protected bool isinvoking;
+        [NonSerialized]
+        public int currentIndex;
         /// <summary>List of raw <see cref="RawCall"/> objects that this Publisher invokes using predefined arguments</summary>
         [SerializeReference]
         protected List<RawDelegate> m_calls; 
@@ -21,10 +23,12 @@ namespace VisualEvent
         protected abstract void AppendCallToInvocation(RawDelegate raw_call);
         protected abstract void RemoveCallFromInvocation(RawDelegate raw_call);
         private protected abstract void InitializeYieldList();
-        public abstract Type[] types { get; }
 
         protected abstract Delegate oninvoke { get; set; }
 
+        /// <summary>
+        /// Deseralizes all editor delegates and appends to oninvoke event
+        /// </summary>
         public void initialize()
         {
             if (hasyield)
@@ -81,36 +85,19 @@ namespace VisualEvent
 
             return false;
         }
-
+        /// <summary>
+        /// Utility method that returns a yield break
+        /// </summary>
+        /// <returns></returns>
         protected IEnumerator BreakYield()
         {
             yield break;
         }
-        private void EditorIntialize(RawDelegate raw_delegate)
-        {
-            ////this block of code is simply editor sugar. this only exist because in editor time because
-            /////<see cref="RawDelegate.delegateInstance"/> is not seralizable it will become null on changes to <see cref="m_calls"/>
-            ///// so we add this block of code here so that we can regenerate runtime delegates if user changes list and delgate instnace becomes null
-            //if (raw_delegate.m_runtime)
-            //{
-            //    //this continue skip here is important because if we add runtime delgates before this method is called
-            //    //we run the risk of adding the runtime delegate twice. So in this case we skip
-            //    if (isinitialized)
-            //    {
-            //        raw_delegate.initialize();
-            //        AppendCallToInvocation(raw_delegate);
-            //    }
-            //}
-            //else
-            //{
-            //    //if its not a runtime delegate then we need a reference to the visual delegate
-            //    raw_delegate.initialize(this);
-            //    AppendCallToInvocation(raw_delegate); //regardless if the delegate was created in editor or runtime we add it the invocation the same
-            //}
-            //if (!Application.isEditor)
-            //    throw new Exception("should not execute this method in builds!");
-        }
 
+        /// <summary>
+        /// Method used to add runtime delegates to editor list for debugging purposes
+        /// </summary>
+        /// <param name="runtimeDelegate"></param>
         protected void AddRuntimeDelegateEditor(Delegate runtimeDelegate)
         {
             if (Application.isEditor)
@@ -132,6 +119,10 @@ namespace VisualEvent
                 else m_calls.Add(runtiemcall);
             }
         }
+        /// <summary>
+        /// Used to remove dynamic calls from editor list for debugging purposes
+        /// </summary>
+        /// <param name="runttimeDelegate"></param>
         protected void RemoveEditorCallList(Delegate runttimeDelegate)
         {
             if (Application.isEditor)

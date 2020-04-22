@@ -11,6 +11,7 @@ namespace VisualEvent
     /// <summary>Stores cached data for delegate drop-downs; used by the delegate inspector drawers</summary>
     public abstract class RawDelegateView
     {
+        public Color color = Color.clear;
         /// <summary>Index of the currently selected member</summary>
         protected const float DefaultHeight = 10f;
         //=======================

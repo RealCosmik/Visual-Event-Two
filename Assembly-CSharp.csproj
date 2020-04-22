@@ -90,31 +90,84 @@
     <Compile Include="Assets\PlayerData.cs" />
     <Compile Include="Assets\Testmono.cs" />
     <Compile Include="Assets\UtilitySO.cs" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.DirectoryServices.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Entity.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.ServiceModel.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Runtime.Remoting.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\Microsoft.VisualC.STLCLR.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Entity.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Abstractions.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Messaging.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Management.Instrumentation.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.ServiceModel.Web.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.DynamicData.Design.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.ComponentModel.DataAnnotations.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Linq.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\mscorlib.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.AddIn.Contract.xml" />
+    <None Include="Assets\Ludiq\Ludiq.Peek\LICENSES.txt" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Security.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.DirectoryServices.AccountManagement.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Services.Design.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.EnterpriseServices.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Runtime.Serialization.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Entity.Design.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Services.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\Microsoft.Build.Utilities.v3.5.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.DynamicData.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Xml.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.AddIn.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Entity.Design.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Drawing.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Core.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\Microsoft.Build.Framework.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.DataSetExtensions.xml" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\Microsoft.Build.Conversion.v3.5.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Services.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Routing.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\link.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Configuration.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Extensions.xml" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.ServiceProcess.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\Microsoft.Build.Engine.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Printing.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Management.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Runtime.Serialization.Formatters.Soap.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Transactions.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.SqlXml.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Windows.Forms.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Deployment.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Net.xml" />
     <None Include="Assets\TestUXML.uxml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Extensions.Design.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Services.Client.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Configuration.Install.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Xml.Linq.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Windows.Presentation.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.IdentityModel.xml" />
+    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.WorkflowServices.xml" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -128,14 +181,8 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
@@ -322,6 +369,9 @@
     </Reference>
     <Reference Include="UnityEngine.XRModule">
       <HintPath>F:/UNITY VERSIONS/2019.3.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Ludiq.OdinSerializer">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Ludiq/Ludiq.PeekCore/Runtime/Dependencies/OdinSerializer/EditorOnly/Ludiq.OdinSerializer.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>F:/UNITY VERSIONS/2019.3.7f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -683,6 +733,28 @@
     <Reference Include="Boo.Lang">
       <HintPath>F:/UNITY VERSIONS/2019.3.7f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Ludiq.PeekCore.Editor.csproj">
+      <Project>{C8243B33-E43E-72D1-EC97-F4042CDAE438}</Project>
+      <Name>Ludiq.PeekCore.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="EnhancedHierarchyEditor.csproj">
+      <Project>{82528A73-D0DA-0353-72B9-5713AD7BCF19}</Project>
+      <Name>EnhancedHierarchyEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="FullscreenEditor.csproj">
+      <Project>{CC15318B-C837-38B6-3924-5BF8213D9F05}</Project>
+      <Name>FullscreenEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Ludiq.Peek.Editor.csproj">
+      <Project>{6C8C3A77-3A50-858E-37BF-8EEA174B0FD6}</Project>
+      <Name>Ludiq.Peek.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Ludiq.PeekCore.Runtime.csproj">
+      <Project>{73A687DC-CE99-BEEA-342F-BE90B5C8A80D}</Project>
+      <Name>Ludiq.PeekCore.Runtime</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

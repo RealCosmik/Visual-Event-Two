@@ -103,6 +103,7 @@ PlayerSettings:
   xboxOneMonoLoggingLevel: 0
   xboxOneLoggingLevel: 1
   xboxOneDisableEsram: 0
+  xboxOneEnableTypeOptimization: 0
   xboxOnePresentImmediateThreshold: 0
   switchQueueCommandMemory: 0
   switchQueueControlMemory: 16384
@@ -553,6 +554,14 @@ PlayerSettings:
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
     1: LOG
+    7: 
+    13: 
+    19: 
+    21: 
+    25: 
+    27: 
+    28: 
+    29: 
   platformArchitecture: {}
   scriptingBackend:
     Standalone: 1

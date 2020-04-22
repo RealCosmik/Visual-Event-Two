@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1264901152908359742}
   - component: {fileID: 208692813}
+  - component: {fileID: 98075455}
   m_Layer: 0
   m_Name: IK
   m_TagString: Untagged
@@ -44,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cosmik:
+    isinvoking: 0
     m_calls:
     - id: 0
     Yield_target: {fileID: 0}
@@ -55,53 +57,41 @@ MonoBehaviour:
   mynum: 0
   mymonotest: {fileID: 0}
   ExampleSwitch: 0
-  idk: 97
-  mynumss: 2
+  idk: 0
+  mynumss: 0
   input: 3
   references:
     version: 1
     00000000:
       type: {class: RawCall, ns: VisualEvent, asm: Assembly-CSharp}
       data:
-        m_target: {fileID: 6800263704652912433}
+        m_target: {fileID: 208692813}
         methodData:
         - 8
-        - SetActive
-        - System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        - methodforikra
         isStatic: 0
         m_isYieldableCall: 0
-        Creationmethod: createActionCall1
-        m_arguments:
-        - assemblyQualifiedArgumentName: System.Boolean, mscorlib, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b77a5c561934e089
-          FullArgumentName: System.Boolean
-          objectValue: {fileID: 0}
-          stringValue: 'Property: "layer" was removed or renamed in type: "LinkedMono"'
-          _x1: -1
-          _x2: 0
-          _y1: 0
-          _y2: 0
-          _z1: 0
-          _z2: 0
-          longValue: 0
-          doubleValue: 0
-          animationCurveValue:
-            serializedVersion: 2
-            m_Curve: []
-            m_PreInfinity: 0
-            m_PostInfinity: 0
-            m_RotationOrder: 0
-          UseReference: 0
-          hasCustomType: 0
-          call_Reference:
-            m_target: {fileID: 0}
-            methodData: []
-            isStatic: 0
-            m_isYieldableCall: 0
-            ParentArgumentType: 
-            m_isvaluetype: 0
-            isparentargstring: 0
-            m_isDelegate: 0
+        Creationmethod: createActionCall0
+        m_arguments: []
         m_isDynamic: 0
         m_runtime: 0
         TargetType: 
+--- !u!95 &98075455
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6800263704652912433}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

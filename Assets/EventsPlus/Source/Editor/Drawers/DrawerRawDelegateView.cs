@@ -92,7 +92,12 @@ namespace VisualEvent
                     {
                         var seratchWindowPos = memberpos;
                         seratchWindowPos.x += 70f;
-                        System.Action<int> onSelect = i => DelegateCache.UpdateSelectedMember(i);
+                        System.Action<int> onSelect = userSelectedMember =>
+                        {
+                            DelegateCache.HasDelegateError = false;
+                            DelegateCache.UpdateSelectedMember(userSelectedMember);
+                            handleMemberUpdate(tProperty, DelegateCache);
+                        };
                         SearchablePopup.Show(seratchWindowPos, DelegateCache.memberNames,
                             DelegateCache.selectedMemberIndex, onSelect);
                     }

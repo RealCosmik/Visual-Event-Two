@@ -14,13 +14,9 @@ namespace VisualEvent
     [CustomPropertyDrawer(typeof(VisualDelegateBase), true)]
     public class DrawerVisualDelegate : PropertyDrawer
     {
-
-        private static Texture2D eventexture;
-        private static Texture2D oddtexture;
-        private static GUIStyle evenstyle;
-        private static GUIStyle oddstyle;
-        private static Color evencolor = new Color(.21f, .21f, .21f);
-        private static Color oddColor = new Color(.5f, .5f, .5f);
+        private static Color EvenColor = new Color(.3f, .3f, .3f);
+        private static Color OddColor = new Color(.2f, .2f, .2f);
+        private static Color SelectedColor = new Color(.18f, .27f, .26f);
         private static RawCallView copiedcache;
         private static int copyIndex;
         private static GenericMenu rightclick_menu;
@@ -55,13 +51,27 @@ namespace VisualEvent
                 tempList.footerHeight = EditorGUIUtility.singleLineHeight;
                 tempList.drawHeaderCallback += rect =>
                 {
-                    // we leave this delegate empty so that nothing draws in the list header
                 };
+                tempList.drawElementBackgroundCallback += (Rect rect, int index, bool isActive, bool isFocused) =>
+                 {
+                     var cache = ViewCache.GetVisualDelegateInstanceCache(tProperty).RawCallCache;
+                     if (index >= 0 && index < cache.Count && cache[index].delegateView.CurrentTarget != null)
+                     {
+                         if (tempList.index == index)
+                         {
+                             EditorGUI.DrawRect(rect, SelectedColor);
+                             return;
+                         }
+                         if (index % 2 == 0)
+                             EditorGUI.DrawRect(rect, EvenColor);
+                         else EditorGUI.DrawRect(rect, OddColor);
+                     }
+                 };
                 tempList.drawElementCallback += (Rect rect, int index, bool tIsActive, bool tIsFocused) =>
                 {
                     var prop = tempList.serializedProperty.GetArrayElementAtIndex(index);
                     EditorGUI.BeginProperty(rect, GUIContent.none, prop);
-                    EditorGUI.PropertyField(rect, prop,GUIContent.none, true);
+                    EditorGUI.PropertyField(rect, prop, GUIContent.none, true);
                     EditorGUI.EndProperty();
                 };
                 tempList.elementHeightCallback += (int index) =>
@@ -80,7 +90,7 @@ namespace VisualEvent
                 tempList.onSelectCallback += list =>
                 {
                     if (Event.current.button == 1)  // right click
-                        ShowRightClickMenu(tempList, callsProperty);
+                        ShowRightClickMenu(tempList, tempList.serializedProperty);
                 };
                 tempList.onRemoveCallback += onElementDelete;
                 tempList.onAddCallback += onAddElement;
@@ -89,7 +99,7 @@ namespace VisualEvent
             float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
             if (tProperty.isExpanded)
             {
-                tempHeight += tempList.GetHeight() + (callsProperty.arraySize * EditorGUIUtility.standardVerticalSpacing);
+                tempHeight += tempList.GetHeight() + (tempList.count * EditorGUIUtility.standardVerticalSpacing);
             }
             return tempHeight;
         }
@@ -111,6 +121,7 @@ namespace VisualEvent
             ClearOldCache(tProperty);
             tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
             tProperty.isExpanded = EditorGUI.Foldout(tPosition, tProperty.isExpanded, tProperty.displayName);
+            var invokeprop = tProperty.FindPropertyRelative("isinvoking");
             if (tProperty.isExpanded)
             {
                 ReorderableList tempList = cache[tProperty.propertyPath];
@@ -126,8 +137,25 @@ namespace VisualEvent
                 tPosition.height = tempList.GetHeight();
                 tempList.DoList(tPosition);
                 EditorGUI.indentLevel = tempIndentLevel - 1;
+                var delcache = ViewCache.GetVisualDelegateInstanceCache(tProperty);
+                if (invokeprop.boolValue)
+                {
+                    invokeprop.boolValue = false;
+                    var invokepos = tPosition;
+                    invokepos.height -= tempList.footerHeight;
+                    VisualEdiotrUtility.TweenBox(invokepos, delcache);
+                }
+                if (delcache.istweening)
+                {
+                    EditorGUI.DrawRect(tPosition, delcache.color);
+                    var all_inspectors = Resources.FindObjectsOfTypeAll(VisualEdiotrUtility.inspector_type);
+                    Debug.Log(all_inspectors.Length);
+                    for (int i = 0; i < all_inspectors.Length; i++)
+                    {
+                        (all_inspectors[i] as EditorWindow).Repaint();
+                    }
+                }
                 CopyPasteKeyboard(tempList, tempList.serializedProperty);
-
             }
             if (EditorGUI.EndChangeCheck())
             {
@@ -137,7 +165,7 @@ namespace VisualEvent
                 {
                     Debug.Log("change");
                     tProperty.GetVisualDelegateObject()?.ReInitialize();
-                } 
+                }
                 else
                 {
                     var AllDelegateCaches = ViewCache.GetVisualDelegateInstanceCache(tProperty).RawCallCache;
@@ -159,6 +187,10 @@ namespace VisualEvent
                     tProperty.serializedObject.ApplyModifiedProperties();
                 }
             }
+        }
+        private void ShowInvocationMessage(Rect invocationrect)
+        {
+
         }
         /// <summary>
         /// remove RawDelegate to visualDelgate list
@@ -192,7 +224,7 @@ namespace VisualEvent
         /// <param name="arrayprop"></param>
         private void onAddElement(ReorderableList list)
         {
-          //  Undo.RegisterCompleteObjectUndo(list.serializedProperty.serializedObject.targetObject, "add");
+            //  Undo.RegisterCompleteObjectUndo(list.serializedProperty.serializedObject.targetObject, "add");
             var arrayprop = list.serializedProperty;
             var size = arrayprop.arraySize;
             arrayprop.InsertArrayElementAtIndex(size);
@@ -200,9 +232,9 @@ namespace VisualEvent
             var delegateprop = arrayprop.GetArrayElementAtIndex(size);
             delegateprop.FindPropertyRelative("m_target").objectReferenceValue = null;
             delegateprop.FindPropertyRelative("m_runtime").boolValue = false;
-          //  PrefabUtility.RecordPrefabInstancePropertyModifications(arrayprop.serializedObject.targetObject);
+            //  PrefabUtility.RecordPrefabInstancePropertyModifications(arrayprop.serializedObject.targetObject);
             arrayprop.serializedObject.ApplyModifiedProperties();
-        } 
+        }
 
         private void OnReorder(ReorderableList list, int oldindex, int newindex, SerializedProperty ViewDelegateProp)
         {
