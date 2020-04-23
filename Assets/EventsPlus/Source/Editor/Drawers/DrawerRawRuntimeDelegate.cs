@@ -9,8 +9,15 @@ namespace VisualEvent
         {
             var target_type = target.GetType();
             if (target is UnityEngine.Object unity_object)
+            {
+                delegateprop.FindPropertyRelative("isUnityTarget").boolValue = true;
                 delegateprop.FindPropertyRelative("m_target").objectReferenceValue = unity_object;
+            }
+            else
+            {
+                delegateprop.FindPropertyRelative("isUnityTarget").boolValue = false;
                 delegateprop.FindPropertyRelative("TargetType").stringValue = target_type.AssemblyQualifiedName;
+            }
             cache.TargetName = ParseTargetName(target_type.FullName);
         }
         private string ParseMethodName(string methodname)

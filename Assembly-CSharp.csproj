@@ -166,17 +166,11 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.IdentityModel.xml" />
     <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.WorkflowServices.xml" />
-    <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>

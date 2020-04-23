@@ -68,11 +68,45 @@ MonoBehaviour:
         m_target: {fileID: 208692813}
         methodData:
         - 8
-        - methodforikra
+        - methodforikram
+        - System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         isStatic: 0
+        isUnityTarget: 1
         m_isYieldableCall: 0
-        Creationmethod: createActionCall0
-        m_arguments: []
+        Creationmethod: createActionCall1
+        m_arguments:
+        - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0,
+            Culture=neutral, PublicKeyToken=b77a5c561934e089
+          FullArgumentName: System.Int32
+          objectValue: {fileID: 0}
+          m_objecthasvalue: 0
+          stringValue: 
+          _x1: 31
+          _x2: 0
+          _y1: 0
+          _y2: 0
+          _z1: 0
+          _z2: 0
+          longValue: 0
+          doubleValue: 0
+          animationCurveValue:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 0
+            m_PostInfinity: 0
+            m_RotationOrder: 0
+          UseReference: 1
+          hasCustomType: 0
+          call_Reference:
+            m_target: {fileID: 0}
+            methodData: []
+            isStatic: 0
+            isUnityTarget: 0
+            m_isYieldableCall: 0
+            m_isvaluetype: 0
+            isparentargstring: 0
+            m_isDelegate: 0
+            willdeseralize: 1
         m_isDynamic: 0
         m_runtime: 0
         TargetType: 

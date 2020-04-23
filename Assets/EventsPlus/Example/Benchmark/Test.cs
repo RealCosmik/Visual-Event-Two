@@ -88,19 +88,19 @@ namespace EventsPlusTest
 		protected virtual void Awake()
 		{
 			// Initialize Publisher
-			publisherMethodVoid.initialize();
-			publisherMethodReturn.initialize();
-			publisherVariable.initialize();
-			publisherProperty.initialize();
-			publisher0.initialize();
-			publisher1.initialize();
-			publisher2.initialize();
-			publisher3.initialize();
-			publisher4.initialize();
-			publisher5.initialize();
-			publisher6.initialize();
-			publisher7.initialize();
-			publisher8.initialize();
+			//publisherMethodVoid.initialize();
+			//publisherMethodReturn.initialize();
+			//publisherVariable.initialize();
+			//publisherProperty.initialize();
+			//publisher0.initialize();
+			//publisher1.initialize();
+			//publisher2.initialize();
+			//publisher3.initialize();
+			//publisher4.initialize();
+			//publisher5.initialize();
+			//publisher6.initialize();
+			//publisher7.initialize();
+			//publisher8.initialize();
 		}
 		
 		protected virtual void Start()

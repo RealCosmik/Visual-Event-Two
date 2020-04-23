@@ -18,6 +18,7 @@ namespace VisualEvent
         [SerializeField] protected string FullArgumentName;
         /// <summary>Object reference</summary>
         [SerializeField] protected UnityEngine.Object objectValue;
+        [SerializeField] private bool m_objecthasvalue;
         /// <summary>String</summary>
         [SerializeField] private string stringValue;
         /// <summary>General numbers data</summary>
@@ -52,96 +53,94 @@ namespace VisualEvent
         public RawReference call_Reference;
         //[SerializeReference]
         //IVisualArgument custom;
-        public bool isUsingreference => UseReference && call_Reference.target != null;
+        public bool isUsingreference => UseReference && call_Reference.validTarget;
 
-        //func<func<int>>;
+        internal void Release()
+        {
+            objectValue = null;
+            call_Reference.Release();
+            animationCurveValue = null;
+        }
+
         public Func<ArgType> CreateArgumentDelegate<ArgType>()
         {
             if (isUsingreference)
             {
-                call_Reference.ParentArgumentType = assemblyQualifiedArgumentName;
-                call_Reference.initialize();
-                var reference_func = call_Reference.delegateInstance as Func<ArgType>;
-                return reference_func;
+                return call_Reference.delegateInstance as Func<ArgType>;
             }
             else
             {
-                ArgType static_value = (ArgType)genericValue;
+                ArgType static_value = (ArgType)GetGenericValue<ArgType>();
                 return () => static_value;
+            } 
+        }
+      
+        public object GetGenericValue<ArgType>()
+        {
+            if (!String.IsNullOrEmpty(FullArgumentName))
+            {
+                switch (FullArgumentName)
+                {
+                    case Utility.STRING_TYPE_NAME:
+                        return stringValue;
+                    case Utility.CHAR_TYPE_NAME:
+                        return stringValue[0];
+                    case Utility.DOTNET_TYPE_NAME:
+                        return System.Type.GetType(stringValue);
+                    case Utility.BOOLEAN_TYPE_NAME:
+                        return boolValue;
+                    case Utility.INTEGER_TYPE_NAME:
+                        return intValue;
+                    case Utility.LONG_TYPE_NAME:
+                        return longValue;
+                    case Utility.FLOAT_TYPE_NAME:
+                        return floatValue;
+                    case Utility.DOUBLE_TYPE_NAME:
+                        return doubleValue;
+                    case Utility.VECTOR2_TYPE_NAME:
+                        return vector2Value;
+                    case Utility.VECTOR3_TYPE_NAME:
+                        return vector3Value;
+                    case Utility.VECTOR4_TYPE_NAME:
+                        return vector4Value;
+                    case Utility.QUATERNION_TYPE_NAME:
+                        return quaternionValue;
+                    case Utility.UNITYRECT_TYPE_NAME:
+                        return rectValue;
+                    case Utility.UNITYBOUNDS_TYPE_NAME:
+                        return boundsValue;
+                    case Utility.UNITYCOLOR_TYPE_NAME:
+                        return colorValue;
+                    case Utility.UNITYCURVE_TYPE_NAME:
+                        return animationCurveValue;
+                    case Utility.UNITYOBJECt_TYPE_NAME:
+                        return objectValue;
+                    default:
+                        Type tempType = typeof(ArgType);
+                        if (tempType != null)
+                        {
+                            if (tempType.IsEnum)
+                            {
+                                return GetEnumValue(tempType);
+                            }
+                            // for custom types that may inherit from unityobject
+                            else if (tempType.IsClass && tempType.IsSubclassOf(typeof(UnityEngine.Object)))
+                            {
+                                if (m_objecthasvalue)
+                                    return objectValue;
+                                else return default;
+                            }
+                        }
+                        break;
+                }
             }
+            return null;
         }
         //=======================
         // Accessors
         //=======================
         /// <summary>Gets the generic value of the argument based on the <see cref="type"/></summary>
-        public virtual object genericValue
-        {
-            get
-            {
-                if (!String.IsNullOrEmpty(FullArgumentName))
-                {
-                    switch (FullArgumentName)
-                    {
-                        case Utility.STRING_TYPE_NAME:
-                            return stringValue;
-                        case Utility.CHAR_TYPE_NAME:
-                            return stringValue[0];
-                        case Utility.DOTNET_TYPE_NAME:
-                            return System.Type.GetType(stringValue);
-                        case Utility.BOOLEAN_TYPE_NAME:
-                            return boolValue;
-                        case Utility.INTEGER_TYPE_NAME:
-                            return intValue;
-                        case Utility.LONG_TYPE_NAME:
-                            return longValue;
-                        case Utility.FLOAT_TYPE_NAME:
-                            return floatValue;
-                        case Utility.DOUBLE_TYPE_NAME:
-                            return doubleValue;
-                        case Utility.VECTOR2_TYPE_NAME:
-                            return vector2Value;
-                        case Utility.VECTOR3_TYPE_NAME:
-                            return vector3Value;
-                        case Utility.VECTOR4_TYPE_NAME:
-                            return vector4Value;
-                        case Utility.QUATERNION_TYPE_NAME:
-                            return quaternionValue;
-                        case Utility.UNITYRECT_TYPE_NAME:
-                            return rectValue;
-                        case Utility.UNITYBOUNDS_TYPE_NAME:
-                            return boundsValue;
-                        case Utility.UNITYCOLOR_TYPE_NAME:
-                            return colorValue;
-                        case Utility.UNITYCURVE_TYPE_NAME:
-                            return animationCurveValue;
-                        case Utility.UNITYOBJECt_TYPE_NAME:
-                            return objectValue;
-                        default:
-                            Type tempType = Type.GetType(assemblyQualifiedArgumentName);
-                            if (tempType != null)
-                            {
-                                if (tempType.IsEnum)
-                                {
-                                    return GetEnumValue(tempType);
-                                }
-                                // for custom types that may inherit from unityobject
-                                else if (tempType.IsClass && tempType.IsSubclassOf(typeof(UnityEngine.Object)))
-                                {
-                                    /// if the pointer is still null here then it will be treated as a Unity.Object Reference instead of a refference
-                                    /// of type "tempType" so throw early before reflection throws type excpetion to save time 
-                                    if (objectValue == null)
-                                        throw new UnityException("Child types of Type Unity.Object cannot be left null" +
-                                            $" populate the {tempType.FullName} field in the inspector to seralize delegate");
-                                    else return objectValue;
-                                }
-                            }
-                            break;
-                    }
-                }
-
-                return null;
-            }
-        }
+      
 
         /// <summary>Gets the bool value of the argument</summary>
         private bool boolValue
@@ -173,6 +172,8 @@ namespace VisualEvent
         {
             return Enum.ToObject(enumtype, (int)_x1) as Enum;
         }
+
+
         /// <summary>Gets the floating point value of the argument</summary>
         private float floatValue
         {

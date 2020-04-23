@@ -18,8 +18,8 @@ namespace VisualEvent
                 {
                     if (CurrentTarget != null)
                     {
-                        Debug.LogError($"{CurrentTarget.name} has no members that match the type {reference_type.FullName}");
-                        CurrentTarget = null;
+                        //Debug.LogError($"{CurrentTarget.name} has no members that match the type {reference_type.FullName}");
+                        //CurrentTarget = null;
                     }
                 }
                 else

@@ -625,22 +625,36 @@ namespace VisualEvent
         }
         public static async void TweenBox(Rect boxpos,VisiualDelegateCacheContainer containter)
         {
-            containter.color = Color.green;
-            Debug.LogWarning("begin");
+            containter.color = new Color(.34f, .92f, .45f, .7f);
             if (!containter.istweening)
             {
                 containter.istweening = true;
                 while (containter.color.a > 0f)
                 {
-                    Debug.Log("tweening");
-                    containter.color.a -= .02f;
+                    containter.color.a -= .07f;
                     await Task.Delay(50);
                 }
-                Debug.LogError("end tween");
                 containter.istweening = false;
             }
             else containter.color.a = 1f;
         }
+        public static PropertyName STRING_TYPE_NAME = "System.String";
+        public static PropertyName CHAR_TYPE_NAME = "System.Char";
+        public static PropertyName DOTNET_TYPE_NAME = "System.Type";
+        public static PropertyName BOOLEAN_TYPE_NAME = "System.Boolean";
+        public static PropertyName INTEGER_TYPE_NAME = "System.Int32";
+        public static PropertyName LONG_TYPE_NAME = "System.Int64";
+        public static PropertyName FLOAT_TYPE_NAME = "System.Single";
+        public static PropertyName DOUBLE_TYPE_NAME = "System.Double";
+        public static PropertyName VECTOR2_TYPE_NAME = "UnityEngine.Vector2";
+        public static PropertyName VECTOR3_TYPE_NAME = "UnityEngine.Vector3";
+        public static PropertyName VECTOR4_TYPE_NAME = "UnityEngine.Vector4";
+        public static PropertyName QUATERNION_TYPE_NAME = "UnityEngine.Quaternion";
+        public static PropertyName UNITYRECT_TYPE_NAME = "UnityEngine.Rect";
+        public static PropertyName UNITYBOUNDS_TYPE_NAME = "UnityEngine.Bounds";
+        public static PropertyName UNITYCOLOR_TYPE_NAME = "UnityEngine.Color";
+        public static PropertyName UNITYCURVE_TYPE_NAME = "UnityEngine.AnimationCurve";
+        public static PropertyName UNITYOBJECt_TYPE_NAME = "UnityEngine.Object";
         //=======================
         // Inspector
         //=======================

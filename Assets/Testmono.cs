@@ -2,6 +2,7 @@
 using System.Collections;
 class Testmono : MonoBehaviour
 {
+    public void testmonomethod() => Debug.Log("so will this leak");
     public IEnumerator memleaktest()
     {
         while (true)

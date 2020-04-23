@@ -6,13 +6,13 @@ namespace VisualEvent
     {
         [SerializeField]
         string TargetType;
-        public sealed override void initialize()
+        public override void OnAfterDeserialize()
         {
             if (methodData.Length > 0)
             {
                 var deltype = Type.GetType(TargetType);
-                var method = Utility.QuickDeseralizer(deltype, methodData,out paramtypes);
-                if (m_target != null)
+                var method = Utility.QuickDeseralizer(deltype, methodData, out paramtypes);
+                if (isUnityTarget)
                     delegateInstance = createDelegate(method, m_target);
                 else
                     delegateInstance = createDelegate(method, Activator.CreateInstance(deltype));

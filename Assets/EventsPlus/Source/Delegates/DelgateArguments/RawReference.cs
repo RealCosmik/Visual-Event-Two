@@ -5,12 +5,12 @@ using System.Reflection;
 namespace VisualEvent
 {
     [System.Serializable]
-    public class RawReference :RawDelegate
+    public class RawReference : RawDelegate
     {
-        public string ParentArgumentType;
         [SerializeField] bool m_isvaluetype;
         [SerializeField] bool isparentargstring;
         [SerializeField] bool m_isDelegate;
+        [SerializeField] bool willdeseralize;
         public bool isDelegate => m_isDelegate;
         public bool isvaluetype => m_isvaluetype;
         public bool isparentargumentstring => isparentargstring;
@@ -19,12 +19,18 @@ namespace VisualEvent
         {
             CreateFieldGetter<int>(null, null);
         }
+        public override void OnAfterDeserialize()
+        {
+            if (willdeseralize)
+                delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData, out paramtypes), m_target);
+            else Debug.LogWarning("skip me");
+        }
         private protected sealed override Delegate createDelegate(MemberInfo tMember, object target)
         {
-            if(tMember is FieldInfo field_info)
+            if (tMember is FieldInfo field_info)
             {
-                return typeof(RawReference).GetMethod("CreateFieldAction", Utility.memberBinding).MakeGenericMethod(field_info.ReflectedType, 
-                    field_info.FieldType).Invoke(this, new object[] { target, field_info}) as System.Delegate;
+                return typeof(RawReference).GetMethod("CreateFieldGetter", Utility.memberBinding).MakeGenericMethod(field_info.FieldType)
+                    .Invoke(this, new object[] { target, field_info }) as System.Delegate;
             }
             else if (tMember is PropertyInfo prop_info)
             {
@@ -42,7 +48,6 @@ namespace VisualEvent
             Debug.Log((this as RawReference)?.isparentargumentstring);
             if ((this as RawReference)?.isparentargumentstring == true)
                 return new Func<string>(() => FieldGetter.Invoke().ToString());
-
             else
             {
                 Func<A> safegetter = () => (A)FieldGetter.Invoke();

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 0
 --- !u!196 &4
@@ -151,21 +152,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iterations: 1000000
   publisherMethodVoid:
+    isinvoking: 0
     m_calls:
-    - m_target: {fileID: 327523031}
-      methodData:
-      - 8
-      - speedTestMethodVoid
-      isStatic: 0
-      m_arguments: []
-      m_isDynamic: 0
-      m_runtime: 0
-      TargetType: 
-      m_isYieldableCall: 0
-    isinitialized: 0
+    - id: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   publisherMethodReturn:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   unityEventMethod:
     m_PersistentCalls:
       m_Calls:
@@ -182,11 +178,15 @@ MonoBehaviour:
         m_CallState: 2
   speedTestVariable: 0
   publisherVariable:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   publisherProperty:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   unityEventProperty:
     m_PersistentCalls:
       m_Calls:
@@ -202,33 +202,68 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   publisher0:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   publisher1:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   test1Variable: 0
   publisher2:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   publisher3:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   publisher4:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   publisher5:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   publisher6:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   publisher7:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
   publisher8:
+    isinvoking: 0
     m_calls: []
-    isinitialized: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: RawCall, ns: VisualEvent, asm: Assembly-CSharp}
+      data:
+        m_target: {fileID: 327523031}
+        methodData:
+        - 8
+        - speedTestMethodVoid
+        isStatic: 0
+        isUnityTarget: 1
+        m_isYieldableCall: 0
+        Creationmethod: createActionCall0
+        m_arguments: []
+        m_isDynamic: 0
+        m_runtime: 0
+        TargetType: 
 --- !u!4 &327523032
 Transform:
   m_ObjectHideFlags: 0
@@ -268,8 +303,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515595919}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10

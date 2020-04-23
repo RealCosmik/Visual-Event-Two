@@ -80,6 +80,8 @@ namespace VisualEvent
         /// <summary>Invokes the <see cref="m_oninvoke"/> event</summary>
         public void Invoke()
         {
+            if (!isinitialized)
+                initialize();
             m_oninvoke?.Invoke();
             if (hasyield)
                 ExecuteYieldedDelegates();
@@ -118,7 +120,7 @@ namespace VisualEvent
     /// <summary>1-Parameter Publisher</summary>
     public class VisualDelegate<A> : VisualDelegateBase
     {
-      
+
         //=======================
         // Variables
         //=======================
@@ -161,9 +163,14 @@ namespace VisualEvent
             if (raw_delegate_instance is Action call_delegate)
             {
                 if (!hasyield)
-                    m_oninvoke += _ => call_delegate();
+                    m_oninvoke += _ =>
+                    {
+                        if (call.target == null)
+                            removeCall(call);
+                        else call_delegate();
+                    };
                 else
-                    YieldedDelegates.Add(CreateYieldableCall(call_delegate));
+                    YieldedDelegates.Add(CreateYieldableCall(call_delegate, call));
             }
             // this will only have happen if the call is labeled as dynamic because it matches the param of this delegate
             else if (raw_delegate_instance is Action<A> dynamic_call)
@@ -185,11 +192,11 @@ namespace VisualEvent
             else Debug.LogWarning("no case found");
         }
 
-        internal Func<A, IEnumerator> CreateYieldableCall(Action action)
+        internal Func<A, IEnumerator> CreateYieldableCall(Action action, RawDelegate call)
         {
             Func<A, IEnumerator> yieldableCall = _ =>
              {
-                 action();
+                     action();
                  return BreakYield();
              };
             return yieldableCall;
@@ -207,6 +214,7 @@ namespace VisualEvent
         protected override void RemoveCallFromInvocation(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A>;
+            tCall.delegateInstance = null;
         }
 
         //=======================
@@ -215,6 +223,10 @@ namespace VisualEvent
         /// <summary>Invokes the <see cref="VisualDelegate.m_oninvoke"/> and <see cref="m_oninvoke"/> events</summary>
         public void Invoke(A val1)
         {
+            //lazy initilization of delegate
+            if (!isinitialized)
+                initialize();
+
             isinvoking = true;
             if (hasyield)
                 Yield_target?.StartCoroutine(ExecuteYieldedDelegates(val1));
@@ -238,8 +250,8 @@ namespace VisualEvent
                         yield break;
                     else yield return Yield_target.StartCoroutine(YieldedDelegates[i](val1));
                 }
-                if(!Application.isEditor)
-                isinvoking = false;
+                if (!Application.isEditor)
+                    isinvoking = false;
             }
         }
 
@@ -801,7 +813,7 @@ namespace VisualEvent
 
         private protected override void InitializeYieldList()
         {
-            YieldedDelegates = YieldedDelegates ?? new List<Func<A, B, C, D, E,F, IEnumerator>>(m_calls.Count);
+            YieldedDelegates = YieldedDelegates ?? new List<Func<A, B, C, D, E, F, IEnumerator>>(m_calls.Count);
         }
         //=======================
         // Call
@@ -818,7 +830,7 @@ namespace VisualEvent
                     YieldedDelegates.Add(CreateYieldableCall(call_delegate));
             }
             // this will only have happen if the call is labeled as dynamic because it matches the param of this delegate
-            else if (raw_delegate_instance is Action<A, B, C, D, E,F> dynamic_call)
+            else if (raw_delegate_instance is Action<A, B, C, D, E, F> dynamic_call)
             {
                 if (!hasyield)
                     m_oninvoke += dynamic_call;
@@ -827,10 +839,10 @@ namespace VisualEvent
             // if the call is an  void coroutine or a corutine with pre-defined arguments
             else if (raw_delegate_instance is Func<IEnumerator> corutineCall)
             {
-                YieldedDelegates.Add((val1, val2, val3, val4, val5,val6) => corutineCall());
+                YieldedDelegates.Add((val1, val2, val3, val4, val5, val6) => corutineCall());
             }
             // corutine thats dynamic 
-            else if (raw_delegate_instance is Func<A, B, C, D, E,F, IEnumerator> DynamicRoutineCall)
+            else if (raw_delegate_instance is Func<A, B, C, D, E, F, IEnumerator> DynamicRoutineCall)
             {
                 YieldedDelegates.Add(DynamicRoutineCall);
             }
@@ -847,13 +859,13 @@ namespace VisualEvent
             return yieldableCall;
         }
 
-        private Func<A, B, C, D, E,F, IEnumerator> CreateYieldableDynamicDelegate(Action<A, B, C, D, E,F> action)
+        private Func<A, B, C, D, E, F, IEnumerator> CreateYieldableDynamicDelegate(Action<A, B, C, D, E, F> action)
         {
-            Func<A, B, C, D, E,F, IEnumerator> yieldable_delegate = (val, val2, val3, val4, val5,val6) =>
-            {
-                action(val, val2, val3, val4, val5,val6);
-                return BreakYield();
-            };
+            Func<A, B, C, D, E, F, IEnumerator> yieldable_delegate = (val, val2, val3, val4, val5, val6) =>
+             {
+                 action(val, val2, val3, val4, val5, val6);
+                 return BreakYield();
+             };
             return yieldable_delegate;
         }
 
@@ -878,7 +890,7 @@ namespace VisualEvent
     // Class Declaration
     //##########################
     /// <summary>7-Parameter Publisher</summary>
-    public class VisualDelegate<A, B, C, D, E, F, G> : VisualDelegate<A,B,C>
+    public class VisualDelegate<A, B, C, D, E, F, G> : VisualDelegate<A, B, C>
     {
         //=======================
         // Variables

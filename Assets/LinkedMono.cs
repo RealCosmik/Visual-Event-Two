@@ -26,7 +26,7 @@ class LinkedMono : MonoBehaviour
     public void customtype(Person p) => Debug.Log("custom type");
     private void Start()
     {
-       ///Cosmik.initialize();
+       // Cosmik.initialize();
     }
     private void IkramislookingProgrammer(int x) => Debug.Log("<color=blue> she loves me with code</color>");
     public void IkramislookingArt(int x) => Debug.Log("<color=blue> she loves me without code </color>");
@@ -153,7 +153,7 @@ class LinkedMono : MonoBehaviour
     }
 }
 [System.Serializable]
-public class intpub : VisualDelegate<int> { }
+public sealed class intpub : VisualDelegate<int> { }
 [System.Serializable]
 public class visual4 : VisualDelegate<int, string, bool, char> { }
 [System.Serializable]

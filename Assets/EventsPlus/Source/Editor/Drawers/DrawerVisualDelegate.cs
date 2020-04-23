@@ -54,18 +54,13 @@ namespace VisualEvent
                 };
                 tempList.drawElementBackgroundCallback += (Rect rect, int index, bool isActive, bool isFocused) =>
                  {
-                     var cache = ViewCache.GetVisualDelegateInstanceCache(tProperty).RawCallCache;
-                     if (index >= 0 && index < cache.Count && cache[index].delegateView.CurrentTarget != null)
-                     {
-                         if (tempList.index == index)
-                         {
-                             EditorGUI.DrawRect(rect, SelectedColor);
-                             return;
-                         }
-                         if (index % 2 == 0)
-                             EditorGUI.DrawRect(rect, EvenColor);
-                         else EditorGUI.DrawRect(rect, OddColor);
-                     }
+                     if (!tempList.HasKeyboardControl())
+                         tempList.index = -1;
+                     if (tempList.index == index)
+                         EditorGUI.DrawRect(rect, SelectedColor);
+                     else if (index % 2 == 0)
+                         EditorGUI.DrawRect(rect, EvenColor);
+                     else EditorGUI.DrawRect(rect, OddColor);
                  };
                 tempList.drawElementCallback += (Rect rect, int index, bool tIsActive, bool tIsFocused) =>
                 {
@@ -149,7 +144,6 @@ namespace VisualEvent
                 {
                     EditorGUI.DrawRect(tPosition, delcache.color);
                     var all_inspectors = Resources.FindObjectsOfTypeAll(VisualEdiotrUtility.inspector_type);
-                    Debug.Log(all_inspectors.Length);
                     for (int i = 0; i < all_inspectors.Length; i++)
                     {
                         (all_inspectors[i] as EditorWindow).Repaint();
@@ -159,8 +153,8 @@ namespace VisualEvent
             }
             if (EditorGUI.EndChangeCheck())
             {
-                tProperty.serializedObject.ApplyModifiedProperties();
                 PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
+                tProperty.serializedObject.ApplyModifiedProperties();
                 if (EditorApplication.isPlaying)
                 {
                     Debug.Log("change");
@@ -325,7 +319,7 @@ namespace VisualEvent
                 currentdelegateprop.FindPropertyRelative("m_isDynamic").boolValue = copiedprop.FindPropertyRelative("m_isDynamic").boolValue;
                 var currentcache = ViewCache.GetRawCallCache(currentdelegateprop) as RawCallView;
                 currentcache.SetParentTarget(copiedcache.CurrentTarget);
-                currentcache.CurrentTargetIndex = copiedcache.CurrentTargetIndex;
+                //currentcache.CurrentTargetIndex = copiedcache.CurrentTargetIndex;
                 currentcache.UpdateSelectedTarget(copiedcache.CurrentTargetIndex);
                 currentcache.UpdateSelectedMember(copiedcache.selectedMemberIndex);
                 currentcache.isDynamic = copiedcache.isDynamic;

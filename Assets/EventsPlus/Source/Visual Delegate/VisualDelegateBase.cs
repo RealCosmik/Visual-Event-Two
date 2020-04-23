@@ -12,7 +12,7 @@ namespace VisualEvent
         public int currentIndex;
         /// <summary>List of raw <see cref="RawCall"/> objects that this Publisher invokes using predefined arguments</summary>
         [SerializeReference]
-        protected List<RawDelegate> m_calls; 
+        public List<RawDelegate> m_calls;
         [SerializeField] protected MonoBehaviour Yield_target;
         public bool hasyield;
         /// <summary>
@@ -33,16 +33,12 @@ namespace VisualEvent
         {
             if (hasyield)
                 InitializeYieldList();
-            if (m_calls != null)
-            { 
-                int tempListLength = m_calls.Count;
-                for (int i = 0; i < tempListLength; ++i)
+            int tempListLength = m_calls.Count;
+            for (int i = 0; i < tempListLength; i++)
+            {
+                if (m_calls[i] != null && m_calls[i].delegateInstance != null)
                 {
-                    var currentdelegate = m_calls[i];
-                    if (currentdelegate is RawCall rawdelegatecall)
-                        rawdelegatecall.initialize(this);
-                    else currentdelegate.initialize();
-                        AppendCallToInvocation(currentdelegate);
+                    AppendCallToInvocation(m_calls[i]);
                 }
             }
             isinitialized = true;
@@ -58,7 +54,7 @@ namespace VisualEvent
         /// <summary>Attempts to remove a <see cref="RawCall"/> from the Publisher's internal array and event(s)</summary>
         /// <param name="tCall">RawCall to remove</param>
         /// <returns>True if successful</returns>
-        protected internal bool removeCall(RawCall tCall)
+        protected internal bool removeCall(RawDelegate tCall)
         {
             return tCall != null && m_calls != null && removeCall(m_calls.IndexOf(tCall));
         }

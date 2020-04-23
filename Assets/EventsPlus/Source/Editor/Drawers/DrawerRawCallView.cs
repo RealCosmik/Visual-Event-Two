@@ -197,6 +197,7 @@ namespace VisualEvent
 
         protected override void handleMemberUpdate(SerializedProperty tProperty, RawCallView tCache)
         {
+            UpdateMethodName(tProperty, tCache);
             base.handleMemberUpdate(tProperty, tCache);
             handleDynamicUpdate(tProperty, tCache as RawCallView);
         }
@@ -262,7 +263,6 @@ namespace VisualEvent
             }
             PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
             tProperty.serializedObject.ApplyModifiedProperties();
-            UpdateMethodName(tProperty, delegateCache);
         }
         /// <summary>
         /// used populate string with method name that will be called at runtime
@@ -276,36 +276,38 @@ namespace VisualEvent
             {
                 var argumentlength = rawcallview.arguments.Length;
                 MemberInfo info = rawcallview.SelectedMember.info;
+                string NewmethodName = null;
                 if (info is MethodInfo method_info)
                 {
                     if (method_info.ReturnType == typeof(void))
                     {
                         if (rawcallview.isDynamic)
-                            creationmethodprop.stringValue = "createAction" + argumentlength;
-                        else creationmethodprop.stringValue = "createActionCall" + argumentlength;
+                            NewmethodName = "createAction" + argumentlength;
+                        else NewmethodName = "createActionCall" + argumentlength;
                     }
                     else
                     {
                         if (rawcallview.isDynamic)
-                            creationmethodprop.stringValue = "createFunc" + argumentlength;
-                        else creationmethodprop.stringValue = "createFuncCall" + argumentlength;
+                            NewmethodName = "createFunc" + argumentlength;
+                        else NewmethodName = "createFuncCall" + argumentlength;
                     }
                 }
                 else if (info is FieldInfo)
                 {
                     if (rawcallview.isDynamic)
-                        creationmethodprop.stringValue = "createFieldAction";
-                    else creationmethodprop.stringValue = "createFieldCall";
+                        NewmethodName = "createFieldAction";
+                    else NewmethodName = "createFieldCall";
                 }
                 else
                 {
                     if (rawcallview.isDynamic)
-                        creationmethodprop.stringValue = "createPropertyAction";
-                    else creationmethodprop.stringValue = "createPropertyCall";
+                        NewmethodName = "createPropertyAction";
+                    else NewmethodName = "createPropertyCall";
                 }
-                Debug.Log(creationmethodprop.stringValue);
-                PrefabUtility.RecordPrefabInstancePropertyModifications(tproperty.serializedObject.targetObject);
-                tproperty.serializedObject.ApplyModifiedProperties();
+                if (NewmethodName != null && !NewmethodName.Equals(creationmethodprop.stringValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    creationmethodprop.stringValue = NewmethodName;
+                }
             }
         }
     }

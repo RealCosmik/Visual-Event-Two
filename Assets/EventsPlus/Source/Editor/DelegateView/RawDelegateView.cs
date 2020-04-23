@@ -22,7 +22,7 @@ namespace VisualEvent
         /// <summary>Display names of each target in a drop-down</summary>
         public string[] _targetNames;
         /// <summary>Index of the currently selected target</summary> 
-        public int CurrentTargetIndex; 
+        public int CurrentTargetIndex { get; protected set; }
         /// <summary>Display names of each of the members belonging to the selected target</summary>
         public string[] memberNames { get; protected set; }
         /// <summary>Cached members belonging to the selected target</summary>

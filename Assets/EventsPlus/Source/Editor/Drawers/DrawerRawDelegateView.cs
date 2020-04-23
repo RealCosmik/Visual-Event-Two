@@ -48,6 +48,7 @@ namespace VisualEvent
                     //on target change 
                     if (EditorGUI.EndChangeCheck())
                     {
+                        tProperty.FindPropertyRelative("isUnityTarget").boolValue = true;
                         DelegateCache.HasDelegateError = false;
                         DelegateCache.SetParentTarget(UserParentTarget);
                         handleTargetUpdate(tProperty, DelegateCache);
@@ -58,13 +59,21 @@ namespace VisualEvent
                 }
                 else // Target drop-down
                 {
-                    //  tPosition.width = tempFieldWidth + EditorGUIUtility.labelWidth + 30;
+                    var validityprop = tProperty.FindPropertyRelative("isUnityTarget");
+                    if (DelegateCache.CurrentTargetIndex != 0 && validityprop.boolValue == false)
+                    {
+                        validityprop.boolValue = true;
+                    }
                     EditorGUI.BeginChangeCheck();
                     targetpos.width = tPosition.width / 3;
                     int UserSelectedTarget = EditorGUI.Popup(targetpos, tLabel.text, DelegateCache.CurrentTargetIndex, DelegateCache._targetNames);
                     // on memberchange 
                     if (EditorGUI.EndChangeCheck())
                     {
+                        if (UserSelectedTarget == 0)
+                            validityprop.boolValue = false;
+                        else validityprop.boolValue = true;
+
                         DelegateCache.HasDelegateError = false;
                         if (UserSelectedTarget != DelegateCache.CurrentTargetIndex)
                         {
@@ -172,9 +181,11 @@ namespace VisualEvent
                 methodData_prop.arraySize = 0;
             else
                 VisualEdiotrUtility.CopySeralizedMethodDataToProp(methodData_prop, tCache.SelectedMember.SeralizedData);
-
-            tProperty.serializedObject.ApplyModifiedProperties();
-            PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
+            if (!(tCache is RawCallView))
+            {
+                tProperty.serializedObject.ApplyModifiedProperties();
+                PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
+            }
         }
 
         private static bool DropdownButton(int id, Rect position, GUIContent content)

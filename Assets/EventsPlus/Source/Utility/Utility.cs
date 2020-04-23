@@ -38,35 +38,39 @@ namespace VisualEvent
         public static MemberInfo QuickDeseralizer(Type CurrentType, string[] methodata, out Type[] paramtypes, BindingFlags memberflags = memberBinding)
         {
             MemberInfo member_info = null;
-            var member_type = (MemberTypes)ConvertStringToInt(methodata[0]);
-            var member_name = methodata[1];
-            if (member_type != MemberTypes.Method) //field or property
+            if (methodata.Length > 0)
             {
-                var reflected_members = CurrentType.GetMember(member_name, member_type, memberflags);
-                if (reflected_members != null && reflected_members.Length > 0)
-                    member_info = reflected_members[0];
-                paramtypes = null;
-            }
-            // here we do work if the reflected member is a method
-            else
-            {
-                paramtypes = null;
-                MethodInfo method_info;
-                // data only contiains membertype and method name i.e its a void method
-                if (methodata.Length == 2)
-                    method_info = CurrentType.GetMethod(member_name, memberflags, null, Type.EmptyTypes, null);
+                var member_type = (MemberTypes)ConvertStringToInt(methodata[0]);
+                var member_name = methodata[1];
+                if (member_type != MemberTypes.Method) //field or property
+                {
+                    var reflected_members = CurrentType.GetMember(member_name, member_type, memberflags);
+                    if (reflected_members != null && reflected_members.Length > 0)
+                        member_info = reflected_members[0];
+                    paramtypes = null;
+                }
+                // here we do work if the reflected member is a method
                 else
                 {
-                    paramtypes = new Type[methodata.Length - 2];
-                    for (int i = 2; i < methodata.Length; i++)
+                    paramtypes = null;
+                    MethodInfo method_info;
+                    // data only contiains membertype and method name i.e its a void method
+                    if (methodata.Length == 2)
+                        method_info = CurrentType.GetMethod(member_name, memberflags, null, Type.EmptyTypes, null);
+                    else
                     {
-                        paramtypes[i - 2] = Type.GetType(methodata[i]);
+                        paramtypes = new Type[methodata.Length - 2];
+                        for (int i = 2; i < methodata.Length; i++)
+                        {
+                            paramtypes[i - 2] = Type.GetType(methodata[i]);
+                        }
+                        method_info = CurrentType.GetMethod(member_name, memberflags, null, paramtypes, null);
                     }
-                    method_info = CurrentType.GetMethod(member_name, memberflags, null, paramtypes, null);
+                    //method_info.MethodHandle.GetFunctionPointer();
+                    member_info = method_info;
                 }
-                //method_info.MethodHandle.GetFunctionPointer();
-                member_info = method_info;
             }
+            else paramtypes = null;
             //  Debug.Log(member_info == null);
             return member_info;
         }
@@ -91,7 +95,7 @@ namespace VisualEvent
         }
 
         //TYPE NAMES
-        public const string STRING_TYPE_NAME = "System.String";
+        public const string STRING_TYPE_NAME =  "System.String";
         public const string CHAR_TYPE_NAME = "System.Char";
         public const string DOTNET_TYPE_NAME = "System.Type";
         public const string BOOLEAN_TYPE_NAME = "System.Boolean";

@@ -31,12 +31,12 @@ namespace VisualEvent
             }
             else if (argumentCache.hasCustomType)
             {
-                  tempHeight = base.GetPropertyHeight(tProperty, tLabel);
+                tempHeight = base.GetPropertyHeight(tProperty, tLabel);
 
                 tempHeight = EditorGUI.GetPropertyHeight(tProperty.FindPropertyRelative("custom"));
             }
             else
-            { 
+            {
                 tempHeight = base.GetPropertyHeight(tProperty, tLabel);
                 string argumentName = tProperty.FindPropertyRelative("FullArgumentName").stringValue;
                 if (argumentName == "UnityEngine.Rect")
@@ -75,7 +75,10 @@ namespace VisualEvent
             EditorGUI.BeginChangeCheck();
             useReference.boolValue = EditorGUI.Toggle(togglerect, useReference.boolValue);
             if (EditorGUI.EndChangeCheck())
+            {
+                tProperty.FindPropertyRelative("call_Reference").FindPropertyRelative("willdeseralize").boolValue = useReference.boolValue;
                 ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
+            }
 
             style.CalcMinMaxWidth(paramLabel, out float minoffset, out float maxoffset);
             var labelpos = tPosition;
@@ -110,249 +113,265 @@ namespace VisualEvent
             RawArgumentView argument_cache = ViewCache.GetRawArgumentCache(tProperty);
             string assemblyTypeName = tProperty.FindPropertyRelative("assemblyQualifiedArgumentName").stringValue;
             string FullTypeName = tProperty.FindPropertyRelative("FullArgumentName").stringValue;
+            var propertyID = new PropertyName(FullTypeName);
             argpos.x += 10;
-            switch (FullTypeName)
+            if (String.IsNullOrEmpty(assemblyTypeName))
             {
-                case "System.String":
-                    argument_cache.hasCustomType = false;
-                    SerializedProperty tempString = tProperty.FindPropertyRelative("stringValue");
-                    if (!EditorApplication.isPlaying)
-                        tempString.stringValue = EditorGUI.TextField(argpos, tempString.stringValue);
-                    else tempString.stringValue = EditorGUI.DelayedTextField(argpos, tempString.stringValue);
-                    break;
-                case "System.Char":
-                    argument_cache.hasCustomType = false;
-                    tempString = tProperty.FindPropertyRelative("stringValue");
-                    if (!EditorApplication.isPlaying)
-                        tempString.stringValue = EditorGUI.TextField(argpos, tempString.stringValue)[0].ToString();
-                    else tempString.stringValue = EditorGUI.DelayedTextField(argpos, tempString.stringValue)[0].ToString();
-                    break;
-                case "System.Boolean":
-                    argument_cache.hasCustomType = false;
-                    argpos.x += 40;
-                    SerializedProperty tempX1 = tProperty.FindPropertyRelative("_x1");
-                    tempX1.floatValue = EditorGUI.ToggleLeft(argpos, GUIContent.none, tempX1.floatValue > 0) ? 1 : -1;
-                    break;
-                case "System.Int32":
-                    argument_cache.hasCustomType = false;
-                    tempX1 = tProperty.FindPropertyRelative("_x1");
-                    if (!EditorApplication.isPlaying)
-                        tempX1.floatValue = EditorGUI.IntField(argpos, GUIContent.none, (int)tempX1.floatValue);
-                    else tempX1.floatValue = EditorGUI.DelayedIntField(argpos, GUIContent.none, (int)tempX1.floatValue);
-                    break;
-                case "System.Int64":
-                    argument_cache.hasCustomType = false;
-                    SerializedProperty tempLong = tProperty.FindPropertyRelative("longValue");
-                    tempLong.longValue = EditorGUI.LongField(argpos, GUIContent.none, tempLong.longValue);
-                    break;
-                case "System.Single":
-                    argument_cache.hasCustomType = false;
-                    tempX1 = tProperty.FindPropertyRelative("_x1");
-                    if (!EditorApplication.isPlaying)
-                        tempX1.floatValue = EditorGUI.FloatField(argpos, GUIContent.none, tempX1.floatValue);
-                    else tempX1.floatValue = EditorGUI.DelayedFloatField(argpos, GUIContent.none, tempX1.floatValue);
-                    break;
-                case "System.Double":
-                    argument_cache.hasCustomType = false;
-                    SerializedProperty tempDouble = tProperty.FindPropertyRelative("doubleValue");
-                    if (!EditorApplication.isPlaying)
-                        tempDouble.doubleValue = EditorGUI.DoubleField(argpos, GUIContent.none, tempDouble.doubleValue);
-                    else tempDouble.doubleValue = EditorGUI.DelayedDoubleField(argpos, GUIContent.none, tempDouble.doubleValue);
-                    break;
-                case "UnityEngine.Vector2":
-                    argument_cache.hasCustomType = false;
-                    tempX1 = tProperty.FindPropertyRelative("_x1");
-                    SerializedProperty tempY1 = tProperty.FindPropertyRelative("_y1");
-                    EditorGUI.BeginChangeCheck();
-                    Vector2 tempVector2 = EditorGUI.Vector2Field(argpos, GUIContent.none, new Vector2(tempX1.floatValue, tempY1.floatValue));
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        tempX1.floatValue = tempVector2.x;
-                        tempY1.floatValue = tempVector2.y;
-                    }
-                    break;
-                case "UnityEngine.Vector3":
-                    argument_cache.hasCustomType = false;
-                    tempX1 = tProperty.FindPropertyRelative("_x1");
-                    tempY1 = tProperty.FindPropertyRelative("_y1");
-                    SerializedProperty tempZ1 = tProperty.FindPropertyRelative("_z1");
-                    EditorGUI.BeginChangeCheck();
-                    Vector3 tempVector3 = EditorGUI.Vector3Field(argpos, GUIContent.none, new Vector3(tempX1.floatValue, tempY1.floatValue, tempZ1.floatValue));
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        tempX1.floatValue = tempVector3.x;
-                        tempY1.floatValue = tempVector3.y;
-                        tempZ1.floatValue = tempVector3.z;
-                    }
-                    break;
-                case "UnityEngine.Vector4":
-                case "UnityEngine.Quaternion":
-                    argument_cache.hasCustomType = false;
-                    tempX1 = tProperty.FindPropertyRelative("_x1");
-                    tempY1 = tProperty.FindPropertyRelative("_y1");
-                    tempZ1 = tProperty.FindPropertyRelative("_z1");
-                    SerializedProperty tempX2 = tProperty.FindPropertyRelative("_x2");
+                // N/A
+                EditorGUI.LabelField(argpos, (tProperty.displayName + " Not Drawable"));
+                return;
+            }
+            if (propertyID == VisualEdiotrUtility.STRING_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                var tempString = tProperty.FindPropertyRelative("stringValue");
+                if (!EditorApplication.isPlaying)
+                    tempString.stringValue = EditorGUI.TextField(argpos, tempString.stringValue);
+                else tempString.stringValue = EditorGUI.DelayedTextField(argpos, tempString.stringValue);
+            }
+            else if (propertyID == VisualEdiotrUtility.CHAR_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                var tempString = tProperty.FindPropertyRelative("stringValue");
+                if (tempString.stringValue.Length <= 0)
+                    tempString.stringValue = " ";
+                if (!EditorApplication.isPlaying)
+                    tempString.stringValue = EditorGUI.TextField(argpos, tempString.stringValue)[0].ToString();
+                else tempString.stringValue = EditorGUI.DelayedTextField(argpos, tempString.stringValue)[0].ToString();
+            }
+            else if (propertyID == VisualEdiotrUtility.BOOLEAN_TYPE_NAME)
+            {
 
-                    EditorGUI.BeginChangeCheck();
-                    Vector4 tempVector4 = EditorGUI.Vector4Field(argpos, GUIContent.none, new Vector4(tempX1.floatValue, tempY1.floatValue, tempZ1.floatValue, tempX2.floatValue));
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        tempX1.floatValue = tempVector4.x;
-                        tempY1.floatValue = tempVector4.y;
-                        tempZ1.floatValue = tempVector4.z;
-                        tempX2.floatValue = tempVector4.w;
-                    }
-                    break;
-                case "UnityEngine.Rect":
-                    argument_cache.hasCustomType = false;
-                    tempX1 = tProperty.FindPropertyRelative("_x1");
-                    tempY1 = tProperty.FindPropertyRelative("_y1");
-                    tempZ1 = tProperty.FindPropertyRelative("_z1");
-                    tempX2 = tProperty.FindPropertyRelative("_x2");
-                    argpos.x += 10;
-                    EditorGUI.BeginChangeCheck();
-                    Rect tempRect = EditorGUI.RectField(argpos, GUIContent.none, new Rect(tempX1.floatValue, tempY1.floatValue, tempZ1.floatValue, tempX2.floatValue));
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        tempX1.floatValue = tempRect.position.x;
-                        tempY1.floatValue = tempRect.position.y;
-                        tempZ1.floatValue = tempRect.size.x;
-                        tempX2.floatValue = tempRect.size.y;
-                    }
-                    break;
-                case "UnityEngine.Bounds":
-                    argument_cache.hasCustomType = false;
-                    tempX1 = tProperty.FindPropertyRelative("_x1");
-                    tempY1 = tProperty.FindPropertyRelative("_y1");
-                    tempZ1 = tProperty.FindPropertyRelative("_z1");
-                    tempX2 = tProperty.FindPropertyRelative("_x2");
-                    SerializedProperty tempY2 = tProperty.FindPropertyRelative("_y2");
-                    SerializedProperty tempZ2 = tProperty.FindPropertyRelative("_z2");
-                    argpos.x += 5;
-                    EditorGUI.BeginChangeCheck();
+                argument_cache.hasCustomType = false;
+                argpos.x += 40;
+                var tempX1 = tProperty.FindPropertyRelative("_x1");
+                tempX1.floatValue = EditorGUI.ToggleLeft(argpos, GUIContent.none, tempX1.floatValue > 0) ? 1 : -1;
+            }
+            else if (propertyID == VisualEdiotrUtility.INTEGER_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                var tempX1 = tProperty.FindPropertyRelative("_x1");
+                if (!EditorApplication.isPlaying)
+                    tempX1.floatValue = EditorGUI.IntField(argpos, GUIContent.none, (int)tempX1.floatValue);
+                else tempX1.floatValue = EditorGUI.DelayedIntField(argpos, GUIContent.none, (int)tempX1.floatValue);
+            }
+            else if (propertyID == VisualEdiotrUtility.LONG_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                SerializedProperty tempLong = tProperty.FindPropertyRelative("longValue");
+                tempLong.longValue = EditorGUI.LongField(argpos, GUIContent.none, tempLong.longValue);
+            }
+            else if (propertyID == VisualEdiotrUtility.FLOAT_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                var tempX1 = tProperty.FindPropertyRelative("_x1");
+                if (!EditorApplication.isPlaying)
+                    tempX1.floatValue = EditorGUI.FloatField(argpos, GUIContent.none, tempX1.floatValue);
+                else tempX1.floatValue = EditorGUI.DelayedFloatField(argpos, GUIContent.none, tempX1.floatValue);
+            }
+            else if (propertyID == VisualEdiotrUtility.DOUBLE_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                SerializedProperty tempDouble = tProperty.FindPropertyRelative("doubleValue");
+                if (!EditorApplication.isPlaying)
+                    tempDouble.doubleValue = EditorGUI.DoubleField(argpos, GUIContent.none, tempDouble.doubleValue);
+                else tempDouble.doubleValue = EditorGUI.DelayedDoubleField(argpos, GUIContent.none, tempDouble.doubleValue);
+            }
+            else if (propertyID == VisualEdiotrUtility.VECTOR2_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                var tempX1 = tProperty.FindPropertyRelative("_x1");
+                var tempY1 = tProperty.FindPropertyRelative("_y1");
+                EditorGUI.BeginChangeCheck();
+                Vector2 tempVector2 = EditorGUI.Vector2Field(argpos, GUIContent.none, new Vector2(tempX1.floatValue, tempY1.floatValue));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    tempX1.floatValue = tempVector2.x;
+                    tempY1.floatValue = tempVector2.y;
+                }
+            }
+            else if (propertyID == VisualEdiotrUtility.VECTOR3_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                var tempX1 = tProperty.FindPropertyRelative("_x1");
+                var tempY1 = tProperty.FindPropertyRelative("_y1");
+                var tempZ1 = tProperty.FindPropertyRelative("_z1");
+                EditorGUI.BeginChangeCheck();
+                Vector3 tempVector3 = EditorGUI.Vector3Field(argpos, GUIContent.none, new Vector3(tempX1.floatValue, tempY1.floatValue, tempZ1.floatValue));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    tempX1.floatValue = tempVector3.x;
+                    tempY1.floatValue = tempVector3.y;
+                    tempZ1.floatValue = tempVector3.z;
+                }
+            }
+            else if (propertyID == VisualEdiotrUtility.VECTOR4_TYPE_NAME || propertyID == VisualEdiotrUtility.QUATERNION_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                var tempX1 = tProperty.FindPropertyRelative("_x1");
+                var tempY1 = tProperty.FindPropertyRelative("_y1");
+                var tempZ1 = tProperty.FindPropertyRelative("_z1");
+                var tempX2 = tProperty.FindPropertyRelative("_x2");
 
-                    Bounds tempBounds = EditorGUI.BoundsField(argpos, GUIContent.none, new Bounds(new Vector3(tempX1.floatValue, tempY1.floatValue, tempZ1.floatValue), new Vector3(tempX2.floatValue, tempY2.floatValue, tempZ2.floatValue)));
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        tempX1.floatValue = tempBounds.center.x;
-                        tempY1.floatValue = tempBounds.center.y;
-                        tempZ1.floatValue = tempBounds.center.z;
-                        tempX2.floatValue = tempBounds.size.x;
-                        tempY2.floatValue = tempBounds.size.y;
-                        tempZ2.floatValue = tempBounds.size.z;
-                    }
-                    break;
-                case "UnityEngine.Color":
-                    argument_cache.hasCustomType = false;
-                    tempX1 = tProperty.FindPropertyRelative("_x1");
-                    tempY1 = tProperty.FindPropertyRelative("_y1");
-                    tempZ1 = tProperty.FindPropertyRelative("_z1");
-                    tempX2 = tProperty.FindPropertyRelative("_x2");
+                EditorGUI.BeginChangeCheck();
+                Vector4 tempVector4 = EditorGUI.Vector4Field(argpos, GUIContent.none, new Vector4(tempX1.floatValue, tempY1.floatValue, tempZ1.floatValue, tempX2.floatValue));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    tempX1.floatValue = tempVector4.x;
+                    tempY1.floatValue = tempVector4.y;
+                    tempZ1.floatValue = tempVector4.z;
+                    tempX2.floatValue = tempVector4.w;
+                }
+            }
+            else if (propertyID == VisualEdiotrUtility.UNITYRECT_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                var tempX1 = tProperty.FindPropertyRelative("_x1");
+                var tempY1 = tProperty.FindPropertyRelative("_y1");
+                var tempZ1 = tProperty.FindPropertyRelative("_z1");
+                var tempX2 = tProperty.FindPropertyRelative("_x2");
+                argpos.x += 10;
+                EditorGUI.BeginChangeCheck();
+                Rect tempRect = EditorGUI.RectField(argpos, GUIContent.none, new Rect(tempX1.floatValue, tempY1.floatValue, tempZ1.floatValue, tempX2.floatValue));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    tempX1.floatValue = tempRect.position.x;
+                    tempY1.floatValue = tempRect.position.y;
+                    tempZ1.floatValue = tempRect.size.x;
+                    tempX2.floatValue = tempRect.size.y;
+                }
+            }
+            else if (propertyID == VisualEdiotrUtility.UNITYBOUNDS_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                var tempX1 = tProperty.FindPropertyRelative("_x1");
+                var tempY1 = tProperty.FindPropertyRelative("_y1");
+                var tempZ1 = tProperty.FindPropertyRelative("_z1");
+                var tempX2 = tProperty.FindPropertyRelative("_x2");
+                SerializedProperty tempY2 = tProperty.FindPropertyRelative("_y2");
+                SerializedProperty tempZ2 = tProperty.FindPropertyRelative("_z2");
+                argpos.x += 5;
+                EditorGUI.BeginChangeCheck();
+                Bounds tempBounds = EditorGUI.BoundsField(argpos, GUIContent.none, new Bounds(new Vector3(tempX1.floatValue, tempY1.floatValue, tempZ1.floatValue), new Vector3(tempX2.floatValue, tempY2.floatValue, tempZ2.floatValue)));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    tempX1.floatValue = tempBounds.center.x;
+                    tempY1.floatValue = tempBounds.center.y;
+                    tempZ1.floatValue = tempBounds.center.z;
+                    tempX2.floatValue = tempBounds.size.x;
+                    tempY2.floatValue = tempBounds.size.y;
+                    tempZ2.floatValue = tempBounds.size.z;
+                }
+            }
+            else if (propertyID == VisualEdiotrUtility.UNITYCOLOR_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                var tempX1 = tProperty.FindPropertyRelative("_x1");
+                var tempY1 = tProperty.FindPropertyRelative("_y1");
+                var tempZ1 = tProperty.FindPropertyRelative("_z1");
+                var tempX2 = tProperty.FindPropertyRelative("_x2");
 
-                    EditorGUI.BeginChangeCheck();
-                    Color tempColor = EditorGUI.ColorField(argpos, GUIContent.none, new Color(tempX1.floatValue, tempY1.floatValue, tempZ1.floatValue, tempX2.floatValue));
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        tempX1.floatValue = tempColor.r;
-                        tempY1.floatValue = tempColor.g;
-                        tempZ1.floatValue = tempColor.b;
-                        tempX2.floatValue = tempColor.a;
-                    }
-                    break;
-                case "UnityEngine.AnimationCurve":
-                    argument_cache.hasCustomType = false;
-                    SerializedProperty tempCurve = tProperty.FindPropertyRelative("animationCurveValue");
-                    tempCurve.animationCurveValue = EditorGUI.CurveField(argpos, GUIContent.none, tempCurve.animationCurveValue);
-                    break;
-                case "System.Type":
-                    argument_cache.hasCustomType = false;
-                    EditorGUI.BeginChangeCheck();
-                    argument_cache.CurrentScript = EditorGUI.ObjectField(argpos, argument_cache.CurrentScript, typeof(MonoScript), false) as MonoScript;
+                EditorGUI.BeginChangeCheck();
+                Color tempColor = EditorGUI.ColorField(argpos, GUIContent.none, new Color(tempX1.floatValue, tempY1.floatValue, tempZ1.floatValue, tempX2.floatValue));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    tempX1.floatValue = tempColor.r;
+                    tempY1.floatValue = tempColor.g;
+                    tempZ1.floatValue = tempColor.b;
+                    tempX2.floatValue = tempColor.a;
+                }
+            }
+            else if (propertyID == VisualEdiotrUtility.UNITYCURVE_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                SerializedProperty tempCurve = tProperty.FindPropertyRelative("animationCurveValue");
+                tempCurve.animationCurveValue = EditorGUI.CurveField(argpos, GUIContent.none, tempCurve.animationCurveValue);
+            }
+            else if (propertyID == VisualEdiotrUtility.DOTNET_TYPE_NAME)
+            {
+                argument_cache.hasCustomType = false;
+                EditorGUI.BeginChangeCheck();
+                argument_cache.CurrentScript = EditorGUI.ObjectField(argpos, argument_cache.CurrentScript, typeof(MonoScript), false) as MonoScript;
 
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        var mono_class = argument_cache.CurrentScript?.GetClass();
-                        if (mono_class != null)
-                            tProperty.FindPropertyRelative("stringValue").stringValue = mono_class.AssemblyQualifiedName;
-                        else
-                        {
-                            argument_cache.CurrentScript = null;
-                            tProperty.FindPropertyRelative("stringValue").stringValue = string.Empty;
-                        }
-                    }
-                    break;
-                default:
-                    if (String.IsNullOrEmpty(assemblyTypeName))
-                    {
-                        // N/A
-                        EditorGUI.LabelField(argpos, (tProperty.displayName + " Not Drawable"));
-                    }
+                if (EditorGUI.EndChangeCheck())
+                {
+                    var mono_class = argument_cache.CurrentScript?.GetClass();
+                    if (mono_class != null)
+                        tProperty.FindPropertyRelative("stringValue").stringValue = mono_class.AssemblyQualifiedName;
                     else
                     {
-                        // Convert string to type
-                        Type current_type = Type.GetType(assemblyTypeName);
-                        if (current_type != null)
-                        {
-                            // Enumerator
-                            if (current_type.IsEnum)
-                            {
-                                argument_cache.hasCustomType = false;
-                                tempX1 = tProperty.FindPropertyRelative("_x1");
-
-                                if (current_type.IsDefined(typeof(FlagsAttribute), false))
-                                {
-                                    tempX1.floatValue = Convert.ToSingle(EditorGUI.EnumFlagsField(argpos, GUIContent.none, (Enum)Enum.ToObject(current_type, (int)tempX1.floatValue)));
-                                }
-                                else
-                                {
-                                    tempX1.floatValue = Convert.ToSingle(EditorGUI.EnumPopup(argpos, GUIContent.none, (Enum)Enum.ToObject(current_type, (int)tempX1.floatValue)));
-                                }
-                            }
-                            // Unity object
-                            else if (current_type.IsClass && (current_type == typeof(UnityEngine.Object) || current_type.IsSubclassOf(typeof(UnityEngine.Object))))
-                            {
-                                argument_cache.hasCustomType = false;
-                                SerializedProperty tempObject = tProperty.FindPropertyRelative("objectValue");
-                                tempObject.objectReferenceValue = EditorGUI.ObjectField(argpos, GUIContent.none, tempObject.objectReferenceValue, current_type, true);
-                            }
-                            else if (current_type.IsSubclassOf(typeof(Delegate)))
-                            {
-                                tProperty.FindPropertyRelative("UseReference").boolValue = true;
-                                tProperty.serializedObject.ApplyModifiedProperties();
-                                ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
-                            }
-                            //TODO:Re-implement this when seralized reference atti
-                            // custom-user defined types
-                            //else if (typeof(IVisualArgument).IsAssignableFrom(current_type))
-                            //{
-                            //    var customprop = tProperty.FindPropertyRelative("custom");
-                            //    if (argument_cache.CurrentCustomType != current_type)
-                            //    {
-                            //        Debug.Log("catch up");
-                            //        argument_cache.hasCustomType = true;
-                            //        ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
-                            //        argument_cache.CurrentCustomType = current_type;
-                            //        customprop.managedReferenceValue = Activator.CreateInstance(current_type);
-                            //    } 
-                            //    customprop.isExpanded = true;
-                            //    argpos.y -= 50f;
-                            //    EditorGUI.PropertyField(argpos, customprop,GUIContent.none,true);
-                            //}
-                            else
-                            {
-                                argument_cache.hasCustomType = false;
-                                EditorGUI.LabelField(argpos, (FullTypeName + " Not Drawable"));
-                            }
-                        }
-                        // N/A
-                        else EditorGUI.LabelField(argpos, (FullTypeName + " Not Drawable"));
+                        argument_cache.CurrentScript = null;
+                        tProperty.FindPropertyRelative("stringValue").stringValue = string.Empty;
                     }
-                    break;
+                }
             }
-            // TODO: 
-            //  tProperty.FindPropertyRelative("hasCustomType").boolValue = argument_cache.hasCustomType;
+            else
+            {
+                // Convert string to type
+                Type current_type = Type.GetType(assemblyTypeName);
+                if (current_type != null)
+                {
+                    // Enumerator
+                    if (current_type.IsEnum)
+                    {
+                        argument_cache.hasCustomType = false;
+                        var tempX1 = tProperty.FindPropertyRelative("_x1");
+
+                        if (current_type.IsDefined(typeof(FlagsAttribute), false))
+                        {
+                            tempX1.floatValue = Convert.ToSingle(EditorGUI.EnumFlagsField(argpos, GUIContent.none, (Enum)Enum.ToObject(current_type, (int)tempX1.floatValue)));
+                        }
+                        else
+                        {
+                            tempX1.floatValue = Convert.ToSingle(EditorGUI.EnumPopup(argpos, GUIContent.none, (Enum)Enum.ToObject(current_type, (int)tempX1.floatValue)));
+                        }
+                    }
+                    // Unity object
+                    else if (current_type.IsClass && (current_type == typeof(UnityEngine.Object) || current_type.IsSubclassOf(typeof(UnityEngine.Object))))
+                    {
+                        argument_cache.hasCustomType = false;
+                        SerializedProperty tempObject = tProperty.FindPropertyRelative("objectValue");
+                        SerializedProperty argumentvalidity = tProperty.FindPropertyRelative("m_objecthasvalue");
+                        var argument_object = EditorGUI.ObjectField(argpos, GUIContent.none, tempObject.objectReferenceValue, current_type, true);
+                        tempObject.objectReferenceValue = argument_object;
+                        argumentvalidity.boolValue = argument_object != null;
+                    }
+                    else if (current_type.IsSubclassOf(typeof(Delegate)))
+                    {
+                        tProperty.FindPropertyRelative("UseReference").boolValue = true;
+                        tProperty.serializedObject.ApplyModifiedProperties();
+                        ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
+                    }
+                    //TODO:Re-implement this when seralized reference atti
+                    // custom-user defined types
+                    //else if (typeof(IVisualArgument).IsAssignableFrom(current_type))
+                    //{
+                    //    var customprop = tProperty.FindPropertyRelative("custom");
+                    //    if (argument_cache.CurrentCustomType != current_type)
+                    //    {
+                    //        Debug.Log("catch up");
+                    //        argument_cache.hasCustomType = true;
+                    //        ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
+                    //        argument_cache.CurrentCustomType = current_type;
+                    //        customprop.managedReferenceValue = Activator.CreateInstance(current_type);
+                    //    } 
+                    //    customprop.isExpanded = true;
+                    //    argpos.y -= 50f;
+                    //    EditorGUI.PropertyField(argpos, customprop,GUIContent.none,true);
+                    //}
+                    else
+                    {
+                        argument_cache.hasCustomType = false;
+                        EditorGUI.LabelField(argpos, (FullTypeName + " Not Drawable"));
+                    }
+                }
+                // N/A
+                else EditorGUI.LabelField(argpos, (FullTypeName + " Not Drawable"));
+            }
         }
-        private void DisplayReference(Rect rect, SerializedProperty argumentprop, GUIContent label,GUIContent labeltwo, RawArgumentView argCache)
+        // TODO: 
+        //  tProperty.FindPropertyRelative("hasCustomType").boolValue = argument_cache.hasCustomType;
+        private void DisplayReference(Rect rect, SerializedProperty argumentprop, GUIContent label, GUIContent labeltwo, RawArgumentView argCache)
         {
             var call = argumentprop.FindPropertyRelative("call_Reference");
             argCache.hasCustomType = false;

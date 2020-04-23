@@ -9,7 +9,7 @@ namespace VisualEvent
     //##########################
     /// <summary>Serialized form of a delegate</summary>
     [Serializable]
-    public class RawDelegate
+    public abstract class RawDelegate : ISerializationCallbackReceiver
     {
         //=======================
         // Variables
@@ -25,25 +25,14 @@ namespace VisualEvent
         /// <summary>Gets the <see cref="m_target"/> object of the delegate</summary>
         public UnityEngine.Object target => m_target;
         [SerializeField]
-        protected bool isStatic;
+        protected bool isStatic,isUnityTarget;
+        public bool validTarget => isUnityTarget;
         [SerializeField]
         bool m_isYieldableCall;
         public bool isYieldable => m_isYieldableCall;
 
-        protected Type[] paramtypes;
 
-        //=======================
-        // Initialization
-        //=======================
-        /// <summary>Initializes and deserializes the <see cref="m_target"/> and <see cref="_member"/> information into an actual delegate</summary>
-        public virtual void initialize()
-        {
-            if (m_target != null)
-                delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData, out paramtypes), m_target);
-            else if (isStatic)
-                delegateInstance = createDelegate(Utility.QuickDeseralizer(typeof(UtilHelper), methodData, out paramtypes), null);
-            else throw new UnityException("cannot create delegate with null target");
-        }
+        protected Type[] paramtypes;
         /// <summary>
         /// Creates a new type array that contains the return type of the method for delegates that will be funcs
         /// </summary>
@@ -52,9 +41,9 @@ namespace VisualEvent
         private protected Type[] CreateFuncParam(MethodInfo method_info)
         {
             int length = paramtypes?.Length ?? 0;
-            Type[] func_paramtypes = new Type[length+ 1];
-            if(paramtypes!=null)
-            paramtypes.CopyTo(func_paramtypes, 0);
+            Type[] func_paramtypes = new Type[length + 1];
+            if (paramtypes != null)
+                paramtypes.CopyTo(func_paramtypes, 0);
             func_paramtypes[func_paramtypes.Length - 1] = method_info.ReturnType;
             return func_paramtypes;
         }
@@ -63,7 +52,7 @@ namespace VisualEvent
         /// <param name="tMember">MemberInfo to be cast into a delegate</param>
         /// <returns>Member delegate if successful, null if not able to properly convert</returns>
         private protected virtual System.Delegate createDelegate(MemberInfo tMember, object target)
-        {
+        { 
             if (tMember != null)
             {
                 switch (tMember.MemberType)
@@ -171,6 +160,23 @@ namespace VisualEvent
             var boxed_lamda = Expression.Lambda<Action<object>>(assign_expression, param_expression).Compile();
             return val => boxed_lamda(val);
 
+        }
+        public virtual void Release()
+        {
+            delegateInstance = null;
+            m_target = null;
+        }
+        public void OnBeforeSerialize()
+        {
+        }
+
+        public virtual void OnAfterDeserialize()
+        {
+            if (isUnityTarget)
+                delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData, out paramtypes), m_target);
+            else if (isStatic)
+                delegateInstance = createDelegate(Utility.QuickDeseralizer(typeof(UtilHelper), methodData, out paramtypes), null);
+            else throw new UnityException("cannot create delegate with null target");
         }
     }
 }
