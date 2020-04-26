@@ -46,10 +46,28 @@ public sealed class DelegateAOT : ScriptableSingleton<DelegateAOT>
         Debug.Log(Utility.DelegatePropertyCreationMethod.Count);
         EditorSceneManager.RestoreSceneManagerSetup(setup);
     }
+    private static int DisplayWarningMessage()
+    {
+        return EditorUtility.DisplayDialogComplex("Unsaved Changes", "Unsaved Scene Changes will be lost during generation",
+            "Save And Generate",
+            "Cancel Generation",
+            "Dont Save And Generate");
+    }
     internal static void AOTGeneration()
     {
-        SeralizeScenes();
-        GenerateAOTFiles();
+        bool cangenerate = true;
+        if (EditorSceneManager.GetActiveScene().isDirty)
+        {
+            int option = DisplayWarningMessage();
+            if (option == 0)
+                EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
+            cangenerate = option !=1;
+        }
+        if (cangenerate)
+        {
+            SeralizeScenes();
+            GenerateAOTFiles();
+        }
     }
    
     /// <summary>

@@ -139,11 +139,11 @@ namespace VisualEvent
                 SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative("methodData");
                 if (!tCache.validateTarget(tProperty.FindPropertyRelative("m_target"), isStatic_prop))
                 {
-                    handleTargetUpdate(tProperty, tCache);
+                    //handleTargetUpdate(tProperty, tCache);
                 }
                 if (!tCache.validateMember(tempMemberProperty))
                 {
-                    handleMemberUpdate(tProperty, tCache);
+                   // handleMemberUpdate(tProperty, tCache);
                 }
                 tCache.isvalidated = true;
             }

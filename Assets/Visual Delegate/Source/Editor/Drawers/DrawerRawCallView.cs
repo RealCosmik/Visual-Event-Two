@@ -153,16 +153,16 @@ namespace VisualEvent
                 SerializedProperty isStatic_prop = tProperty.FindPropertyRelative("isStatic");
                 SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
                 if (!delegatecache.validateTarget(tProperty.FindPropertyRelative("m_target"), isStatic_prop, tempDynamicProperty))
-                {
-                    handleTargetUpdate(tProperty, delegatecache);
+                { 
+                  //  handleTargetUpdate(tProperty, delegatecache);
                     isStatic_prop.boolValue = delegatecache.hasStaticTarget;
                     delegatecache.RequiresRecalculation = true;
                 }
                 if (!delegatecache.validateMember(tempMemberProperty, tempDynamicProperty))
                 {
-                    handleMemberUpdate(tProperty, delegatecache);
+                   // handleMemberUpdate(tProperty, delegatecache);
                     Debug.Log(tProperty.FindPropertyRelative("methodData").arraySize);
-                }
+                } 
 
                 delegatecache.isvalidated = true;
             }

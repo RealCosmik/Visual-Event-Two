@@ -97,7 +97,7 @@ namespace VisualEvent
                         {
                             RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegateFieldCreationMethods.Add(paramtypes, RunTimeMethod);
-                        }
+                        } 
                         break;
                     case MemberTypes.Property:
                         if (!Utility.DelegatePropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
@@ -108,7 +108,6 @@ namespace VisualEvent
                         }
                         else
                         {
-                            Debug.Log(paramtypes[0].FullName);
                             Debug.LogWarning("GOT FROM CACHE");
                         }
                         break;

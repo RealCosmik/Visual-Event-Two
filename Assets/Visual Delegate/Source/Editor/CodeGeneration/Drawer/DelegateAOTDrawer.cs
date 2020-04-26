@@ -10,6 +10,5 @@ class DelegateAOTDrawer : Editor
         {
             DelegateAOT.AOTGeneration();
         }
-        EditorGUILayout.IntField("value",2);
     }
 }

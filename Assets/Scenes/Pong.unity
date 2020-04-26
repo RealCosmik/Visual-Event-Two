@@ -701,19 +701,18 @@ MonoBehaviour:
     00000000:
       type: {class: RawCall, ns: VisualEvent, asm: VisualDelegate}
       data:
-        m_target: {fileID: 1417108193}
+        m_target: {fileID: 1417108192}
         methodData:
-        - 8
-        - oddFunction
-        - System.Action, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        - 16
+        - layer
         isStatic: 0
         isUnityTarget: 1
         m_isYieldableCall: 0
-        Creationmethod: createActionCall1
+        Creationmethod: createPropertyCall
         m_arguments:
-        - assemblyQualifiedArgumentName: System.Action, mscorlib, Version=4.0.0.0,
+        - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0,
             Culture=neutral, PublicKeyToken=b77a5c561934e089
-          FullArgumentName: System.Action
+          FullArgumentName: System.Int32
           objectValue: {fileID: 0}
           m_objecthasvalue: 0
           stringValue: 
