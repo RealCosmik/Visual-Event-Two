@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AOT.cs" />
     <Compile Include="Assets\Example\Benchmark\Test.cs" />
     <Compile Include="Assets\Example\Documentation\Character.cs" />
     <Compile Include="Assets\Example\Documentation\CustomInput.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="Assets\PlayerData.cs" />
     <Compile Include="Assets\Testmono.cs" />
     <Compile Include="Assets\UtilitySO.cs" />
-    <Compile Include="Assets\testerfile.cs" />
     <None Include="Assets\Visual Delegate\link.xml" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -641,13 +641,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="VisualDelegateEditor.csproj">
-      <Project>{71BB7A50-5227-8343-53E4-F874424580EC}</Project>
-      <Name>VisualDelegateEditor</Name>
-    </ProjectReference>
     <ProjectReference Include="VisualDelegate.csproj">
       <Project>{BEB903ED-2FA9-A0C8-A91E-09ADEB1ED885}</Project>
       <Name>VisualDelegate</Name>
+    </ProjectReference>
+    <ProjectReference Include="VisualDelegateEditor.csproj">
+      <Project>{71BB7A50-5227-8343-53E4-F874424580EC}</Project>
+      <Name>VisualDelegateEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

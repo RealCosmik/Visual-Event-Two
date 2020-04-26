@@ -317,7 +317,7 @@ namespace VisualEvent
             var seralizedMethodData = GetSeralizedMemberDataFromprop(memberDataprop);
             if (CurrentMembers == null || seralizedMethodData == null)
             {
-                 Debug.Log("no members");
+                 //Debug.Log("no members");
                 UpdateSelectedMember(0);
                 return false;
             }

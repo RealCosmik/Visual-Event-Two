@@ -174,7 +174,6 @@ namespace VisualEvent
          
         public virtual void OnAfterDeserialize()
         {
-            Debug.Log(this.GetType().FullName);
             if (isUnityTarget)
                 delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData, out paramtypes), m_target);
             else if (isStatic)

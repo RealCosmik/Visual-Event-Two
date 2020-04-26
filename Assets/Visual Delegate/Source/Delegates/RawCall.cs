@@ -82,12 +82,12 @@ namespace VisualEvent
 
             if (tMember != null)
             {
-                int paramlength = paramtypes?.Length ?? 0;
-                object[] arguments = new object[paramlength + 1];
+                int argumentlength = m_arguments.Length;
+                object[] arguments = new object[argumentlength + 1];
                 arguments[0] = tMember;
-                for (int i = 1; i < (paramlength + 1); i++)
+                for (int i = 0; i < argumentlength; i++)
                 {
-                    arguments[i] = m_arguments[i - 1];
+                    arguments[i + 1] = m_arguments[i];
                 }
                 MethodInfo RunTimeMethod = null;
                 switch (tMember.MemberType)
@@ -730,7 +730,14 @@ namespace VisualEvent
             {
                 Action tempAction = () =>
                 {
-                    tempDelegate();
+                    try
+                    {
+                        tempDelegate();
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.Log(ex);
+                    }
                 };
                 return tempDelegate;
             }
@@ -741,21 +748,20 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
-        protected virtual Delegate createFunc1<A, T>(VisualDelegateBase tPublisher, MethodInfo tMethod)
+        protected virtual Delegate createFunc1<A, T>(MethodInfo tMethod)
         {
             Func<A, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, T>), m_target, tMethod, false) as Func<A, T>;
-            bool flag = isYieldable || (isYieldable && tPublisher.hasyield);
             if (isYieldable)
                 return tempDelegate;
             Action<A> tempAction = (A tA) =>
             {
-                if (m_target == null)
-                {
-                    tPublisher.removeCall(this);
-                }
-                else
+                try
                 {
                     tempDelegate(tA);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError(ex);
                 }
             };
 
@@ -767,22 +773,26 @@ namespace VisualEvent
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <param name="tA">Predefined argument value</param>
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Delegate createFuncCall1<A, T>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1)
+        protected virtual Delegate createFuncCall1<A, T>(MethodInfo tMethod, RawArg arg1)
         {
 
             Func<A, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, T>), m_target, tMethod, false) as Func<A, T>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
-            if (tPublisher.hasyield)
+            if (isYieldable)
             {
                 Func<IEnumerator> del = () => tempDelegate(input_1()) as IEnumerator;
                 return del;
             }
             Action tempaction = () =>
                {
-                   if (m_target == null)
-                       tPublisher.removeCall(this);
-                   else
+                   try
+                   {
                        tempDelegate(input_1());
+                   }
+                   catch (Exception ex)
+                   {
+                       Debug.LogError(ex);
+                   }
                };
             return tempaction;
         }
@@ -791,18 +801,20 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
-        protected virtual Action<A, B> createFunc2<A, B, T>(VisualDelegate tPublisher, MethodInfo tMethod)
+        protected virtual Delegate  createFunc2<A, B, T>(MethodInfo tMethod)
         {
             Func<A, B, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, B, T>), m_target, tMethod, false) as Func<A, B, T>;
+            if (isYieldable)
+                return tempDelegate;
             Action<A, B> tempAction = (A tA, B tB) =>
              {
-                 if (m_target == null)
-                 {
-                     tPublisher.removeCall(this);
-                 }
-                 else
+                 try
                  {
                      tempDelegate(tA, tB);
+                 }
+                 catch (Exception ex)
+                 {
+                     Debug.LogError(ex);
                  }
              };
 
@@ -815,13 +827,13 @@ namespace VisualEvent
         /// <param name="tA">Predefined argument value</param>
         /// <param name="tB">Predefined argument value</param>
         /// <returns>Generic 2-parameter action delegate if successful, null if not able to convert</returns>
-        protected virtual Delegate createFuncCall2<A, B, T>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2)
+        protected virtual Delegate createFuncCall2<A, B, T>(MethodInfo tMethod, RawArg arg1, RawArg arg2)
         {
             Func<A, B, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, B, T>), m_target, tMethod, false) as Func<A, B, T>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
 
-            if (tPublisher.hasyield)
+            if (isYieldable)
             {
                 Func<IEnumerator> yieldedDelgate = () =>
                 {
@@ -831,10 +843,14 @@ namespace VisualEvent
             }
             Action tempaction = () =>
             {
-                if (m_target == null)
-                    tPublisher.removeCall(this);
-                else
+                try
+                {
                     tempDelegate(input_1(), input_2());
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError(ex);
+                }
             };
             return tempaction;
         }

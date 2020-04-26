@@ -338,9 +338,16 @@ namespace VisualEvent
                     }
                     else if (current_type.IsSubclassOf(typeof(Delegate)))
                     {
-                        tProperty.FindPropertyRelative("UseReference").boolValue = true;
-                        tProperty.serializedObject.ApplyModifiedProperties();
-                        ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
+                        if (current_type.GenericTypeArguments.Length == 1)
+                        {
+                            tProperty.FindPropertyRelative("UseReference").boolValue = true;
+                            tProperty.serializedObject.ApplyModifiedProperties();
+                            ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
+                        }
+                        else
+                        {
+                            EditorGUI.LabelField(argpos, (FullTypeName + " Not Drawable"));
+                        }
                     }
                     //TODO:Re-implement this when seralized reference atti
                     // custom-user defined types

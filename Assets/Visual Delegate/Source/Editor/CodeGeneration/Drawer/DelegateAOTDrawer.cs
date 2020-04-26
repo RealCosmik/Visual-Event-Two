@@ -6,9 +6,9 @@ class DelegateAOTDrawer : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        if (GUILayout.Button("button"))
+        if (GUILayout.Button("Generate AOT File"))
         {
-            (target as DelegateAOT).Trythis();
+            DelegateAOT.AOTGeneration();
         }
         EditorGUILayout.IntField("value",2);
     }

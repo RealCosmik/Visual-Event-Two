@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178c3f4c5ad3ace41a93f0b5f859a5f2, type: 3}
   m_Name: Delegate AOT
   m_EditorClassIdentifier: 
-  GenerateOnBuild: 0
+  GenerateOnBuild: 1

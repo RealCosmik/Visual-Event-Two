@@ -54,6 +54,19 @@ namespace VisualEvent
             {
                 return "enum";
             }
+            else if (tType.IsSubclassOf(typeof(Delegate)))
+            {
+
+                string delegatename = tType.Name;
+                if (tType.IsGenericType)
+                {
+                    delegatename = delegatename.Substring(0, delegatename.Length - 2);
+                    string generic_argumentName = tType.GetGenericArguments()[0].GetKeyword();
+                    return $"{delegatename}<{generic_argumentName}>";
+                }
+                return delegatename;
+
+            }
             else
             {
                 switch (Type.GetTypeCode(tType))
