@@ -704,20 +704,16 @@ MonoBehaviour:
         m_target: {fileID: 1417108193}
         methodData:
         - 8
-        - hope
-        - System.Func`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089]], mscorlib, Version=4.0.0.0, Culture=neutral,
-          PublicKeyToken=b77a5c561934e089
+        - oddFunction
+        - System.Action, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         isStatic: 0
         isUnityTarget: 1
         m_isYieldableCall: 0
         Creationmethod: createActionCall1
         m_arguments:
-        - assemblyQualifiedArgumentName: System.Func`1[[System.Int32, mscorlib, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib, Version=4.0.0.0,
+        - assemblyQualifiedArgumentName: System.Action, mscorlib, Version=4.0.0.0,
             Culture=neutral, PublicKeyToken=b77a5c561934e089
-          FullArgumentName: System.Func`1[[System.Int32, mscorlib, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b77a5c561934e089]]
+          FullArgumentName: System.Action
           objectValue: {fileID: 0}
           m_objecthasvalue: 0
           stringValue: 
@@ -735,7 +731,7 @@ MonoBehaviour:
             m_PreInfinity: 0
             m_PostInfinity: 0
             m_RotationOrder: 0
-          UseReference: 1
+          UseReference: 0
           hasCustomType: 0
           call_Reference:
             m_target: {fileID: 0}

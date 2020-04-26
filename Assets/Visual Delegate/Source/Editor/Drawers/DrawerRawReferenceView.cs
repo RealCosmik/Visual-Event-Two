@@ -20,8 +20,11 @@ namespace VisualEvent
                 bool isdelegate = false;
                 if (argument_type.IsSubclassOf(typeof(Delegate)))
                 {
-                    isdelegate = true;
-                    argument_type = argument_type.GenericTypeArguments[0];
+                    if (argument_type.GenericTypeArguments.Length == 1)
+                    {
+                        isdelegate = true;
+                        argument_type = argument_type.GenericTypeArguments[0];
+                    }
                 }
 
 

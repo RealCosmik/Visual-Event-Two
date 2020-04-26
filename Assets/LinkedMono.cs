@@ -24,6 +24,7 @@ class LinkedMono : MonoBehaviour,IDelegateSerializer
     public nums mynumss;
     public int input = 3;
     public void customtype(Person p) => Debug.Log("custom type");
+    public void oddFunction(Action a) => Debug.Log("useless");
     private void Start()
     { 
         Cosmik.initialize();
