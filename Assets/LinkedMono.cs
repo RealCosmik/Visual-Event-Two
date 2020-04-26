@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using UnityEngine.Events;
-class LinkedMono : MonoBehaviour
+class LinkedMono : MonoBehaviour,IDelegateSerializer
 {
     public intpub Cosmik;
     public UnityEvent unity;
@@ -25,8 +25,13 @@ class LinkedMono : MonoBehaviour
     public int input = 3;
     public void customtype(Person p) => Debug.Log("custom type");
     private void Start()
+    { 
+        Cosmik.initialize();
+        Cosmik.OnInvoke += val => Debug.Log("nice little runtime");
+    }
+    public void testobj(ScriptableObject o)
     {
-       // Cosmik.initialize();
+        Debug.LogError("bad so");
     }
     private void IkramislookingProgrammer(int x) => Debug.Log("<color=blue> she loves me with code</color>");
     public void IkramislookingArt(int x) => Debug.Log("<color=blue> she loves me without code </color>");
@@ -146,7 +151,6 @@ class LinkedMono : MonoBehaviour
         UnityEngine.Profiling.Profiler.BeginSample("delgate init", this);
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Cosmik.initialize();
             Debug.Break();
         }
        UnityEngine.Profiling.Profiler.EndSample();

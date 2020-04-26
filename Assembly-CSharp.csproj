@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_2019_3_7;UNITY_2019_3;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;PLATFORM_STANDALONE;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;LOG;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_2019_3_7;UNITY_2019_3;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;ENABLE_VIDEO;PLATFORM_STANDALONE;PLATFORM_STANDALONE_WIN;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -63,109 +63,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\EventsPlus\Example\Benchmark\Test.cs" />
-    <Compile Include="Assets\EventsPlus\Example\Documentation\Character.cs" />
-    <Compile Include="Assets\EventsPlus\Example\Documentation\CustomInput.cs" />
-    <Compile Include="Assets\EventsPlus\Example\Documentation\Explosion.cs" />
-    <Compile Include="Assets\EventsPlus\Example\Documentation\Level.cs" />
-    <Compile Include="Assets\EventsPlus\Example\Documentation\Scoreboard.cs" />
-    <Compile Include="Assets\EventsPlus\Example\Documentation\YourGame.cs" />
-    <Compile Include="Assets\EventsPlus\Example\Documentation\YourMonoBehaviour.cs" />
-    <Compile Include="Assets\EventsPlus\Example\Singleton\InputTest.cs" />
-    <Compile Include="Assets\EventsPlus\Example\Singleton\Singleton.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Delegates\DelgateArguments\RawArgument.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Delegates\DelgateArguments\RawReference.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Delegates\RawCall.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Delegates\RawDelegate.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Delegates\RawRuntimeDelegate.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Utility\LogType.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Utility\UtilHelper.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Utility\Utility.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Visual Delegate\VisualDelegate.cs" />
-    <Compile Include="Assets\EventsPlus\Source\Visual Delegate\VisualDelegateBase.cs" />
-    <Compile Include="Assets\IVisualArgument.cs" />
+    <Compile Include="Assets\Example\Benchmark\Test.cs" />
+    <Compile Include="Assets\Example\Documentation\Character.cs" />
+    <Compile Include="Assets\Example\Documentation\CustomInput.cs" />
+    <Compile Include="Assets\Example\Documentation\Explosion.cs" />
+    <Compile Include="Assets\Example\Documentation\Level.cs" />
+    <Compile Include="Assets\Example\Documentation\Scoreboard.cs" />
+    <Compile Include="Assets\Example\Documentation\YourGame.cs" />
+    <Compile Include="Assets\Example\Documentation\YourMonoBehaviour.cs" />
+    <Compile Include="Assets\Example\Singleton\InputTest.cs" />
+    <Compile Include="Assets\Example\Singleton\Singleton.cs" />
     <Compile Include="Assets\LinkedMono.cs" />
     <Compile Include="Assets\Logger.cs" />
     <Compile Include="Assets\Person.cs" />
     <Compile Include="Assets\PlayerData.cs" />
     <Compile Include="Assets\Testmono.cs" />
     <Compile Include="Assets\UtilitySO.cs" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.DirectoryServices.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Entity.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.ServiceModel.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Runtime.Remoting.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\Microsoft.VisualC.STLCLR.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Entity.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Abstractions.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Messaging.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Management.Instrumentation.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.ServiceModel.Web.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.DynamicData.Design.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.ComponentModel.DataAnnotations.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Linq.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\mscorlib.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.AddIn.Contract.xml" />
-    <None Include="Assets\Ludiq\Ludiq.Peek\LICENSES.txt" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Security.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.DirectoryServices.AccountManagement.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Services.Design.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.EnterpriseServices.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Runtime.Serialization.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Entity.Design.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Services.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\Microsoft.Build.Utilities.v3.5.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.DynamicData.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Xml.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.AddIn.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Entity.Design.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Drawing.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Core.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\Microsoft.Build.Framework.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.DataSetExtensions.xml" />
-    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\Microsoft.Build.Conversion.v3.5.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Services.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
-    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Routing.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
-    <None Include="Assets\link.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Configuration.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Extensions.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.ServiceProcess.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\Microsoft.Build.Engine.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Printing.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Management.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Runtime.Serialization.Formatters.Soap.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Transactions.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.SqlXml.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Windows.Forms.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Deployment.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Net.xml" />
-    <None Include="Assets\TestUXML.uxml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Web.Extensions.Design.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Data.Services.Client.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
-    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Configuration.Install.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Xml.Linq.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.Windows.Presentation.xml" />
-    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.IdentityModel.xml" />
-    <None Include="Assets\Ludiq\Ludiq.PeekCore\DotNetDocumentation\System.WorkflowServices.xml" />
+    <Compile Include="Assets\testerfile.cs" />
+    <None Include="Assets\Visual Delegate\link.xml" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -363,9 +278,6 @@
     </Reference>
     <Reference Include="UnityEngine.XRModule">
       <HintPath>F:/UNITY VERSIONS/2019.3.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
-    </Reference>
-    <Reference Include="Ludiq.OdinSerializer">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Ludiq/Ludiq.PeekCore/Runtime/Dependencies/OdinSerializer/EditorOnly/Ludiq.OdinSerializer.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>F:/UNITY VERSIONS/2019.3.7f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -729,25 +641,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Ludiq.PeekCore.Editor.csproj">
-      <Project>{C8243B33-E43E-72D1-EC97-F4042CDAE438}</Project>
-      <Name>Ludiq.PeekCore.Editor</Name>
+    <ProjectReference Include="VisualDelegateEditor.csproj">
+      <Project>{71BB7A50-5227-8343-53E4-F874424580EC}</Project>
+      <Name>VisualDelegateEditor</Name>
     </ProjectReference>
-    <ProjectReference Include="EnhancedHierarchyEditor.csproj">
-      <Project>{82528A73-D0DA-0353-72B9-5713AD7BCF19}</Project>
-      <Name>EnhancedHierarchyEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="FullscreenEditor.csproj">
-      <Project>{CC15318B-C837-38B6-3924-5BF8213D9F05}</Project>
-      <Name>FullscreenEditor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Ludiq.Peek.Editor.csproj">
-      <Project>{6C8C3A77-3A50-858E-37BF-8EEA174B0FD6}</Project>
-      <Name>Ludiq.Peek.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Ludiq.PeekCore.Runtime.csproj">
-      <Project>{73A687DC-CE99-BEEA-342F-BE90B5C8A80D}</Project>
-      <Name>Ludiq.PeekCore.Runtime</Name>
+    <ProjectReference Include="VisualDelegate.csproj">
+      <Project>{BEB903ED-2FA9-A0C8-A91E-09ADEB1ED885}</Project>
+      <Name>VisualDelegate</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
