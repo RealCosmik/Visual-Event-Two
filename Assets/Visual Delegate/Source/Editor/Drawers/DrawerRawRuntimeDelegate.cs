@@ -2,7 +2,7 @@
 using UnityEngine;
 namespace VisualEvent
 {
-    [CustomPropertyDrawer(typeof(RawRuntimeDelegate))]
+    [CustomPropertyDrawer(typeof(RawRuntimeCall))]
     class DrawerRawRuntimeDelegate : DrawerRawDelegateView<RawDynamicDelegateView>
     {
         private void AddTarget(SerializedProperty delegateprop,RawDynamicDelegateView cache,object target)
@@ -39,11 +39,11 @@ namespace VisualEvent
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             if (EditorApplication.isPlaying&& ViewCache.GetDelegateView(property, out RawDynamicDelegateView cache))
-            {
+            { 
                 var methodData_prop = property.FindPropertyRelative("methodData");
                 if (methodData_prop.arraySize == 0)
                 {
-                    var dynamicdelgate = property.GetTarget<RawRuntimeDelegate>();
+                    var dynamicdelgate = property.GetTarget<RawRuntimeCall>();
                     AddTarget(property, cache, dynamicdelgate.delegateInstance.Target);
                     var seralizedMethodData = Utility.QuickSeralizer(dynamicdelgate.delegateInstance.Method);
                     VisualEdiotrUtility.CopySeralizedMethodDataToProp(methodData_prop, seralizedMethodData);

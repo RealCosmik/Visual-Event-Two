@@ -661,6 +661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1417108194}
   - component: {fileID: 1417108193}
+  - component: {fileID: 1417108195}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -681,7 +682,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Cosmik:
-    isinvoking: 0
     m_calls:
     - id: 0
     Yield_target: {fileID: 0}
@@ -693,30 +693,31 @@ MonoBehaviour:
   mynum: 0
   mymonotest: {fileID: 0}
   ExampleSwitch: 0
-  idk: 0
+  idk: 52
   mynumss: 0
-  input: 3
+  input: 0
   references:
     version: 1
     00000000:
       type: {class: RawCall, ns: VisualEvent, asm: VisualDelegate}
       data:
-        m_target: {fileID: 1417108192}
+        m_target: {fileID: 1417108194}
         methodData:
         - 16
-        - layer
+        - position
         isStatic: 0
         isUnityTarget: 1
         m_isYieldableCall: 0
+        haserror: 0
         Creationmethod: createPropertyCall
         m_arguments:
-        - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b77a5c561934e089
-          FullArgumentName: System.Int32
+        - assemblyQualifiedArgumentName: UnityEngine.Vector3, UnityEngine.CoreModule,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          FullArgumentName: UnityEngine.Vector3
           objectValue: {fileID: 0}
           m_objecthasvalue: 0
           stringValue: 
-          _x1: 0
+          _x1: 0.81
           _x2: 0
           _y1: 0
           _y2: 0
@@ -738,9 +739,10 @@ MonoBehaviour:
             isStatic: 0
             isUnityTarget: 0
             m_isYieldableCall: 0
+            haserror: 0
             m_isvaluetype: 0
             isparentargstring: 0
-            m_isDelegate: 1
+            m_isDelegate: 0
             willdeseralize: 0
         m_isDynamic: 0
         m_runtime: 0
@@ -759,6 +761,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1417108195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417108192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f561cfe0c90759e4286fc87396be8208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1587212668
 GameObject:
   m_ObjectHideFlags: 0

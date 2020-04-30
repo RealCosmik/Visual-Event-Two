@@ -16,20 +16,19 @@ using System.Linq;
 public sealed class DelegateAOT : ScriptableSingleton<DelegateAOT>
 {
     [SerializeField] bool GenerateOnBuild;
-
-    [MenuItem("VisualDelegate/AOT Solver", false)]
+    [MenuItem("VisualDelegate/Open AOT Solver", false)]
     static void OpenDelegateMenu()
     {
-        string tempPath = "Assets/Editor/Delegate AOT.asset";
-        var Currentresolver = AssetDatabase.LoadMainAssetAtPath(tempPath) as DelegateAOT;
-        if (Currentresolver == null)
+        var assetpaths= AssetDatabase.FindAssets("t:DelegateAOT");
+        if (assetpaths.Length==0)
         {
-            Currentresolver = CreateInstance<DelegateAOT>();
+            string tempPath = "Assets/Editor/Delegate AOT.asset";
+            var Currentresolver = CreateInstance<DelegateAOT>();
             AssetDatabase.CreateAsset(Currentresolver, AssetDatabase.GenerateUniqueAssetPath(tempPath));
             AssetDatabase.SaveAssets();
             UnityEditor.EditorUtility.FocusProjectWindow();
         }
-        Selection.activeObject = Currentresolver;
+        Selection.activeObject = instance;
     }
     /// <summary>
     /// Opens and closes all scenes included in build to deseralize all delegates
@@ -53,6 +52,7 @@ public sealed class DelegateAOT : ScriptableSingleton<DelegateAOT>
             "Cancel Generation",
             "Dont Save And Generate");
     }
+    [MenuItem("VisualDelegate/Generate", false)]
     internal static void AOTGeneration()
     {
         bool cangenerate = true;
@@ -61,7 +61,7 @@ public sealed class DelegateAOT : ScriptableSingleton<DelegateAOT>
             int option = DisplayWarningMessage();
             if (option == 0)
                 EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
-            cangenerate = option !=1;
+            cangenerate = option != 1;
         }
         if (cangenerate)
         {
@@ -69,7 +69,7 @@ public sealed class DelegateAOT : ScriptableSingleton<DelegateAOT>
             GenerateAOTFiles();
         }
     }
-   
+
     /// <summary>
     /// Creates a list of all the seralization cache in the build project
     /// </summary>
@@ -133,7 +133,7 @@ public sealed class DelegateAOT : ScriptableSingleton<DelegateAOT>
             for (int i = 0; i < typenodes.Length; i++)
             {
                 if (Generics[i].IsSubclassOf(typeof(Delegate)))
-                    typenodes[i] = GetDelegateInocation(generator,Generics[i]);
+                    typenodes[i] = GetDelegateInocation(generator, Generics[i]);
                 else typenodes[i] = generator.IdentifierName(Generics[i].FullName);
             }
             methodNameNode = generator.WithTypeArguments(methodNameNode, typenodes);
@@ -141,9 +141,9 @@ public sealed class DelegateAOT : ScriptableSingleton<DelegateAOT>
         var argumentnodes = GetMethodArguments(info, generator);
         return generator.InvocationExpression(methodNameNode, argumentnodes);
     }
-    private static SyntaxNode GetDelegateInocation(SyntaxGenerator generator,Type delegatetype)
+    private static SyntaxNode GetDelegateInocation(SyntaxGenerator generator, Type delegatetype)
     {
-        
+
         string delegatename = delegatetype.Name;
         if (delegatetype.IsGenericType)
         {
@@ -206,7 +206,7 @@ public sealed class DelegateAOT : ScriptableSingleton<DelegateAOT>
         var visualEventNameSpace = generator.NamespaceImportDeclaration("VisualEvent");
         var SystemNamespace = generator.NamespaceImportDeclaration("System");
         var classConstruction = generator.ClassDeclaration("fixerclass", accessibility: Accessibility.Internal, baseType: base_type, members: members);
-        var FullClass = generator.CompilationUnit(SystemNamespace,visualEventNameSpace, classConstruction).NormalizeWhitespace();
+        var FullClass = generator.CompilationUnit(SystemNamespace, visualEventNameSpace, classConstruction).NormalizeWhitespace();
         return FullClass;
     }
     /// <summary>
@@ -222,22 +222,40 @@ public sealed class DelegateAOT : ScriptableSingleton<DelegateAOT>
         }
         AssetDatabase.ImportAsset(Path.Combine("Assets", "AOT.cs"), ImportAssetOptions.ForceUpdate);
     }
-   
 
-   
-    internal class AOTsolver : IPreprocessBuildWithReport
+
+
+    internal class AOTsolver : IPreprocessBuildWithReport,IPostprocessBuildWithReport
     {
         public int callbackOrder => 1;
-
+        bool success;
         public void OnPreprocessBuild(BuildReport report)
         {
             Debug.LogError("DOES THIS WORK");
-            var currentinstance = instance;
-            if (currentinstance.GenerateOnBuild)
+            if (instance.GenerateOnBuild)
             {
-                AOTGeneration();
+                try
+                {
+                    AOTGeneration();
+                    success = true;
+                }
+                catch (Exception ex)
+                {
+                    success = false;
+                    throw new BuildFailedException(ex);
+                }
             }
             else Debug.LogWarning("OPTED FOR NO GENERATION");
+        }
+
+        public void OnPostprocessBuild(BuildReport report)
+        {
+            if (instance.GenerateOnBuild)
+            {
+                if (success)
+                    Debug.Log("<color=green> Delegate AOT Generation was Succesful</color");
+                else Debug.Log("<color=red> Delegate AOT Generation failed </color");
+            }
         }
     }
 }

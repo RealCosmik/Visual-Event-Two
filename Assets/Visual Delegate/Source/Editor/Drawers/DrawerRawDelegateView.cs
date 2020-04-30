@@ -33,6 +33,7 @@ namespace VisualEvent
             VisualEdiotrUtility.StandardStyle.CalcMinMaxWidth(tLabel, out float min, out float max);
             if (ViewCache.GetDelegateView(tProperty, out ViewType DelegateCache))
             {
+                CheckExecutionError(tProperty, DelegateCache);
                 tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
                 validate(tProperty, DelegateCache);
                 // Target  
@@ -49,7 +50,7 @@ namespace VisualEvent
                     if (EditorGUI.EndChangeCheck())
                     {
                         tProperty.FindPropertyRelative("isUnityTarget").boolValue = true;
-                        DelegateCache.HasDelegateError = false;
+                        DelegateCache.serializationError = false;
                         DelegateCache.SetParentTarget(UserParentTarget);
                         handleTargetUpdate(tProperty, DelegateCache);
                         DelegateCache.UpdateSelectedMember(DelegateCache.selectedMemberIndex);
@@ -74,7 +75,7 @@ namespace VisualEvent
                             validityprop.boolValue = false;
                         else validityprop.boolValue = true;
 
-                        DelegateCache.HasDelegateError = false;
+                        DelegateCache.serializationError = false;
                         if (UserSelectedTarget != DelegateCache.CurrentTargetIndex)
                         {
                             DelegateCache.UpdateSelectedTarget(UserSelectedTarget);
@@ -103,7 +104,7 @@ namespace VisualEvent
                         seratchWindowPos.x += 70f;
                         System.Action<int> onSelect = userSelectedMember =>
                         {
-                            DelegateCache.HasDelegateError = false;
+                            DelegateCache.serializationError = false;
                             DelegateCache.UpdateSelectedMember(userSelectedMember);
                             handleMemberUpdate(tProperty, DelegateCache);
                         };
@@ -124,7 +125,13 @@ namespace VisualEvent
 
         }
 
-
+        protected virtual void CheckExecutionError(SerializedProperty property, ViewType cache)
+        {
+            if (EditorApplication.isPlaying)
+            {
+                cache.executionError = property.FindPropertyRelative("haserror").boolValue;
+            }
+        }
         /// <summary>Validates the delegate property against the <paramref name="tCache"/></summary>
         /// <param name="tProperty">Serialized delegate property</param>
         /// <param name="tCache">Cached delegate drop-down data</param>
@@ -143,7 +150,7 @@ namespace VisualEvent
                 }
                 if (!tCache.validateMember(tempMemberProperty))
                 {
-                   // handleMemberUpdate(tProperty, tCache);
+                    // handleMemberUpdate(tProperty, tCache);
                 }
                 tCache.isvalidated = true;
             }
@@ -187,7 +194,6 @@ namespace VisualEvent
                 tProperty.serializedObject.ApplyModifiedProperties();
             }
         }
-
         private static bool DropdownButton(int id, Rect position, GUIContent content)
         {
             Event current = Event.current;

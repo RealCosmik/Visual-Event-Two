@@ -78,6 +78,7 @@ namespace VisualEvent
             {
                 tProperty.FindPropertyRelative("call_Reference").FindPropertyRelative("willdeseralize").boolValue = useReference.boolValue;
                 ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
+                tProperty.serializedObject.ApplyModifiedProperties();
             }
 
             style.CalcMinMaxWidth(paramLabel, out float minoffset, out float maxoffset);
@@ -121,23 +122,18 @@ namespace VisualEvent
                 EditorGUI.LabelField(argpos, (tProperty.displayName + " Not Drawable"));
                 return;
             }
-            if (propertyID == VisualEdiotrUtility.STRING_TYPE_NAME)
+            if (propertyID == VisualEdiotrUtility.STRING_TYPE_NAME|| propertyID == VisualEdiotrUtility.CHAR_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 var tempString = tProperty.FindPropertyRelative("stringValue");
                 if (!EditorApplication.isPlaying)
                     tempString.stringValue = EditorGUI.TextField(argpos, tempString.stringValue);
                 else tempString.stringValue = EditorGUI.DelayedTextField(argpos, tempString.stringValue);
-            }
-            else if (propertyID == VisualEdiotrUtility.CHAR_TYPE_NAME)
-            {
-                argument_cache.hasCustomType = false;
-                var tempString = tProperty.FindPropertyRelative("stringValue");
-                if (tempString.stringValue.Length <= 0)
-                    tempString.stringValue = " ";
-                if (!EditorApplication.isPlaying)
-                    tempString.stringValue = EditorGUI.TextField(argpos, tempString.stringValue)[0].ToString();
-                else tempString.stringValue = EditorGUI.DelayedTextField(argpos, tempString.stringValue)[0].ToString();
+                if(propertyID== VisualEdiotrUtility.CHAR_TYPE_NAME)
+                {
+                    string string_value = tempString.stringValue;
+                    tempString.stringValue = string_value.Length >= 1 ? string_value[0].ToString() : String.Empty;
+                }
             }
             else if (propertyID == VisualEdiotrUtility.BOOLEAN_TYPE_NAME)
             {
@@ -341,6 +337,7 @@ namespace VisualEvent
                         if (current_type.GenericTypeArguments.Length == 1)
                         {
                             tProperty.FindPropertyRelative("UseReference").boolValue = true;
+                            tProperty.FindPropertyRelative("call_Reference").FindPropertyRelative("willdeseralize").boolValue = true;
                             tProperty.serializedObject.ApplyModifiedProperties();
                             ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
                         }

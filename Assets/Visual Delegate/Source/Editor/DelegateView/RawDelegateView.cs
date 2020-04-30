@@ -46,7 +46,8 @@ namespace VisualEvent
         /// validation status of this current cache instance
         /// </summary>
         public bool isvalidated;
-        public bool HasDelegateError;
+        public bool serializationError;
+        public bool executionError;
         public bool hasStaticTarget { get; protected set; }
         public RawDelegateView()
         {

@@ -172,7 +172,7 @@ namespace VisualEvent
             if (delegatecache.CurrentTarget != null)
             {
                 var methodName = tProperty.FindPropertyRelative("methodData").GetArrayElementAtIndex(1).stringValue;
-                if (delegatecache.HasDelegateError || !methodName.Equals(delegatecache.SelectedMember.SeralizedData[1]))
+                if (delegatecache.serializationError || !methodName.Equals(delegatecache.SelectedMember.SeralizedData[1]))
                 {
                     HandleDelegeateError(tProperty, delegatecache);
                 }
@@ -220,7 +220,7 @@ namespace VisualEvent
             handleDynamicUpdate(delegeateProp, delegatecache);
             if (EditorApplication.isPlaying)
                 delegeateProp.GetVisualDelegateObject()?.ReInitialize();
-            delegatecache.HasDelegateError = false;
+            delegatecache.serializationError = false;
         }
 
         /// <summary>Applies the dynamic toggle and arguments properties of the <see cref="RawCall"/></summary>

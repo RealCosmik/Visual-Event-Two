@@ -31,9 +31,11 @@ namespace VisualEvent
 
         static Utility()
         {
-            DelegateFieldCreationMethods = new Dictionary<Type[], MethodInfo>(new MethodParamEquaility());
-            DelegatePropertyCreationMethod = new Dictionary<Type[], MethodInfo>(new MethodParamEquaility());
-            DelegateMethodCreationMethods = new Dictionary<Type[], MethodInfo>(new MethodParamEquaility());
+            var comparer=new MethodParamEquaility();
+            DelegateFieldCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
+            DelegateFieldReturnCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
+            DelegatePropertyCreationMethod = new Dictionary<Type[], MethodInfo>(comparer);
+            DelegateMethodCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
         }
         //=======================
         // Serialization

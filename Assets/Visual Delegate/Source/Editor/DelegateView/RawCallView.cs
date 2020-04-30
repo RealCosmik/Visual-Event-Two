@@ -136,7 +136,7 @@ namespace VisualEvent
         private void SetDelegateError()
         {
             Debug.LogError("issue");
-            HasDelegateError = true;
+            serializationError = true;
             hasStaticTarget = true;
             UpdateSelectedTarget(AvailableTargetObjects.Count - 1);
             selectedMemberIndex = CurrentMembers.IndexOf(CurrentMembers.Single(m => m.SeralizedData[1] == "LogMessage"));

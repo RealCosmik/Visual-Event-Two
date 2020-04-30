@@ -84,7 +84,7 @@ namespace VisualEvent
                     case Utility.STRING_TYPE_NAME:
                         return stringValue;
                     case Utility.CHAR_TYPE_NAME:
-                        return stringValue[0];
+                        return stringValue.Length >= 1 ? stringValue[0] : default;
                     case Utility.DOTNET_TYPE_NAME:
                         return System.Type.GetType(stringValue);
                     case Utility.BOOLEAN_TYPE_NAME:

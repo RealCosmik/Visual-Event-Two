@@ -21,23 +21,21 @@ namespace VisualEvent
         [SerializeField]
         private protected string[] methodData;
         /// <summary>Cached delegate instance generated upon initialization</summary>
-        public System.Delegate delegateInstance { get; set; }
+        public System.Delegate delegateInstance { get; internal set; }
         /// <summary>Gets the <see cref="m_target"/> object of the delegate</summary>
-        public UnityEngine.Object target => m_target;
         [SerializeField]
-        protected bool isStatic,isUnityTarget;
+        protected bool isStatic, isUnityTarget;
         public bool validTarget => isUnityTarget;
         [SerializeField]
         bool m_isYieldableCall;
-
         protected Type[] paramtypes;
-
+        [SerializeField] internal bool haserror;
         public bool isYieldable => m_isYieldableCall;
         /// <summary>
         /// Checks delegate for potential memory leaks 
         /// </summary>
         /// <returns></returns>
-        public virtual bool isDelegateLeaking() => m_target == null;
+        public virtual bool isDelegateLeaking() => delegateInstance?.Target== null;
         /// <summary>
         /// Creates a new type array that contains the return type of the method for delegates that will be funcs
         /// </summary>
@@ -57,7 +55,7 @@ namespace VisualEvent
         /// <param name="tMember">MemberInfo to be cast into a delegate</param>
         /// <returns>Member delegate if successful, null if not able to properly convert</returns>
         private protected virtual System.Delegate createDelegate(MemberInfo tMember, object target)
-        { 
+        {
             if (tMember != null)
             {
                 switch (tMember.MemberType)
@@ -163,6 +161,26 @@ namespace VisualEvent
             return val => boxed_lamda(val);
 
         }
+        protected virtual Delegate CreateFieldGetter<A>(UnityEngine.Object target, FieldInfo info)
+        {
+            var targetExpression = Expression.Constant(target);
+            var fieldexprssion = Expression.Field(targetExpression, info);
+            var boxed_object = Expression.Convert(fieldexprssion, typeof(object));
+            var boxed_field = Expression.Lambda<Func<object>>(boxed_object);
+            var FieldGetter = boxed_field.Compile();
+            if ((this as RawReference).isparentargumentstring == true)
+                return new Func<string>(() => FieldGetter.Invoke().ToString());
+            else
+            {
+                Func<A> safegetter = () => (A)FieldGetter.Invoke();
+                if ((this as RawReference).isDelegate)
+                {
+                    Func<Func<A>> nested_func = () => safegetter;
+                    return nested_func;
+                }
+                else return safegetter;
+            }
+        }
         public virtual void Release()
         {
             delegateInstance = null;
@@ -171,7 +189,7 @@ namespace VisualEvent
         public void OnBeforeSerialize()
         {
         }
-         
+
         public virtual void OnAfterDeserialize()
         {
             if (isUnityTarget)

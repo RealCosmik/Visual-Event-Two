@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using UnityEngine.Events;
-class LinkedMono : MonoBehaviour,IDelegateSerializer
+class LinkedMono : MonoBehaviour
 {
     public intpub Cosmik;
     public UnityEvent unity;
@@ -13,7 +13,15 @@ class LinkedMono : MonoBehaviour,IDelegateSerializer
     public int mynum;
     public void methodforikra() => Debug.Log("<color=green>this is for ikram</color>");
     public void methodforikram(int x) => Debug.Log("printing as an int" + x);
-    public void throwexception() => throw new UnityException("TRY AND STOP THIS");
+    public void throwexception()
+    {
+        if (input == 0)
+        {
+            input++;
+            throw new UnityException("TRY AND STOP THIS");
+        }
+        else Debug.Log("its all good");
+    }
     public void methodforikram(string s) => Debug.Log("print as a string");
     private List<Func<IEnumerator>> coroutine_delegate;
     [SerializeField] Testmono mymonotest;
@@ -22,13 +30,13 @@ class LinkedMono : MonoBehaviour,IDelegateSerializer
      
     public enum nums { one,two,thre,four,five}
     public nums mynumss;
-    public int input = 3;
+    public int input = 0;
     public void customtype(Person p) => Debug.Log("custom type");
     public void oddFunction(Action a) => Debug.Log("useless");
     private void Start()
     { 
+        Cosmik.m_oninvoke
         Cosmik.initialize();
-        Cosmik.OnInvoke += val => Debug.Log("nice little runtime");
     }
     public void testobj(ScriptableObject o)
     {
@@ -140,21 +148,18 @@ class LinkedMono : MonoBehaviour,IDelegateSerializer
     public void doDamage() => Destroy(this);
     private void Update()
     {
-        //UnityEngine.Profiling.Profiler.BeginSample("delgate invoke", this);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Cosmik.Invoke(2);
-            // StartCoroutine(RunDelegate());
-            // UnityEditor.EditorApplication.isPlaying = false;
         }
-        //UnityEngine.Profiling.Profiler.EndSample();
-        UnityEngine.Profiling.Profiler.BeginSample("delgate init", this);
         if (Input.GetKeyDown(KeyCode.I))
         {
+            UnityEngine.Profiling.Profiler.BeginSample("delgate init", this);
+            Cosmik.initialize();
+            UnityEngine.Profiling.Profiler.EndSample();
             Debug.Break();
         }
-       UnityEngine.Profiling.Profiler.EndSample();
     }
 }
 [System.Serializable]

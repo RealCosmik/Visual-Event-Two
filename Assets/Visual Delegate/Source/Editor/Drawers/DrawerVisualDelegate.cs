@@ -14,9 +14,6 @@ namespace VisualEvent
     [CustomPropertyDrawer(typeof(VisualDelegateBase), true)]
     public class DrawerVisualDelegate : PropertyDrawer
     {
-        private static Color EvenColor = new Color(.3f, .3f, .3f);
-        private static Color OddColor = new Color(.2f, .2f, .2f);
-        private static Color SelectedColor = new Color(.18f, .27f, .26f);
         private static RawCallView copiedcache;
         private static int copyIndex;
         private static GenericMenu rightclick_menu;
@@ -55,11 +52,20 @@ namespace VisualEvent
                  {
                      if (!tempList.HasKeyboardControl())
                          tempList.index = -1;
-                     if (tempList.index == index)
-                         EditorGUI.DrawRect(rect, SelectedColor);
+                     bool validIndex = index != -1 && index < pubcache.RawCallCache.Count;
+                     if (validIndex && pubcache.RawCallCache[index].delegateView.executionError)
+                     {
+                         EditorGUI.DrawRect(rect, DelegateEditorSettings.instance.ErrorColor);
+                     }
+                     else if (pubcache.CurrentIndex == index)
+                     {
+                         EditorGUI.DrawRect(rect, DelegateEditorSettings.instance.YieldColor);
+                     }
+                     else if (tempList.index == index)
+                         EditorGUI.DrawRect(rect, DelegateEditorSettings.instance.Selectedcolor);
                      else if (index % 2 == 0)
-                         EditorGUI.DrawRect(rect, EvenColor);
-                     else EditorGUI.DrawRect(rect, OddColor);
+                         EditorGUI.DrawRect(rect, DelegateEditorSettings.instance.EvenColor);
+                     else EditorGUI.DrawRect(rect, DelegateEditorSettings.instance.OddColor);
                  };
                 tempList.drawElementCallback += (Rect rect, int index, bool tIsActive, bool tIsFocused) =>
                 {
@@ -111,20 +117,15 @@ namespace VisualEvent
         /// <param name="tLabel">GUI Label of the drawer</param>
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         {
-            
-            EditorGUI.BeginChangeCheck();
+
             ClearOldCache(tProperty);
             tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
             tProperty.isExpanded = EditorGUI.Foldout(tPosition, tProperty.isExpanded, tProperty.displayName);
-            var invokeprop = tProperty.FindPropertyRelative("isinvoking");
             if (tProperty.isExpanded)
             {
                 ReorderableList tempList = cache[tProperty.propertyPath];
-                if (!(tProperty.serializedObject.targetObject is IDelegateSerializer))
-                {
-                    tempList.displayAdd = false;
-                    tempList.displayRemove = false;
-                }
+                bool hasattribute = fieldInfo.GetCustomAttribute<RunTimeRestricted>() == null;
+                tempList.displayAdd = tempList.displayRemove = hasattribute;
                 tempList.draggable = true;
                 ++EditorGUI.indentLevel;
                 // Calls
@@ -135,25 +136,11 @@ namespace VisualEvent
                 tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
                 tPosition.x -= tempIndentSize;
                 tPosition.height = tempList.GetHeight();
+                EditorGUI.BeginChangeCheck();
                 tempList.DoList(tPosition);
+                ShowInvocation(ViewCache.GetVisualDelegateInstanceCache(tProperty), tPosition, tempList);
                 EditorGUI.indentLevel = tempIndentLevel - 1;
-                var delcache = ViewCache.GetVisualDelegateInstanceCache(tProperty);
-                if (invokeprop.boolValue)
-                {
-                    invokeprop.boolValue = false;
-                    var invokepos = tPosition;
-                    invokepos.height -= tempList.footerHeight;
-                    VisualEdiotrUtility.TweenBox(invokepos, delcache);
-                }
-                if (delcache.istweening)
-                {
-                    EditorGUI.DrawRect(tPosition, delcache.color);
-                    var all_inspectors = Resources.FindObjectsOfTypeAll(VisualEdiotrUtility.inspector_type);
-                    for (int i = 0; i < all_inspectors.Length; i++)
-                    {
-                        (all_inspectors[i] as EditorWindow).Repaint();
-                    }
-                }
+
                 CopyPasteKeyboard(tempList, tempList.serializedProperty);
             }
             if (EditorGUI.EndChangeCheck())
@@ -188,9 +175,20 @@ namespace VisualEvent
                 }
             }
         }
-        private void ShowInvocationMessage(Rect invocationrect)
+        private void ShowInvocation(VisiualDelegateCacheContainer cache, Rect delegaterect, ReorderableList list)
         {
-
+            if (cache.isinvoked)
+            {
+                cache.isinvoked = false;
+                var invokepos = delegaterect;
+                invokepos.height -= list.footerHeight;
+                VisualEdiotrUtility.TweenBox(invokepos, cache);
+            }
+            if (cache.istweening)
+            {
+                EditorGUI.DrawRect(delegaterect, cache.color);
+                VisualEdiotrUtility.RepaintInspectorWindows();
+            }
         }
         /// <summary>
         /// remove RawDelegate to visualDelgate list

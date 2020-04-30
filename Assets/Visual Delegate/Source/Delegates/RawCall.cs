@@ -54,13 +54,13 @@ namespace VisualEvent
         /// <returns></returns>
         public sealed override bool isDelegateLeaking()
         {
-            if (m_target != null)
+            if (delegateInstance.Target != null)
             {
                 bool isArgumentsleaked = false;
                 int argumentlength = m_arguments.Length;
                 for (int i = 0; i < argumentlength; i++)
                 {
-                    if (m_arguments[i].isUsingreference && m_arguments[i].call_Reference.target == null)
+                    if (m_arguments[i].isUsingreference && m_arguments[i].call_Reference.delegateInstance.Target == null)
                     {
                         isArgumentsleaked = true;
                         break;
@@ -97,18 +97,13 @@ namespace VisualEvent
                         {
                             RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegateFieldCreationMethods.Add(paramtypes, RunTimeMethod);
-                        } 
+                        }
                         break;
                     case MemberTypes.Property:
                         if (!Utility.DelegatePropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
                         {
-                            Debug.LogWarning("first seralize");
                             RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegatePropertyCreationMethod.Add(paramtypes, RunTimeMethod);
-                        }
-                        else
-                        {
-                            Debug.LogWarning("GOT FROM CACHE");
                         }
                         break;
                     case MemberTypes.Method:
@@ -259,10 +254,12 @@ namespace VisualEvent
                 try
                 {
                     tempDelegate();
+                    haserror = false;
                 }
 
                 catch (Exception ex)
                 {
+                    haserror = true;
                     Debug.LogError(ex, m_target);
                 }
             };
@@ -779,6 +776,7 @@ namespace VisualEvent
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             if (isYieldable)
             {
+                Debug.Log(input_1 == null);
                 Func<IEnumerator> del = () => tempDelegate(input_1()) as IEnumerator;
                 return del;
             }
@@ -800,7 +798,7 @@ namespace VisualEvent
         /// <param name="tPublisher"><see cref="VisualDelegate"/> instance passed in the delegate for memory management</param>
         /// <param name="tMethod">MethodInfo used to generate a delegate</param>
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
-        protected virtual Delegate  createFunc2<A, B, T>(MethodInfo tMethod)
+        protected virtual Delegate createFunc2<A, B, T>(MethodInfo tMethod)
         {
             Func<A, B, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, B, T>), m_target, tMethod, false) as Func<A, B, T>;
             if (isYieldable)

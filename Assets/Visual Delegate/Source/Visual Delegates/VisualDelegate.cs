@@ -11,49 +11,43 @@ namespace VisualEvent
     [Serializable]
     public sealed class VisualDelegate : VisualDelegateBase
     {
+        private event Action m_onInvoke;
         /// <summary>Event for 0-Parameter delegates and calls</summary>
-        private event Action m_oninvoke;
         public event Action OnInvoke
         {
             add
             {
-                m_oninvoke += value;
+                new RawRuntimeCall(value);
+                m_onInvoke += value;
                 if (Application.isEditor)
-                    AddRuntimeDelegateEditor(value);
+                    AddRuntimetoEditor(value);
             }
             remove
             {
-                m_oninvoke -= value;
+                m_onInvoke -= value;
                 if (Application.isEditor)
-                    RemoveEditorCallList(value);
+                    RemoveRuntimeFromEditor(value);
             }
         }
         private List<Func<IEnumerator>> YieldedDelegates;
-        protected override Delegate oninvoke { get => m_oninvoke; set => m_oninvoke = value as Action; }
-        private protected override void InitializeYieldList()
-        {
-            YieldedDelegates = YieldedDelegates ?? new List<Func<IEnumerator>>(m_calls.Count);
-        }
-        public override void ReInitialize()
-        {
-            YieldedDelegates?.Clear();
-            base.ReInitialize();
-        }
         /// <summary>Handles the <see cref="RawCall"/> that was added and registers its delegate to the Publisher's matching event(s)</summary>
         /// <param name="tCall">RawCall that was added</param>
-        protected override void AppendCallToInvocation(RawDelegate call)
+        protected override void AppendCallToEvent(RawDelegate call)
         {
+            if (hasyield && YieldedDelegates == null)
+                YieldedDelegates = new List<Func<IEnumerator>>(m_calls.Count);
+
             var raw_delegate_instance = call.delegateInstance;
             // here we know that the delegate is either void method or a method with pre-defined args
             if (raw_delegate_instance is Action call_delegate)
             {
                 if (!hasyield)
-                    m_oninvoke +=() =>
-                    {
-                        if (call.target == null)
-                            removeCall(call);
-                        else call_delegate();
-                    };
+                    m_onInvoke += () =>
+                     {
+                         if (call.target == null)
+                             removeCall(call);
+                         else call_delegate();
+                     };
                 else
                     YieldedDelegates.Add(CreateYieldableDyanimcDelegate(call_delegate, call));
             }
@@ -68,13 +62,21 @@ namespace VisualEvent
         /// <summary>Handles the <see cref="RawCall"/> that was removed and removes its delegate from the Publisher's matching event(s)</summary>
         /// <param name="tCall">RawCall that was removed</param>
         /// <param name="tIndex">Index of the RawCall that was removed</param>
-        protected override void RemoveCallFromInvocation(RawDelegate tCall)
+        protected override void RemoveCallFromEvent(RawDelegate tCall)
         {
-            m_oninvoke -= tCall.delegateInstance as Action;
+            if (!hasyield)
+                m_onInvoke -= tCall.delegateInstance as Action;
+            else
+            {
+                YieldedDelegates.Remove(tCall.delegateInstance as Func<IEnumerator>);
+                if (YieldedDelegates.Count == 0)
+                    Yield_target = null;
+            }
+            tCall.Release();
         }
         // internal override Delegate CreateTypeSafeActioncall(Action action) => action;
         //  internal override Delegate CreateYieldableCall(Action action) => CreateYieldableDyanimcDelegate(action);
-        internal Func<IEnumerator> CreateYieldableDyanimcDelegate(Action action,RawDelegate call)
+        internal Func<IEnumerator> CreateYieldableDyanimcDelegate(Action action, RawDelegate call)
         {
             Func<IEnumerator> yieldable_delegate = () =>
             {
@@ -93,20 +95,16 @@ namespace VisualEvent
         {
             if (!isinitialized)
                 initialize();
-            m_oninvoke?.Invoke();
+            m_onInvoke?.Invoke();
             if (hasyield)
-                ExecuteYieldedDelegates();
+                Yield_target.StartCoroutine(ExecuteYieldedDelegates());
         }
-
-        private void ExecuteYieldedDelegates()
-        {
-            Yield_target.StartCoroutine(RunYieldDelegates());
-        }
-        private IEnumerator RunYieldDelegates()
+        private IEnumerator ExecuteYieldedDelegates()
         {
             int delegate_count = YieldedDelegates?.Count ?? 0;
             for (int i = 0; i < delegate_count; i++)
             {
+
                 if (i < YieldedDelegates.Count)
                 {
                     if (Yield_target == null)
@@ -115,14 +113,11 @@ namespace VisualEvent
                 }
             }
         }
-
-        ~VisualDelegate()
+        public override void Release()
         {
-            // Clear memory
-            m_calls = null;
-            m_oninvoke = null;
+            m_onInvoke = null;
+            base.Release();
         }
-
     }
 
     //##########################
@@ -131,76 +126,108 @@ namespace VisualEvent
     /// <summary>1-Parameter Publisher</summary>
     public class VisualDelegate<A> : VisualDelegateBase
     {
-
-        //=======================
-        // Variables
-        //=======================
-        /// <summary>Event for 1-Parameter delegates</summary>
-        private event Action<A> m_oninvoke;
+        private event Action<A> m_onInvoke;
+        /// <summary>Event for 0-Parameter delegates and calls</summary>
         public event Action<A> OnInvoke
         {
             add
             {
-                m_oninvoke += value;
+                AppendCallToEvent(new RawRuntimeCall(value));
                 if (Application.isEditor)
-                    AddRuntimeDelegateEditor(value);
+                    AddRuntimetoEditor(value);
             }
             remove
             {
-                m_oninvoke -= value;
+                m_
                 if (Application.isEditor)
-                    RemoveEditorCallList(value);
+                    RemoveRuntimeFromEditor(value);
             }
         }
+
         private List<Func<A, IEnumerator>> YieldedDelegates;
 
-        protected override Delegate oninvoke { get => m_oninvoke; set => m_oninvoke = value as Action<A>; }
-
-        public override void ReInitialize()
+        private void CreateLeakSafeRuntimeDelegate(Action<A> runtimedel)
         {
-            YieldedDelegates?.Clear();
-            base.ReInitialize();
+            RawRuntimeCall runtimecall = new RawRuntimeCall();
+            if (!hasyield)
+            {
+                Action<A> leakSafeDelegate = val =>
+                {
+                    try
+                    {
+                        if (runtimedel.Target == null)
+                            m_onInvoke -= runtimecall.delegateInstance as Action<A>;
+                        else runtimedel(val);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError(ex, runtimedel.Target as UnityEngine.Object);
+                    }
+                };
+            }
+            if (!hasyield)
+            {
+                m_onInvoke += leakSafeDelegate;
+                runtimecall.SetDelegate(leakSafeDelegate);
+            }
+            else
+            {
+                Func<A, IEnumerator> yieldCall = val =>
+                 {
+                 };
+            }
+           // var runtimecall = new RawRuntimeDelegate(runtimedel);
         }
-
-        private protected override void InitializeYieldList()
+        protected sealed override void AppendCallToEvent(RawDelegate call)
         {
-            YieldedDelegates = YieldedDelegates ?? new List<Func<A, IEnumerator>>(m_calls.Count);
-        }
+            if (hasyield && YieldedDelegates == null)
+                YieldedDelegates = new List<Func<A, IEnumerator>>(m_calls.Count);
 
-        protected sealed override void AppendCallToInvocation(RawDelegate call)
-        {
-            var raw_delegate_instance = call.delegateInstance;
+            var delegatehandle = call.delegateInstance;
             // here we know that the delegate is either void method or a method with pre-defined args
-            if (raw_delegate_instance is Action call_delegate)
+            if (delegatehandle is Action call_delegate)
             {
                 if (!hasyield)
-                    m_oninvoke += _ =>
-                    {
-                        if (call.isDelegateLeaking())
-                            removeCall(call);
-                        else call_delegate();
-                    };
+                {
+                    Action<A> leaksafe = _ =>
+                     {
+                         if (call.isDelegateLeaking())
+                             removeCall(call);
+                         else call_delegate();
+                     };
+                    call.delegateInstance = leaksafe;
+                    m_onInvoke += leaksafe;
+                }
                 else
                     YieldedDelegates.Add(CreateYieldableCall(call_delegate, call));
             }
             // this will only have happen if the call is labeled as dynamic because it matches the param of this delegate
-            else if (raw_delegate_instance is Action<A> dynamic_call)
+            else if (delegatehandle is Action<A> dynamic_call)
             {
                 if (!hasyield)
-                    m_oninvoke += dynamic_call;
+                {
+                    Action<A> leaksafe = val =>
+                    {
+                        if (call.isDelegateLeaking())
+                            removeCall(call);
+                        else dynamic_call(val);
+                    };
+                    call.delegateInstance = leaksafe;
+                    m_onInvoke += leaksafe;
+                }
                 else YieldedDelegates.Add(CreateYieldableDynamicDelegate(dynamic_call, call));
             }
             // if the call is an  void coroutine or a corutine with pre-defined arguments
-            else if (raw_delegate_instance is Func<IEnumerator> corutineCall)
+            else if (delegatehandle is Func<IEnumerator> corutineCall)
             {
                 YieldedDelegates.Add(_ => corutineCall());
             }
             // corutine thats dynamic 
-            else if (raw_delegate_instance is Func<A, IEnumerator> DynamicRoutineCall)
+            else if (delegatehandle is Func<A, IEnumerator> DynamicRoutineCall)
             {
                 YieldedDelegates.Add(val =>
                 {
-                    if (call.target == null)
+                    if (call.delegateInstance.Target == null)
                     {
                         removeCall(call);
                         return BreakYield();
@@ -215,29 +242,31 @@ namespace VisualEvent
         {
             Func<A, IEnumerator> yieldableCall = _ =>
              {
-                 if (call.target == null)
+                 if (call.delegateInstance.Target == null)
                      removeCall(call);
                  else action();
                  return BreakYield();
              };
+            call.delegateInstance = yieldableCall;
             return yieldableCall;
         }
 
-        internal Func<A, IEnumerator> CreateYieldableDynamicDelegate(Action<A> action,RawDelegate call)
+        internal Func<A, IEnumerator> CreateYieldableDynamicDelegate(Action<A> action, RawDelegate call)
         {
             Func<A, IEnumerator> yieldable_delegate = val =>
              {
-                 if (call.target == null)
+                 if (call.delegateInstance.Target == null)
                      removeCall(call);
                  else action(val);
                  return BreakYield();
              };
+            call.delegateInstance = yieldable_delegate;
             return yieldable_delegate;
         }
-        protected override void RemoveCallFromInvocation(RawDelegate tCall)
+        protected override void RemoveCallFromEvent(RawDelegate tCall)
         {
-            m_oninvoke -= tCall.delegateInstance as Action<A>;
-            tCall.delegateInstance = null;
+            m_onInvoke -= tCall.delegateInstance as Action<A>;
+            tCall.Release();
         }
 
         //=======================
@@ -246,38 +275,27 @@ namespace VisualEvent
         /// <summary>Invokes the <see cref="VisualDelegate.m_oninvoke"/> and <see cref="m_oninvoke"/> events</summary>
         public void Invoke(A val1)
         {
-            isinvoking = true;
             if (hasyield)
                 Yield_target?.StartCoroutine(ExecuteYieldedDelegates(val1));
             else
             {
-                m_oninvoke?.Invoke(val1);
-                if (!Application.isEditor)
-                    isinvoking = false;
+                InvokeInternalCall(-1);
+                m_onInvoke?.Invoke(val1);
             }
-
         }
         private IEnumerator ExecuteYieldedDelegates(A val1)
         {
             int delegate_count = YieldedDelegates.Count;
             for (int i = 0; i < delegate_count; i++)
             {
-                currentIndex = i;
+                InvokeInternalCall(i);
                 if (i < YieldedDelegates.Count)
                 {
                     if (Yield_target == null)
                         yield break;
                     else yield return Yield_target.StartCoroutine(YieldedDelegates[i](val1));
                 }
-                if (!Application.isEditor)
-                    isinvoking = false;
             }
-        }
-
-
-        ~VisualDelegate()
-        {
-            m_oninvoke = null;
         }
     }
 
@@ -298,42 +316,23 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    AddRuntimeDelegateEditor(value);
+                    AddRuntimetoEditor(value);
             }
             remove
             {
                 m_oninvoke -= value;
                 if (Application.isEditor)
-                    RemoveEditorCallList(value);
+                    RemoveRuntimeFromEditor(value);
             }
         }
-        protected override Delegate oninvoke { get => m_oninvoke; set => m_oninvoke = value as Action<A, B>; }
         private List<Func<A, B, IEnumerator>> YieldedDelegates;
-
-        //=======================
-        // Destructor
-        //=======================
-        ~VisualDelegate()
-        {
-            m_oninvoke = null;
-        }
-
-        //=======================
-        // Types
-        //=======================
-
-        public override void ReInitialize()
-        {
-            YieldedDelegates.Clear();
-            base.ReInitialize();
-        }
 
         private protected override void InitializeYieldList()
         {
             YieldedDelegates = YieldedDelegates ?? new List<Func<A, B, IEnumerator>>(m_calls.Count);
         }
 
-        protected override void AppendCallToInvocation(RawDelegate call)
+        protected override void AppendCallToEvent(RawDelegate call)
         {
             var raw_delegate_instance = call.delegateInstance;
             // here we know that the delegate is either void method or a method with pre-defined args
@@ -383,7 +382,7 @@ namespace VisualEvent
              };
             return yieldable_delegate;
         }
-        protected override void RemoveCallFromInvocation(RawDelegate tCall)
+        protected override void RemoveCallFromEvent(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B>;
         }
@@ -431,13 +430,13 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    AddRuntimeDelegateEditor(value);
+                    AddRuntimetoEditor(value);
             }
             remove
             {
                 m_oninvoke -= value;
                 if (Application.isEditor)
-                    RemoveEditorCallList(value);
+                    RemoveRuntimeFromEditor(value);
             }
         }
         protected override Delegate oninvoke { get => m_oninvoke; set => m_oninvoke = value as Action<A, B, C>; }
@@ -451,10 +450,10 @@ namespace VisualEvent
             m_oninvoke = null;
         }
 
-        public override void ReInitialize()
+        public override void Reset()
         {
             YieldedDelegates.Clear();
-            base.ReInitialize();
+            base.Reset();
         }
 
         private protected override void InitializeYieldList()
@@ -462,7 +461,7 @@ namespace VisualEvent
             YieldedDelegates = YieldedDelegates ?? new List<Func<A, B, C, IEnumerator>>(m_calls.Count);
         }
 
-        protected override void AppendCallToInvocation(RawDelegate call)
+        protected override void AppendCallToEvent(RawDelegate call)
         {
             var raw_delegate_instance = call.delegateInstance;
             // here we know that the delegate is either void method or a method with pre-defined args
@@ -513,7 +512,7 @@ namespace VisualEvent
             return yieldable_delegate;
         }
 
-        protected override void RemoveCallFromInvocation(RawDelegate tCall)
+        protected override void RemoveCallFromEvent(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C>;
         }
@@ -561,13 +560,13 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    AddRuntimeDelegateEditor(value);
+                    AddRuntimetoEditor(value);
             }
             remove
             {
                 m_oninvoke -= value;
                 if (Application.isEditor)
-                    RemoveEditorCallList(value);
+                    RemoveRuntimeFromEditor(value);
             }
         }
         private List<Func<A, B, C, D, IEnumerator>> YieldedDelegates;
@@ -587,7 +586,7 @@ namespace VisualEvent
         //=======================
         // Call
         //=======================
-        protected override void AppendCallToInvocation(RawDelegate call)
+        protected override void AppendCallToEvent(RawDelegate call)
         {
             var raw_delegate_instance = call.delegateInstance;
             // here we know that the delegate is either void method or a method with pre-defined args
@@ -639,7 +638,7 @@ namespace VisualEvent
         }
 
 
-        protected override void RemoveCallFromInvocation(RawDelegate tCall)
+        protected override void RemoveCallFromEvent(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D>;
         }
@@ -686,13 +685,13 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    AddRuntimeDelegateEditor(value);
+                    AddRuntimetoEditor(value);
             }
             remove
             {
                 m_oninvoke -= value;
                 if (Application.isEditor)
-                    RemoveEditorCallList(value);
+                    RemoveRuntimeFromEditor(value);
             }
         }
         private List<Func<A, B, C, D, E, IEnumerator>> YieldedDelegates;
@@ -712,7 +711,7 @@ namespace VisualEvent
         //=======================
         // Call
         //=======================
-        protected override void AppendCallToInvocation(RawDelegate call)
+        protected override void AppendCallToEvent(RawDelegate call)
         {
             var raw_delegate_instance = call.delegateInstance;
             // here we know that the delegate is either void method or a method with pre-defined args
@@ -763,7 +762,7 @@ namespace VisualEvent
             return yieldable_delegate;
         }
 
-        protected override void RemoveCallFromInvocation(RawDelegate tCall)
+        protected override void RemoveCallFromEvent(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D, E>;
         }
@@ -810,13 +809,13 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    AddRuntimeDelegateEditor(value);
+                    AddRuntimetoEditor(value);
             }
             remove
             {
                 m_oninvoke -= value;
                 if (Application.isEditor)
-                    RemoveEditorCallList(value);
+                    RemoveRuntimeFromEditor(value);
             }
         }
         private List<Func<A, B, C, D, E, F, IEnumerator>> YieldedDelegates;
@@ -837,7 +836,7 @@ namespace VisualEvent
         //=======================
         // Call
         //=======================
-        protected override void AppendCallToInvocation(RawDelegate call)
+        protected override void AppendCallToEvent(RawDelegate call)
         {
             var raw_delegate_instance = call.delegateInstance;
             // here we know that the delegate is either void method or a method with pre-defined args
@@ -889,7 +888,7 @@ namespace VisualEvent
         }
 
 
-        protected override void RemoveCallFromInvocation(RawDelegate tCall)
+        protected override void RemoveCallFromEvent(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D, E, F>;
         }
@@ -922,7 +921,7 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    AddRuntimeDelegateEditor(value);
+                    AddRuntimetoEditor(value);
             }
             remove
             {
@@ -942,7 +941,7 @@ namespace VisualEvent
         //=======================
         // Call
         //=======================
-        protected override void AppendCallToInvocation(RawDelegate tCall)
+        protected override void AppendCallToEvent(RawDelegate tCall)
         {
             if (tCall.delegateInstance is Action<A, B, C, D, E, F, G> tempDelegate)
                 m_oninvoke += tempDelegate;
@@ -955,7 +954,7 @@ namespace VisualEvent
             }
         }
 
-        protected override void RemoveCallFromInvocation(RawDelegate tCall)
+        protected override void RemoveCallFromEvent(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D, E, F, G>;
         }
@@ -1013,7 +1012,7 @@ namespace VisualEvent
             {
                 m_oninvoke += value;
                 if (Application.isEditor)
-                    AddRuntimeDelegateEditor(value);
+                    AddRuntimetoEditor(value);
             }
             remove
             {
@@ -1047,7 +1046,7 @@ namespace VisualEvent
         //    }
         //}
 
-        protected override void RemoveCallFromInvocation(RawDelegate tCall)
+        protected override void RemoveCallFromEvent(RawDelegate tCall)
         {
             m_oninvoke -= tCall.delegateInstance as Action<A, B, C, D, E, F, G, H>;
         }

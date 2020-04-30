@@ -27,12 +27,10 @@ namespace VisualEvent
                     }
                 }
 
-
-
-                if (delgateview.CurrentTarget == null && tProperty.FindPropertyRelative("m_target").objectReferenceValue != null)
-                {
-                    validate(tProperty, delgateview);
-                }
+                //if (delgateview.CurrentTarget == null && tProperty.FindPropertyRelative("m_target").objectReferenceValue != null)
+                //{
+                //    validate(tProperty, delgateview);
+                //}
 
                 if (argument_type != delgateview.reference_type)
                 {

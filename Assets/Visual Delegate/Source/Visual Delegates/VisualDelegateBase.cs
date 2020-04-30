@@ -7,50 +7,31 @@ namespace VisualEvent
 {
     public abstract class VisualDelegateBase
     {
-        [SerializeField] protected bool isinvoking;
-        [NonSerialized]
-        public int currentIndex;
+        private protected event Action<int> m_internalcalls;
         /// <summary>List of raw <see cref="RawCall"/> objects that this Publisher invokes using predefined arguments</summary>
         [SerializeReference]
         public List<RawDelegate> m_calls;
         [SerializeField] protected MonoBehaviour Yield_target;
         public bool hasyield;
-        /// <summary>
-        ///  flag for if this delgate has had its called generated
-        /// </summary>
         protected bool isinitialized;
         private int pre_initcalls;
-        protected abstract void AppendCallToInvocation(RawDelegate raw_call);
-        protected abstract void RemoveCallFromInvocation(RawDelegate raw_call);
-        private protected abstract void InitializeYieldList();
-
-        protected abstract Delegate oninvoke { get; set; }
-
+        protected abstract void AppendCallToEvent(RawDelegate raw_call);
+        protected abstract void RemoveCallFromEvent(RawDelegate raw_call);
         /// <summary>
         /// Deseralizes all editor delegates and appends to oninvoke event
         /// </summary>
         public void initialize()
         {
-            if (hasyield)
-                InitializeYieldList();
             int tempListLength = m_calls.Count;
             for (int i = 0; i < tempListLength; i++)
             {
-                if (m_calls[i] != null && m_calls[i].delegateInstance != null &&(!(m_calls[i] is RawRuntimeDelegate)))
+                if (m_calls[i] != null && m_calls[i].delegateInstance != null /*&&(!(m_calls[i] is RawRuntimeDelegate))*/)
                 {
-                    AppendCallToInvocation(m_calls[i]);
+                    AppendCallToEvent(m_calls[i]);
                 }
             }
             isinitialized = true;
         }
-        public virtual void ReInitialize()
-        {
-            oninvoke = null;
-            hasyield = false;
-            initialize();
-        }
-
-
         /// <summary>Attempts to remove a <see cref="RawCall"/> from the Publisher's internal array and event(s)</summary>
         /// <param name="tCall">RawCall to remove</param>
         /// <returns>True if successful</returns>
@@ -67,18 +48,13 @@ namespace VisualEvent
             if (tIndex >= 0 && m_calls != null && tIndex < m_calls.Count)
             {
                 RawDelegate tempCall = m_calls[tIndex];
-
                 m_calls.RemoveAt(tIndex);
                 if (m_calls.Count == 0)
-                {
                     m_calls = null;
-                }
 
-                RemoveCallFromInvocation(tempCall);
-
+                RemoveCallFromEvent(tempCall);
                 return true;
             }
-
             return false;
         }
         /// <summary>
@@ -94,15 +70,14 @@ namespace VisualEvent
         /// Method used to add runtime delegates to editor list for debugging purposes
         /// </summary>
         /// <param name="runtimeDelegate"></param>
-        protected void AddRuntimeDelegateEditor(Delegate runtimeDelegate)
+        protected void AddRuntimetoEditor(Delegate runtimeDelegate)
         {
             if (Application.isEditor)
             {
                 //this block of code only exist so that the list view in editor reflects the invocation order of the delgate itself
                 //we cannot rely on editor proprty drawers to achieve this function because that assumes that the user has this delegate selected
                 //in editor
-                var runtiemcall = new RawRuntimeDelegate(runtimeDelegate);
-                runtiemcall.delegateInstance = runtimeDelegate;
+                var runtiemcall = new RawRuntimeCall(runtimeDelegate);
                 // we only care about adding to the list 
                 if (!isinitialized)
                 {
@@ -119,7 +94,7 @@ namespace VisualEvent
         /// Used to remove dynamic calls from editor list for debugging purposes
         /// </summary>
         /// <param name="runttimeDelegate"></param>
-        protected void RemoveEditorCallList(Delegate runttimeDelegate)
+        protected void RemoveRuntimeFromEditor(Delegate runttimeDelegate)
         {
             if (Application.isEditor)
             {
@@ -127,6 +102,17 @@ namespace VisualEvent
                 if (removed_call != null)
                     m_calls.RemoveAt(m_calls.IndexOf(removed_call));
             }
+        }
+        private protected void InvokeInternalCall(int value)
+        {
+            if (Application.isEditor)
+                m_internalcalls?.Invoke(value);
+        }
+        public virtual void Release()
+        {
+            for (int i = 0; i < m_calls.Count; i++)
+                m_calls[i].Release();
+            m_calls.Clear();
         }
     }
 

@@ -2,6 +2,8 @@
 using VisualEvent;
 using UnityEditor;
 using UnityEngine;
+using System.Reflection;
+using System;
 /// <summary>
 /// class that handles the delegate cache during editor caches
 /// </summary>
@@ -54,7 +56,7 @@ public static class ViewCache
         if (!publisherCache.TryGetValue(key, out List<VisiualDelegateCacheContainer> instanceCache))
         {
             Debug.LogWarning("<color=green>Creating publisher Cache</color>");
-            instanceCache = new List<VisiualDelegateCacheContainer>() { new VisiualDelegateCacheContainer() };
+            instanceCache = new List<VisiualDelegateCacheContainer>() { new VisiualDelegateCacheContainer(property.GetVisualDelegateObject()) };
             publisherCache.Add(key, instanceCache);
         }
         return instanceCache;
@@ -69,7 +71,7 @@ public static class ViewCache
         var instanceCache = GetCacheFromPublisherInstance(property);
         var index = property.GetViewDelegateIndex();
         if (index >= instanceCache.Count)
-            instanceCache.Add(new VisiualDelegateCacheContainer());
+            instanceCache.Add(new VisiualDelegateCacheContainer(property.GetVisualDelegateObject()));
         return instanceCache[index];
     }
     /// <summary>
@@ -96,7 +98,7 @@ public static class ViewCache
         int call_index = delegateprop.GetRawCallIndexFromArgumentReference();
         var rawcall_cache = publisherCache.RawCallCache[call_index];
         var argument_list = rawcall_cache.argumentViewCache;
-        int Argument_index = delegateprop.GetRawArgumentIndexFromArgumentReference(); 
+        int Argument_index = delegateprop.GetRawArgumentIndexFromArgumentReference();
         return argument_list[Argument_index].argumentReference;
     }
     public static RawArgumentView GetRawArgumentCache(SerializedProperty argumentprop)
@@ -107,7 +109,7 @@ public static class ViewCache
         var argument_index = argumentprop.GetRawArgumentIndex();
         if (argument_index >= rawcall_cache.argumentViewCache.Count)
         {
-            if (rawcall_cache.delegateView is RawCallView call_view&&call_view.arguments!=null)
+            if (rawcall_cache.delegateView is RawCallView call_view && call_view.arguments != null)
             {
                 var argtype = call_view.arguments[argument_index].type;
                 rawcall_cache.argumentViewCache.Add(new RawArgumentView(argtype));
@@ -141,7 +143,7 @@ public static class ViewCache
             currentCache.delegateView = new RawCallView(typearguments);
             publisherCache.RawCallCache.Add(currentCache);
         }
-        if (publisherCache.RawCallCache[index].dynamic_Cache==true) // if there is a dynamic delegate in a raw call slot remove it
+        if (publisherCache.RawCallCache[index].dynamic_Cache == true) // if there is a dynamic delegate in a raw call slot remove it
         {
             publisherCache.RawCallCache.RemoveAt(index);
             return null;
@@ -153,7 +155,7 @@ public static class ViewCache
         var publisherCache = GetVisualDelegateInstanceCache(DynamicDelegateprop);
         int index = DynamicDelegateprop.GetRawCallIndex();
         if (index >= publisherCache.RawCallCache.Count) // if the list is too small make room for the new cache
-        { 
+        {
             var currentCache = new RawCallViewCacheContainer();
             currentCache.dynamic_Cache = true; // flag that this cache is dynamic
             currentCache.delegateView = new RawDynamicDelegateView();
@@ -170,16 +172,31 @@ public class VisiualDelegateCacheContainer
 {
     public Color color;
     public bool istweening;
+    public bool isinvoked;
+    public int CurrentIndex = -1;
     // on the game side a visualdelegate can have list of raw calls so the visual delegate cache
     //will have a list of rawcalls caches
     public List<RawCallViewCacheContainer> RawCallCache = new List<RawCallViewCacheContainer>();
+    
+    public VisiualDelegateCacheContainer(VisualDelegateBase visualdelegate)
+    {
+        BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+        System.Type[] argument_types = new System.Type[1] { typeof(Action<int>) };
+        var editordelegate = new Action<int>(index =>
+        {
+            CurrentIndex = index;
+            isinvoked = true;
+            VisualEdiotrUtility.RepaintInspectorWindows();
+        });
+        visualdelegate.GetType().GetEvent("m_internalcalls", flags).GetAddMethod(true).Invoke(visualdelegate, new object[] { editordelegate });
+    }
 }
 /// <summary>
 /// Cache data for rawcalls that reside inside <see cref="VisiualDelegateCacheContainer"/>
 /// </summary>
-public class RawCallViewCacheContainer :RawDelegateCacheContainer
+public class RawCallViewCacheContainer : RawDelegateCacheContainer
 {
-  
+
     /// <summary>
     /// list of arguments if <see cref="delegateView"/> is a <see cref="RawCallView"/>
     /// </summary>

@@ -17,7 +17,11 @@ namespace VisualEvent
         static Dictionary<string, string[]> ParseData = new Dictionary<string, string[]>();
         public static GUIStyle StandardStyle { get; private set; } = new GUIStyle();
         public static Type inspector_type = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.InspectorWindow");
-
+        static UnityEngine.Object[] inspectorwindows;
+        static VisualEdiotrUtility()
+        {
+            inspectorwindows= Resources.FindObjectsOfTypeAll(inspector_type);
+        }
         //=======================
         // Settings
         //=======================
@@ -637,8 +641,8 @@ namespace VisualEvent
             DestinationArgument.FindPropertyRelative("animationCurveValue").animationCurveValue = originargument.FindPropertyRelative("animationCurveValue").animationCurveValue;
         }
         public static async void TweenBox(Rect boxpos,VisiualDelegateCacheContainer containter)
-        {
-            containter.color = new Color(.34f, .92f, .45f, .7f);
+        { 
+            containter.color = DelegateEditorSettings.instance.InvocationColor;
             if (!containter.istweening)
             {
                 containter.istweening = true;
@@ -650,6 +654,14 @@ namespace VisualEvent
                 containter.istweening = false;
             }
             else containter.color.a = 1f;
+        }
+        public static void RepaintInspectorWindows()
+        {
+            int length = inspectorwindows.Length;
+            for (int i = 0; i < length; i++)
+            {
+                (inspectorwindows[i] as EditorWindow).Repaint();
+            }
         }
         public static PropertyName STRING_TYPE_NAME = "System.String";
         public static PropertyName CHAR_TYPE_NAME = "System.Char";
