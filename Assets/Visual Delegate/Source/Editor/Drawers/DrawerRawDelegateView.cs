@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using RoboRyanTron.SearchableEnum.Editor;
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
     //##########################
     // Class Declaration
@@ -97,7 +97,6 @@ namespace VisualEvent
                     int id = GUIUtility.GetControlID(idHash, FocusType.Keyboard, memberpos);
                     GUIContent buttonText = new GUIContent();
                     buttonText.text = DelegateCache.memberNames[DelegateCache.selectedMemberIndex];
-
                     if (DropdownButton(id, memberpos, buttonText))
                     {
                         var seratchWindowPos = memberpos;
@@ -190,6 +189,7 @@ namespace VisualEvent
                 VisualEdiotrUtility.CopySeralizedMethodDataToProp(methodData_prop, tCache.SelectedMember.SeralizedData);
             if (!(tCache is RawCallView))
             {
+                Debug.LogWarning("should never see this");
                 PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
                 tProperty.serializedObject.ApplyModifiedProperties();
             }

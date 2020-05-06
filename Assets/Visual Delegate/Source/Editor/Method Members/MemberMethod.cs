@@ -2,7 +2,7 @@
 using System.Text;
 using System.Reflection;
 
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
     //##########################
     // Class Declaration

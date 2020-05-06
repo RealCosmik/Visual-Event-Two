@@ -1,14 +1,17 @@
 ﻿using UnityEditor;
 using UnityEngine;
-[CustomEditor(typeof(DelegateAOT))]
-class DelegateAOTDrawer : Editor
+namespace VisualEvent.Editor
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(DelegateAOT))]
+    class DelegateAOTDrawer : UnityEditor.Editor
     {
-        base.OnInspectorGUI();
-        if (GUILayout.Button("Generate AOT File"))
+        public override void OnInspectorGUI()
         {
-            DelegateAOT.AOTGeneration();
+            base.OnInspectorGUI();
+            if (GUILayout.Button("Generate AOT File"))
+            {
+                DelegateAOT.AOTGeneration();
+            }
         }
     }
 }

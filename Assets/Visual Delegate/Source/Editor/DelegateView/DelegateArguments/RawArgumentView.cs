@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using System.Collections.Generic;
 using System;
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
     public class RawArgumentView
     {

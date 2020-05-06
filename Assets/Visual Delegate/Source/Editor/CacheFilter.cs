@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
 	//##########################
 	// Class Declaration

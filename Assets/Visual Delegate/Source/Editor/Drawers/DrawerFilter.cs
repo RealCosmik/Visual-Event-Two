@@ -4,14 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
 	//##########################
 	// Class Declaration
 	//##########################
 	/// <summary>Inspector class for rendering <see cref="Filter"/>s in the inspector</summary>
 	[CustomPropertyDrawer( typeof( Filter ), true )]
-	public sealed class DrawerFilter : PropertyDrawer
+	internal sealed class DrawerFilter : PropertyDrawer
 	{
 		//=======================
 		// Variables

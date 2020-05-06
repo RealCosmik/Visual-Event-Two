@@ -720,11 +720,24 @@ namespace VisualEvent
         {
             var delegate_target = isStatic ? null : m_target;
             Func<T> tempDelegate = Delegate.CreateDelegate(typeof(Func<T>), delegate_target, tMethod, false) as Func<T>;
+            Action tempAction;
             if (isYieldable)
-                return tempDelegate;
+            {
+                tempAction = () =>
+                {
+                    try
+                    {
+                        (m_target as MonoBehaviour).StartCoroutine(tempDelegate() as IEnumerator);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError(ex);
+                    }
+                };
+            }
             else
             {
-                Action tempAction = () =>
+                tempAction = () =>
                 {
                     try
                     {
@@ -732,11 +745,11 @@ namespace VisualEvent
                     }
                     catch (Exception ex)
                     {
-                        Debug.Log(ex);
+                        Debug.LogError(ex);
                     }
                 };
-                return tempDelegate;
             }
+            return tempAction;
         }
 
 

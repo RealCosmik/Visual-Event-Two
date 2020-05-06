@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditorInternal;
 using System.Linq;
 using System.Reflection;
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
     //##########################
     // Class Declaration
@@ -117,7 +117,6 @@ namespace VisualEvent
         /// <param name="tLabel">GUI Label of the drawer</param>
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         {
-
             ClearOldCache(tProperty);
             tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
             tProperty.isExpanded = EditorGUI.Foldout(tPosition, tProperty.isExpanded, tProperty.displayName);
@@ -145,12 +144,13 @@ namespace VisualEvent
             }
             if (EditorGUI.EndChangeCheck())
             {
-                PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
-                tProperty.serializedObject.ApplyModifiedProperties();
                 if (EditorApplication.isPlaying)
                 {
-                    Debug.Log("change");
-                    tProperty.GetVisualDelegateObject()?.ReInitialize();
+                    Debug.LogWarning("might have to change this");
+                    var flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
+                    var visual_del = tProperty.GetVisualDelegateObject();
+                    visual_del.GetType().BaseType.GetField("m_onInvoke", flags).SetValue(visual_del, null);
+                    visual_del.initialize();
                 }
                 else
                 {
@@ -171,6 +171,7 @@ namespace VisualEvent
                     if (hasyeild)
                         tProperty.FindPropertyRelative("Yield_target").objectReferenceValue = tProperty.serializedObject.targetObject;
                     else tProperty.FindPropertyRelative("Yield_target").objectReferenceValue = null;
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
                     tProperty.serializedObject.ApplyModifiedProperties();
                 }
             }
@@ -260,7 +261,8 @@ namespace VisualEvent
             if (!EditorApplication.isPlaying)
                 ViewDelegateProp.serializedObject.ApplyModifiedProperties();
             if (EditorApplication.isPlaying)
-                ViewDelegateProp.GetVisualDelegateObject()?.ReInitialize();
+                //ViewDelegateProp.GetVisualDelegateObject()?.ReInitialize();
+                Debug.LogWarning("might have to change this here"); 
         }
         /// <summary>
         /// Clears Cache if the ViewDelegates list is empty

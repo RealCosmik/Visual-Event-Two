@@ -34,8 +34,7 @@ class LinkedMono : MonoBehaviour
     public void customtype(Person p) => Debug.Log("custom type");
     public void oddFunction(Action a) => Debug.Log("useless");
     private void Start()
-    { 
-        Cosmik.m_oninvoke
+    {
         Cosmik.initialize();
     }
     public void testobj(ScriptableObject o)
@@ -58,10 +57,10 @@ class LinkedMono : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator second()
+    public IEnumerator second(float time)
     {
         Debug.Log("second");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(time);
         Debug.Log("second end");
     }
 
@@ -164,7 +163,5 @@ class LinkedMono : MonoBehaviour
 }
 [System.Serializable]
 public sealed class intpub : VisualDelegate<int> { }
-[System.Serializable]
-public class visual4 : VisualDelegate<int, string, bool, char> { }
 [System.Serializable]
 public class stringpub : VisualDelegate<string> { }

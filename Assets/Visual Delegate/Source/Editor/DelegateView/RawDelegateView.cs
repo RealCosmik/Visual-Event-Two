@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
     //##########################
     // Class Declaration

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Linq;
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
     //##########################
     // Class Declaration
@@ -184,6 +184,38 @@ namespace VisualEvent
 
                     if (tempObject is VisualDelegateBase visiualDelegate)
                         return visiualDelegate;
+                }
+            }
+            return null;
+        }
+        /// <summary>Returns the <see cref="VisualDelegateBase"/> instance that owns <paramref name="prop"/></summary>
+        /// <param name="prop">Property owned by the Publisher instance</param>
+        /// <returns>Publisher instance</returns>
+        public static FieldInfo GetFieldInfo<T>(this SerializedProperty prop)
+        {
+            if (prop != null)
+            {
+                object tempObject = prop.serializedObject.targetObject;
+                string[] tempPaths = prop.propertyPath.Replace("Array.data", "").Split('.');
+                int tempListLength = tempPaths.Length;
+                for (int i = 0; i < tempListLength; ++i)
+                {
+                    if (tempPaths[i][0] == '[')
+                    {
+                        int tempIndex = tempPaths[i][1] - '0';
+                        if (tempIndex < (tempObject as IList).Count)
+                        {
+                            tempObject = (tempObject as IList)[tempIndex];
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        tempObject = tempObject.GetType().GetField(tempPaths[i], Utility.InstanceFlags).GetValue(tempObject);
+                    }
                 }
             }
             return null;
@@ -663,6 +695,9 @@ namespace VisualEvent
                 (inspectorwindows[i] as EditorWindow).Repaint();
             }
         }
+        public static void ReinitializeDelegate(VisualDelegateBase del)
+        {
+        } 
         public static PropertyName STRING_TYPE_NAME = "System.String";
         public static PropertyName CHAR_TYPE_NAME = "System.Char";
         public static PropertyName DOTNET_TYPE_NAME = "System.Type";

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
 	//##########################
 	// Struct Declaration

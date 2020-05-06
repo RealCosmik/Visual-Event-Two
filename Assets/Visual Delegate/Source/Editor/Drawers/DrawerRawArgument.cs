@@ -4,14 +4,14 @@ using UnityEditor;
 using UnityEngine;
 using System.Reflection;
 using System.Linq;
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
     //##########################
     // Class Declaration
     //##########################
     /// <summary>Inspector class for rendering <see cref="RawArgument"/>s in the inspector</summary>
     [CustomPropertyDrawer(typeof(RawArgument), true)]
-    public class DrawerRawArgument : PropertyDrawer
+    internal class DrawerRawArgument : PropertyDrawer
     {
         //=======================
         // Render
@@ -95,11 +95,12 @@ namespace VisualEvent
                 DisplayArgument(argumentpos, tProperty, paramLabel);
             else
                 DisplayReference(argumentpos, tProperty, paramLabel, reference_content, argument_cache);
-            if (EditorGUI.EndChangeCheck() && EditorApplication.isPlaying)
-            {
-                tProperty.serializedObject.ApplyModifiedProperties();
-                tProperty.GetVisualDelegateObject()?.ReInitialize();
-            }
+            //if (EditorGUI.EndChangeCheck() && !EditorApplication.isPlaying)
+            //{
+            //    tProperty.serializedObject.ApplyModifiedProperties();
+            //    //tProperty.GetVisualDelegateObject()?.ReInitialize();
+            //    Debug.LogWarning("might have to change this");
+            //}
             if (!argument_cache.hasCustomType && argument_cache.CurrentCustomType != null)
             {
                 argument_cache.hasCustomType = false;

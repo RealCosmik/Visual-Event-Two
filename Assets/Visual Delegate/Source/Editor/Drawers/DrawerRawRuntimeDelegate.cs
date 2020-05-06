@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
     [CustomPropertyDrawer(typeof(RawRuntimeCall))]
     class DrawerRawRuntimeDelegate : DrawerRawDelegateView<RawDynamicDelegateView>

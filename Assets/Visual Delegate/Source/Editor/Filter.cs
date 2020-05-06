@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
 	//##########################
 	// Struct Declaration

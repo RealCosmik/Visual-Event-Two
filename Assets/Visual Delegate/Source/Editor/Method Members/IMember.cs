@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
 	/// <summary>
     /// Interface for seralized members that reside in class fields <see cref="MemberField"/> ,props<see cref="MemberProperty"/> 

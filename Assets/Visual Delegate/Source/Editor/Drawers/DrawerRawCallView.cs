@@ -2,7 +2,7 @@
 using UnityEditor;
 using System;
 using System.Reflection;
-namespace VisualEvent
+namespace VisualEvent.Editor
 {
     //##########################
     // Class Declaration
@@ -108,7 +108,8 @@ namespace VisualEvent
                         {
                             tProperty.serializedObject.ApplyModifiedProperties();
                             if (EditorApplication.isPlaying)
-                                tProperty.GetVisualDelegateObject()?.ReInitialize();
+                                //tProperty.GetVisualDelegateObject()?.ReInitialize();
+                                Debug.LogWarning("might have to change this");
                         }
                     }
                     // Arguments
@@ -146,9 +147,10 @@ namespace VisualEvent
         } 
     
         protected override void validate(SerializedProperty tProperty, RawCallView delegatecache)
-        {
+        { 
             if (!delegatecache.isvalidated)
             {
+                Debug.LogError("VALIDATION");
                 SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative("methodData");
                 SerializedProperty isStatic_prop = tProperty.FindPropertyRelative("isStatic");
                 SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
@@ -174,6 +176,8 @@ namespace VisualEvent
                 var methodName = tProperty.FindPropertyRelative("methodData").GetArrayElementAtIndex(1).stringValue;
                 if (delegatecache.serializationError || !methodName.Equals(delegatecache.SelectedMember.SeralizedData[1]))
                 {
+                    Debug.LogWarning(methodName);
+                    Debug.LogWarning(delegatecache.SelectedMember.SeralizedData[1]);
                     HandleDelegeateError(tProperty, delegatecache);
                 }
             }
@@ -219,7 +223,8 @@ namespace VisualEvent
             VisualEdiotrUtility.CopySeralizedMethodDataToProp(methoData_prop, delegatecache.SelectedMember.SeralizedData);
             handleDynamicUpdate(delegeateProp, delegatecache);
             if (EditorApplication.isPlaying)
-                delegeateProp.GetVisualDelegateObject()?.ReInitialize();
+                //  delegeateProp.GetVisualDelegateObject()?.ReInitialize();
+                Debug.LogWarning("might have to change this");
             delegatecache.serializationError = false;
         }
 
@@ -262,6 +267,7 @@ namespace VisualEvent
                     }
                 }
             }
+            Debug.LogWarning("in here");
             PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
             tProperty.serializedObject.ApplyModifiedProperties();
         }

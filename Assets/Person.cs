@@ -1,6 +1,6 @@
 ﻿
 [System.Serializable]
-class Person : IVisualArgument
+class Person : VisualEvent.IVisualArgument
 {
     public int age;
     public string name;
