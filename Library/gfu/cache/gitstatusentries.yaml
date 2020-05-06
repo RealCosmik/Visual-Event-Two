@@ -13,12 +13,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-05-05T20:42:19.314-04:00
-  initializedAtString: 2020-05-05T19:34:24.655-04:00
+  lastUpdatedAtString: 2020-05-06T11:21:34.934-04:00
+  initializedAtString: 2020-05-06T07:28:11.170-04:00
   entries:
-  - path: Assets\Example\Benchmark\Test.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Example\Benchmark\Test.cs
-    projectPath: Assets\Example\Benchmark\Test.cs
+  - path: Assets\AOT.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\AOT.cs
+    projectPath: Assets\AOT.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Editor\DelegateSettings.asset
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\DelegateSettings.asset
+    projectPath: Assets\Editor\DelegateSettings.asset
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -28,23 +34,15 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Assets\PlayerData.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\PlayerData.cs
+    projectPath: Assets\PlayerData.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assets\Scenes\Pong.unity
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Scenes\Pong.unity
     projectPath: Assets\Scenes\Pong.unity
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Delegates\DelgateArguments\IVisualArgument.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Delegates\DelgateArguments\IVisualArgument.cs
-    projectPath: Assets\Visual Delegate\Source\Delegates\DelgateArguments\IVisualArgument.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Delegates\DelgateArguments\RawArgument.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Delegates\DelgateArguments\RawArgument.cs
-    projectPath: Assets\Visual Delegate\Source\Delegates\DelgateArguments\RawArgument.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -55,24 +53,10 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Argument.cs
+  - path: Assets\Visual Delegate\Source\Delegates\RawDelegate.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Argument.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Argument.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Cache\ViewCache.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Cache\ViewCache.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Cache\ViewCache.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\CacheFilter.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\CacheFilter.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\CacheFilter.cs
+      Delegate\Source\Delegates\RawDelegate.cs
+    projectPath: Assets\Visual Delegate\Source\Delegates\RawDelegate.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -83,66 +67,10 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\CodeGeneration\Drawer\DelegateAOTDrawer.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\CodeGeneration\Drawer\DelegateAOTDrawer.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\CodeGeneration\Drawer\DelegateAOTDrawer.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Assets\Visual Delegate\Source\Editor\DelegateEditorSettings.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Delegate\Source\Editor\DelegateEditorSettings.cs
     projectPath: Assets\Visual Delegate\Source\Editor\DelegateEditorSettings.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\DelegateView\DelegateArguments\RawArgumentView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\DelegateView\DelegateArguments\RawArgumentView.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\DelegateView\DelegateArguments\RawArgumentView.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\DelegateView\RawCallView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\DelegateView\RawCallView.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\DelegateView\RawCallView.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\DelegateView\RawDelegateView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\DelegateView\RawDelegateView.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\DelegateView\RawDelegateView.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\DelegateView\RawDynamicDelegateView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\DelegateView\RawDynamicDelegateView.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\DelegateView\RawDynamicDelegateView.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\DelegateView\RawReferenceView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\DelegateView\RawReferenceView.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\DelegateView\RawReferenceView.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerFilter.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Drawers\DrawerFilter.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Drawers\DrawerFilter.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawArgument.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Drawers\DrawerRawArgument.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawArgument.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -153,27 +81,6 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawDelegateView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Drawers\DrawerRawDelegateView.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawDelegateView.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawReferenceView.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Drawers\DrawerRawReferenceView.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawReferenceView.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawRuntimeDelegate.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Drawers\DrawerRawRuntimeDelegate.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawRuntimeDelegate.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerVisualDelegate.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Delegate\Source\Editor\Drawers\DrawerVisualDelegate.cs
@@ -181,104 +88,13 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Filter.cs
+  - path: Assets\Visual Delegate\Source\Utility\Utility.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Filter.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Filter.cs
+      Delegate\Source\Utility\Utility.cs
+    projectPath: Assets\Visual Delegate\Source\Utility\Utility.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\HashedFilter.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\HashedFilter.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\HashedFilter.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Method Members\IMember.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Method Members\IMember.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Method Members\IMember.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Method Members\Member.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Method Members\Member.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Method Members\Member.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Method Members\MemberField.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Method Members\MemberField.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Method Members\MemberField.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Method Members\MemberMethod.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Method Members\MemberMethod.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Method Members\MemberMethod.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Method Members\MemberProperty.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Method Members\MemberProperty.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Method Members\MemberProperty.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Namespace.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Namespace.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Namespace.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\Settings.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\Settings.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\Settings.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\VisualEditorUtility.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\VisualEditorUtility.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\VisualEditorUtility.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegate.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Visual Delegates\VisualDelegate.cs
-    projectPath: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegate.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBase.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Visual Delegates\VisualDelegateBase.cs
-    projectPath: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBase.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBaseEditor.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Visual Delegates\VisualDelegateBaseEditor.cs
-    projectPath: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBaseEditor.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBaseEditor.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Visual Delegates\VisualDelegateBaseEditor.cs.meta
-    projectPath: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBaseEditor.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
   - path: Library\ArtifactDB
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ArtifactDB
     projectPath: Library\ArtifactDB
@@ -324,54 +140,6 @@ MonoBehaviour:
   - path: Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
     projectPath: Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\com.unity.quicksearch.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\com.unity.quicksearch.dll
-    projectPath: Library\ScriptAssemblies\com.unity.quicksearch.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-    projectPath: Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Unity.TextMeshPro.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.TextMeshPro.dll
-    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-    projectPath: Library\ScriptAssemblies\UnityEditor.TestRunner.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\UnityEditor.UI.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEditor.UI.dll
-    projectPath: Library\ScriptAssemblies\UnityEditor.UI.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-    projectPath: Library\ScriptAssemblies\UnityEngine.TestRunner.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\ScriptAssemblies\UnityEngine.UI.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEngine.UI.dll
-    projectPath: Library\ScriptAssemblies\UnityEngine.UI.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

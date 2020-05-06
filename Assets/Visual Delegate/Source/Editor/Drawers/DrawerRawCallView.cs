@@ -59,11 +59,13 @@ namespace VisualEvent.Editor
         //=======================
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         {
+           // Debug.Log(tProperty.FindPropertyRelative("m_isYieldableCall").boolValue);
             // Inheritance
             base.OnGUI(tPosition, tProperty, tLabel);
 
             if (ViewCache.GetDelegateView(tProperty, out RawCallView delegateCache))
             {
+
                 SetInitialHeight(delegateCache, tProperty);
                 if (delegateCache.CurrentTarget != null)
                 {
@@ -81,6 +83,7 @@ namespace VisualEvent.Editor
                         if (EditorGUI.EndChangeCheck())
                         {
                             delegateCache.isDynamic = tempIsDynamic;
+                            UpdateMethodName(tProperty, delegateCache);
                             handleDynamicUpdate(tProperty, delegateCache);
                             delegateCache.RequiresRecalculation = true;
                         }
@@ -150,7 +153,6 @@ namespace VisualEvent.Editor
         { 
             if (!delegatecache.isvalidated)
             {
-                Debug.LogError("VALIDATION");
                 SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative("methodData");
                 SerializedProperty isStatic_prop = tProperty.FindPropertyRelative("isStatic");
                 SerializedProperty tempDynamicProperty = tProperty.FindPropertyRelative("m_isDynamic");
@@ -203,6 +205,8 @@ namespace VisualEvent.Editor
         protected override void handleMemberUpdate(SerializedProperty tProperty, RawCallView tCache)
         {
             UpdateMethodName(tProperty, tCache);
+            if (!tCache.isYieldable)
+                tProperty.FindPropertyRelative("m_isYieldableCall").boolValue = false;
             base.handleMemberUpdate(tProperty, tCache);
             handleDynamicUpdate(tProperty, tCache as RawCallView);
         }
@@ -267,7 +271,6 @@ namespace VisualEvent.Editor
                     }
                 }
             }
-            Debug.LogWarning("in here");
             PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
             tProperty.serializedObject.ApplyModifiedProperties();
         }
@@ -281,6 +284,7 @@ namespace VisualEvent.Editor
             SerializedProperty creationmethodprop = tproperty.FindPropertyRelative("Creationmethod");
             if (rawcallview.arguments != null)
             {
+                Debug.Log(rawcallview.isDynamic);
                 var argumentlength = rawcallview.arguments.Length;
                 MemberInfo info = rawcallview.SelectedMember.info;
                 string NewmethodName = null;
@@ -289,7 +293,10 @@ namespace VisualEvent.Editor
                     if (method_info.ReturnType == typeof(void))
                     {
                         if (rawcallview.isDynamic)
+                        {
+                            Debug.Log("should go in here");
                             NewmethodName = "createAction" + argumentlength;
+                        }
                         else NewmethodName = "createActionCall" + argumentlength;
                     }
                     else

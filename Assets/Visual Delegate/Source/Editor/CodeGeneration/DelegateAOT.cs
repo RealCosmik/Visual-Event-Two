@@ -80,18 +80,20 @@ namespace VisualEvent.Editor
         {
             var count = Utility.DelegateFieldCreationMethods?.Count ?? 0 +
                         Utility.DelegateFieldReturnCreationMethods?.Count ?? 0 +
+                        Utility.DelegateDynamicFieldCreationMethods?.Count ?? 0 +
                         Utility.DelegateMethodCreationMethods?.Count ?? 0 +
-                        Utility.DelegatePropertyCreationMethod?.Count ?? 0;
+                        Utility.DelegateDynamicMethodCreationMethods?.Count ?? 0 +
+                        Utility.DelegatePropertyCreationMethod?.Count ?? 0 +
+                        Utility.DelegateDynamicPropertyCreationMethod?.Count ?? 0;
 
             var info_cache = new List<KeyValuePair<Type[], MethodInfo>>(count);
-            if (Utility.DelegateFieldCreationMethods != null)
-                info_cache.AddRange(Utility.DelegateFieldCreationMethods);
-            if (Utility.DelegateFieldReturnCreationMethods != null)
-                info_cache.AddRange(Utility.DelegateFieldReturnCreationMethods);
-            if (Utility.DelegatePropertyCreationMethod != null)
-                info_cache.AddRange(Utility.DelegatePropertyCreationMethod);
-            if (Utility.DelegateMethodCreationMethods != null)
-                info_cache.AddRange(Utility.DelegateMethodCreationMethods);
+                info_cache.AddRange(Utility.DelegateFieldCreationMethods??null);
+                info_cache.AddRange(Utility.DelegateFieldReturnCreationMethods??null);
+                info_cache.AddRange(Utility.DelegateDynamicFieldCreationMethods??null);
+                info_cache.AddRange(Utility.DelegatePropertyCreationMethod??null);
+                info_cache.AddRange(Utility.DelegateDynamicPropertyCreationMethod??null);
+                info_cache.AddRange(Utility.DelegateMethodCreationMethods??null);
+                info_cache.AddRange(Utility.DelegateDynamicMethodCreationMethods??null);
             Debug.Log(info_cache.Count);
             return info_cache;
         }

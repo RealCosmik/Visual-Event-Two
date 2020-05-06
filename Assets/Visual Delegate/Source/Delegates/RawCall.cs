@@ -93,29 +93,55 @@ namespace VisualEvent
                 switch (tMember.MemberType)
                 {
                     case MemberTypes.Field:
-                        if (!Utility.DelegateFieldCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                        if (!isDynamic && !Utility.DelegateFieldCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
                         {
                             RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegateFieldCreationMethods.Add(paramtypes, RunTimeMethod);
                         }
+                        else if (!Utility.DelegateDynamicFieldCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                        {
+                            RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                            Utility.DelegateDynamicFieldCreationMethods.Add(paramtypes, RunTimeMethod);
+                        }
                         break;
                     case MemberTypes.Property:
-                        if (!Utility.DelegatePropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
+                        if (!isDynamic && !Utility.DelegatePropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
                         {
                             RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegatePropertyCreationMethod.Add(paramtypes, RunTimeMethod);
                         }
+                        else if (!Utility.DelegateDynamicPropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
+                        {
+                            RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                            Utility.DelegateDynamicPropertyCreationMethod.Add(paramtypes, RunTimeMethod);
+                        } 
                         break;
                     case MemberTypes.Method:
                         if (paramtypes == null)
                         {
                             return createActionCall0(tMember as MethodInfo);
-                        }
-                        else if (!Utility.DelegateMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                        } 
+                        else if (!isDynamic && !Utility.DelegateMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
                         {
+                            Debug.Log("<color=yellow> static CACHE </color>");
                             RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegateMethodCreationMethods.Add(paramtypes, RunTimeMethod);
                         }
+                        //else if (!isDynamic && Utility.DelegateMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                        //{
+                        //    Debug.Log("<color=yellow> got from static cache</color>");
+                        //}
+
+                        else if (isDynamic &&!Utility.DelegateDynamicMethodCreationMethods.TryGetValue(paramtypes,out RunTimeMethod))
+                        {
+                            Debug.Log("<color=blue> DYNAMIC CACHE </color>");
+                            RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                            Utility.DelegateDynamicMethodCreationMethods.Add(paramtypes, RunTimeMethod);
+                        }
+                        //else if ( isDynamic && Utility.DelegateDynamicMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                        //{
+                        //    Debug.Log("<color=blue> gor from DYNAMIC CACHE </color>");
+                        //} 
                         break;
                 }
                 return RunTimeMethod.Invoke(this, arguments) as Delegate;
@@ -787,24 +813,39 @@ namespace VisualEvent
 
             Func<A, T> tempDelegate = Delegate.CreateDelegate(typeof(Func<A, T>), m_target, tMethod, false) as Func<A, T>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
+            Action tempAction;
+            Debug.LogWarning(isYieldable);
             if (isYieldable)
             {
-                Debug.Log(input_1 == null);
-                Func<IEnumerator> del = () => tempDelegate(input_1()) as IEnumerator;
-                return del;
+                tempAction = () =>
+                {
+                    try
+                    {
+                        Debug.Log(input_1() == null);
+                        Debug.Log(input_1 == null);
+                        (m_target as MonoBehaviour).StartCoroutine(tempDelegate(input_1()) as IEnumerator);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError(ex);
+                    }
+                };
             }
-            Action tempaction = () =>
-               {
-                   try
-                   {
-                       tempDelegate(input_1());
-                   }
-                   catch (Exception ex)
-                   {
-                       Debug.LogError(ex);
-                   }
-               };
-            return tempaction;
+            else
+            {
+                tempAction = () =>
+                {
+                    try
+                    {
+                        tempDelegate(input_1());
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError(ex);
+                    }
+                };
+            }
+            return tempAction;
         }
 
         /// <summary>Utility method for creating a 2-parameter method delegate from a <see cref="System.Reflection.MethodInfo"/> that has a return value</summary>

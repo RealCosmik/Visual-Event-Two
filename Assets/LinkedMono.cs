@@ -6,7 +6,9 @@ using System;
 using UnityEngine.Events;
 class LinkedMono : MonoBehaviour
 {
-    public intpub Cosmik;
+    [RoboRyanTron.SearchableEnum.SearchableEnum]
+    public KeyCode Invoke_key = KeyCode.Space;
+        public intpub Cosmik;
     public UnityEvent unity;
     public Vector3 vecfield = Vector3.one;
     public int RandomPropp { get => 2; set { Debug.Log("set value to be" + value); } }
@@ -37,6 +39,7 @@ class LinkedMono : MonoBehaviour
     {
         Cosmik.initialize();
     }
+    public void StopCertain() => StopCoroutine(infinity());
     public void testobj(ScriptableObject o)
     {
         Debug.LogError("bad so");
@@ -148,7 +151,7 @@ class LinkedMono : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(Invoke_key))
         {
             Cosmik.Invoke(2);
         }

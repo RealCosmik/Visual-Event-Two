@@ -62,7 +62,9 @@ namespace VisualEvent.Editor
                          EditorGUI.DrawRect(rect, DelegateEditorSettings.instance.YieldColor);
                      }
                      else if (tempList.index == index)
+                     {
                          EditorGUI.DrawRect(rect, DelegateEditorSettings.instance.Selectedcolor);
+                     }
                      else if (index % 2 == 0)
                          EditorGUI.DrawRect(rect, DelegateEditorSettings.instance.EvenColor);
                      else EditorGUI.DrawRect(rect, DelegateEditorSettings.instance.OddColor);
@@ -141,40 +143,41 @@ namespace VisualEvent.Editor
                 EditorGUI.indentLevel = tempIndentLevel - 1;
 
                 CopyPasteKeyboard(tempList, tempList.serializedProperty);
-            }
-            if (EditorGUI.EndChangeCheck())
-            {
-                if (EditorApplication.isPlaying)
+                if (EditorGUI.EndChangeCheck())
                 {
-                    Debug.LogWarning("might have to change this");
-                    var flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
-                    var visual_del = tProperty.GetVisualDelegateObject();
-                    visual_del.GetType().BaseType.GetField("m_onInvoke", flags).SetValue(visual_del, null);
-                    visual_del.initialize();
-                }
-                else
-                {
-                    var AllDelegateCaches = ViewCache.GetVisualDelegateInstanceCache(tProperty).RawCallCache;
-                    var length = AllDelegateCaches.Count;
-                    bool hasyeild = false;
-                    for (int i = 0; i < length; i++)
+                    if (EditorApplication.isPlaying)
                     {
-                        var delegate_view = AllDelegateCaches[i].delegateView;
-                        if (delegate_view is RawCallView rawDelegateview && rawDelegateview.isYieldable)
-                        {
-                            hasyeild = true;
-                            break;
-                        }
+                        Debug.LogWarning("might have to change this");
+                        var flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
+                        var visual_del = tProperty.GetVisualDelegateObject();
+                        visual_del.GetType().BaseType.GetField("m_onInvoke", flags).SetValue(visual_del, null);
+                        visual_del.initialize();
                     }
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
-                    tProperty.FindPropertyRelative("hasyield").boolValue = hasyeild;
-                    if (hasyeild)
-                        tProperty.FindPropertyRelative("Yield_target").objectReferenceValue = tProperty.serializedObject.targetObject;
-                    else tProperty.FindPropertyRelative("Yield_target").objectReferenceValue = null;
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
-                    tProperty.serializedObject.ApplyModifiedProperties();
+                    else
+                    {
+                        var AllDelegateCaches = ViewCache.GetVisualDelegateInstanceCache(tProperty).RawCallCache;
+                        var length = AllDelegateCaches.Count;
+                        bool hasyeild = false;
+                        for (int i = 0; i < length; i++)
+                        {
+                            var delegate_view = AllDelegateCaches[i].delegateView;
+                            if (delegate_view is RawCallView rawDelegateview && rawDelegateview.isYieldable)
+                            {
+                                hasyeild = true;
+                                break;
+                            }
+                        }
+                        PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
+                        tProperty.FindPropertyRelative("hasyield").boolValue = hasyeild;
+                        if (hasyeild)
+                            tProperty.FindPropertyRelative("Yield_target").objectReferenceValue = tProperty.serializedObject.targetObject;
+                        else tProperty.FindPropertyRelative("Yield_target").objectReferenceValue = null;
+                        PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
+                        tProperty.serializedObject.ApplyModifiedProperties();
+                    }
                 }
             }
+            
         }
         private void ShowInvocation(VisiualDelegateCacheContainer cache, Rect delegaterect, ReorderableList list)
         {

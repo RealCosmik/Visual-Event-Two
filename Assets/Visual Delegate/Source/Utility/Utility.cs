@@ -24,8 +24,11 @@ namespace VisualEvent
         public const string UNITYOBJECt_TYPE_NAME = "UnityEngine.Object";
 
         public static Dictionary<Type[], MethodInfo> DelegateFieldCreationMethods;
+        public static Dictionary<Type[], MethodInfo> DelegateDynamicFieldCreationMethods;
         public static Dictionary<Type[], MethodInfo> DelegatePropertyCreationMethod;
+        public static Dictionary<Type[], MethodInfo> DelegateDynamicPropertyCreationMethod;
         public static Dictionary<Type[], MethodInfo> DelegateMethodCreationMethods;
+        public static Dictionary<Type[], MethodInfo> DelegateDynamicMethodCreationMethods;
         public static Dictionary<Type[], MethodInfo> DelegateFieldReturnCreationMethods;
         public const BindingFlags memberBinding = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
 
@@ -33,9 +36,12 @@ namespace VisualEvent
         {
             var comparer=new MethodParamEquaility();
             DelegateFieldCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
+            DelegateDynamicFieldCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
             DelegateFieldReturnCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
             DelegatePropertyCreationMethod = new Dictionary<Type[], MethodInfo>(comparer);
+            DelegateDynamicPropertyCreationMethod = new Dictionary<Type[], MethodInfo>(comparer);
             DelegateMethodCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
+            DelegateDynamicMethodCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
         }
         //=======================
         // Serialization

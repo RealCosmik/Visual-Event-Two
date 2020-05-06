@@ -27,7 +27,7 @@ namespace VisualEvent
         protected bool isStatic, isUnityTarget;
         public bool validTarget => isUnityTarget;
         [SerializeField]
-        bool m_isYieldableCall;
+        protected bool m_isYieldableCall;
         protected Type[] paramtypes;
         [SerializeField] internal bool haserror;
         public bool isYieldable => m_isYieldableCall;
@@ -105,8 +105,7 @@ namespace VisualEvent
 
                             return null;
                         }
-
-                        switch (tempParametersLength)
+                        switch (tempParametersLength-1)
                         {
                             case 0:
                                 return Delegate.CreateDelegate(typeof(Func<>).MakeGenericType(paramtypes), target, tempMethod, false);

@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 240813467}
   - component: {fileID: 240813466}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: Animal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36daa77921fe6fa408e6c6586762f35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Invoke_key: 32
   Cosmik:
     m_calls:
     - id: 0
@@ -173,17 +174,18 @@ MonoBehaviour:
         m_target: {fileID: 240813466}
         methodData:
         - 8
-        - methodforikram
-        - System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        - StartCoroutine
+        - System.Collections.IEnumerator, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
         isStatic: 0
         isUnityTarget: 1
-        m_isYieldableCall: 1
+        m_isYieldableCall: 0
         haserror: 0
-        Creationmethod: createActionCall1
+        Creationmethod: createFuncCall1
         m_arguments:
-        - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b77a5c561934e089
-          FullArgumentName: System.Int32
+        - assemblyQualifiedArgumentName: System.Collections.IEnumerator, mscorlib,
+            Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          FullArgumentName: System.Collections.IEnumerator
           objectValue: {fileID: 0}
           m_objecthasvalue: 0
           stringValue: 
@@ -201,19 +203,21 @@ MonoBehaviour:
             m_PreInfinity: 0
             m_PostInfinity: 0
             m_RotationOrder: 0
-          UseReference: 0
+          UseReference: 1
           hasCustomType: 0
           call_Reference:
-            m_target: {fileID: 0}
-            methodData: []
+            m_target: {fileID: 11400000, guid: 40324b5356407452b8b3e56acbe700a8, type: 2}
+            methodData:
+            - 8
+            - offscenemethod
             isStatic: 0
-            isUnityTarget: 0
+            isUnityTarget: 1
             m_isYieldableCall: 0
             haserror: 0
             m_isvaluetype: 0
             isparentargstring: 0
             m_isDelegate: 0
-            willdeseralize: 0
+            willdeseralize: 1
         m_isDynamic: 0
         m_runtime: 0
         TargetType: 
@@ -760,6 +764,83 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1470324723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470324725}
+  - component: {fileID: 1470324724}
+  m_Layer: 0
+  m_Name: Animal (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1470324724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470324723}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36daa77921fe6fa408e6c6586762f35c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Invoke_key: 113
+  Cosmik:
+    m_calls:
+    - id: 0
+    Yield_target: {fileID: 0}
+    hasyield: 0
+  unity:
+    m_PersistentCalls:
+      m_Calls: []
+  vecfield: {x: 1, y: 1, z: 1}
+  mynum: 0
+  mymonotest: {fileID: 0}
+  ExampleSwitch: 0
+  idk: 0
+  mynumss: 0
+  input: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: RawCall, ns: VisualEvent, asm: VisualDelegate}
+      data:
+        m_target: {fileID: 240813466}
+        methodData:
+        - 8
+        - StopCertain
+        isStatic: 0
+        isUnityTarget: 1
+        m_isYieldableCall: 0
+        haserror: 0
+        Creationmethod: createActionCall0
+        m_arguments: []
+        m_isDynamic: 0
+        m_runtime: 0
+        TargetType: 
+--- !u!4 &1470324725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470324723}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1587212668
 GameObject:
