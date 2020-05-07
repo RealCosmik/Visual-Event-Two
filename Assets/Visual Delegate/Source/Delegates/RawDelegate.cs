@@ -194,7 +194,7 @@ namespace VisualEvent
                     delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData, out paramtypes), m_target);
                 else delegateInstance = new Action(() => Debug.LogError(Utility.CreateDelegateErrorMessage(methodData,m_target),m_target));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 delegateInstance = new Action(() => Debug.LogError(Utility.CreateDelegateErrorMessage(methodData, m_target),m_target));
             }

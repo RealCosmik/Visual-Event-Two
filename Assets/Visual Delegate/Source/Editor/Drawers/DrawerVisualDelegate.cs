@@ -3,7 +3,6 @@ using UnityEditor;
 using System;
 using System.Collections.Generic;
 using UnityEditorInternal;
-using System.Linq;
 using System.Reflection;
 namespace VisualEvent.Editor
 {
@@ -149,7 +148,8 @@ namespace VisualEvent.Editor
                 {
                     if (EditorApplication.isPlaying)
                     {
-                        Debug.LogWarning("might have to change this");
+                        //Debug.LogWarning("might have to change this");
+                        tProperty.serializedObject.ApplyModifiedProperties();
                         VisualEditorUtility.ReinitializeDelegate(tProperty.GetVisualDelegateObject());
                     }
                 }

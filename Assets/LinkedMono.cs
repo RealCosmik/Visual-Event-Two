@@ -6,17 +6,16 @@ using System;
 using UnityEngine.Events;
 class LinkedMono : MonoBehaviour
 {
-    [RoboRyanTron.SearchableEnum.SearchableEnum]
     public KeyCode Invoke_key = KeyCode.Space;
-        public intpub Cosmik;
+    public intpub Cosmik;
     public UnityEvent unity;
     public Vector3 vecfield = Vector3.one;
     public int RandomPropp { get => 2; set { Debug.Log("set value to be" + value); } }
-    public int mynum; 
+    public int mynum;
     public void methodforikram() => Debug.Log("<color=green>this is for ikram</color>");
     public void methodforikram(int x) => Debug.Log("printing as an int" + x);
     public void throwexception()
-    { 
+    {
         if (input == 0)
         {
             input++;
@@ -29,15 +28,13 @@ class LinkedMono : MonoBehaviour
     [SerializeField] Testmono mymonotest;
     public bool ExampleSwitch;
     public char idk;
-     
-    public enum nums { one,two,thre,four,five}
-    public nums mynumss;
+
     public int input = 0;
     public void customtype(Person p) => Debug.Log("custom type");
     public void oddFunction(Action a) => Debug.Log("useless");
     private void Start()
     {
-        Cosmik.OnInvoke += val=> Debug.Log("ok this is lit");
+        Cosmik.OnInvoke += val => Debug.Log("ok this is lit");
         Cosmik.initialize();
     }
     public void StopCertain() => StopCoroutine(infinity());
@@ -54,7 +51,7 @@ class LinkedMono : MonoBehaviour
         Debug.Log("first end");
     }
     public IEnumerator infinity()
-    { 
+    {
         while (true)
         {
             Debug.Log("forever");
@@ -107,7 +104,7 @@ class LinkedMono : MonoBehaviour
     public IEnumerator WaitforIntValue(Func<int> value)
     {
         Debug.Log("got in here");
-        yield return new WaitUntil(()=>value() == 748);
+        yield return new WaitUntil(() => value() == 748);
         Debug.Log("finally got a good value");
     }
     public IEnumerator WaitforIntValue(Func<int> value, int targetValue)

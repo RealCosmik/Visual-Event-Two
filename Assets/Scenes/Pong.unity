@@ -121,6 +121,111 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &214995406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 214995408}
+  - component: {fileID: 214995407}
+  m_Layer: 0
+  m_Name: Animal (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &214995407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214995406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36daa77921fe6fa408e6c6586762f35c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Invoke_key: 32
+  Cosmik:
+    m_calls:
+    - id: 0
+  unity:
+    m_PersistentCalls:
+      m_Calls: []
+  vecfield: {x: 1, y: 1, z: 1}
+  mynum: 0
+  mymonotest: {fileID: 0}
+  ExampleSwitch: 0
+  idk: 0
+  input: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: RawCall, ns: VisualEvent, asm: VisualDelegate}
+      data:
+        m_target: {fileID: 890595354}
+        methodData:
+        - 16
+        - text
+        m_isYieldableCall: 0
+        haserror: 0
+        serializationError: 0
+        creationMethod: createPropertyCall
+        m_arguments:
+        - assemblyQualifiedArgumentName: System.String, mscorlib, Version=4.0.0.0,
+            Culture=neutral, PublicKeyToken=b77a5c561934e089
+          FullArgumentName: System.String
+          objectValue: {fileID: 0}
+          m_objecthasvalue: 0
+          stringValue: this is me changing the text of the string
+          _x1: -1
+          _x2: 0
+          _y1: 0
+          _y2: 0
+          _z1: 0
+          _z2: 0
+          longValue: 0
+          doubleValue: 0
+          animationCurveValue:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 0
+            m_PostInfinity: 0
+            m_RotationOrder: 0
+          UseReference: 0
+          hasCustomType: 0
+          call_Reference:
+            m_target: {fileID: 0}
+            methodData: []
+            m_isYieldableCall: 0
+            haserror: 0
+            serializationError: 0
+            m_isvaluetype: 0
+            isparentargstring: 0
+            m_isDelegate: 0
+            willdeseralize: 0
+        m_isDynamic: 0
+        m_runtime: 0
+        TargetType: 
+--- !u!4 &214995408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214995406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &240813465
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +267,6 @@ MonoBehaviour:
   mymonotest: {fileID: 0}
   ExampleSwitch: 0
   idk: 0
-  mynumss: 0
   input: 0
   references:
     version: 1
