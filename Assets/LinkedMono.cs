@@ -34,7 +34,6 @@ class LinkedMono : MonoBehaviour
     public void oddFunction(Action a) => Debug.Log("useless");
     private void Start()
     {
-        Cosmik.OnInvoke += val => Debug.Log("ok this is lit");
         Cosmik.initialize();
     }
     public void StopCertain() => StopCoroutine(infinity());
@@ -42,6 +41,7 @@ class LinkedMono : MonoBehaviour
     {
         Debug.LogError("bad so");
     }
+    public void logCode(KeyCode c) => Debug.Log(c);
     private void IkramislookingProgrammer(int x) => Debug.Log("<color=blue> she loves me with code</color>");
     public void IkramislookingArt(int x) => Debug.Log("<color=blue> she loves me without code </color>");
     IEnumerator first()

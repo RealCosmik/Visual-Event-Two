@@ -324,7 +324,11 @@ namespace VisualEvent.Editor
                         else
                         {
                             VisualEditorUtility.StandardStyle.CalcMinMaxWidth(paramLabel, out float min, out float max);
-                            argpos.xMin += max;
+                            //  argpos.width -= max;\
+                            argpos.width /= 2;
+                            //argpos.xMax += max;
+                            argpos.x += argpos.width/2;
+                            //argpos.x += max;
                             DrawSearchableEnum(argpos, current_type, tempX1);
                            //tempX1.floatValue = Convert.ToSingle(EditorGUI.EnumPopup(argpos, GUIContent.none, (Enum)Enum.ToObject(current_type, (int)tempX1.floatValue)));
                         }
@@ -394,22 +398,25 @@ namespace VisualEvent.Editor
         private void DrawSearchableEnum(Rect enumrect, Type enumtype, SerializedProperty enumpropertyvalue)
         {
             int idHash = (enumpropertyvalue.propertyPath.GetHashCode() + enumpropertyvalue.serializedObject.targetObject.GetInstanceID().ToString()).GetHashCode();
-            GUIContent button = new GUIContent();
             var enum_names = Enum.GetNames(enumtype);
             if ((int)enumpropertyvalue.floatValue >= enum_names.Length|| (int)enumpropertyvalue.floatValue<0)
             {
                 enumpropertyvalue.floatValue = Convert.ToSingle(enum_names.Length - 1);
                 enumpropertyvalue.serializedObject.ApplyModifiedProperties();
             }
-            button.text = enum_names[(int)enumpropertyvalue.floatValue];
+            GUIContent button = new GUIContent();
+            button.text = Enum.GetName(enumtype, (int)enumpropertyvalue.floatValue);
             if (DropdownButton(idHash, enumrect, button))
             {
+                ;
                 Action<int> onselected = index =>
                  {
-                     enumpropertyvalue.floatValue = Convert.ToSingle((Enum)Enum.ToObject(enumtype, index));
+                     enumpropertyvalue.floatValue = Convert.ToSingle(Enum.Parse(enumtype,enum_names[index]));
                      enumpropertyvalue.serializedObject.ApplyModifiedProperties();
+                     if (EditorApplication.isPlaying)
+                         VisualEditorUtility.ReinitializeDelegate(enumpropertyvalue.GetVisualDelegateObject());
                  };
-                SearchablePopup.Show(enumrect, enum_names, (int)enumpropertyvalue.floatValue, onselected);
+                SearchablePopup.Show(enumrect, enum_names, Array.FindIndex(enum_names, name => name == button.text), onselected);
             }
         }
         private static bool DropdownButton(int id, Rect position, GUIContent content)
@@ -432,7 +439,7 @@ namespace VisualEvent.Editor
                     }
                     break;
                 case EventType.Repaint:
-                    EditorStyles.popup.Draw(position, content, id, false);
+                   EditorStyles.popup.Draw(position, content, id);
                     break;
             }
             return false;
