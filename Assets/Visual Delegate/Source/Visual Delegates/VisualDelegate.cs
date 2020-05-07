@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 namespace VisualEvent
 {
@@ -18,40 +16,31 @@ namespace VisualEvent
             add
             {
                 m_onInvoke += value;
-                AddRuntimetoEditor(value);
+                if (Application.isEditor)
+                    AddRuntimetoEditor(value);
             }
             remove
             {
                 m_onInvoke -= value;
-                RemoveRuntimeFromEditor(value);
+                if (Application.isEditor)
+                    RemoveRuntimeFromEditor(value);
             }
         }
-        private List<Func<IEnumerator>> YieldedDelegates;
         /// <summary>Handles the <see cref="RawCall"/> that was added and registers its delegate to the Publisher's matching event(s)</summary>
         /// <param name="tCall">RawCall that was added</param>
         protected override void AppendCallToEvent(RawDelegate call)
         {
-            if (hasyield && YieldedDelegates == null)
-                YieldedDelegates = new List<Func<IEnumerator>>(m_calls.Count);
 
             var raw_delegate_instance = call.delegateInstance;
             // here we know that the delegate is either void method or a method with pre-defined args
             if (raw_delegate_instance is Action call_delegate)
             {
-                if (!hasyield)
-                    m_onInvoke += () =>
-                     {
-                         if (call.isDelegateLeaking())
-                             removeCall(call);
-                         else call_delegate();
-                     };
-                else
-                    YieldedDelegates.Add(CreateYieldableDyanimcDelegate(call_delegate, call));
-            }
-            // if the call is an  void coroutine or a corutine with pre-defined arguments
-            else if (raw_delegate_instance is Func<IEnumerator> corutineCall)
-            {
-                YieldedDelegates.Add(corutineCall);
+                m_onInvoke += () =>
+                 {
+                     if (call.isDelegateLeaking())
+                         removeCall(call);
+                     else call_delegate();
+                 };
             }
             else Debug.LogWarning("no case found");
         }
@@ -61,54 +50,15 @@ namespace VisualEvent
         /// <param name="tIndex">Index of the RawCall that was removed</param>
         protected override void RemoveCallFromEvent(RawDelegate tCall)
         {
-            if (!hasyield)
-                m_onInvoke -= tCall.delegateInstance as Action;
-            else
-            {
-                YieldedDelegates.Remove(tCall.delegateInstance as Func<IEnumerator>);
-                if (YieldedDelegates.Count == 0)
-                    Yield_target = null;
-            }
+            m_onInvoke -= tCall.delegateInstance as Action;
             tCall.Release();
         }
-        // internal override Delegate CreateTypeSafeActioncall(Action action) => action;
-        //  internal override Delegate CreateYieldableCall(Action action) => CreateYieldableDyanimcDelegate(action);
-        internal Func<IEnumerator> CreateYieldableDyanimcDelegate(Action action, RawDelegate call)
-        {
-            Func<IEnumerator> yieldable_delegate = () =>
-            {
-                if (call.isDelegateLeaking())
-                    removeCall(call);
-                else action();
-                return BreakYield();
-            };
-            return yieldable_delegate;
-        }
-
         // Publish
         //=======================
         /// <summary>Invokes the <see cref="m_oninvoke"/> event</summary>
         public void Invoke()
         {
-            if (!isinitialized)
-                initialize();
             m_onInvoke?.Invoke();
-            if (hasyield)
-                Yield_target.StartCoroutine(ExecuteYieldedDelegates());
-        }
-        private IEnumerator ExecuteYieldedDelegates()
-        {
-            int delegate_count = YieldedDelegates?.Count ?? 0;
-            for (int i = 0; i < delegate_count; i++)
-            {
-
-                if (i < YieldedDelegates.Count)
-                {
-                    if (Yield_target == null)
-                        yield break;
-                    else yield return Yield_target.StartCoroutine(YieldedDelegates[i]());
-                }
-            }
         }
         public override void Release()
         {
@@ -129,104 +79,51 @@ namespace VisualEvent
         {
             add
             {
-                AppendCallToEvent(new RawRuntimeCall(value));
+                m_onInvoke += value;
                 if (Application.isEditor)
                     AddRuntimetoEditor(value);
             }
             remove
             {
+                m_onInvoke -= value;
                 if (Application.isEditor)
                     RemoveRuntimeFromEditor(value);
             }
         }
 
-        private List<Func<A, IEnumerator>> YieldedDelegates;
 
         protected sealed override void AppendCallToEvent(RawDelegate call)
         {
-            if (hasyield && YieldedDelegates == null)
-                YieldedDelegates = new List<Func<A, IEnumerator>>(m_calls.Count);
 
             var delegatehandle = call.delegateInstance;
             // here we know that the delegate is either void method or a method with pre-defined args
             if (delegatehandle is Action call_delegate)
             {
-                if (!hasyield)
-                {
-                    Action<A> leaksafe = _ =>
-                     {
-                         if (call.isDelegateLeaking())
-                             removeCall(call);
-                         else call_delegate();
-                     };
-                    call.delegateInstance = leaksafe;
-                    m_onInvoke += leaksafe;
-                }
-                else
-                    YieldedDelegates.Add(CreateYieldableCall(call_delegate, call));
+                Action<A> leaksafe = _ =>
+                 {
+                     if (call.isDelegateLeaking())
+                         removeCall(call);
+                     else call_delegate();
+                 };
+                call.delegateInstance = leaksafe;
+                m_onInvoke += leaksafe;
             }
             // this will only have happen if the call is labeled as dynamic because it matches the param of this delegate
             else if (delegatehandle is Action<A> dynamic_call)
             {
-                if (!hasyield)
+                Action<A> leaksafe = val =>
                 {
-                    Action<A> leaksafe = val =>
-                    {
-                        if (call.isDelegateLeaking())
-                            removeCall(call);
-                        else dynamic_call(val);
-                    };
-                    call.delegateInstance = leaksafe;
-                    m_onInvoke += leaksafe;
-                }
-                else YieldedDelegates.Add(CreateYieldableDynamicDelegate(dynamic_call, call));
-            }
-            // if the call is an  void coroutine or a corutine with pre-defined arguments
-            else if (delegatehandle is Func<IEnumerator> corutineCall)
-            {
-                YieldedDelegates.Add(_ => corutineCall());
-            }
-            // corutine thats dynamic 
-            else if (delegatehandle is Func<A, IEnumerator> DynamicRoutineCall)
-            {
-                YieldedDelegates.Add(val =>
-                {
-                    if (call.delegateInstance.Target == null)
-                    {
+                    if (call.isDelegateLeaking())
                         removeCall(call);
-                        return BreakYield();
-                    }
-                    else return DynamicRoutineCall(val);
-                });
+                    else dynamic_call(val);
+                };
+                call.delegateInstance = leaksafe;
+                m_onInvoke += leaksafe;
             }
             else Debug.LogWarning("no case found");
         }
 
-        internal Func<A, IEnumerator> CreateYieldableCall(Action action, RawDelegate call)
-        {
-            Func<A, IEnumerator> yieldableCall = _ =>
-             {
-                 if (call.delegateInstance.Target == null)
-                     removeCall(call);
-                 else action();
-                 return BreakYield();
-             };
-            call.delegateInstance = yieldableCall;
-            return yieldableCall;
-        }
 
-        internal Func<A, IEnumerator> CreateYieldableDynamicDelegate(Action<A> action, RawDelegate call)
-        {
-            Func<A, IEnumerator> yieldable_delegate = val =>
-             {
-                 if (call.delegateInstance.Target == null)
-                     removeCall(call);
-                 else action(val);
-                 return BreakYield();
-             };
-            call.delegateInstance = yieldable_delegate;
-            return yieldable_delegate;
-        }
         protected override void RemoveCallFromEvent(RawDelegate tCall)
         {
             m_onInvoke -= tCall.delegateInstance as Action<A>;
@@ -239,33 +136,9 @@ namespace VisualEvent
         /// <summary>Invokes the <see cref="VisualDelegate.m_oninvoke"/> and <see cref="m_oninvoke"/> events</summary>
         public void Invoke(A val1)
         {
-            if (hasyield)
-                Yield_target?.StartCoroutine(ExecuteYieldedDelegates(val1));
-            else
-            {
-                InvokeInternalCall(-1);
-                m_onInvoke?.Invoke(val1);
-            }
+            InvokeInternalCall(-1);
+            m_onInvoke?.Invoke(val1);
         }
-        private IEnumerator ExecuteYieldedDelegates(A val1)
-        {
-            int delegate_count = YieldedDelegates.Count;
-            for (int i = 0; i < delegate_count; i++)
-            {
-                InvokeInternalCall(i);
-                if (i < YieldedDelegates.Count)
-                {
-                    if (Yield_target == null)
-                        yield break;
-                    else yield return Yield_target.StartCoroutine(YieldedDelegates[i](val1));
-                }
-            }
-        }
-        public static VisualDelegate<A> operator+(VisualDelegate<A> visualdel, Action<A> del)
-        {
-            visualdel.OnInvoke += del;
-            return visualdel;
-        }  
     }
 }
 

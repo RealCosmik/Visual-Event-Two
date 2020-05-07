@@ -93,7 +93,7 @@ namespace VisualEvent
                 }
                 // here we do work if the reflected member is a method
                 else
-                {
+                {  
                     paramtypes = null;
                     MethodInfo method_info;
                     // data only contiains membertype and method name i.e its a void method
@@ -134,6 +134,12 @@ namespace VisualEvent
                 num = (num * 10) + (value[i] - '0');
             return num;
         }
+        public static string CreateDelegateErrorMessage(string[] serializedData, UnityEngine.Object target)
+        {
+            var member_type = (MemberTypes)ConvertStringToInt(serializedData[0]);
+            return $@"{member_type}: ""{serializedData[1]}"" was removed or renamed in type: ""{target.GetType()}""";
+        }
+
 
         //=======================
         // Delegates

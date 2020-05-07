@@ -12,8 +12,12 @@ namespace VisualEvent.Editor
         }
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         {
-            if (ViewCache.GetDelegateView(tProperty, out RawReferenceView delgateview))
+            if (ViewCache.GetDelegateView(tProperty, out RawReferenceView delegateview))
             {
+                if (delegateview.serializationError)
+                {
+                }
+
                 var rawcallview = ViewCache.GetRawCallCacheFromRawReference(tProperty);
                 int argument_index = tProperty.GetRawArgumentIndexFromArgumentReference();
                 var argument_type = rawcallview.arguments[argument_index].type;
@@ -32,15 +36,15 @@ namespace VisualEvent.Editor
                 //    validate(tProperty, delgateview);
                 //}
 
-                if (argument_type != delgateview.reference_type)
+                if (argument_type != delegateview.reference_type)
                 {
                     
                     // tProperty.FindPropertyRelative("methodData").ClearArray();
-                    delgateview.SetNewReferenceType(argument_type);
+                    delegateview.SetNewReferenceType(argument_type);
                     tProperty.FindPropertyRelative("m_isDelegate").boolValue = isdelegate;
-                    tProperty.FindPropertyRelative("m_isvaluetype").boolValue = delgateview.SelectedMember?.isvaluetype ?? false;
+                    tProperty.FindPropertyRelative("m_isvaluetype").boolValue = delegateview.SelectedMember?.isvaluetype ?? false;
                     tProperty.FindPropertyRelative("isparentargstring").boolValue = argument_type == typeof(string);
-                    handleMemberUpdate(tProperty, delgateview);
+                    handleMemberUpdate(tProperty, delegateview);
                 }
 
 
@@ -49,11 +53,11 @@ namespace VisualEvent.Editor
                 if (EditorGUI.EndChangeCheck())
                 {
                     // Debug.Log("local type change");
-                    tProperty.FindPropertyRelative("m_isvaluetype").boolValue = delgateview.SelectedMember?.isvaluetype ?? false;
+                    tProperty.FindPropertyRelative("m_isvaluetype").boolValue = delegateview.SelectedMember?.isvaluetype ?? false;
                     tProperty.FindPropertyRelative("isparentargstring").boolValue = argument_type == typeof(string);
-                    handleMemberUpdate(tProperty, delgateview);
+                    handleMemberUpdate(tProperty, delegateview);
                 }
-                if (delgateview.CurrentTarget == null)
+                if (delegateview.CurrentTarget == null)
                 {
                     tProperty.FindPropertyRelative("methodData").ClearArray();
                     tProperty.FindPropertyRelative("m_target").objectReferenceValue = null;

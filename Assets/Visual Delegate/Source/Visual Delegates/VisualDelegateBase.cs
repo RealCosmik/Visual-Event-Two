@@ -8,8 +8,6 @@ namespace VisualEvent
         /// <summary>List of raw <see cref="RawCall"/> objects that this Publisher invokes using predefined arguments</summary>
         [SerializeReference]
         public List<RawDelegate> m_calls;
-        [SerializeField] protected MonoBehaviour Yield_target;
-        public bool hasyield;
         protected bool isinitialized;
         private int pre_initcalls;
         protected abstract void AppendCallToEvent(RawDelegate raw_call);
@@ -22,7 +20,11 @@ namespace VisualEvent
             int tempListLength = m_calls.Count;
             for (int i = 0; i < tempListLength; i++)
             {
-                if (m_calls[i] != null && m_calls[i].delegateInstance != null /*&&(!(m_calls[i] is RawRuntimeDelegate))*/)
+                if (m_calls[i] != null && m_calls[i].delegateInstance != null && (!(m_calls[i] is RawRuntimeCall)))
+                {
+                    AppendCallToEvent(m_calls[i]);
+                }
+                if (Application.isEditor && isinitialized && m_calls[i] is RawRuntimeCall)
                 {
                     AppendCallToEvent(m_calls[i]);
                 }
@@ -54,23 +56,12 @@ namespace VisualEvent
             }
             return false;
         }
-        /// <summary>
-        /// Utility method that returns a yield break
-        /// </summary>
-        /// <returns></returns>
-        protected IEnumerator BreakYield()
-        {
-            yield break;
-        }
-
-
         public virtual void Release()
         {
             for (int i = 0; i < m_calls.Count; i++)
                 m_calls[i].Release();
             m_calls.Clear();
         }
-
     }
 
 }

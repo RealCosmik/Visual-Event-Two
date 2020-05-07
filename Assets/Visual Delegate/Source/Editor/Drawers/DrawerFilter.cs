@@ -43,7 +43,7 @@ namespace VisualEvent.Editor
 				isArray = fieldInfo.FieldType.IsArray || fieldInfo.FieldType == typeof( List<Filter> );
 				
 				// Generate namespaces and names
-				_namespaces = VisualEdiotrUtility.GetUnityObjectNamespaces();
+				_namespaces = VisualEditorUtility.GetUnityObjectNamespaces();
 				int tempListLength = _namespaces.Count;
 				_namespaceNames = new string[ tempListLength ];
 				for ( int i = ( tempListLength - 1 ); i >= 0; --i )

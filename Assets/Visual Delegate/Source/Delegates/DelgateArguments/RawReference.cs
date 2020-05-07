@@ -15,10 +15,6 @@ namespace VisualEvent
         public bool isvaluetype => m_isvaluetype;
         public bool isparentargumentstring => isparentargstring;
         const string FIELD_GETTER_NAME = "CreateFieldGetter";
-        private void fixer()
-        { 
-            CreateFieldGetter<int>(null, null);
-        }
         public override void OnAfterDeserialize()
         {
             if (willdeseralize)

@@ -188,7 +188,7 @@ namespace VisualEvent.Editor
             {
                 CurrentIndex = index;
                 isinvoked = true;
-                VisualEdiotrUtility.RepaintInspectorWindows();
+                VisualEditorUtility.RepaintInspectorWindows();
             });
             visualdelegate.GetType().GetEvent("m_internalcalls", flags).GetAddMethod(true).Invoke(visualdelegate, new object[] { editordelegate });
         }

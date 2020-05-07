@@ -17,7 +17,7 @@ namespace VisualEvent
         /// <summary>
         /// name of method calling in reflection. populated during editor time
         /// </summary>
-        [SerializeField] string Creationmethod;
+        [SerializeField] string creationMethod;
         //=======================
         // Variables
         //=======================
@@ -60,7 +60,7 @@ namespace VisualEvent
                 int argumentlength = m_arguments.Length;
                 for (int i = 0; i < argumentlength; i++)
                 {
-                    if (m_arguments[i].isUsingreference && m_arguments[i].call_Reference.delegateInstance.Target == null)
+                    if (m_arguments[i].isUsingreference && m_arguments[i].call_Reference.delegateInstance?.Target == null)
                     {
                         isArgumentsleaked = true;
                         break;
@@ -95,24 +95,24 @@ namespace VisualEvent
                     case MemberTypes.Field:
                         if (!isDynamic && !Utility.DelegateFieldCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
                         {
-                            RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegateFieldCreationMethods.Add(paramtypes, RunTimeMethod);
                         }
                         else if (!Utility.DelegateDynamicFieldCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
                         {
-                            RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegateDynamicFieldCreationMethods.Add(paramtypes, RunTimeMethod);
                         }
                         break;
                     case MemberTypes.Property:
                         if (!isDynamic && !Utility.DelegatePropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
                         {
-                            RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegatePropertyCreationMethod.Add(paramtypes, RunTimeMethod);
                         }
                         else if (!Utility.DelegateDynamicPropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
                         {
-                            RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegateDynamicPropertyCreationMethod.Add(paramtypes, RunTimeMethod);
                         } 
                         break;
@@ -124,7 +124,7 @@ namespace VisualEvent
                         else if (!isDynamic && !Utility.DelegateMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
                         {
                             Debug.Log("<color=yellow> static CACHE </color>");
-                            RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegateMethodCreationMethods.Add(paramtypes, RunTimeMethod);
                         }
                         //else if (!isDynamic && Utility.DelegateMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
@@ -135,7 +135,7 @@ namespace VisualEvent
                         else if (isDynamic &&!Utility.DelegateDynamicMethodCreationMethods.TryGetValue(paramtypes,out RunTimeMethod))
                         {
                             Debug.Log("<color=blue> DYNAMIC CACHE </color>");
-                            RunTimeMethod = raw_calltype.GetMethod(Creationmethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegateDynamicMethodCreationMethods.Add(paramtypes, RunTimeMethod);
                         }
                         //else if ( isDynamic && Utility.DelegateDynamicMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
@@ -246,8 +246,8 @@ namespace VisualEvent
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Delegate createPropertyCall<A>(PropertyInfo tProperty, RawArg arg1)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), delegate_target, tProperty.GetSetMethod(), false) as Action<A>;
+            
+            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tProperty.GetSetMethod(), false) as Action<A>;
             Func<A> property_input = arg1.CreateArgumentDelegate<A>();
             Action tempcall = () =>
              {
@@ -273,8 +273,8 @@ namespace VisualEvent
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
         protected Delegate createActionCall0(MethodInfo tMethod)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action tempDelegate = Delegate.CreateDelegate(typeof(Action), delegate_target, tMethod, false) as Action;
+             
+            Action tempDelegate = Delegate.CreateDelegate(typeof(Action), m_target, tMethod, false) as Action;
             Action tempAction = () =>
             {
                 try
@@ -298,8 +298,8 @@ namespace VisualEvent
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
         protected Delegate createAction1<A>(MethodInfo tMethod)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), delegate_target, tMethod, false) as Action<A>;
+            
+            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tMethod, false) as Action<A>;
             Action<A> tempAction = (A tA) =>
             {
                 try
@@ -322,8 +322,8 @@ namespace VisualEvent
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Delegate createActionCall1<A>(MethodInfo tMethod, RawArg arg1)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), delegate_target, tMethod, false) as Action<A>;
+            
+            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tMethod, false) as Action<A>;
             Func<A> input = arg1.CreateArgumentDelegate<A>();
             Action tempaction = () =>
             {
@@ -346,8 +346,8 @@ namespace VisualEvent
         /// <returns>Generic 2-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action<A, B> createAction2<A, B>(MethodInfo tMethod)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B>), delegate_target, tMethod, false) as Action<A, B>;
+            
+            Action<A, B> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B>), m_target, tMethod, false) as Action<A, B>;
             Action<A, B> tempAction = (A tA, B tB) =>
              {
                  try
@@ -372,8 +372,8 @@ namespace VisualEvent
         /// <returns>Generic 2-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action createActionCall2<A, B>(MethodInfo tMethod, RawArg arg1, RawArg arg2)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B>), delegate_target, tMethod, false) as Action<A, B>;
+            
+            Action<A, B> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B>), m_target, tMethod, false) as Action<A, B>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Action tempAction = () =>
@@ -398,8 +398,8 @@ namespace VisualEvent
         /// <returns>Generic 3-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action<A, B, C> createAction3<A, B, C>(MethodInfo tMethod)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C>), delegate_target, tMethod, false) as Action<A, B, C>;
+            
+            Action<A, B, C> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C>), m_target, tMethod, false) as Action<A, B, C>;
             Action<A, B, C> tempAction = (A tA, B tB, C tC) =>
               {
                   try
@@ -425,8 +425,8 @@ namespace VisualEvent
         /// <returns>Generic 3-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action createActionCall3<A, B, C>(MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C>), delegate_target, tMethod, false) as Action<A, B, C>;
+            
+            Action<A, B, C> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C>), m_target, tMethod, false) as Action<A, B, C>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -452,8 +452,8 @@ namespace VisualEvent
         /// <returns>Generic 4-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action<A, B, C, D> createAction4<A, B, C, D>(MethodInfo tMethod)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C, D> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D>), delegate_target, tMethod, false) as Action<A, B, C, D>;
+            
+            Action<A, B, C, D> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D>), m_target, tMethod, false) as Action<A, B, C, D>;
             Action<A, B, C, D> tempAction = (A tA, B tB, C tC, D tD) =>
                {
                    try
@@ -479,8 +479,8 @@ namespace VisualEvent
         /// <returns>Generic 4-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action createActionCall4<A, B, C, D>(MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C, D> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D>), delegate_target, tMethod, false) as Action<A, B, C, D>;
+            
+            Action<A, B, C, D> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D>), m_target, tMethod, false) as Action<A, B, C, D>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -506,8 +506,8 @@ namespace VisualEvent
         /// <returns>Generic 5-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action<A, B, C, D, E> createAction5<A, B, C, D, E>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C, D, E> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E>), delegate_target, tMethod, false) as Action<A, B, C, D, E>;
+            
+            Action<A, B, C, D, E> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E>), m_target, tMethod, false) as Action<A, B, C, D, E>;
             Action<A, B, C, D, E> tempAction = (A tA, B tB, C tC, D tD, E tE) =>
                 {
                     if (m_target == null)
@@ -534,8 +534,8 @@ namespace VisualEvent
         /// <returns>Generic 5-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action createActionCall5<A, B, C, D, E>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C, D, E> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E>), delegate_target, tMethod, false) as Action<A, B, C, D, E>;
+            
+            Action<A, B, C, D, E> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E>), m_target, tMethod, false) as Action<A, B, C, D, E>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -562,8 +562,8 @@ namespace VisualEvent
         /// <returns>Generic 6-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action<A, B, C, D, E, F> createAction6<A, B, C, D, E, F>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C, D, E, F> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F>;
+            
+            Action<A, B, C, D, E, F> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F>), m_target, tMethod, false) as Action<A, B, C, D, E, F>;
             Action<A, B, C, D, E, F> tempAction = (A tA, B tB, C tC, D tD, E tE, F tF) =>
                  {
                      if (m_target == null)
@@ -591,8 +591,8 @@ namespace VisualEvent
         /// <returns>Generic 6-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action createActionCall6<A, B, C, D, E, F>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C, D, E, F> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F>;
+            
+            Action<A, B, C, D, E, F> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F>), m_target, tMethod, false) as Action<A, B, C, D, E, F>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -620,8 +620,8 @@ namespace VisualEvent
         /// <returns>Generic 7-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action<A, B, C, D, E, F, G> createAction7<A, B, C, D, E, F, G>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C, D, E, F, G> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F, G>;
+            
+            Action<A, B, C, D, E, F, G> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G>;
             Action<A, B, C, D, E, F, G> tempAction = (A tA, B tB, C tC, D tD, E tE, F tF, G tG) =>
                   {
                       if (m_target == null)
@@ -650,8 +650,8 @@ namespace VisualEvent
         /// <returns>Generic 7-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action createActionCall7<A, B, C, D, E, F, G>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6, RawArg arg7)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C, D, E, F, G> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F, G>;
+            
+            Action<A, B, C, D, E, F, G> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -680,8 +680,8 @@ namespace VisualEvent
         /// <returns>Generic 8-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action<A, B, C, D, E, F, G, H> createAction8<A, B, C, D, E, F, G, H>(VisualDelegateBase tPublisher, MethodInfo tMethod)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C, D, E, F, G, H> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F, G, H>;
+            
+            Action<A, B, C, D, E, F, G, H> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G, H>;
             Action<A, B, C, D, E, F, G, H> tempAction = (A tA, B tB, C tC, D tD, E tE, F tF, G tG, H tH) =>
                    {
                        if (m_target == null)
@@ -711,8 +711,8 @@ namespace VisualEvent
         /// <returns>Generic 8-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Action createActionCall8<A, B, C, D, E, F, G, H>(VisualDelegateBase tPublisher, MethodInfo tMethod, RawArg arg1, RawArg arg2, RawArg arg3, RawArg arg4, RawArg arg5, RawArg arg6, RawArg arg7, RawArg arg8)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Action<A, B, C, D, E, F, G, H> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H>), delegate_target, tMethod, false) as Action<A, B, C, D, E, F, G, H>;
+            
+            Action<A, B, C, D, E, F, G, H> tempDelegate = Delegate.CreateDelegate(typeof(Action<A, B, C, D, E, F, G, H>), m_target, tMethod, false) as Action<A, B, C, D, E, F, G, H>;
             Func<A> input_1 = arg1.CreateArgumentDelegate<A>();
             Func<B> input_2 = arg2.CreateArgumentDelegate<B>();
             Func<C> input_3 = arg3.CreateArgumentDelegate<C>();
@@ -744,8 +744,8 @@ namespace VisualEvent
         /// <returns>Generic action delegate if successful, null if not able to convert</returns>
         protected virtual Delegate createFuncCall0<T>(MethodInfo tMethod)
         {
-            var delegate_target = isStatic ? null : m_target;
-            Func<T> tempDelegate = Delegate.CreateDelegate(typeof(Func<T>), delegate_target, tMethod, false) as Func<T>;
+            
+            Func<T> tempDelegate = Delegate.CreateDelegate(typeof(Func<T>), m_target, tMethod, false) as Func<T>;
             Action tempAction;
             if (isYieldable)
             {

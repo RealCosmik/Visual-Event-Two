@@ -28,8 +28,9 @@ namespace VisualEvent.Editor
                 string tempPath = "Assets/Editor/DelegateSettings.asset";
                 m_instance = CreateInstance<DelegateEditorSettings>();
                 AssetDatabase.CreateAsset(m_instance, AssetDatabase.GenerateUniqueAssetPath(tempPath));
-                AssetDatabase.SaveAssets();
                 SetDefaultColors();
+                EditorUtility.SetDirty(m_instance);
+                AssetDatabase.SaveAssets();
                 return m_instance;
             }
             else return AssetDatabase.LoadAssetAtPath<DelegateEditorSettings>(AssetDatabase.GUIDToAssetPath(assetpath[0]));
@@ -42,7 +43,6 @@ namespace VisualEvent.Editor
             m_instance.YieldColor = new Color(.6f, .6f, .3f, 1f);
             m_instance.InvocationColor = new Color(.6f, .8f, .35f, 1f);
             m_instance.ErrorColor = new Color(.8f, .3f, .3f, 1f);
-
         }
     }
 }

@@ -30,7 +30,7 @@ namespace VisualEvent.Editor
         /// <param name="tLabel">GUI Label of the drawer</param>
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         {
-            VisualEdiotrUtility.StandardStyle.CalcMinMaxWidth(tLabel, out float min, out float max);
+            VisualEditorUtility.StandardStyle.CalcMinMaxWidth(tLabel, out float min, out float max);
             if (ViewCache.GetDelegateView(tProperty, out ViewType DelegateCache))
             {
                 CheckExecutionError(tProperty, DelegateCache);
@@ -49,7 +49,6 @@ namespace VisualEvent.Editor
                     //on target change 
                     if (EditorGUI.EndChangeCheck())
                     {
-                        tProperty.FindPropertyRelative("isUnityTarget").boolValue = true;
                         DelegateCache.serializationError = false;
                         DelegateCache.SetParentTarget(UserParentTarget);
                         handleTargetUpdate(tProperty, DelegateCache);
@@ -60,21 +59,13 @@ namespace VisualEvent.Editor
                 }
                 else // Target drop-down
                 {
-                    var validityprop = tProperty.FindPropertyRelative("isUnityTarget");
-                    if (DelegateCache.CurrentTargetIndex != 0 && validityprop.boolValue == false)
-                    {
-                        validityprop.boolValue = true;
-                    }
+                   
                     EditorGUI.BeginChangeCheck();
                     targetpos.width = tPosition.width / 3;
                     int UserSelectedTarget = EditorGUI.Popup(targetpos, tLabel.text, DelegateCache.CurrentTargetIndex, DelegateCache._targetNames);
                     // on memberchange 
                     if (EditorGUI.EndChangeCheck())
                     {
-                        if (UserSelectedTarget == 0)
-                            validityprop.boolValue = false;
-                        else validityprop.boolValue = true;
-
                         DelegateCache.serializationError = false;
                         if (UserSelectedTarget != DelegateCache.CurrentTargetIndex)
                         {
@@ -93,7 +84,7 @@ namespace VisualEvent.Editor
                     memberpos.x += memberpos.width;
                     memberpos.width = targetpos.width * 2;
 
-                    int idHash = (tProperty.propertyPath + tProperty.serializedObject.targetObject.GetInstanceID().ToString()).GetHashCode();
+                    int idHash = (tProperty.propertyPath.GetHashCode() + tProperty.serializedObject.targetObject.GetInstanceID().ToString()).GetHashCode();
                     int id = GUIUtility.GetControlID(idHash, FocusType.Keyboard, memberpos);
                     GUIContent buttonText = new GUIContent();
                     buttonText.text = DelegateCache.memberNames[DelegateCache.selectedMemberIndex];
@@ -141,9 +132,8 @@ namespace VisualEvent.Editor
 
             if (!tCache.isvalidated) //validation only needs to occur once in a caches lifecycle
             {
-                SerializedProperty isStatic_prop = tProperty.FindPropertyRelative("isStatic");
                 SerializedProperty tempMemberProperty = tProperty.FindPropertyRelative("methodData");
-                if (!tCache.validateTarget(tProperty.FindPropertyRelative("m_target"), isStatic_prop))
+                if (!tCache.validateTarget(tProperty.FindPropertyRelative("m_target")))
                 {
                     //handleTargetUpdate(tProperty, tCache);
                 }
@@ -168,7 +158,6 @@ namespace VisualEvent.Editor
             var targetobject = tProperty.serializedObject.targetObject;
             Undo.RegisterCompleteObjectUndo(targetobject, "Delegate Target Change");
             tProperty.FindPropertyRelative("m_target").objectReferenceValue = tCache.CurrentTarget;
-            tProperty.FindPropertyRelative("isStatic").boolValue = tCache.hasStaticTarget;
             PrefabUtility.RecordPrefabInstancePropertyModifications(targetobject);
             tProperty.serializedObject.ApplyModifiedProperties();
 
@@ -186,7 +175,7 @@ namespace VisualEvent.Editor
             if (tCache.SelectedMember == null)
                 methodData_prop.arraySize = 0;
             else
-                VisualEdiotrUtility.CopySeralizedMethodDataToProp(methodData_prop, tCache.SelectedMember.SeralizedData);
+                VisualEditorUtility.CopySeralizedMethodDataToProp(methodData_prop, tCache.SelectedMember.SeralizedData);
             if (!(tCache is RawCallView))
             {
                 Debug.LogWarning("should never see this");

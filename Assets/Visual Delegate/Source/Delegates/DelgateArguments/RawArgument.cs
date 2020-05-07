@@ -53,7 +53,7 @@ namespace VisualEvent
         public RawReference call_Reference;
         //[SerializeReference]
         //IVisualArgument custom;
-        public bool isUsingreference => UseReference && call_Reference.validTarget;
+        public bool isUsingreference => UseReference;
 
         internal void Release()
         {

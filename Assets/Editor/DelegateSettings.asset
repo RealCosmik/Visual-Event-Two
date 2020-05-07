@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6110fac217f944e408c55ff0995926df, type: 3}
   m_Name: DelegateSettings
   m_EditorClassIdentifier: 
-  EvenColor: {r: 0, g: 0, b: 0, a: 0}
-  OddColor: {r: 0, g: 0, b: 0, a: 0}
-  Selectedcolor: {r: 0, g: 0, b: 0, a: 0}
-  YieldColor: {r: 0, g: 0, b: 0, a: 0}
-  InvocationColor: {r: 0, g: 0, b: 0, a: 0}
-  ErrorColor: {r: 0, g: 0, b: 0, a: 0}
+  EvenColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
+  OddColor: {r: 0.18, g: 0.18, b: 0.18, a: 1}
+  Selectedcolor: {r: 0.13, g: 0.26, b: 0.27, a: 1}
+  YieldColor: {r: 0.6, g: 0.6, b: 0.3, a: 1}
+  InvocationColor: {r: 0.6, g: 0.8, b: 0.35, a: 1}
+  ErrorColor: {r: 0.8, g: 0.3, b: 0.3, a: 1}

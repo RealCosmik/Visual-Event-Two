@@ -22,15 +22,12 @@ namespace VisualEvent
         private protected string[] methodData;
         /// <summary>Cached delegate instance generated upon initialization</summary>
         public System.Delegate delegateInstance { get; internal set; }
-        /// <summary>Gets the <see cref="m_target"/> object of the delegate</summary>
-        [SerializeField]
-        protected bool isStatic, isUnityTarget;
-        public bool validTarget => isUnityTarget;
         [SerializeField]
         protected bool m_isYieldableCall;
         protected Type[] paramtypes;
         [SerializeField] internal bool haserror;
         public bool isYieldable => m_isYieldableCall;
+        [SerializeField] private bool serializationError = false;
         /// <summary>
         /// Checks delegate for potential memory leaks 
         /// </summary>
@@ -191,10 +188,17 @@ namespace VisualEvent
 
         public virtual void OnAfterDeserialize()
         {
-            if (isUnityTarget)
-                delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData, out paramtypes), m_target);
-            else if (isStatic)
-                delegateInstance = createDelegate(Utility.QuickDeseralizer(typeof(UtilHelper), methodData, out paramtypes), null);
+            try
+            {
+                if (!serializationError)
+                    delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData, out paramtypes), m_target);
+                else delegateInstance = new Action(() => Debug.LogError(Utility.CreateDelegateErrorMessage(methodData,m_target),m_target));
+            }
+            catch (Exception ex)
+            {
+                delegateInstance = new Action(() => Debug.LogError(Utility.CreateDelegateErrorMessage(methodData, m_target),m_target));
+            }
+            
         }
     }
 }

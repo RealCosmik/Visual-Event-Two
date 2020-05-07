@@ -13,12 +13,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-05-06T11:21:34.934-04:00
-  initializedAtString: 2020-05-06T07:28:11.170-04:00
+  lastUpdatedAtString: 2020-05-07T11:09:35.718-04:00
+  initializedAtString: 2020-05-07T10:09:45.180-04:00
   entries:
-  - path: Assets\AOT.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\AOT.cs
-    projectPath: Assets\AOT.cs
+  - path: Assembly-CSharp.csproj
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assembly-CSharp.csproj
+    projectPath: Assembly-CSharp.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assembly-CSharp-Editor.csproj
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assembly-CSharp-Editor.csproj
+    projectPath: Assembly-CSharp-Editor.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assembly-CSharp-Editor-firstpass.csproj
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assembly-CSharp-Editor-firstpass.csproj
+    projectPath: Assembly-CSharp-Editor-firstpass.csproj
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -46,6 +58,20 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Delegates\DelgateArguments\RawArgument.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Delegates\DelgateArguments\RawArgument.cs
+    projectPath: Assets\Visual Delegate\Source\Delegates\DelgateArguments\RawArgument.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Delegates\DelgateArguments\RawReference.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Delegates\DelgateArguments\RawReference.cs
+    projectPath: Assets\Visual Delegate\Source\Delegates\DelgateArguments\RawReference.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assets\Visual Delegate\Source\Delegates\RawCall.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Delegate\Source\Delegates\RawCall.cs
@@ -60,10 +86,17 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Editor\CodeGeneration\DelegateAOT.cs
+  - path: Assets\Visual Delegate\Source\Delegates\RawRuntimeCall.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Editor\CodeGeneration\DelegateAOT.cs
-    projectPath: Assets\Visual Delegate\Source\Editor\CodeGeneration\DelegateAOT.cs
+      Delegate\Source\Delegates\RawRuntimeCall.cs
+    projectPath: Assets\Visual Delegate\Source\Delegates\RawRuntimeCall.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Editor\Cache\ViewCache.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Editor\Cache\ViewCache.cs
+    projectPath: Assets\Visual Delegate\Source\Editor\Cache\ViewCache.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -74,10 +107,73 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Editor\DelegateView\RawCallView.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Editor\DelegateView\RawCallView.cs
+    projectPath: Assets\Visual Delegate\Source\Editor\DelegateView\RawCallView.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Editor\DelegateView\RawDelegateView.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Editor\DelegateView\RawDelegateView.cs
+    projectPath: Assets\Visual Delegate\Source\Editor\DelegateView\RawDelegateView.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Editor\DelegateView\RawDynamicDelegateView.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Editor\DelegateView\RawDynamicDelegateView.cs
+    projectPath: Assets\Visual Delegate\Source\Editor\DelegateView\RawDynamicDelegateView.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Editor\DelegateView\RawReferenceView.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Editor\DelegateView\RawReferenceView.cs
+    projectPath: Assets\Visual Delegate\Source\Editor\DelegateView\RawReferenceView.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerFilter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Editor\Drawers\DrawerFilter.cs
+    projectPath: Assets\Visual Delegate\Source\Editor\Drawers\DrawerFilter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawArgument.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Editor\Drawers\DrawerRawArgument.cs
+    projectPath: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawArgument.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawCallView.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Delegate\Source\Editor\Drawers\DrawerRawCallView.cs
     projectPath: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawCallView.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawDelegateView.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Editor\Drawers\DrawerRawDelegateView.cs
+    projectPath: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawDelegateView.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawReferenceView.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Editor\Drawers\DrawerRawReferenceView.cs
+    projectPath: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawReferenceView.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawRuntimeDelegate.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Editor\Drawers\DrawerRawRuntimeDelegate.cs
+    projectPath: Assets\Visual Delegate\Source\Editor\Drawers\DrawerRawRuntimeDelegate.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -88,6 +184,13 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Editor\VisualEditorUtility.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Editor\VisualEditorUtility.cs
+    projectPath: Assets\Visual Delegate\Source\Editor\VisualEditorUtility.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assets\Visual Delegate\Source\Utility\Utility.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Delegate\Source\Utility\Utility.cs
@@ -95,9 +198,42 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegate.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Visual Delegates\VisualDelegate.cs
+    projectPath: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegate.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBase.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Visual Delegates\VisualDelegateBase.cs
+    projectPath: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBase.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBaseEditor.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Visual Delegates\VisualDelegateBaseEditor.cs
+    projectPath: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBaseEditor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\APIUpdater\project-dependencies.graph
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\APIUpdater\project-dependencies.graph
+    projectPath: Library\APIUpdater\project-dependencies.graph
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\ArtifactDB
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ArtifactDB
     projectPath: Library\ArtifactDB
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\CurrentLayout-default.dwlt
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\CurrentLayout-default.dwlt
+    projectPath: Library\CurrentLayout-default.dwlt
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -125,6 +261,1614 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\CHANGELOG.md
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\CHANGELOG.md
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\CHANGELOG.md
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\CONTRIBUTING.md
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\CONTRIBUTING.md
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\CONTRIBUTING.md
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\LICENSE.md
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\LICENSE.md
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\LICENSE.md
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\package.json
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\package.json
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\package.json
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\CallbacksDelegator.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\CallbacksDelegator.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\CallbacksDelegator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\CallbacksDelegatorListener.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\CallbacksDelegatorListener.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\CallbacksDelegatorListener.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\CallbacksHolder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\CallbacksHolder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\CallbacksHolder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ExecutionSettings.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ExecutionSettings.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ExecutionSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\Filter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\Filter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\Filter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ICallbacks.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ICallbacks.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ICallbacks.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ICallbacksDelegator.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ICallbacksDelegator.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ICallbacksDelegator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ICallbacksHolder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ICallbacksHolder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ICallbacksHolder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\IErrorCallbacks.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\IErrorCallbacks.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\IErrorCallbacks.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestAdaptor.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestAdaptor.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestAdaptor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestAdaptorFactory.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestAdaptorFactory.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestAdaptorFactory.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestResultAdaptor.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestResultAdaptor.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestResultAdaptor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestRunnerApi.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestRunnerApi.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestRunnerApi.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestRunSettings.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestRunSettings.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestRunSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestTreeRebuildCallbacks.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestTreeRebuildCallbacks.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\ITestTreeRebuildCallbacks.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\RunState.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\RunState.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\RunState.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestAdaptor.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestAdaptor.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestAdaptor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestAdaptorFactory.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestAdaptorFactory.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestAdaptorFactory.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestMode.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestMode.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestMode.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestResultAdaptor.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestResultAdaptor.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestResultAdaptor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestRunnerApi.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestRunnerApi.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestRunnerApi.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestStatus.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestStatus.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\Api\TestStatus.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\AssemblyInfo.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\AssemblyInfo.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\AssemblyInfo.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineParser\CommandLineOption.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineParser\CommandLineOption.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineParser\CommandLineOption.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineParser\CommandLineOptionSet.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineParser\CommandLineOptionSet.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineParser\CommandLineOptionSet.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineParser\ICommandLineOption.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineParser\ICommandLineOption.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineParser\ICommandLineOption.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\Executer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\Executer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\Executer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ExecutionSettings.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ExecutionSettings.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ExecutionSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ExitCallbacks.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ExitCallbacks.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ExitCallbacks.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ISettingsBuilder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ISettingsBuilder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ISettingsBuilder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\LogSavingCallbacks.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\LogSavingCallbacks.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\LogSavingCallbacks.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\LogWriter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\LogWriter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\LogWriter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ResultsSavingCallbacks.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ResultsSavingCallbacks.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ResultsSavingCallbacks.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ResultsWriter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ResultsWriter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\ResultsWriter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\RunData.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\RunData.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\RunData.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\RunSettings.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\RunSettings.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\RunSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\SettingsBuilder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\SettingsBuilder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\SettingsBuilder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\SetupException.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\SetupException.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\SetupException.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\TestStarter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\TestStarter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\CommandLineTest\TestStarter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\AssetsDatabaseHelper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\AssetsDatabaseHelper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\AssetsDatabaseHelper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\GuiHelper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\GuiHelper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\GuiHelper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\IAssetsDatabaseHelper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\IAssetsDatabaseHelper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\IAssetsDatabaseHelper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\IGuiHelper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\IGuiHelper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\IGuiHelper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\RenderingOptions.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\RenderingOptions.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\RenderingOptions.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\ResultSummarizer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\ResultSummarizer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\ResultSummarizer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\TestFilterSettings.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\TestFilterSettings.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\TestFilterSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\TestTreeViewBuilder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\TestTreeViewBuilder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListBuilder\TestTreeViewBuilder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListGuiHelper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListGuiHelper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListGuiHelper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\Icons.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\Icons.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\Icons.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\TestListTreeViewDataSource.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\TestListTreeViewDataSource.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\TestListTreeViewDataSource.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\TestListTreeViewGUI.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\TestListTreeViewGUI.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\TestListTreeViewGUI.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\TestTreeViewItem.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\TestTreeViewItem.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestListTreeView\TestTreeViewItem.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestRunnerResult.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestRunnerResult.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestRunnerResult.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestRunnerUIFilter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestRunnerUIFilter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\TestRunnerUIFilter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\Views\EditModeTestListGUI.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\Views\EditModeTestListGUI.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\Views\EditModeTestListGUI.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\Views\PlayModeTestListGUI.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\Views\PlayModeTestListGUI.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\Views\PlayModeTestListGUI.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\Views\TestListGUIBase.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\Views\TestListGUIBase.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\GUI\Views\TestListGUIBase.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\Attributes\AssetPipelineIgnore.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\Attributes\AssetPipelineIgnore.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\Attributes\AssetPipelineIgnore.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\Attributes\ITestPlayerBuildModifier.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\Attributes\ITestPlayerBuildModifier.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\Attributes\ITestPlayerBuildModifier.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\Attributes\TestPlayerBuildModifierAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\Attributes\TestPlayerBuildModifierAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\Attributes\TestPlayerBuildModifierAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\TestRunnerStateSerializer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\TestRunnerStateSerializer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\NUnitExtension\TestRunnerStateSerializer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\RequireApiProfileAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\RequireApiProfileAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\RequireApiProfileAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\RequirePlatformSupportAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\RequirePlatformSupportAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\RequirePlatformSupportAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestBuildAssemblyFilter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestBuildAssemblyFilter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestBuildAssemblyFilter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\AttributeFinderBase.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\AttributeFinderBase.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\AttributeFinderBase.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\EditModeLauncher.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\EditModeLauncher.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\EditModeLauncher.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\EditModeLauncherContextSettings.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\EditModeLauncherContextSettings.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\EditModeLauncherContextSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\AndroidPlatformSetup.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\AndroidPlatformSetup.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\AndroidPlatformSetup.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\ApplePlatformSetup.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\ApplePlatformSetup.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\ApplePlatformSetup.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\IPlatformSetup.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\IPlatformSetup.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\IPlatformSetup.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\LuminPlatformSetup.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\LuminPlatformSetup.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\LuminPlatformSetup.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\PlatformSpecificSetup.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\PlatformSpecificSetup.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\PlatformSpecificSetup.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\SwitchPlatformSetup.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\SwitchPlatformSetup.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\SwitchPlatformSetup.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\UwpPlatformSetup.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\UwpPlatformSetup.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\UwpPlatformSetup.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\XboxOnePlatformSetup.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\XboxOnePlatformSetup.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlatformSetup\XboxOnePlatformSetup.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlayerLauncher.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlayerLauncher.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlayerLauncher.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlayerLauncherBuildOptions.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlayerLauncherBuildOptions.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlayerLauncherBuildOptions.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlayerLauncherContextSettings.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlayerLauncherContextSettings.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlayerLauncherContextSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlaymodeLauncher.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlaymodeLauncher.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PlaymodeLauncher.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PostbuildCleanupAttributeFinder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PostbuildCleanupAttributeFinder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PostbuildCleanupAttributeFinder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PrebuildSetupAttributeFinder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PrebuildSetupAttributeFinder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\PrebuildSetupAttributeFinder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RemotePlayerLogController.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RemotePlayerLogController.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RemotePlayerLogController.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RemotePlayerTestController.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RemotePlayerTestController.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RemotePlayerTestController.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RemoteTestResultReciever.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RemoteTestResultReciever.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RemoteTestResultReciever.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RuntimeTestLauncherBase.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RuntimeTestLauncherBase.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\RuntimeTestLauncherBase.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\TestLauncherBase.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\TestLauncherBase.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestLaunchers\TestLauncherBase.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestResultSerializer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestResultSerializer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestResultSerializer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\BuildActionTaskBase.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\BuildActionTaskBase.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\BuildActionTaskBase.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\BuildTestTreeTask.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\BuildTestTreeTask.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\BuildTestTreeTask.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\CleanupVerificationTask.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\CleanupVerificationTask.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\CleanupVerificationTask.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\FileCleanupVerifierTaskBase.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\FileCleanupVerifierTaskBase.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\FileCleanupVerifierTaskBase.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\LegacyEditModeRunTask.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\LegacyEditModeRunTask.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\LegacyEditModeRunTask.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\LegacyPlayerRunTask.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\LegacyPlayerRunTask.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\LegacyPlayerRunTask.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\LegacyPlayModeRunTask.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\LegacyPlayModeRunTask.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\LegacyPlayModeRunTask.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\PerformUndoTask.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\PerformUndoTask.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\PerformUndoTask.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\PrebuildSetupTask.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\PrebuildSetupTask.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\PrebuildSetupTask.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\RegisterFilesForCleanupVerificationTask.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\RegisterFilesForCleanupVerificationTask.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\RegisterFilesForCleanupVerificationTask.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\SaveModiedSceneTask.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\SaveModiedSceneTask.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\SaveModiedSceneTask.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\SaveUndoIndexTask.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\SaveUndoIndexTask.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\SaveUndoIndexTask.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\TestTaskBase.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\TestTaskBase.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\Tasks\TestTaskBase.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestJobData.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestJobData.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestJobData.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestJobDataHolder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestJobDataHolder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestJobDataHolder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestJobRunner.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestJobRunner.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestJobRunner.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestRunCanceledException.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestRunCanceledException.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRun\TestRunCanceledException.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\EditModeRunnerCallback.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\EditModeRunnerCallback.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\EditModeRunnerCallback.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\RerunCallback.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\RerunCallback.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\RerunCallback.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\RerunCallbackData.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\RerunCallbackData.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\RerunCallbackData.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\RerunCallbackInitializer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\RerunCallbackInitializer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\RerunCallbackInitializer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\TestRunnerCallback.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\TestRunnerCallback.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\TestRunnerCallback.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\WindowResultUpdater.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\WindowResultUpdater.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Callbacks\WindowResultUpdater.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditModePCHelper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditModePCHelper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditModePCHelper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditModeRunner.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditModeRunner.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditModeRunner.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditmodeWorkItemFactory.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditmodeWorkItemFactory.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditmodeWorkItemFactory.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditorEnumeratorTestWorkItem.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditorEnumeratorTestWorkItem.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EditorEnumeratorTestWorkItem.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EnumeratorStepHelper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EnumeratorStepHelper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\EnumeratorStepHelper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\EnterPlayMode.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\EnterPlayMode.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\EnterPlayMode.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\ExitPlayMode.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\ExitPlayMode.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\ExitPlayMode.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\RecompileScripts.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\RecompileScripts.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\RecompileScripts.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\WaitForDomainReload.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\WaitForDomainReload.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Messages\WaitForDomainReload.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\CachingTestListProvider.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\CachingTestListProvider.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\CachingTestListProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorAssembliesProxy.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorAssembliesProxy.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorAssembliesProxy.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorAssemblyWrapper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorAssemblyWrapper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorAssemblyWrapper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorCompilationInterfaceProxy.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorCompilationInterfaceProxy.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorCompilationInterfaceProxy.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorLoadedTestAssemblyProvider.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorLoadedTestAssemblyProvider.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\EditorLoadedTestAssemblyProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\IEditorAssembliesProxy.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\IEditorAssembliesProxy.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\IEditorAssembliesProxy.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\IEditorCompilationInterfaceProxy.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\IEditorCompilationInterfaceProxy.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\IEditorCompilationInterfaceProxy.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\IEditorLoadedTestAssemblyProvider.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\IEditorLoadedTestAssemblyProvider.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\IEditorLoadedTestAssemblyProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\ITestListCache.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\ITestListCache.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\ITestListCache.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\ITestListCacheData.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\ITestListCacheData.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\ITestListCacheData.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\ITestListProvider.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\ITestListProvider.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\ITestListProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListCache.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListCache.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListCache.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListCacheData.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListCacheData.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListCacheData.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListJob.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListJob.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListJob.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListProvider.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListProvider.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunner\Utils\TestListProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunnerWindow.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunnerWindow.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunnerWindow.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunnerWindowSettings.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunnerWindowSettings.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestRunnerWindowSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\ITestSettings.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\ITestSettings.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\ITestSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\ITestSettingsDeserializer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\ITestSettingsDeserializer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\ITestSettingsDeserializer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\TestSettings.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\TestSettings.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\TestSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\TestSettingsDeserializer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\TestSettingsDeserializer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\TestSettings\TestSettingsDeserializer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityEditor.TestRunner.asmdef
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityEditor.TestRunner.asmdef
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityEditor.TestRunner.asmdef
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\AssemblyCompilationErrorsMessage.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\AssemblyCompilationErrorsMessage.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\AssemblyCompilationErrorsMessage.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\ITestRunnerApiMapper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\ITestRunnerApiMapper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\ITestRunnerApiMapper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\IUtpLogger.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\IUtpLogger.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\IUtpLogger.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\IUtpMessageReporter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\IUtpMessageReporter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\IUtpMessageReporter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\Message.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\Message.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\Message.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestFinishedMessage.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestFinishedMessage.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestFinishedMessage.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestPlanMessage.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestPlanMessage.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestPlanMessage.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestRunnerApiMapper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestRunnerApiMapper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestRunnerApiMapper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestStartedMessage.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestStartedMessage.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestStartedMessage.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestState.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestState.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\TestState.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UnityTestProtocolListener.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UnityTestProtocolListener.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UnityTestProtocolListener.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UnityTestProtocolStarter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UnityTestProtocolStarter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UnityTestProtocolStarter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UtpDebuglogger.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UtpDebuglogger.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UtpDebuglogger.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UtpMessageReporter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UtpMessageReporter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEditor.TestRunner\UnityTestProtocol\UtpMessageReporter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\AssemblyInfo.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\AssemblyInfo.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\AssemblyInfo.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\AllocatingGCMemoryConstraint.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\AllocatingGCMemoryConstraint.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\AllocatingGCMemoryConstraint.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\ConstraintsExtensions.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\ConstraintsExtensions.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\ConstraintsExtensions.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\InvalidSignatureException.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\InvalidSignatureException.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\InvalidSignatureException.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\Is.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\Is.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\Is.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogAssert.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogAssert.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogAssert.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\ILogScope.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\ILogScope.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\ILogScope.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\LogEvent.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\LogEvent.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\LogEvent.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\LogMatch.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\LogMatch.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\LogMatch.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\LogScope.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\LogScope.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\LogScope\LogScope.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\UnexpectedLogMessageException.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\UnexpectedLogMessageException.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\UnexpectedLogMessageException.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\UnhandledLogMessageException.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\UnhandledLogMessageException.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\UnhandledLogMessageException.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\UnityTestTimeoutException.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\UnityTestTimeoutException.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Assertions\UnityTestTimeoutException.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\ActionDelegator.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\ActionDelegator.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\ActionDelegator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\ConditionalIgnoreAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\ConditionalIgnoreAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\ConditionalIgnoreAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestMustExpectAllLogsAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestMustExpectAllLogsAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestMustExpectAllLogsAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityCombinatorialStrategy.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityCombinatorialStrategy.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityCombinatorialStrategy.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityPlatformAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityPlatformAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityPlatformAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnitySetUpAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnitySetUpAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnitySetUpAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityTearDownAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityTearDownAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityTearDownAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityTestAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityTestAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Attributes\UnityTestAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\BaseDelegator.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\BaseDelegator.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\BaseDelegator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\BeforeAfterTestCommandBase.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\BeforeAfterTestCommandBase.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\BeforeAfterTestCommandBase.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\BeforeAfterTestCommandState.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\BeforeAfterTestCommandState.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\BeforeAfterTestCommandState.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableApplyChangesToContextCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableApplyChangesToContextCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableApplyChangesToContextCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableRepeatedTestCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableRepeatedTestCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableRepeatedTestCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableRetryTestCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableRetryTestCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableRetryTestCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableSetUpTearDownCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableSetUpTearDownCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableSetUpTearDownCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableTestMethodCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableTestMethodCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\EnumerableTestMethodCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\ImmediateEnumerableCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\ImmediateEnumerableCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\ImmediateEnumerableCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\OuterUnityTestActionCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\OuterUnityTestActionCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\OuterUnityTestActionCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\SetUpTearDownCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\SetUpTearDownCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\SetUpTearDownCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\TestActionCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\TestActionCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\TestActionCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\TestCommandPcHelper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\TestCommandPcHelper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Commands\TestCommandPcHelper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\ConstructDelegator.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\ConstructDelegator.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\ConstructDelegator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Filters\AssemblyNameFilter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Filters\AssemblyNameFilter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Filters\AssemblyNameFilter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Filters\CategoryFilterExtended.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Filters\CategoryFilterExtended.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Filters\CategoryFilterExtended.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\IAsyncTestAssemblyBuilder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\IAsyncTestAssemblyBuilder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\IAsyncTestAssemblyBuilder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\IStateSerializer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\IStateSerializer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\IStateSerializer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\CompositeWorkItem.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\CompositeWorkItem.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\CompositeWorkItem.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\CoroutineTestWorkItem.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\CoroutineTestWorkItem.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\CoroutineTestWorkItem.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\DefaultTestWorkItem.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\DefaultTestWorkItem.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\DefaultTestWorkItem.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\FailCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\FailCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\FailCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\IEnumerableTestMethodCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\IEnumerableTestMethodCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\IEnumerableTestMethodCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\PlaymodeWorkItemFactory.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\PlaymodeWorkItemFactory.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\PlaymodeWorkItemFactory.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\RestoreTestContextAfterDomainReload.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\RestoreTestContextAfterDomainReload.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\RestoreTestContextAfterDomainReload.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\TestCommandBuilder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\TestCommandBuilder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\TestCommandBuilder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityLogCheckDelegatingCommand.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityLogCheckDelegatingCommand.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityLogCheckDelegatingCommand.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityTestAssemblyRunner.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityTestAssemblyRunner.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityTestAssemblyRunner.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityTestExecutionContext.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityTestExecutionContext.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityTestExecutionContext.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityWorkItem.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityWorkItem.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityWorkItem.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityWorkItemDataHolder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityWorkItemDataHolder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\UnityWorkItemDataHolder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\WorkItemFactory.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\WorkItemFactory.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\Runner\WorkItemFactory.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\TestExtensions.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\TestExtensions.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\TestExtensions.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\TestResultExtensions.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\TestResultExtensions.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\TestResultExtensions.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\UnityTestAssemblyBuilder.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\UnityTestAssemblyBuilder.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\NUnitExtensions\UnityTestAssemblyBuilder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\PlayModeRunnerCallback.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\PlayModeRunnerCallback.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\PlayModeRunnerCallback.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\RemoteTestResultSender.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\RemoteTestResultSender.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\RemoteTestResultSender.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\TestResultRenderer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\TestResultRenderer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\TestResultRenderer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\TestResultRendererCallback.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\TestResultRendererCallback.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Callbacks\TestResultRendererCallback.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\ITestRunnerListener.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\ITestRunnerListener.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\ITestRunnerListener.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Messages\IEditModeTestYieldInstruction.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Messages\IEditModeTestYieldInstruction.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\Messages\IEditModeTestYieldInstruction.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\PlaymodeTestsController.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\PlaymodeTestsController.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\PlaymodeTestsController.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\PlaymodeTestsControllerSettings.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\PlaymodeTestsControllerSettings.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\PlaymodeTestsControllerSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\IRemoteTestResultDataFactory.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\IRemoteTestResultDataFactory.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\IRemoteTestResultDataFactory.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\PlayerConnectionMessageIds.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\PlayerConnectionMessageIds.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\PlayerConnectionMessageIds.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestData.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestData.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestData.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestResultData.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestResultData.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestResultData.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestResultDataFactory.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestResultDataFactory.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestResultDataFactory.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestResultDataWithTestData.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestResultDataWithTestData.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\RemoteHelpers\RemoteTestResultDataWithTestData.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\SynchronousFilter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\SynchronousFilter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\SynchronousFilter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestEnumeratorWrapper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestEnumeratorWrapper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestEnumeratorWrapper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestListenerWrapper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestListenerWrapper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestListenerWrapper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestPlatform.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestPlatform.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestPlatform.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestRunnerFilter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestRunnerFilter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\TestRunner\TestRunnerFilter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\UnityEngine.TestRunner.asmdef
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\UnityEngine.TestRunner.asmdef
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\UnityEngine.TestRunner.asmdef
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\AssemblyLoadProxy.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\AssemblyLoadProxy.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\AssemblyLoadProxy.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\AssemblyWrapper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\AssemblyWrapper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\AssemblyWrapper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\IAssemblyLoadProxy.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\IAssemblyLoadProxy.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\IAssemblyLoadProxy.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\IAssemblyWrapper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\IAssemblyWrapper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\IAssemblyWrapper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\IScriptingRuntimeProxy.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\IScriptingRuntimeProxy.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\IScriptingRuntimeProxy.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\ITestAssemblyProvider.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\ITestAssemblyProvider.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\ITestAssemblyProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\PlayerTestAssemblyProvider.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\PlayerTestAssemblyProvider.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\PlayerTestAssemblyProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\ScriptingRuntimeProxy.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\ScriptingRuntimeProxy.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AssemblyProvider\ScriptingRuntimeProxy.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AttributeHelper.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AttributeHelper.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\AttributeHelper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\ColorEqualityComparer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\ColorEqualityComparer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\ColorEqualityComparer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\CoroutineRunner.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\CoroutineRunner.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\CoroutineRunner.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\FloatEqualityComparer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\FloatEqualityComparer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\FloatEqualityComparer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\IOuterUnityTestAction.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\IOuterUnityTestAction.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\IOuterUnityTestAction.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\IPostBuildCleanup.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\IPostBuildCleanup.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\IPostBuildCleanup.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\IPrebuildSceneSetup.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\IPrebuildSceneSetup.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\IPrebuildSceneSetup.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\ITestRunCallback.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\ITestRunCallback.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\ITestRunCallback.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\MonoBehaviourTest\IMonoBehaviourTest.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\MonoBehaviourTest\IMonoBehaviourTest.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\MonoBehaviourTest\IMonoBehaviourTest.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\MonoBehaviourTest\MonoBehaviourTest.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\MonoBehaviourTest\MonoBehaviourTest.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\MonoBehaviourTest\MonoBehaviourTest.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\PostBuildCleanupAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\PostBuildCleanupAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\PostBuildCleanupAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\PrebuildSceneSetupAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\PrebuildSceneSetupAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\PrebuildSceneSetupAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\QuaternionEqualityComparer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\QuaternionEqualityComparer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\QuaternionEqualityComparer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\StacktraceFilter.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\StacktraceFilter.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\StacktraceFilter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\TestRunCallbackAttribute.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\TestRunCallbackAttribute.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\TestRunCallbackAttribute.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\TestRunCallbackListener.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\TestRunCallbackListener.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\TestRunCallbackListener.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Utils.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Utils.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Utils.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector2ComparerWithEqualsOperator.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector2ComparerWithEqualsOperator.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector2ComparerWithEqualsOperator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector2EqualityComparer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector2EqualityComparer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector2EqualityComparer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector3ComparerWithEqualsOperator.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector3ComparerWithEqualsOperator.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector3ComparerWithEqualsOperator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector3EqualityComparer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector3EqualityComparer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector3EqualityComparer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector4ComparerWithEqualsOperator.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector4ComparerWithEqualsOperator.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector4ComparerWithEqualsOperator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector4EqualityComparer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector4EqualityComparer.cs
+    projectPath: Library\PackageCache\com.unity.test-framework@1.1.11\UnityEngine.TestRunner\Utils\Vector4EqualityComparer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\SceneVisibilityState.asset
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\SceneVisibilityState.asset
+    projectPath: Library\SceneVisibilityState.asset
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\ScriptAssemblies\Assembly-CSharp.dll
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Assembly-CSharp.dll
     projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
@@ -143,9 +1887,87 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Library\ScriptAssemblies\com.unity.quicksearch.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\com.unity.quicksearch.dll
+    projectPath: Library\ScriptAssemblies\com.unity.quicksearch.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+    projectPath: Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\Unity.TextMeshPro.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+    projectPath: Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\UnityEditor.UI.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEditor.UI.dll
+    projectPath: Library\ScriptAssemblies\UnityEditor.UI.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+    projectPath: Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\UnityEngine.UI.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEngine.UI.dll
+    projectPath: Library\ScriptAssemblies\UnityEngine.UI.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptMapper
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptMapper
+    projectPath: Library\ScriptMapper
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ShaderCache\EditorEncounteredVariants
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ShaderCache\EditorEncounteredVariants
+    projectPath: Library\ShaderCache\EditorEncounteredVariants
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\SourceAssetDB
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\SourceAssetDB
     projectPath: Library\SourceAssetDB
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\SpriteAtlasDatabase.asset
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\SpriteAtlasDatabase.asset
+    projectPath: Library\SpriteAtlasDatabase.asset
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Packages\manifest.json
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Packages\manifest.json
+    projectPath: Packages\manifest.json
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: ProjectSettings\ProjectVersion.txt
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\ProjectSettings\ProjectVersion.txt
+    projectPath: ProjectSettings\ProjectVersion.txt
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

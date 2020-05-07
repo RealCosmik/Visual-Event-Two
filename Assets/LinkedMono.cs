@@ -12,11 +12,11 @@ class LinkedMono : MonoBehaviour
     public UnityEvent unity;
     public Vector3 vecfield = Vector3.one;
     public int RandomPropp { get => 2; set { Debug.Log("set value to be" + value); } }
-    public int mynum;
-    public void methodforikra() => Debug.Log("<color=green>this is for ikram</color>");
+    public int mynum; 
+    public void methodforikram() => Debug.Log("<color=green>this is for ikram</color>");
     public void methodforikram(int x) => Debug.Log("printing as an int" + x);
     public void throwexception()
-    {
+    { 
         if (input == 0)
         {
             input++;
@@ -37,6 +37,7 @@ class LinkedMono : MonoBehaviour
     public void oddFunction(Action a) => Debug.Log("useless");
     private void Start()
     {
+        Cosmik.OnInvoke += val=> Debug.Log("ok this is lit");
         Cosmik.initialize();
     }
     public void StopCertain() => StopCoroutine(infinity());

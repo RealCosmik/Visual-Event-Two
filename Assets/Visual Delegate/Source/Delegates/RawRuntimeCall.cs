@@ -6,6 +6,8 @@ namespace VisualEvent
     {
         [SerializeField]
         string TargetType;
+        [SerializeField]
+        bool isUnityTarget; 
         public RawRuntimeCall(Delegate new_delegate) => delegateInstance = new_delegate;
         public sealed override void OnAfterDeserialize()
         {

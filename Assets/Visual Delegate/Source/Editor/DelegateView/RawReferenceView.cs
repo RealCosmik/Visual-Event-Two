@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEditor;
+using UnityEngine;
 namespace VisualEvent.Editor
 {
     public class RawReferenceView : RawDelegateView
@@ -17,8 +18,8 @@ namespace VisualEvent.Editor
                 {
                     if (CurrentTarget != null)
                     {
-                        //Debug.LogError($"{CurrentTarget.name} has no members that match the type {reference_type.FullName}");
-                        //CurrentTarget = null;
+                        Debug.LogError($"{CurrentTarget.name} has no members that match the type {reference_type.FullName}");
+                        CurrentTarget = null;
                     }
                 }
                 else
@@ -37,10 +38,6 @@ namespace VisualEvent.Editor
             reference_type = new_type;
             GenerateNewTargetMembers(CurrentTargetIndex);
             selectedMemberIndex = 0;
-        }
-        public override bool validateTarget(SerializedProperty seralizedTarget, SerializedProperty isstaticTarget)
-        {
-            return base.validateTarget(seralizedTarget, isstaticTarget);
         }
     }
 }

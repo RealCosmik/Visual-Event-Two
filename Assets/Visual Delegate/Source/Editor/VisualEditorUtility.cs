@@ -12,13 +12,13 @@ namespace VisualEvent.Editor
     // Class Declaration
     //##########################
     /// <summary>Utility class for editor functions and display</summary>
-    public static class VisualEdiotrUtility
+    public static class VisualEditorUtility
     {
         static Dictionary<string, string[]> ParseData = new Dictionary<string, string[]>();
         public static GUIStyle StandardStyle { get; private set; } = new GUIStyle();
         public static Type inspector_type = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.InspectorWindow");
         static UnityEngine.Object[] inspectorwindows;
-        static VisualEdiotrUtility()
+        static VisualEditorUtility()
         {
             inspectorwindows= Resources.FindObjectsOfTypeAll(inspector_type);
         }
@@ -649,7 +649,7 @@ namespace VisualEvent.Editor
         /// <returns></returns>
         public static string CreateErrorMessage(SerializedProperty methodData_prop, UnityEngine.Object ErrorObject)
         {
-            var member_type = (MemberTypes)int.Parse(methodData_prop.GetArrayElementAtIndex(0).stringValue);
+            var member_type = (MemberTypes)Utility.ConvertStringToInt(methodData_prop.GetArrayElementAtIndex(0).stringValue);
             var member_name = methodData_prop.GetArrayElementAtIndex(1).stringValue;
             return $@"{member_type}: ""{member_name}"" was removed or renamed in type: ""{ErrorObject.GetType()}""";
         }
@@ -697,6 +697,9 @@ namespace VisualEvent.Editor
         }
         public static void ReinitializeDelegate(VisualDelegateBase del)
         {
+            var flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
+            del.GetType().BaseType.GetField("m_onInvoke", flags).SetValue(del, null);
+            del.initialize();
         } 
         public static PropertyName STRING_TYPE_NAME = "System.String";
         public static PropertyName CHAR_TYPE_NAME = "System.Char";

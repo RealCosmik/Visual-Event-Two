@@ -11,7 +11,7 @@ namespace VisualEvent
         /// Method used to add runtime delegates to editor list for debugging purposes
         /// </summary>
         /// <param name="runtimeDelegate"></param>
-        protected void AddRuntimetoEditor(Delegate runtimeDelegate)
+        private protected void AddRuntimetoEditor(Delegate runtimeDelegate)
         {
             if (Application.isEditor)
             {
@@ -36,7 +36,7 @@ namespace VisualEvent
         /// Used to remove dynamic calls from editor list for debugging purposes
         /// </summary>
         /// <param name="runttimeDelegate"></param>
-        protected void RemoveRuntimeFromEditor(Delegate runttimeDelegate)
+        private protected void RemoveRuntimeFromEditor(Delegate runttimeDelegate)
         {
             if (Application.isEditor)
             {

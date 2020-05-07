@@ -52,8 +52,10 @@ namespace VisualEvent.Editor
                  {
                      if (!tempList.HasKeyboardControl())
                          tempList.index = -1;
+                     if (index == -1)
+                         return;
                      bool validIndex = index != -1 && index < pubcache.RawCallCache.Count;
-                     if (validIndex && pubcache.RawCallCache[index].delegateView.executionError)
+                     if (validIndex && (pubcache.RawCallCache[index].delegateView.executionError|| pubcache.RawCallCache[index].delegateView.serializationError))
                      {
                          EditorGUI.DrawRect(rect, DelegateEditorSettings.instance.ErrorColor);
                      }
@@ -132,7 +134,7 @@ namespace VisualEvent.Editor
                 // Calls
                 int tempIndentLevel = EditorGUI.indentLevel;
                 EditorGUI.indentLevel = 0;
-                float tempIndentSize = tempIndentLevel * VisualEdiotrUtility.IndentSize;
+                float tempIndentSize = tempIndentLevel * VisualEditorUtility.IndentSize;
                 tPosition.x += tempIndentSize;
                 tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
                 tPosition.x -= tempIndentSize;
@@ -148,32 +150,7 @@ namespace VisualEvent.Editor
                     if (EditorApplication.isPlaying)
                     {
                         Debug.LogWarning("might have to change this");
-                        var flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
-                        var visual_del = tProperty.GetVisualDelegateObject();
-                        visual_del.GetType().BaseType.GetField("m_onInvoke", flags).SetValue(visual_del, null);
-                        visual_del.initialize();
-                    }
-                    else
-                    {
-                        var AllDelegateCaches = ViewCache.GetVisualDelegateInstanceCache(tProperty).RawCallCache;
-                        var length = AllDelegateCaches.Count;
-                        bool hasyeild = false;
-                        for (int i = 0; i < length; i++)
-                        {
-                            var delegate_view = AllDelegateCaches[i].delegateView;
-                            if (delegate_view is RawCallView rawDelegateview && rawDelegateview.isYieldable)
-                            {
-                                hasyeild = true;
-                                break;
-                            }
-                        }
-                        PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
-                        tProperty.FindPropertyRelative("hasyield").boolValue = hasyeild;
-                        if (hasyeild)
-                            tProperty.FindPropertyRelative("Yield_target").objectReferenceValue = tProperty.serializedObject.targetObject;
-                        else tProperty.FindPropertyRelative("Yield_target").objectReferenceValue = null;
-                        PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
-                        tProperty.serializedObject.ApplyModifiedProperties();
+                        VisualEditorUtility.ReinitializeDelegate(tProperty.GetVisualDelegateObject());
                     }
                 }
             }
@@ -186,12 +163,12 @@ namespace VisualEvent.Editor
                 cache.isinvoked = false;
                 var invokepos = delegaterect;
                 invokepos.height -= list.footerHeight;
-                VisualEdiotrUtility.TweenBox(invokepos, cache);
+                VisualEditorUtility.TweenBox(invokepos, cache);
             }
             if (cache.istweening)
             {
                 EditorGUI.DrawRect(delegaterect, cache.color);
-                VisualEdiotrUtility.RepaintInspectorWindows();
+                VisualEditorUtility.RepaintInspectorWindows();
             }
         }
         /// <summary>
@@ -231,16 +208,16 @@ namespace VisualEvent.Editor
             var size = arrayprop.arraySize;
             arrayprop.InsertArrayElementAtIndex(size);
             arrayprop.GetArrayElementAtIndex(size).managedReferenceValue = new RawCall();
-            var delegateprop = arrayprop.GetArrayElementAtIndex(size);
-            delegateprop.FindPropertyRelative("m_target").objectReferenceValue = null;
-            delegateprop.FindPropertyRelative("m_runtime").boolValue = false;
+            //var delegateprop = arrayprop.GetArrayElementAtIndex(size);
+            //delegateprop.FindPropertyRelative("m_target").objectReferenceValue = null;
+            //delegateprop.FindPropertyRelative("m_runtime").boolValue = false;
             //  PrefabUtility.RecordPrefabInstancePropertyModifications(arrayprop.serializedObject.targetObject);
             arrayprop.serializedObject.ApplyModifiedProperties();
         }
 
-        private void OnReorder(ReorderableList list, int oldindex, int newindex, SerializedProperty ViewDelegateProp)
+        private void OnReorder(ReorderableList list, int oldindex, int newindex, SerializedProperty visualdelegateprop)
         {
-            var cache_list = ViewCache.GetVisualDelegateInstanceCache(ViewDelegateProp).RawCallCache;
+            var cache_list = ViewCache.GetVisualDelegateInstanceCache(visualdelegateprop).RawCallCache;
             var elementCache = cache_list[oldindex]; //cache before reorder
             if (newindex < oldindex) // moved element higher up
             {
@@ -262,10 +239,11 @@ namespace VisualEvent.Editor
             }
             cache_list[newindex] = elementCache; // place cache
             if (!EditorApplication.isPlaying)
-                ViewDelegateProp.serializedObject.ApplyModifiedProperties();
-            if (EditorApplication.isPlaying)
-                //ViewDelegateProp.GetVisualDelegateObject()?.ReInitialize();
-                Debug.LogWarning("might have to change this here"); 
+                visualdelegateprop.serializedObject.ApplyModifiedProperties();
+            else
+            {
+                VisualEditorUtility.ReinitializeDelegate(visualdelegateprop.GetVisualDelegateObject());
+            }
         }
         /// <summary>
         /// Clears Cache if the ViewDelegates list is empty
@@ -311,7 +289,7 @@ namespace VisualEvent.Editor
                 else currentdelegateprop = arrayprop.GetArrayElementAtIndex(list.index);
 
                 SerializedProperty copiedprop = arrayprop.GetArrayElementAtIndex(copyIndex);
-                VisualEdiotrUtility.CopySeralizedMethodDataToProp(currentdelegateprop.FindPropertyRelative("methodData"), copiedcache.SelectedMember.SeralizedData);
+                VisualEditorUtility.CopySeralizedMethodDataToProp(currentdelegateprop.FindPropertyRelative("methodData"), copiedcache.SelectedMember.SeralizedData);
                 currentdelegateprop.FindPropertyRelative("m_target").objectReferenceValue = copiedcache.CurrentTarget;
                 var arguments = currentdelegateprop.FindPropertyRelative("m_arguments");
                 var argument_size = copiedcache.arguments.Length;
@@ -322,7 +300,7 @@ namespace VisualEvent.Editor
                 {
                     arguments.GetArrayElementAtIndex(i).FindPropertyRelative("assemblyQualifiedArgumentName").stringValue = copiedcache.arguments[i].type.AssemblyQualifiedName;
                     arguments.GetArrayElementAtIndex(i).FindPropertyRelative("FullArgumentName").stringValue = copiedcache.arguments[i].type.FullName;
-                    VisualEdiotrUtility.CopyDelegateArguments(arguments.GetArrayElementAtIndex(i), copied_arguments.GetArrayElementAtIndex(i));
+                    VisualEditorUtility.CopyDelegateArguments(arguments.GetArrayElementAtIndex(i), copied_arguments.GetArrayElementAtIndex(i));
 
                 }
                 currentdelegateprop.FindPropertyRelative("m_isDynamic").boolValue = copiedprop.FindPropertyRelative("m_isDynamic").boolValue;

@@ -12,7 +12,7 @@ namespace VisualEvent.Editor
         /// <returns></returns>
         public float CalcHeight()
         {
-            var style = VisualEdiotrUtility.StandardStyle;
+            var style = VisualEditorUtility.StandardStyle;
             MethodContent = new GUIContent(MethodName);
             TargetContent = new GUIContent(TargetName);
             style.CalcMinMaxWidth(MethodContent, out float minMethodWidith, out float MaxMethodWidth);

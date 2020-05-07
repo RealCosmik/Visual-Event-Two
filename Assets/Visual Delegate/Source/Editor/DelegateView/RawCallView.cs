@@ -48,9 +48,9 @@ namespace VisualEvent.Editor
         /// <param name="tMember">Selected member property</param>
         /// <param name="tDynamic">Dynamic toggle property</param>
         /// <returns>True if the data matches</returns>
-        public virtual bool validateTarget(SerializedProperty tTarget, SerializedProperty isStatic_prop, SerializedProperty tDynamic)
+        public virtual bool validateTarget(SerializedProperty tTarget, SerializedProperty tDynamic)
         {
-            if (!base.validateTarget(tTarget, isStatic_prop))
+            if (!base.validateTarget(tTarget))
             {
                 isDynamic = isDynamicable = tDynamic.boolValue;
                 return false;
@@ -64,7 +64,9 @@ namespace VisualEvent.Editor
         public override void UpdateSelectedMember(int memberindex)
         {
             if (memberindex == -1)
+            {
                 SetDelegateError();
+            }
             else
             {
                 //   base.UpdateSelectedMember(value);
@@ -137,9 +139,8 @@ namespace VisualEvent.Editor
         {
             Debug.LogError("issue");
             serializationError = true;
-            hasStaticTarget = true;
-            UpdateSelectedTarget(AvailableTargetObjects.Count - 1);
-            selectedMemberIndex = CurrentMembers.IndexOf(CurrentMembers.Single(m => m.SeralizedData[1] == "LogMessage"));
+            //UpdateSelectedTarget(AvailableTargetObjects.Count - 1);
+            //selectedMemberIndex = CurrentMembers.IndexOf(CurrentMembers.Single(m => m.SeralizedData[1] == "LogMessage"));
 
         }
         public override void ClearViewCache()

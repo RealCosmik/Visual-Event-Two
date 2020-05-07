@@ -4,6 +4,9 @@ using UnityEditor;
 using UnityEngine;
 using System.Reflection;
 using System.Linq;
+using RoboRyanTron.SearchableEnum;
+using RoboRyanTron.SearchableEnum.Editor;
+
 namespace VisualEvent.Editor
 {
     //##########################
@@ -63,7 +66,7 @@ namespace VisualEvent.Editor
         {
             var argument_cache = ViewCache.GetRawArgumentCache(tProperty);
             var refpos = tPosition;
-            var style = VisualEdiotrUtility.StandardStyle;
+            var style = VisualEditorUtility.StandardStyle;
             var reference_content = new GUIContent("Use ref");
             style.CalcMinMaxWidth(reference_content, out float min, out float max);
             refpos.x = (refpos.width - max) - 20;
@@ -123,20 +126,20 @@ namespace VisualEvent.Editor
                 EditorGUI.LabelField(argpos, (tProperty.displayName + " Not Drawable"));
                 return;
             }
-            if (propertyID == VisualEdiotrUtility.STRING_TYPE_NAME|| propertyID == VisualEdiotrUtility.CHAR_TYPE_NAME)
+            if (propertyID == VisualEditorUtility.STRING_TYPE_NAME || propertyID == VisualEditorUtility.CHAR_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 var tempString = tProperty.FindPropertyRelative("stringValue");
                 if (!EditorApplication.isPlaying)
                     tempString.stringValue = EditorGUI.TextField(argpos, tempString.stringValue);
                 else tempString.stringValue = EditorGUI.DelayedTextField(argpos, tempString.stringValue);
-                if(propertyID== VisualEdiotrUtility.CHAR_TYPE_NAME)
+                if (propertyID == VisualEditorUtility.CHAR_TYPE_NAME)
                 {
                     string string_value = tempString.stringValue;
                     tempString.stringValue = string_value.Length >= 1 ? string_value[0].ToString() : String.Empty;
                 }
             }
-            else if (propertyID == VisualEdiotrUtility.BOOLEAN_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.BOOLEAN_TYPE_NAME)
             {
 
                 argument_cache.hasCustomType = false;
@@ -144,7 +147,7 @@ namespace VisualEvent.Editor
                 var tempX1 = tProperty.FindPropertyRelative("_x1");
                 tempX1.floatValue = EditorGUI.ToggleLeft(argpos, GUIContent.none, tempX1.floatValue > 0) ? 1 : -1;
             }
-            else if (propertyID == VisualEdiotrUtility.INTEGER_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.INTEGER_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 var tempX1 = tProperty.FindPropertyRelative("_x1");
@@ -152,13 +155,13 @@ namespace VisualEvent.Editor
                     tempX1.floatValue = EditorGUI.IntField(argpos, GUIContent.none, (int)tempX1.floatValue);
                 else tempX1.floatValue = EditorGUI.DelayedIntField(argpos, GUIContent.none, (int)tempX1.floatValue);
             }
-            else if (propertyID == VisualEdiotrUtility.LONG_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.LONG_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 SerializedProperty tempLong = tProperty.FindPropertyRelative("longValue");
                 tempLong.longValue = EditorGUI.LongField(argpos, GUIContent.none, tempLong.longValue);
             }
-            else if (propertyID == VisualEdiotrUtility.FLOAT_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.FLOAT_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 var tempX1 = tProperty.FindPropertyRelative("_x1");
@@ -166,7 +169,7 @@ namespace VisualEvent.Editor
                     tempX1.floatValue = EditorGUI.FloatField(argpos, GUIContent.none, tempX1.floatValue);
                 else tempX1.floatValue = EditorGUI.DelayedFloatField(argpos, GUIContent.none, tempX1.floatValue);
             }
-            else if (propertyID == VisualEdiotrUtility.DOUBLE_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.DOUBLE_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 SerializedProperty tempDouble = tProperty.FindPropertyRelative("doubleValue");
@@ -174,7 +177,7 @@ namespace VisualEvent.Editor
                     tempDouble.doubleValue = EditorGUI.DoubleField(argpos, GUIContent.none, tempDouble.doubleValue);
                 else tempDouble.doubleValue = EditorGUI.DelayedDoubleField(argpos, GUIContent.none, tempDouble.doubleValue);
             }
-            else if (propertyID == VisualEdiotrUtility.VECTOR2_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.VECTOR2_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 var tempX1 = tProperty.FindPropertyRelative("_x1");
@@ -187,7 +190,7 @@ namespace VisualEvent.Editor
                     tempY1.floatValue = tempVector2.y;
                 }
             }
-            else if (propertyID == VisualEdiotrUtility.VECTOR3_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.VECTOR3_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 var tempX1 = tProperty.FindPropertyRelative("_x1");
@@ -202,7 +205,7 @@ namespace VisualEvent.Editor
                     tempZ1.floatValue = tempVector3.z;
                 }
             }
-            else if (propertyID == VisualEdiotrUtility.VECTOR4_TYPE_NAME || propertyID == VisualEdiotrUtility.QUATERNION_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.VECTOR4_TYPE_NAME || propertyID == VisualEditorUtility.QUATERNION_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 var tempX1 = tProperty.FindPropertyRelative("_x1");
@@ -220,7 +223,7 @@ namespace VisualEvent.Editor
                     tempX2.floatValue = tempVector4.w;
                 }
             }
-            else if (propertyID == VisualEdiotrUtility.UNITYRECT_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.UNITYRECT_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 var tempX1 = tProperty.FindPropertyRelative("_x1");
@@ -238,7 +241,7 @@ namespace VisualEvent.Editor
                     tempX2.floatValue = tempRect.size.y;
                 }
             }
-            else if (propertyID == VisualEdiotrUtility.UNITYBOUNDS_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.UNITYBOUNDS_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 var tempX1 = tProperty.FindPropertyRelative("_x1");
@@ -260,7 +263,7 @@ namespace VisualEvent.Editor
                     tempZ2.floatValue = tempBounds.size.z;
                 }
             }
-            else if (propertyID == VisualEdiotrUtility.UNITYCOLOR_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.UNITYCOLOR_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 var tempX1 = tProperty.FindPropertyRelative("_x1");
@@ -278,13 +281,13 @@ namespace VisualEvent.Editor
                     tempX2.floatValue = tempColor.a;
                 }
             }
-            else if (propertyID == VisualEdiotrUtility.UNITYCURVE_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.UNITYCURVE_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 SerializedProperty tempCurve = tProperty.FindPropertyRelative("animationCurveValue");
                 tempCurve.animationCurveValue = EditorGUI.CurveField(argpos, GUIContent.none, tempCurve.animationCurveValue);
             }
-            else if (propertyID == VisualEdiotrUtility.DOTNET_TYPE_NAME)
+            else if (propertyID == VisualEditorUtility.DOTNET_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
                 EditorGUI.BeginChangeCheck();
@@ -320,7 +323,10 @@ namespace VisualEvent.Editor
                         }
                         else
                         {
-                            tempX1.floatValue = Convert.ToSingle(EditorGUI.EnumPopup(argpos, GUIContent.none, (Enum)Enum.ToObject(current_type, (int)tempX1.floatValue)));
+                            VisualEditorUtility.StandardStyle.CalcMinMaxWidth(paramLabel, out float min, out float max);
+                            argpos.xMin += max;
+                            DrawSearchableEnum(argpos, current_type, tempX1);
+                           //tempX1.floatValue = Convert.ToSingle(EditorGUI.EnumPopup(argpos, GUIContent.none, (Enum)Enum.ToObject(current_type, (int)tempX1.floatValue)));
                         }
                     }
                     // Unity object
@@ -380,10 +386,56 @@ namespace VisualEvent.Editor
         {
             var call = argumentprop.FindPropertyRelative("call_Reference");
             argCache.hasCustomType = false;
-            VisualEdiotrUtility.StandardStyle.CalcMinMaxWidth(label, out float min, out float max);
-            VisualEdiotrUtility.StandardStyle.CalcMinMaxWidth(labeltwo, out float min_two, out float max_twp);
+            VisualEditorUtility.StandardStyle.CalcMinMaxWidth(label, out float min, out float max);
+            VisualEditorUtility.StandardStyle.CalcMinMaxWidth(labeltwo, out float min_two, out float max_twp);
             rect.x += 10f;
             EditorGUI.PropertyField(rect, call, GUIContent.none, true);
+        }
+        private void DrawSearchableEnum(Rect enumrect, Type enumtype, SerializedProperty enumpropertyvalue)
+        {
+            int idHash = (enumpropertyvalue.propertyPath.GetHashCode() + enumpropertyvalue.serializedObject.targetObject.GetInstanceID().ToString()).GetHashCode();
+            GUIContent button = new GUIContent();
+            var enum_names = Enum.GetNames(enumtype);
+            if ((int)enumpropertyvalue.floatValue >= enum_names.Length|| (int)enumpropertyvalue.floatValue<0)
+            {
+                enumpropertyvalue.floatValue = Convert.ToSingle(enum_names.Length - 1);
+                enumpropertyvalue.serializedObject.ApplyModifiedProperties();
+            }
+            button.text = enum_names[(int)enumpropertyvalue.floatValue];
+            if (DropdownButton(idHash, enumrect, button))
+            {
+                Action<int> onselected = index =>
+                 {
+                     enumpropertyvalue.floatValue = Convert.ToSingle((Enum)Enum.ToObject(enumtype, index));
+                     enumpropertyvalue.serializedObject.ApplyModifiedProperties();
+                 };
+                SearchablePopup.Show(enumrect, enum_names, (int)enumpropertyvalue.floatValue, onselected);
+            }
+        }
+        private static bool DropdownButton(int id, Rect position, GUIContent content)
+        {
+            Event current = Event.current;
+            switch (current.type)
+            {
+                case EventType.MouseDown:
+                    if (position.Contains(current.mousePosition) && current.button == 0)
+                    {
+                        Event.current.Use();
+                        return true;
+                    }
+                    break;
+                case EventType.KeyDown:
+                    if (GUIUtility.keyboardControl == id && current.character == '\n')
+                    {
+                        Event.current.Use();
+                        return true;
+                    }
+                    break;
+                case EventType.Repaint:
+                    EditorStyles.popup.Draw(position, content, id, false);
+                    break;
+            }
+            return false;
         }
     }
 }

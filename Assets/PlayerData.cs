@@ -7,7 +7,7 @@ public class PlayerData : ScriptableObject
 {
     public bool isdead;
     public int health;
-    public IEnumerator offscenemethod()
+    public IEnumerator offscenemethod(int x)
     {
         Debug.Log("starting from SO");
         yield return new WaitForSeconds(2f);

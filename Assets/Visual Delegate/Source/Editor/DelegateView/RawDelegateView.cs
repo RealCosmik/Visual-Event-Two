@@ -48,7 +48,6 @@ namespace VisualEvent.Editor
         public bool isvalidated;
         public bool serializationError;
         public bool executionError;
-        public bool hasStaticTarget { get; protected set; }
         public RawDelegateView()
         {
             Undo.undoRedoPerformed += () => ClearViewCache();
@@ -105,23 +104,22 @@ namespace VisualEvent.Editor
             {
                 CurrentTargetIndex = newTargetIndex < 0 ? 0 : newTargetIndex;
                 var availability_count = AvailableTargetObjects.Count;
-                if (CurrentTargetIndex == availability_count - 1) // this can be static OR scriptable object
-                {
-                    if (AvailableTargetObjects[CurrentTargetIndex] == null) // if last item is null its static utility
-                        hasStaticTarget = true;
-                    else
-                    {
-                        //if its not null it was a scriptable objects since they have no children components
-                        CurrentTarget = AvailableTargetObjects[CurrentTargetIndex]; 
-                        hasStaticTarget = false;
-                    }
-                }
-                // any other index thats not the bottom of the list is some component child
-                else
+                //if (CurrentTargetIndex == availability_count - 1) // this can be static OR scriptable object
+                //{
+                //    if (AvailableTargetObjects[CurrentTargetIndex] == null) // if last item is null its static utility
+                //        hasStaticTarget = true;
+                //    else
+                //    {
+                //        //if its not null it was a scriptable objects since they have no children components
+                //        CurrentTarget = AvailableTargetObjects[CurrentTargetIndex]; 
+                //        hasStaticTarget = false;
+                //    }
+                //}
+                //// any other index thats not the bottom of the list is some component child
+                //else
                 {
                    
                     CurrentTarget = AvailableTargetObjects[CurrentTargetIndex];
-                    hasStaticTarget = false;
                 }
                 GenerateNewTargetMembers(CurrentTargetIndex);
             }
@@ -183,9 +181,6 @@ namespace VisualEvent.Editor
                     }
 
 
-                    //here we artifically force add extension targets to the drop down for utility methods 
-                    target_tree.Add(null);
-                    targetnames.Add("Utility");
                     // here we populate array of all potential targetname 
                     target_names = targetnames.ToArray();
 
@@ -211,9 +206,9 @@ namespace VisualEvent.Editor
             {
                 var target_object = AvailableTargetObjects[1] as GameObject; // main object is always in the ssecond index
 
-                // we use count-3 because our list is always 3 elements more than component list.
-                // our list contains null,the gameobject,and the utiliy SO, so to compare componets we do count-3
-                if (target_object != null && target_object.GetComponents<Component>().Length != AvailableTargetObjects.Count - 3)
+                // we use count-2 because our list is always 3 elements more than component list.
+                // our list contains null, and the gameobject, so to compare componets we do count-2
+                if (target_object != null && target_object.GetComponents<Component>().Length != AvailableTargetObjects.Count - 2)
                 {
                     SetParentTarget(AvailableTargetObjects[CurrentTargetIndex]);
                 }
@@ -233,9 +228,6 @@ namespace VisualEvent.Editor
                 return;
             }
 
-            if (hasStaticTarget)
-                CurrentMembers = typeof(UtilHelper).GetMemberList(true, true);
-            else
                 CurrentMembers = AvailableTargetObjects[CurrentTargetIndex].GetType().GetMemberList();
 
             int tempListLength = CurrentMembers.Count;
@@ -253,7 +245,7 @@ namespace VisualEvent.Editor
         /// <param name="seralizedTarget">Selected target property</param>
         /// <param name="seralizedMember">Selected member property</param>
         /// <returns>True if the data matches</returns> 
-        public virtual bool validateTarget(SerializedProperty seralizedTarget, SerializedProperty isstaticTarget)
+        public virtual bool validateTarget(SerializedProperty seralizedTarget)
         { 
             //  on assembly recompile we must rebuild the view from the seralized values of the delegate
             if (AvailableTargetObjects == null && seralizedTarget.objectReferenceValue != null)
@@ -261,14 +253,6 @@ namespace VisualEvent.Editor
                 
                 UnityEngine.Object newtarget = seralizedTarget.objectReferenceValue;
                 GenerateChildTargets(newtarget, out AvailableTargetObjects, out _targetNames);
-                if (isstaticTarget.boolValue)
-                { 
-                    Debug.Log("setting static target");
-                    hasStaticTarget = true;
-                    CurrentTarget = seralizedTarget.objectReferenceValue;
-                    UpdateSelectedTarget(AvailableTargetObjects.Count - 1);
-                }
-                else
                 {
                     if (this is RawReferenceView)
                         Debug.Log("non static ref");
@@ -330,7 +314,7 @@ namespace VisualEvent.Editor
         /// <summary>Finds the index of a serialized member name within the <see cref="CurrentMembers"/> list</summary>
         /// <param name="tSerializedName">Serialized name of the member being searched</param>
         /// <returns>Index if found, -1 if not, 0 if member is null or empty</returns>
-        public  int findMember(string[] seralizedmethodData)
+        protected virtual int findMember(string[] seralizedmethodData)
         {
             int index = -1;
             //no member seralized member set

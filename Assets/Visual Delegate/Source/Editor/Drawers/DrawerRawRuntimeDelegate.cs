@@ -46,7 +46,7 @@ namespace VisualEvent.Editor
                     var dynamicdelgate = property.GetTarget<RawRuntimeCall>();
                     AddTarget(property, cache, dynamicdelgate.delegateInstance.Target);
                     var seralizedMethodData = Utility.QuickSeralizer(dynamicdelgate.delegateInstance.Method);
-                    VisualEdiotrUtility.CopySeralizedMethodDataToProp(methodData_prop, seralizedMethodData);
+                    VisualEditorUtility.CopySeralizedMethodDataToProp(methodData_prop, seralizedMethodData);
                     cache.MethodName = ParseMethodName(seralizedMethodData[1]);
                     cache.CalcHeight();
                     property.serializedObject.ApplyModifiedProperties();
