@@ -82,6 +82,7 @@ namespace VisualEvent.Editor
                 tProperty.FindPropertyRelative("call_Reference").FindPropertyRelative("willdeseralize").boolValue = useReference.boolValue;
                 ViewCache.getRawCallCacheFromRawArgument(tProperty).RequiresRecalculation = true;
                 tProperty.serializedObject.ApplyModifiedProperties();
+                VisualEditorUtility.ReinitializeDelegate(tProperty.GetVisualDelegateObject());
             }
 
             style.CalcMinMaxWidth(paramLabel, out float minoffset, out float maxoffset);

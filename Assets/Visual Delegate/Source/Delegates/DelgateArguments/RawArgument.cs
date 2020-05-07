@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace VisualEvent
@@ -69,7 +70,7 @@ namespace VisualEvent
                 return call_Reference.delegateInstance as Func<ArgType>;
             }
             else
-            { 
+            {
                 ArgType static_value = (ArgType)GetGenericValue<ArgType>();
                 return () => static_value;
             } 

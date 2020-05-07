@@ -1,5 +1,4 @@
 ﻿using UnityEditor;
-using System.Collections.Generic;
 using System;
 namespace VisualEvent.Editor
 {

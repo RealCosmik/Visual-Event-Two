@@ -25,7 +25,7 @@ class LinkedMono : MonoBehaviour
     }
     public void methodforikram(string s) => Debug.Log("print as a string");
     private List<Func<IEnumerator>> coroutine_delegate;
-    [SerializeField] Testmono mymonotest;
+   public UnityEngine.Object mymonotest;
     public bool ExampleSwitch;
     public char idk;
 

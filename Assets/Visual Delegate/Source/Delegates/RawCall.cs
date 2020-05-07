@@ -114,13 +114,13 @@ namespace VisualEvent
                         {
                             RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                             Utility.DelegateDynamicPropertyCreationMethod.Add(paramtypes, RunTimeMethod);
-                        } 
+                        }
                         break;
                     case MemberTypes.Method:
                         if (paramtypes == null)
                         {
                             return createActionCall0(tMember as MethodInfo);
-                        } 
+                        }
                         else if (!isDynamic && !Utility.DelegateMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
                         {
                             Debug.Log("<color=yellow> static CACHE </color>");
@@ -132,7 +132,7 @@ namespace VisualEvent
                         //    Debug.Log("<color=yellow> got from static cache</color>");
                         //}
 
-                        else if (isDynamic &&!Utility.DelegateDynamicMethodCreationMethods.TryGetValue(paramtypes,out RunTimeMethod))
+                        else if (isDynamic && !Utility.DelegateDynamicMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
                         {
                             Debug.Log("<color=blue> DYNAMIC CACHE </color>");
                             RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
@@ -146,16 +146,7 @@ namespace VisualEvent
                 }
                 return RunTimeMethod.Invoke(this, arguments) as Delegate;
             }
-            else
-            {
-                if (methodData.Length > 0)
-                {
-                    MemberTypes mem_type = (MemberTypes)Utility.ConvertStringToInt(methodData[0]);
-                    return new Action(() => Debug.LogError($@"Cannot find {mem_type} ""{methodData[1]}"" in class  ""{m_target.GetType().FullName}""+ 
-                member was renamed or removed on gameobject ""{m_target.name}""", m_target));
-                }
-                else return null;
-            }
+            else return null;
 
         }
         //=======================
