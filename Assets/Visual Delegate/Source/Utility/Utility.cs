@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Collections.Generic;
-namespace VisualEvent
+namespace VisualDelegates
 { 
     public static class Utility
     {

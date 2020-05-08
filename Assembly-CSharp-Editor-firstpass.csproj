@@ -67,6 +67,7 @@
     <Compile Include="Assets\Plugins\GitHub\Editor\UnityAPIWrapper.cs" />
     <None Include="Assets\Plugins\GitHub\Editor\eula.txt" />
     <None Include="Assets\Plugins\GitHub\Editor\credits.txt" />
+    <None Include="Assets\Plugins\Editor\Unity-Roslyn\License.txt" />
     <Reference Include="UnityEngine">
       <HintPath>F:/UNITY VERSIONS/2019.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -268,6 +269,87 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp.Workspaces">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/Microsoft.CodeAnalysis.CSharp.Workspaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.Features">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/Microsoft.CodeAnalysis.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.FlowAnalysis.Utilities">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/Microsoft.CodeAnalysis.FlowAnalysis.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.VisualBasic">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/Microsoft.CodeAnalysis.VisualBasic.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.VisualBasic.Workspaces">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.Workspaces">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/Microsoft.CodeAnalysis.Workspaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DiaSymReader">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/Microsoft.DiaSymReader.dll</HintPath>
+    </Reference>
+    <Reference Include="Roslyn Library">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/Roslyn Library.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.batteries_v2">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/SQLitePCLRaw.batteries_v2.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.core">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/SQLitePCLRaw.core.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.provider.e_sqlite3">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/SQLitePCLRaw.provider.e_sqlite3.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.AttributedModel">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Composition.AttributedModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.Convention">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Composition.Convention.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.Hosting">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Composition.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.Runtime">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Composition.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.TypedParts">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Composition.TypedParts.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.TypeExtensions">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Reflection.TypeExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/Editor/Unity-Roslyn/System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="GitHub.Api.45">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/GitHub/Editor/GitHub.Api.45.dll</HintPath>
     </Reference>
@@ -285,87 +367,6 @@
     </Reference>
     <Reference Include="sfw.net">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Plugins/GitHub/Editor/sfw.net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/Microsoft.CodeAnalysis.CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp.Workspaces">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/Microsoft.CodeAnalysis.CSharp.Workspaces.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/Microsoft.CodeAnalysis.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.Features">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/Microsoft.CodeAnalysis.Features.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.FlowAnalysis.Utilities">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/Microsoft.CodeAnalysis.FlowAnalysis.Utilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.VisualBasic">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/Microsoft.CodeAnalysis.VisualBasic.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.VisualBasic.Workspaces">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.Workspaces">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/Microsoft.CodeAnalysis.Workspaces.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.DiaSymReader">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/Microsoft.DiaSymReader.dll</HintPath>
-    </Reference>
-    <Reference Include="Roslyn Library">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/Roslyn Library.dll</HintPath>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.batteries_v2">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/SQLitePCLRaw.batteries_v2.dll</HintPath>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.core">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/SQLitePCLRaw.core.dll</HintPath>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.provider.e_sqlite3">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/SQLitePCLRaw.provider.e_sqlite3.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Buffers">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Collections.Immutable">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Collections.Immutable.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.AttributedModel">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Composition.AttributedModel.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.Convention">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Composition.Convention.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.Hosting">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Composition.Hosting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.Runtime">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Composition.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.TypedParts">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Composition.TypedParts.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Memory">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics.Vectors">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reflection.Metadata">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Reflection.Metadata.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reflection.TypeExtensions">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Reflection.TypeExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Text.Encoding.CodePages">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Text.Encoding.CodePages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks.Extensions">
-      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Assets/Visual Delegate/Source/Editor/CodeGeneration/Unity-Roslyn/System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -730,11 +731,17 @@
     <Reference Include="UnityEngine.TestRunner">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
@@ -753,6 +760,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="VisualEventEditor.csproj">
+      <Project>{77733AC6-5A37-D759-9231-4B6753DC7F54}</Project>
+      <Name>VisualEventEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="VisualEvent.csproj">
+      <Project>{D811F234-EFAC-AF3E-AFC8-3A070769AED0}</Project>
+      <Name>VisualEvent</Name>
+    </ProjectReference>
     <ProjectReference Include="VisualDelegate.csproj">
       <Project>{BEB903ED-2FA9-A0C8-A91E-09ADEB1ED885}</Project>
       <Name>VisualDelegate</Name>

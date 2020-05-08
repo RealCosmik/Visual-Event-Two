@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
-namespace VisualEvent
+namespace VisualDelegates
 {
     // all methods in this class are invoked either by refleciton or in editor mode only never in builds
     public abstract partial class VisualDelegateBase
     {
-        private protected event Action<int> m_internalcalls;
+        private protected event Action m_internalcalls;
         /// <summary>
         /// Method used to add runtime delegates to editor list for debugging purposes
         /// </summary>
@@ -45,10 +45,10 @@ namespace VisualEvent
                     m_calls.RemoveAt(m_calls.IndexOf(removed_call));
             }
         }
-        private protected void InvokeInternalCall(int value)
+        private protected void InvokeInternalCall()
         {
             if (Application.isEditor)
-                m_internalcalls?.Invoke(value);
+                m_internalcalls?.Invoke();
         }
     }
 }

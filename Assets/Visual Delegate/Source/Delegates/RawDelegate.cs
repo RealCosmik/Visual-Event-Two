@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Linq.Expressions;
 using UnityEngine;
-namespace VisualEvent
+namespace VisualDelegates
 {
     //##########################
     // Class Declaration

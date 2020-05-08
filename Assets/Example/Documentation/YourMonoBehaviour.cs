@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System;
-using VisualEvent;
+using VisualDelegates;
 
 namespace EventsPlusTest
 {

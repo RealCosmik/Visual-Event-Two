@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-namespace VisualEvent
+namespace VisualDelegates
 {
     public static class UtilHelper
     {

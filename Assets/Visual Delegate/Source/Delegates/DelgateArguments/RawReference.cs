@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System;
 using System.Reflection;
-namespace VisualEvent
+namespace VisualDelegates
 {
     [System.Serializable]
     public class RawReference : RawDelegate

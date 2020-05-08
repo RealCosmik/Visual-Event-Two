@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using VisualEvent;
+using VisualDelegates;
 using System.Collections.Generic;
 [CreateAssetMenu(fileName = "methodSO", menuName = "Util/methodSO")]
 

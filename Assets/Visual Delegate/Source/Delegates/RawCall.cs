@@ -3,8 +3,8 @@ using System.Reflection;
 using UnityEngine;
 using System.Linq.Expressions;
 using System.Collections;
-using RawArg = VisualEvent.RawArgument;
-namespace VisualEvent
+using RawArg = VisualDelegates.RawArgument;
+namespace VisualDelegates
 {
     //##########################
     // Class Declaration

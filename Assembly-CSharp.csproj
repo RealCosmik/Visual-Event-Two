@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AOT.cs" />
+    <Compile Include="Assets\Editor Debug\SerializedPropertyViewer.cs" />
     <Compile Include="Assets\Example\Benchmark\Test.cs" />
     <Compile Include="Assets\Example\Documentation\Character.cs" />
     <Compile Include="Assets\Example\Documentation\CustomInput.cs" />
@@ -618,11 +619,17 @@
     <Reference Include="Boo.Lang">
       <HintPath>F:/UNITY VERSIONS/2019.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline">
+      <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/Mike/Documents/Current Unity project/Visual Event Two/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
@@ -641,6 +648,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="VisualEventEditor.csproj">
+      <Project>{77733AC6-5A37-D759-9231-4B6753DC7F54}</Project>
+      <Name>VisualEventEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="VisualEvent.csproj">
+      <Project>{D811F234-EFAC-AF3E-AFC8-3A070769AED0}</Project>
+      <Name>VisualEvent</Name>
+    </ProjectReference>
     <ProjectReference Include="VisualDelegate.csproj">
       <Project>{BEB903ED-2FA9-A0C8-A91E-09ADEB1ED885}</Project>
       <Name>VisualDelegate</Name>

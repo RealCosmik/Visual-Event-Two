@@ -1,0 +1,15 @@
+{
+    "name": "VisualEvent",
+    "references": [
+        "GUID:e3080a67585e8544a928a1c79bcab5b5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using UnityEngine;
 
-namespace VisualEvent
+namespace VisualDelegates
 {
     //##########################
     // Class Declaration

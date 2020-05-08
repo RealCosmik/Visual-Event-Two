@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-namespace VisualEvent
+namespace VisualDelegates
 {
+    [System.Serializable]
     public abstract partial class VisualDelegateBase
     {
         /// <summary>List of raw <see cref="RawCall"/> objects that this Publisher invokes using predefined arguments</summary>

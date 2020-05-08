@@ -1,1 +1,1 @@
-﻿namespace VisualEvent { public interface IVisualArgument { } }
+﻿namespace VisualDelegates { public interface IVisualArgument { } }
