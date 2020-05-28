@@ -30,6 +30,8 @@ namespace VisualDelegates.Events.Editor
         protected override DragAndDropVisualMode HandleDragAndDrop(DragAndDropArgs args)
         {
             Debug.Log(args.insertAtIndex);
+            Debug.Log(args.parentItem);
+            Debug.Log(rootItem.children.Count);
             if (isDragging && args.performDrop)
             {
                 if (args.parentItem is PriorityTreeElement selectedpriorityelement && draggedItem is PriorityTreeElement draggedpriorityelement)
@@ -57,7 +59,7 @@ namespace VisualDelegates.Events.Editor
                     var response = m_event.AllResponses[(responseElement.parent as PriorityTreeElement).Priority][responseElement.eventindex];
                     m_event.AllResponses[(responseElement.parent as PriorityTreeElement).Priority].RemoveAt(responseElement.eventindex);
                     if (args.parentItem is PriorityTreeElement priorityElement)
-                    {
+                    { 
                         m_event.AllResponses[priorityElement.Priority].Add(response);
                         UpdateResponsePriority(responseElement, priorityElement.Priority);
                     }
@@ -67,8 +69,15 @@ namespace VisualDelegates.Events.Editor
                         m_event.AllResponses[otherResponseElementParent.Priority].Add(response);
                         UpdateResponsePriority(responseElement, otherResponseElementParent.Priority);
                     }
-                    Debug.Log("moving single element");
+                    else if (args.insertAtIndex==rootItem.children.Count)
+                    {
+                        Debug.Log("OH YEAH");
+                        m_event.AllResponses.Add(new List<EventResponse>());
+                        m_event.AllResponses[args.insertAtIndex].Add(response);
+                        UpdateResponsePriority(responseElement, args.insertAtIndex);
+                    }  
                 }
+                Debug.Log(m_event.AllResponses.Count);
                 Reload();
             }
             return DragAndDropVisualMode.Move;
