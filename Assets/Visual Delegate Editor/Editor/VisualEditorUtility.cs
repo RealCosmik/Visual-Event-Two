@@ -569,9 +569,6 @@ namespace VisualDelegates.Editor
             string path = rawcallProperty.propertyPath;
             var propertyData = ParseData[path];
             return propertyData[propertyData.Length - 1][1] - '0';
-            //if (propertyData.Length >= 4) // +/- 1 on the index if the rawcall is part of any array or not
-            //    return propertyData[3][1] - '0';
-            //else return propertyData[2][1] - '0';
         }
         /// <summary>
         /// Get the index of the raw call that this raw argument property may belong too
@@ -598,9 +595,7 @@ namespace VisualDelegates.Editor
             //ViewDelegate._calls[0].m_arguments[0].m_reference
             string path = rawreferenceprop.propertyPath;
             var propertydata = ParseData[path];
-            if (propertydata.Length > 6) // +/- 1 on the index depending if the rawreference is part of a delegate that is in array
-                return propertydata[3][1] - '0';
-            else return propertydata[2][1] - '0';
+            return propertydata[propertydata.Length - 4][1] - '0';
         }
         /// <summary>
         /// Gets the index of the rawargument that this argument reference belongs to

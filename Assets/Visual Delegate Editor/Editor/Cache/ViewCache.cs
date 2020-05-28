@@ -69,7 +69,7 @@ namespace VisualDelegates.Editor
         /// <param name="property"></param>
         /// <returns></returns>
         public static VisiualDelegateCacheContainer GetVisualDelegateInstanceCache(SerializedProperty property)
-        {
+        { 
             var instanceCache = GetCacheFromPublisherInstance(property);
             var index = property.GetViewDelegateIndex();
             if (index >= instanceCache.Count)
@@ -84,7 +84,7 @@ namespace VisualDelegates.Editor
         /// <param name="DelegateView"></param>
         /// <returns></returns>
         public static bool GetDelegateView<T>(SerializedProperty delegateprop, out T DelegateView) where T : RawDelegateView
-        {
+        { 
             GetVisualDelegateCacheFromObject(delegateprop.serializedObject.targetObject.GetInstanceID());
             if (typeof(T) == typeof(RawCallView))
                 DelegateView = GetRawCallCache(delegateprop) as T;
@@ -181,15 +181,15 @@ namespace VisualDelegates.Editor
         public List<RawCallViewCacheContainer> RawCallCache = new List<RawCallViewCacheContainer>();
 
         public VisiualDelegateCacheContainer(VisualDelegateBase visualdelegate)
-        {
+        { 
             BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
             System.Type[] argument_types = new System.Type[1] { typeof(Action) };
             var editordelegate = new Action(()=>
             {
                 isinvoked = true;
                 VisualEditorUtility.RepaintInspectorWindows();
-            });
-            visualdelegate.GetType().GetEvent("m_internalcalls", flags).GetAddMethod(true).Invoke(visualdelegate, new object[] { editordelegate });
+            }); 
+            visualdelegate?.GetType().GetEvent("m_internalcalls", flags).GetAddMethod(true).Invoke(visualdelegate, new object[] { editordelegate });
         }
     }
 

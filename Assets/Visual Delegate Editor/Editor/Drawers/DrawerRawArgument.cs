@@ -100,8 +100,9 @@ namespace VisualDelegates.Editor
             }
 
             var togglerect = argumentpos;
-            togglerect.x = (argumentpos.width + maxoffset) - 25f;
-            togglerect.width = max+maxoffset;
+            //  togglerect.x = (argumentpos.width + maxoffset) - 25f;
+            //togglerect.width = max+maxoffset;
+            togglerect.x = argumentpos.xMax;
 
 
             EditorGUI.BeginChangeCheck();
@@ -332,10 +333,11 @@ namespace VisualDelegates.Editor
                         {
                             VisualEditorUtility.StandardStyle.CalcMinMaxWidth(paramLabel, out float min, out float max);
                             //  argpos.width -= max;\
-                            argpos.width /= 2;
+                            //argpos.width /= 2;
                             //argpos.xMax += max;
-                            argpos.x += argpos.width / 2;
+                            // argpos.x += argpos.width / 2;
                             //argpos.x += max;
+                            argpos.xMin += max/2;
                             DrawSearchableEnum(argpos, current_type, tempX1);
                             //tempX1.floatValue = Convert.ToSingle(EditorGUI.EnumPopup(argpos, GUIContent.none, (Enum)Enum.ToObject(current_type, (int)tempX1.floatValue)));
                         }

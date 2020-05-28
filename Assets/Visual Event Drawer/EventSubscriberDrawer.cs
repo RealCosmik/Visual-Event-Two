@@ -9,7 +9,7 @@ namespace VisualDelegates.Events.Editor
     public class EventSubscriberDrawer : UnityEditor.Editor
     {
         TreeViewState m_TreeViewState;
-        SubscriberTree m_subscribertree;
+        ResponseTree m_subscribertree;
         MultiColumnHeader header;
         float currentoffset;
         SerializedProperty responses;
@@ -57,13 +57,6 @@ namespace VisualDelegates.Events.Editor
         }
         public override void OnInspectorGUI()
         {
-            if (GUILayout.Button("Add Event Response"))
-            {
-                responses.InsertArrayElementAtIndex(responses.arraySize);
-                responses.GetArrayElementAtIndex(responses.arraySize - 1).FindPropertyRelative("response").managedReferenceValue = new randomdel();
-                serializedObject.ApplyModifiedProperties();
-                // m_subscribertree.Reload();
-            }
             var myrect = EditorGUILayout.GetControlRect();
             header.OnGUI(myrect, currentoffset);
             int size = responses.arraySize;
@@ -71,22 +64,56 @@ namespace VisualDelegates.Events.Editor
             {
                 DrawResponse(responses.GetArrayElementAtIndex(i));
             }
+            if (GUILayout.Button("Add Event Response"))
+            {
+                responses.InsertArrayElementAtIndex(responses.arraySize);
+                responses.GetArrayElementAtIndex(responses.arraySize - 1).FindPropertyRelative("response").managedReferenceValue = new randomdel();
+                serializedObject.ApplyModifiedProperties();
+                // m_subscribertree.Reload();
+            }
         }
-        private void DrawResponse(SerializedProperty Currentresponse)
+        private void DrawResponse(SerializedProperty currentResponse)
         {
-            var eventrect = GUILayoutUtility.GetRect(header.GetColumnRect(0).width,
+                var eventrect = GUILayoutUtility.GetRect(header.GetColumnRect(0).width,
                 EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none));
             eventrect.width = header.GetColumnRect(0).width;
-            //eventrect.x= header.GetColumnRect(0).x;
-            EditorGUI.PropertyField(eventrect, Currentresponse.FindPropertyRelative("currentEvent"), GUIContent.none);
 
+            EditorGUI.BeginProperty(eventrect, GUIContent.none, currentResponse);
+            EditorGUI.BeginChangeCheck();
+            EditorGUI.PropertyField(eventrect, currentResponse.FindPropertyRelative("currentEvent"), GUIContent.none);
+            if (EditorGUI.EndChangeCheck())
+                onSubscribed(currentResponse);
+
+            var priorityrect = eventrect;
+            priorityrect.y += eventrect.height;
+            EditorGUI.BeginChangeCheck();
+            EditorGUI.PropertyField(priorityrect, currentResponse.FindPropertyRelative("priority"), GUIContent.none);
+            if (EditorGUI.EndChangeCheck())
+            {
+                currentResponse.serializedObject.ApplyModifiedProperties();
+            }
             var responserect = GUILayoutUtility.GetRect(header.GetColumnRect(1).width,
-                 EditorGUI.GetPropertyHeight(Currentresponse.FindPropertyRelative("response"), GUIContent.none));
+                 EditorGUI.GetPropertyHeight(currentResponse.FindPropertyRelative("response"), GUIContent.none));
             responserect.width = header.GetColumnRect(1).width;
-            // responserect.x += header.GetColumnRect(1).xMin;
-           // responserect.x += header.GetColumnRect(1).x + 0f;
-            responserect.y -= 35f;
-            EditorGUI.PropertyField(responserect, Currentresponse.FindPropertyRelative("response"), GUIContent.none);
+            responserect.x = header.GetColumnRect(1).x + 30f;
+            responserect.y -= 30;
+            EditorGUI.BeginChangeCheck();
+            EditorGUI.PropertyField(responserect, currentResponse.FindPropertyRelative("response"), GUIContent.none);
+            if (EditorGUI.EndChangeCheck())
+            {
+                currentResponse.serializedObject.ApplyModifiedProperties();
+            }
+            EditorGUI.EndProperty();
+        }
+        private void onSubscribed(SerializedProperty currentResponse)
+        {
+            var base_event = currentResponse.FindPropertyRelative("currentEvent").objectReferenceValue as BaseEvent;
+            if (base_event != null)
+            { 
+                base_event.AllResponses.Clear();
+                base_event.Subscribe(new EventResponse(), currentResponse.FindPropertyRelative("priority").intValue);
+            }
+            currentResponse.serializedObject.ApplyModifiedProperties();
         }
         //public override void OnInspectorGUI()
         //{

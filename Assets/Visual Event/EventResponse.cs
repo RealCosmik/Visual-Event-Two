@@ -4,9 +4,9 @@ namespace VisualDelegates.Events
     [System.Serializable]
     public class EventResponse
     {
-        [UnityEngine.SerializeReference] VisualDelegateBase response;
-        [SerializeField] ScriptableObject currentEvent;
-        [SerializeField] int priority;
-
+        [UnityEngine.SerializeReference] public VisualDelegateBase response;
+        [SerializeField] public BaseEvent currentEvent;
+        [SerializeField] public int priority;
+        [System.NonSerialized] public int senderID, responseIndex;
     }
 }
