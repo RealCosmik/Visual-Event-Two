@@ -4,12 +4,14 @@ using UnityEditor;
 using UnityEngine;
 using System.Reflection;
 using System;
+using UnityEditorInternal;
+
 namespace VisualDelegates.Editor
 {
     /// <summary>
     /// class that handles the delegate cache during editor caches
     /// </summary>
-    internal static class ViewCache
+    public static class ViewCache
     {
         /* The DelegateView is the root of all objects in seralized dele
          * //pub[0] //._calls
