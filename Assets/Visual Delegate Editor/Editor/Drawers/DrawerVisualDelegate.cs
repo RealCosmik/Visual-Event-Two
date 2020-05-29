@@ -37,12 +37,24 @@ namespace VisualDelegates.Editor
         public override float GetPropertyHeight(SerializedProperty tProperty, GUIContent tLabel)
         {
             // Initialize reorderable list
-            SerializedProperty callsProperty = tProperty.FindPropertyRelative("m_calls");
-            ReorderableList tempList;
-            var pubcache = ViewCache.GetVisualDelegateInstanceCache(tProperty);
-            if (!cache.TryGetValue(tProperty.propertyPath, out tempList))
+            var tempList = GetReoderableList(tProperty);
+            // Calculate height 
+            float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
+            if (tProperty.isExpanded)
             {
-                tempList = new ReorderableList(tProperty.serializedObject, callsProperty, true, true, true, true);
+                tempHeight += tempList.GetHeight() + (tempList.count * EditorGUIUtility.standardVerticalSpacing);
+            }
+
+
+            return tempHeight;
+        }
+        private ReorderableList GetReoderableList(SerializedProperty delegateproperty)
+        {
+            if(!cache.TryGetValue(delegateproperty.propertyPath,out ReorderableList tempList))
+            {
+                var pubcache = ViewCache.GetVisualDelegateInstanceCache(delegateproperty);
+                SerializedProperty callsProperty = delegateproperty.FindPropertyRelative("m_calls");
+                tempList = new ReorderableList(delegateproperty.serializedObject, callsProperty, true, true, true, true);
                 tempList.footerHeight = EditorGUIUtility.singleLineHeight;
                 tempList.drawHeaderCallback += rect =>
                 {
@@ -77,13 +89,14 @@ namespace VisualDelegates.Editor
                 {
                     if (index < pubcache.RawCallCache.Count)
                     {
-                        return pubcache.RawCallCache[index].delegateView.Height + EditorGUIUtility.standardVerticalSpacing;
+                        var height = pubcache.RawCallCache[index].delegateView.Height + EditorGUIUtility.standardVerticalSpacing;
+                        return height;
                     }
                     else return 20;
                 };
 
                 tempList.onReorderCallbackWithDetails += (ReorderableList list, int oldindex, int newindex) =>
-                  OnReorder(list, oldindex, newindex, tProperty);
+                  OnReorder(list, oldindex, newindex, delegateproperty);
 
                 tempList.onSelectCallback += list =>
                 {
@@ -92,17 +105,9 @@ namespace VisualDelegates.Editor
                 };
                 tempList.onRemoveCallback += onElementDelete;
                 tempList.onAddCallback += onAddElement;
-                cache.Add(tProperty.propertyPath, tempList);
+                cache.Add(delegateproperty.propertyPath,tempList);
             }
-            // Calculate height 
-            float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
-            if (tProperty.isExpanded)
-            {
-                tempHeight += tempList.GetHeight() + (tempList.count * EditorGUIUtility.standardVerticalSpacing);
-            }
-
-
-            return tempHeight;
+            return tempList;
         }
         //=======================
         // Render
@@ -114,7 +119,7 @@ namespace VisualDelegates.Editor
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
         { 
             ClearOldCache(tProperty);
-            ReorderableList tempList = cache[tProperty.propertyPath];
+            ReorderableList tempList = GetReoderableList(tProperty);
             tPosition.height = base.GetPropertyHeight(tProperty, tLabel);
             var cursorheihgt = tPosition;
             if (string.IsNullOrWhiteSpace(tLabel.text))

@@ -13,215 +13,80 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-05-29T00:45:33.071-04:00
-  initializedAtString: 2020-05-28T21:40:11.056-04:00
+  lastUpdatedAtString: 2020-05-29T19:46:12.150-04:00
+  initializedAtString: 2020-05-29T17:35:08.576-04:00
   entries:
-  - path: Assets\Visual Delegate Editor\Editor\Cache\ViewCache.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate Editor\Editor\Cache\ViewCache.cs
-    projectPath: Assets\Visual Delegate Editor\Editor\Cache\ViewCache.cs
+  - path: Assets\Scenes\Pong.unity
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Scenes\Pong.unity
+    projectPath: Assets\Scenes\Pong.unity
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event Drawer\Event Drawer\BaseEventDrawer.cs
+  - path: Assets\Visual Delegate Editor\Editor\DelegateView\RawDelegateView.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\Event Drawer\BaseEventDrawer.cs
-    projectPath: Assets\Visual Event Drawer\Event Drawer\BaseEventDrawer.cs
+      Delegate Editor\Editor\DelegateView\RawDelegateView.cs
+    projectPath: Assets\Visual Delegate Editor\Editor\DelegateView\RawDelegateView.cs
     originalPath: 
     indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Drawer\Event Drawer\BaseEventDrawer.cs.meta
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawCallView.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\Event Drawer\BaseEventDrawer.cs.meta
-    projectPath: Assets\Visual Event Drawer\Event Drawer\BaseEventDrawer.cs.meta
+      Delegate Editor\Editor\Drawers\DrawerRawCallView.cs
+    projectPath: Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawCallView.cs
     originalPath: 
     indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Drawer\EventSubscriberDrawer.cs
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawDelegateView.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\EventSubscriberDrawer.cs
-    projectPath: Assets\Visual Event Drawer\EventSubscriberDrawer.cs
+      Delegate Editor\Editor\Drawers\DrawerRawDelegateView.cs
+    projectPath: Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawDelegateView.cs
     originalPath: 
     indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Drawer\EventSubscriberDrawer.cs.meta
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate Editor\Editor\Drawers\DrawerVisualDelegate.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\EventSubscriberDrawer.cs.meta
-    projectPath: Assets\Visual Event Drawer\EventSubscriberDrawer.cs.meta
+      Delegate Editor\Editor\Drawers\DrawerVisualDelegate.cs
+    projectPath: Assets\Visual Delegate Editor\Editor\Drawers\DrawerVisualDelegate.cs
     originalPath: 
     indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
-    projectPath: Assets\Visual Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs.meta
-    projectPath: Assets\Visual Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Drawer\Subscriber Tree Data\ResponseTree.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\Subscriber Tree Data\ResponseTree.cs
-    projectPath: Assets\Visual Event Drawer\Subscriber Tree Data\ResponseTree.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Drawer\Subscriber Tree Data\ResponseTree.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\Subscriber Tree Data\ResponseTree.cs.meta
-    projectPath: Assets\Visual Event Drawer\Subscriber Tree Data\ResponseTree.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Drawer\Subscriber Tree Data\ResponseTreeElement.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\Subscriber Tree Data\ResponseTreeElement.cs
-    projectPath: Assets\Visual Event Drawer\Subscriber Tree Data\ResponseTreeElement.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Drawer\Subscriber Tree Data\ResponseTreeElement.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\Subscriber Tree Data\ResponseTreeElement.cs.meta
-    projectPath: Assets\Visual Event Drawer\Subscriber Tree Data\ResponseTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Drawer\Visual Event Editor.asmdef
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\Visual Event Editor.asmdef
-    projectPath: Assets\Visual Event Drawer\Visual Event Editor.asmdef
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Drawer\Visual Event Editor.asmdef.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Drawer\Visual Event Editor.asmdef.meta
-    projectPath: Assets\Visual Event Drawer\Visual Event Editor.asmdef.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Event Drawer\BaseEventDrawer.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\BaseEventDrawer.cs
-    projectPath: Assets\Visual Event Editor\Event Drawer\BaseEventDrawer.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\BaseEventDrawer.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\BaseEventDrawer.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\BaseEventDrawer.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
-    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs
-    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    workTreeStatus: 3
   - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs
     projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
     projectPath: Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs.meta
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Event Editor\Subscriber Drawer\ResponseTree.cs
     projectPath: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\ResponseTree.cs.meta
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assets\Visual Event Editor\Subscriber Drawer\ResponseTreeElement.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Event Editor\Subscriber Drawer\ResponseTreeElement.cs
     projectPath: Assets\Visual Event Editor\Subscriber Drawer\ResponseTreeElement.cs
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Subscriber Drawer\ResponseTreeElement.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\ResponseTreeElement.cs.meta
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\ResponseTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Visual Event Editor.asmdef
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Visual Event Editor.asmdef
-    projectPath: Assets\Visual Event Editor\Visual Event Editor.asmdef
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Visual Event Editor.asmdef.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Visual Event Editor.asmdef.meta
-    projectPath: Assets\Visual Event Editor\Visual Event Editor.asmdef.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\ArtifactDB
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ArtifactDB
     projectPath: Library\ArtifactDB
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\CurrentLayout-default.dwlt
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\CurrentLayout-default.dwlt
+    projectPath: Library\CurrentLayout-default.dwlt
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

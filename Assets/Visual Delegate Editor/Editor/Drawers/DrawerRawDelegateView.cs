@@ -55,6 +55,7 @@ namespace VisualDelegates.Editor
                         DelegateCache.UpdateSelectedMember(DelegateCache.selectedMemberIndex);
                         handleMemberUpdate(tProperty, DelegateCache);
                         EditorGUIUtility.PingObject(UserParentTarget);
+                        DelegateCache.RequiresRecalculation = true;
                     }
                 }
                 else // Target drop-down
@@ -75,6 +76,7 @@ namespace VisualDelegates.Editor
                             handleMemberUpdate(tProperty, DelegateCache);
                         }
                         EditorGUIUtility.PingObject(DelegateCache.CurrentTarget);
+                        DelegateCache.RequiresRecalculation = true;
                     }
                 }
                 // Members

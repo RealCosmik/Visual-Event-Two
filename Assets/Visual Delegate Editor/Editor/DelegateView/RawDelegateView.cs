@@ -62,7 +62,7 @@ namespace VisualDelegates.Editor
         /// Clears the data from this view when delegate is removed
         /// </summary>
         public virtual void ClearViewCache()
-        {
+        { 
             Debug.Log("nah this gets called alot");
             // there seems to be a weird bug in unity where while drag and drops are being perfomed 
             // undo/redo is constantly being called

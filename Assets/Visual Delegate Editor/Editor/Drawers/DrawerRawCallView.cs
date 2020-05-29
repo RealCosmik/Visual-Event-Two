@@ -96,9 +96,9 @@ namespace VisualDelegates.Editor
                         if (EditorGUI.EndChangeCheck())
                         {
                             delegateCache.isDynamic = tempIsDynamic;
+                            delegateCache.RequiresRecalculation = true;
                             UpdateMethodName(tProperty, delegateCache);
                             handleDynamicUpdate(tProperty, delegateCache);
-                            delegateCache.RequiresRecalculation = true;
                         }
                     }
                     if (delegateCache.isYieldable)

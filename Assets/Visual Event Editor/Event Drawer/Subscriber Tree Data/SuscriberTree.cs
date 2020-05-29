@@ -189,10 +189,11 @@ namespace VisualDelegates.Events.Editor
             EditorGUI.PropertyField(cellrect, serialized_object.FindProperty("responses").GetArrayElementAtIndex(response_element.responseindex).FindPropertyRelative("response"));
             if (EditorGUI.EndChangeCheck())
             {
-                this.RefreshCustomRowHeights();
                 if (!EditorApplication.isPlayingOrWillChangePlaymode)
                     serialized_object.ApplyModifiedProperties();
             }
+            this.RefreshCustomRowHeights();
+            Reload();
         }
     }
 }
