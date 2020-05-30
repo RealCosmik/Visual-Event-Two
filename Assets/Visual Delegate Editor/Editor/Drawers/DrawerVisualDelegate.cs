@@ -34,24 +34,11 @@ namespace VisualDelegates.Editor
         /// <param name="tProperty">Serialized <see cref="VisualDelegate"/> property</param>
         /// <param name="tLabel">GUI Label of the drawer</param>
         /// <returns>Height of the drawer</returns>
-        public override float GetPropertyHeight(SerializedProperty tProperty, GUIContent tLabel)
-        {
-            // Initialize reorderable list
-            var tempList = GetReoderableList(tProperty);
-            // Calculate height 
-            float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
-            if (tProperty.isExpanded)
-            {
-                tempHeight += tempList.GetHeight() + (tempList.count * EditorGUIUtility.standardVerticalSpacing);
-            }
-
-
-            return tempHeight;
-        }
+      
         private ReorderableList GetReoderableList(SerializedProperty delegateproperty)
         {
             if(!cache.TryGetValue(delegateproperty.propertyPath,out ReorderableList tempList))
-            {
+            { 
                 var pubcache = ViewCache.GetVisualDelegateInstanceCache(delegateproperty);
                 SerializedProperty callsProperty = delegateproperty.FindPropertyRelative("m_calls");
                 tempList = new ReorderableList(delegateproperty.serializedObject, callsProperty, true, true, true, true);
@@ -109,6 +96,18 @@ namespace VisualDelegates.Editor
             }
             return tempList;
         }
+        public override float GetPropertyHeight(SerializedProperty tProperty, GUIContent tLabel)
+        {
+            // Initialize reorderable list
+            var tempList = GetReoderableList(tProperty);
+            // Calculate height 
+            float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
+            if (tProperty.isExpanded)
+            {
+                tempHeight += tempList?.GetHeight()??0 + (tempList?.count??0 * EditorGUIUtility.standardVerticalSpacing);
+            }
+            return tempHeight;
+        }
         //=======================
         // Render
         //=======================
@@ -154,7 +153,7 @@ namespace VisualDelegates.Editor
                 {
                     if (EditorApplication.isPlaying)
                     {
-                        Debug.LogWarning("might have to change this");
+                       // Debug.LogWarning("might have to change this");
                         tProperty.serializedObject.ApplyModifiedProperties();
                         VisualEditorUtility.ReinitializeDelegate(tProperty.GetVisualDelegateObject());
                     }
@@ -184,7 +183,7 @@ namespace VisualDelegates.Editor
         /// <param name="arrayprop"></param>
         private void onElementDelete(ReorderableList list)
         {
-            Debug.Log("delete");
+           // Debug.Log("delete");
             var removedindex = list.index;
             var arrayprop = list.serializedProperty;
             if (list.index < arrayprop.arraySize)
@@ -276,7 +275,7 @@ namespace VisualDelegates.Editor
         {
             if (list.index != -1)
             {
-                Debug.Log("Copy");
+               // Debug.Log("Copy");
                 copiedcache = ViewCache.GetRawCallCache(arrayprop.GetArrayElementAtIndex(list.index)) as RawCallView;
                 copyIndex = list.index;
             }

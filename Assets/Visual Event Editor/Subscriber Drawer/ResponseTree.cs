@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using VisualDelegates.Editor;
-
 namespace VisualDelegates.Events.Editor
 {
     class ResponseTree : TreeView
@@ -13,6 +13,7 @@ namespace VisualDelegates.Events.Editor
         static readonly string UP_ARROW = char.ConvertFromUtf32(0x2191);
         static readonly string DOWN_ARROW = char.ConvertFromUtf32(0x2193);
         int reloadcounter = 0;
+        int targetcounter = 3;
         public ResponseTree(TreeViewState state, MultiColumnHeader header, SerializedObject newSerializedSubscriber) : base(state, header)
         {
             serializedSubscriber = newSerializedSubscriber;
@@ -29,18 +30,24 @@ namespace VisualDelegates.Events.Editor
         }
         private void SetSubscriberElements(TreeViewItem root)
         {
+
             var subscriberResponses = serializedSubscriber.FindProperty("responses");
             var responsecount = subscriberResponses.arraySize;
             for (int i = 0; i < responsecount; i++)
-                root.AddChild(new ResponseTreeElement(i) { id = i });
+            {
+                var baseEvent = subscriberResponses.GetArrayElementAtIndex(i).FindPropertyRelative("currentEvent").objectReferenceValue as BaseEvent;
+               root.AddChild(new ResponseTreeElement(baseEvent){ id = i });
+            }
         }
         protected override float GetCustomRowHeight(int row, TreeViewItem item)
         {
             var responseElement = item as ResponseTreeElement;
-            var eventResponseProperty = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(responseElement.responseIndex);
+            var eventResponseProperty = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(responseElement.id);
             ViewCache.GetVisualDelegateInstanceCache(eventResponseProperty.FindPropertyRelative("response"));
-            var x = EditorGUI.GetPropertyHeight(eventResponseProperty.FindPropertyRelative("response"));
-            return x;
+            if (eventResponseProperty.FindPropertyRelative("currentEvent").objectReferenceValue != null)
+                return EditorGUI.GetPropertyHeight(eventResponseProperty.FindPropertyRelative("response"));
+            else return EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
+                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none);
         }
         protected override void RowGUI(RowGUIArgs args)
         {
@@ -50,30 +57,35 @@ namespace VisualDelegates.Events.Editor
                 if (args.item is ResponseTreeElement responseElement)
                     DrawResponse(i, ref args);
             }
-            if (reloadcounter != 2)
+            if (reloadcounter != targetcounter)
             {
                 reloadcounter++;
-                if (reloadcounter == 2)
-                    RefreshCustomRowHeights();
+                if (reloadcounter == targetcounter)
+                    Reload();
             }
         }
         private void DrawResponse(int collumn, ref RowGUIArgs rowarg)
         {
+            var element = rowarg.item as ResponseTreeElement;
+            var currentResponse = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id);
+            EditorGUI.BeginProperty(rowarg.GetCellRect(1), GUIContent.none, currentResponse);
             switch (collumn)
             {
                 case 0:
-                    DrawEventAndPriority(rowarg.GetCellRect(0), rowarg.item as ResponseTreeElement);
+                    DrawEventAndPriority(rowarg.GetCellRect(0), currentResponse, element);
                     break;
                 case 1:
-                    DrawDelegate(rowarg.GetCellRect(1), rowarg.item as ResponseTreeElement);
+                    var cellrect = rowarg.GetCellRect(1);
+                    if (currentResponse.FindPropertyRelative("currentEvent").objectReferenceValue != null)
+                        DrawDelegate(cellrect, element);
                     break;
                 default:
                     break;
             }
+            EditorGUI.EndProperty();
         }
-        private void DrawEventAndPriority(Rect cell, ResponseTreeElement element)
+        private void DrawEventAndPriority(Rect cell, SerializedProperty currentResponse, ResponseTreeElement element)
         {
-            var currentResponse = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.responseIndex);
             var currentEventProperty = currentResponse.FindPropertyRelative("currentEvent");
             var priorityProperty = currentResponse.FindPropertyRelative("priority");
             var event_rect = cell;
@@ -110,20 +122,9 @@ namespace VisualDelegates.Events.Editor
                 serializedSubscriber.ApplyModifiedProperties();
             }
         }
-        private void OnSubscribe(BaseEvent subscribedEvent, ResponseTreeElement element)
-        {
-            if (subscribedEvent != null)
-            {
-                var binding = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
-                var responses = serializedSubscriber.targetObject.GetType().GetField("responses", binding)
-                    .GetValue(serializedSubscriber.targetObject) as List<EventResponse>;
-                subscribedEvent.Subscribe(responses[element.responseIndex], responses[element.responseIndex].priority);
-                serializedSubscriber.ApplyModifiedProperties();
-            }
-        }
         private void DrawDelegate(Rect cell, ResponseTreeElement element)
         {
-            var currentDelegate = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.responseIndex)
+            var currentDelegate = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id)
                 .FindPropertyRelative("response");
 
             EditorGUI.BeginChangeCheck();
@@ -133,10 +134,63 @@ namespace VisualDelegates.Events.Editor
 
             if (EditorGUI.EndChangeCheck())
             {
-                reloadcounter = 0;
                 currentDelegate.serializedObject.ApplyModifiedProperties();
-            }
-            // RefreshCustomRowHeights();
+                RefreshCustomRowHeights();
+                reloadcounter = 0;
+                if (element.iscollapsed != currentDelegate.isExpanded)
+                {
+                    targetcounter = 5;
+                    element.iscollapsed = currentDelegate.isExpanded;
+                }
+                else targetcounter = 3;
+            } 
         }
+        private void OnSubscribe(BaseEvent subscribedEvent, ResponseTreeElement element)
+        {
+            if (subscribedEvent != null)
+            {
+                var binding = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+                var responses = serializedSubscriber.targetObject.GetType().GetField("responses", binding)
+                    .GetValue(serializedSubscriber.targetObject) as List<EventResponse>;
+                if (GetCorrespondingDelegate(subscribedEvent, out Type delegatetype))
+                {
+                    Debug.LogWarning("DO THIS");
+                    if (EditorApplication.isPlaying)
+                    {
+                        element.CurrentEvent?.UnSubscribe(responses[element.id]);
+                        element.CurrentEvent = subscribedEvent;
+                        subscribedEvent.Subscribe(responses[element.id], responses[element.id].priority);
+                    }
+                    //if (!responses[element.id].GetType().GenericTypeArguments.SequenceEqual(delegatetype.GenericTypeArguments))
+                    {
+                        Undo.RegisterCompleteObjectUndo(serializedSubscriber.targetObject, "swap prop");
+                        var delegateprop = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id).FindPropertyRelative("response")
+                            .managedReferenceValue = Activator.CreateInstance(delegatetype);
+                    }
+                    serializedSubscriber.ApplyModifiedProperties();
+                    RefreshCustomRowHeights();
+                }
+                else
+                {
+                    var arguments = String.Join(" ", subscribedEvent.GetType().GenericTypeArguments.Select(t => t.FullName));
+                    Debug.LogError($"No delegate found in any loaded assembly matching {arguments}");
+                }
+
+            }
+        }
+        private bool GetCorrespondingDelegate(BaseEvent baseEvent, out Type delegatetype)
+        {
+            var eventArguments = baseEvent.GetType().GenericTypeArguments;
+            var delegateTypes = TypeCache.GetTypesDerivedFrom<VisualDelegateBase>();
+            delegatetype = delegateTypes.FirstOrDefault(t => t.GenericTypeArguments.SequenceEqual(eventArguments));
+            return delegatetype != null;
+        }
+        //private void DrawInvalidEvent(Rect cell)
+        //{
+        //    var style=new GUIStyle();
+        //    style.fontSize += 20;
+        //    style.normal.textColor = Color.red;
+        //    EditorGUI.LabelField(cell, "No Valid Event",style);
+        //}
     }
 }

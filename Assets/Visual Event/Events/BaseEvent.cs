@@ -23,8 +23,22 @@ namespace VisualDelegates.Events
             }  
             else if (count == 0)
                 AllResponses.Add(new List<EventResponse>());
-            if (Application.isEditor && !AllResponses[priortiy].Contains(response))
+            response.subscriptionindex = AllResponses[priortiy].Count;
+            //if (Application.isEditor && !AllResponses[priortiy].Contains(response))
                 AllResponses[priortiy].Add(response);
+        }
+        public void UnSubscribe(EventResponse response)
+        {
+            Debug.LogError(name);
+            Debug.LogError(response.priority);
+            Debug.LogError(response.subscriptionindex);
+            Debug.Log(AllResponses.Count);
+            var prioritylist=AllResponses[response.priority];
+            prioritylist.RemoveAt(response.subscriptionindex);
+        }
+        public void UnSubscribe(int priority,int subscriptionIndex)
+        {
+            AllResponses[priority].RemoveAt(subscriptionIndex);
         }
     }
 }

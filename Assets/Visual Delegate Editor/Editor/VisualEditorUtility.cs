@@ -694,7 +694,9 @@ namespace VisualDelegates.Editor
         public static void ReinitializeDelegate(VisualDelegateBase del)
         {
             var flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
-            del.GetType().BaseType.GetField("m_onInvoke", flags).SetValue(del, null);
+            if (!(del is VisualDelegate))
+                del.GetType().BaseType.GetField("m_onInvoke", flags).SetValue(del, null);
+            else del.GetType().GetField("m_onInvoke", flags).SetValue(del, null);
             del.initialize();
         } 
         public static PropertyName STRING_TYPE_NAME = "System.String";

@@ -726,12 +726,12 @@ MonoBehaviour:
   responses:
   - response:
       id: 0
-    currentEvent: {fileID: 11400000, guid: fcd5e30ba08975f4298b54c7bfe50aa7, type: 2}
+    currentEvent: {fileID: 11400000, guid: cbe4c10351c5ced41a73eb84ba040723, type: 2}
     priority: 0
   references:
     version: 1
     00000000:
-      type: {class: randomdel, ns: VisualDelegates.Events.Editor, asm: VisualEventEditor}
+      type: {class: VisualDelegate, ns: VisualDelegates, asm: VisualDelegate}
       data:
         m_calls: []
 --- !u!4 &1783124745

@@ -63,7 +63,7 @@ namespace VisualDelegates.Editor
         /// </summary>
         public virtual void ClearViewCache()
         { 
-            Debug.Log("nah this gets called alot");
+            //Debug.Log("nah this gets called alot");
             // there seems to be a weird bug in unity where while drag and drops are being perfomed 
             // undo/redo is constantly being called
             AvailableTargetObjects = null;

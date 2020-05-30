@@ -4,9 +4,9 @@ namespace VisualDelegates.Events.Editor
     [System.Serializable]
     class ResponseTreeElement : TreeViewItem
     {
-        public int responseIndex;
         public BaseEvent CurrentEvent;
-        public ResponseTreeElement(int index) => responseIndex = index;
+        public bool iscollapsed;
+        public ResponseTreeElement(BaseEvent baseEvent) => CurrentEvent = baseEvent;
     } 
 
 
