@@ -12,8 +12,8 @@ namespace VisualDelegates.Events.Editor
         SerializedObject serializedSubscriber;
         static readonly string UP_ARROW = char.ConvertFromUtf32(0x2191);
         static readonly string DOWN_ARROW = char.ConvertFromUtf32(0x2193);
-        int reloadcounter = 0;
-        int targetcounter = 3;
+        int ticks = 0;
+        int tickTrigger = 3;
         public ResponseTree(TreeViewState state, MultiColumnHeader header, SerializedObject newSerializedSubscriber) : base(state, header)
         {
             serializedSubscriber = newSerializedSubscriber;
@@ -57,10 +57,10 @@ namespace VisualDelegates.Events.Editor
                 if (args.item is ResponseTreeElement responseElement)
                     DrawResponse(i, ref args);
             }
-            if (reloadcounter != targetcounter)
+            if (ticks != tickTrigger)
             {
-                reloadcounter++;
-                if (reloadcounter == targetcounter)
+                ticks++;
+                if (ticks == tickTrigger)
                     Reload();
             }
         }
@@ -136,13 +136,14 @@ namespace VisualDelegates.Events.Editor
             {
                 currentDelegate.serializedObject.ApplyModifiedProperties();
                 RefreshCustomRowHeights();
-                reloadcounter = 0;
+                ticks = 0;
                 if (element.iscollapsed != currentDelegate.isExpanded)
                 {
-                    targetcounter = 5;
+                    tickTrigger = 5;
                     element.iscollapsed = currentDelegate.isExpanded;
                 }
-                else targetcounter = 3;
+                else
+                    tickTrigger = 3;
             } 
         }
         private void OnSubscribe(BaseEvent subscribedEvent, ResponseTreeElement element)
@@ -154,7 +155,7 @@ namespace VisualDelegates.Events.Editor
                     .GetValue(serializedSubscriber.targetObject) as List<EventResponse>;
                 if (GetCorrespondingDelegate(subscribedEvent, out Type delegatetype))
                 {
-                    Debug.LogWarning("DO THIS");
+                   // Debug.LogWarning("DO THIS");
                     if (EditorApplication.isPlaying)
                     {
                         element.CurrentEvent?.UnSubscribe(responses[element.id]);
@@ -169,6 +170,8 @@ namespace VisualDelegates.Events.Editor
                     }
                     serializedSubscriber.ApplyModifiedProperties();
                     RefreshCustomRowHeights();
+                    ticks = 0;
+                    tickTrigger = 3;
                 }
                 else
                 {

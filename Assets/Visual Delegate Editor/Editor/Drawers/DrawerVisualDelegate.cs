@@ -104,7 +104,7 @@ namespace VisualDelegates.Editor
             float tempHeight = base.GetPropertyHeight(tProperty, tLabel);
             if (tProperty.isExpanded)
             {
-                tempHeight += tempList?.GetHeight()??0 + (tempList?.count??0 * EditorGUIUtility.standardVerticalSpacing);
+                tempHeight += tempList.GetHeight() + (tempList.count * EditorGUIUtility.standardVerticalSpacing);
             }
             return tempHeight;
         }

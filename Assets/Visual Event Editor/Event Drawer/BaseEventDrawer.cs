@@ -7,7 +7,6 @@ using System.Collections.Generic;
 
 namespace VisualDelegates.Events.Editor
 {
-    [CustomEditor(typeof(BaseEvent), true)]
     class BaseEventDrawer : UnityEditor.Editor
     {
         SuscriberTree responsetree;

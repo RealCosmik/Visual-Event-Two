@@ -46,91 +46,34 @@ MonoBehaviour:
   responses:
   - response:
       id: 0
-    currentEvent: {fileID: 11400000, guid: cbe4c10351c5ced41a73eb84ba040723, type: 2}
-    priority: 0
-  - response:
-      id: 1
-    currentEvent: {fileID: 11400000, guid: fcd5e30ba08975f4298b54c7bfe50aa7, type: 2}
+    currentEvent: {fileID: 11400000, guid: 5dd9ebea14d31964e8822dd0843ba350, type: 2}
     priority: 0
   references:
     version: 1
     00000000:
       type: {class: VisualDelegate, ns: VisualDelegates, asm: VisualDelegate}
       data:
-        m_calls: []
-    00000001:
-      type: {class: VisualDelegate, ns: VisualDelegates, asm: VisualDelegate}
-      data:
         m_calls:
-        - id: 2
-        - id: 3
-    00000002:
+        - id: 1
+    00000001:
       type: {class: RawCall, ns: VisualDelegates, asm: VisualDelegate}
       data:
-        m_target: {fileID: 6163268095651808679}
+        m_target: {fileID: 0}
         methodData:
         - 16
-        - layer
+        - text
         m_isYieldableCall: 0
         haserror: 0
         serializationError: 0
         creationMethod: createPropertyCall
-        m_arguments:
-        - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b77a5c561934e089
-          FullArgumentName: System.Int32
-          objectValue: {fileID: 0}
-          m_objecthasvalue: 0
-          stringValue: 
-          _x1: 0
-          _x2: 0
-          _y1: 0
-          _y2: 0
-          _z1: 0
-          _z2: 0
-          longValue: 0
-          doubleValue: 0
-          animationCurveValue:
-            serializedVersion: 2
-            m_Curve: []
-            m_PreInfinity: 0
-            m_PostInfinity: 0
-            m_RotationOrder: 0
-          UseReference: 0
-          hasCustomType: 0
-          call_Reference:
-            m_target: {fileID: 0}
-            methodData: []
-            m_isYieldableCall: 0
-            haserror: 0
-            serializationError: 0
-            m_isvaluetype: 0
-            isparentargstring: 0
-            m_isDelegate: 0
-            willdeseralize: 0
-        m_isDynamic: 0
-        m_runtime: 0
-        TargetType: 
-    00000003:
-      type: {class: RawCall, ns: VisualDelegates, asm: VisualDelegate}
-      data:
-        m_target: {fileID: 6163268095651808679}
-        methodData:
-        - 8
-        - CompareTag
-        - System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        m_isYieldableCall: 0
-        haserror: 0
-        serializationError: 0
-        creationMethod: createFuncCall1
         m_arguments:
         - assemblyQualifiedArgumentName: System.String, mscorlib, Version=4.0.0.0,
             Culture=neutral, PublicKeyToken=b77a5c561934e089
           FullArgumentName: System.String
           objectValue: {fileID: 0}
           m_objecthasvalue: 0
-          stringValue: 
-          _x1: 0
+          stringValue: ok so lets  do this
+          _x1: -1
           _x2: 0
           _y1: 0
           _y2: 0

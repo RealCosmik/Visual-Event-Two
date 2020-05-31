@@ -9,7 +9,7 @@ namespace VisualDelegates.Events.Editor
     class EventSubscriberDrawer : UnityEditor.Editor
     {
         ResponseTree currentResponseTree;
-        int refresh = 0;
+        int tick = 0;
         private MultiColumnHeader CreateCollumnHeader()
         {
             var collumns = new MultiColumnHeaderState.Column[]
@@ -47,12 +47,7 @@ namespace VisualDelegates.Events.Editor
         private void OnDisable()
         {
            currentResponseTree = null;
-            refresh = 0;
-        }
-        private void OnEnable()
-        {
-            if (serializedObject.FindProperty("responses").arraySize > 0)
-                currentResponseTree = new ResponseTree(new TreeViewState(), CreateCollumnHeader(), serializedObject);
+            tick = 0;
         }
         public override void OnInspectorGUI()
         {
@@ -67,12 +62,13 @@ namespace VisualDelegates.Events.Editor
                     currentResponseTree = new ResponseTree(new TreeViewState(), CreateCollumnHeader(), serializedObject);
                 else
                 {
-                    Debug.Log("reload");
+                   // Debug.Log("reload");
                     currentResponseTree.Reload();
                 }
             }
-            if (currentResponseTree != null && serializedObject.FindProperty("responses").arraySize > 0)
+            if (serializedObject.FindProperty("responses").arraySize > 0)
             {
+               currentResponseTree=currentResponseTree?? new ResponseTree(new TreeViewState(), CreateCollumnHeader(), serializedObject); 
                 float width = 0f;
                 for (int i = 0; i < 2; i++)
                 {
@@ -80,10 +76,10 @@ namespace VisualDelegates.Events.Editor
                 }
                 var tree_rect = GUILayoutUtility.GetRect(width, currentResponseTree.totalHeight);
                 currentResponseTree.OnGUI(tree_rect);
-                if (refresh != 5)
+                if (tick != 5)
                 {
-                    refresh++;
-                    if (refresh == 5)
+                    tick++;
+                    if (tick == 5)
                         currentResponseTree.Reload();
                 }
             }
