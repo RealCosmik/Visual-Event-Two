@@ -7,8 +7,6 @@ namespace VisualDelegates.Events
         [System.NonSerialized] public List<List<EventResponse>> AllResponses = new List<List<EventResponse>>();
         public void Subscribe(EventResponse response, int priortiy)
         {
-            if (Application.isPlaying)
-            {
                 var count = AllResponses.Count;
                 Debug.LogWarning($"insering at priority {priortiy}");
                 Debug.LogWarning($"response count pre sub {count}");
@@ -27,7 +25,6 @@ namespace VisualDelegates.Events
                 response.subscriptionindex = AllResponses[priortiy].Count;
                 //if (Application.isEditor && !AllResponses[priortiy].Contains(response))
                 AllResponses[priortiy].Add(response);
-            }
         }
         public void UnSubscribe(EventResponse response)
         {

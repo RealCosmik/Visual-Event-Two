@@ -13,69 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-05-30T23:55:57.808-04:00
+  lastUpdatedAtString: 2020-05-31T00:35:49.513-04:00
   initializedAtString: 2020-05-30T23:19:28.280-04:00
   entries:
-  - path: Assets\BULL SHIT.prefab
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\BULL
-      SHIT.prefab
-    projectPath: Assets\BULL SHIT.prefab
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\newevent.asset
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\newevent.asset
-    projectPath: Assets\newevent.asset
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\newevent.asset.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\newevent.asset.meta
-    projectPath: Assets\newevent.asset.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Other event.asset
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Other
-      event.asset
-    projectPath: Assets\Other event.asset
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Other event.asset.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Other
-      event.asset.meta
-    projectPath: Assets\Other event.asset.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Scenes\Pong.unity
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Scenes\Pong.unity
-    projectPath: Assets\Scenes\Pong.unity
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Start Gameover.asset
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Start
-      Gameover.asset
-    projectPath: Assets\Start Gameover.asset
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Start Gameover.asset.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Start
-      Gameover.asset.meta
-    projectPath: Assets\Start Gameover.asset.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Delegate Editor\Editor\Drawers\DrawerVisualDelegate.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate Editor\Editor\Drawers\DrawerVisualDelegate.cs
-    projectPath: Assets\Visual Delegate Editor\Editor\Drawers\DrawerVisualDelegate.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Assets\Visual Event Editor\Event Drawer\BaseEventDrawer.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Event Editor\Event Drawer\BaseEventDrawer.cs
@@ -83,31 +23,17 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event Editor\Event Drawer\VoidEventDrawer.cs
+  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\VoidEventDrawer.cs
-    projectPath: Assets\Visual Event Editor\Event Drawer\VoidEventDrawer.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\VoidEventDrawer.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\VoidEventDrawer.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\VoidEventDrawer.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
+      Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
+    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs
+  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\ResponseTree.cs
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs
+      Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs
+    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -115,48 +41,6 @@ MonoBehaviour:
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Event\Events\Base Event\BaseEvent.cs
     projectPath: Assets\Visual Event\Events\Base Event\BaseEvent.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event\Events\Base Event\BaseEvent.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\Base Event\BaseEvent.cs.meta
-    projectPath: Assets\Visual Event\Events\Base Event\BaseEvent.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event\Events\BaseEvent.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\BaseEvent.cs
-    projectPath: Assets\Visual Event\Events\BaseEvent.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event\Events\BaseEvent.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\BaseEvent.cs.meta
-    projectPath: Assets\Visual Event\Events\BaseEvent.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event\Events\Events\VoidEvent.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\Events\VoidEvent.cs
-    projectPath: Assets\Visual Event\Events\Events\VoidEvent.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event\Events\Events\VoidEvent.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\Events\VoidEvent.cs.meta
-    projectPath: Assets\Visual Event\Events\Events\VoidEvent.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event\EventSubscriber.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\EventSubscriber.cs
-    projectPath: Assets\Visual Event\EventSubscriber.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

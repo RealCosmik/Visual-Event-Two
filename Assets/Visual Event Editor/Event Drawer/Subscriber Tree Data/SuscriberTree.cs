@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace VisualDelegates.Events.Editor
     {
         BaseEvent m_event;
         TreeViewItem draggedItem;
+        HashSet<int> refrehsedpriorities;
         public SuscriberTree(TreeViewState treeViewState, MultiColumnHeader header, BaseEvent currenetevent) : base(treeViewState, header)
         {
             extraSpaceBeforeIconAndLabel = 20;
@@ -16,6 +18,7 @@ namespace VisualDelegates.Events.Editor
             showBorder = true;
             m_event = currenetevent;
             this.useScrollView = true;
+            refrehsedpriorities = new HashSet<int>();
             Reload();
         }
         protected override bool CanStartDrag(CanStartDragArgs args)
@@ -109,7 +112,6 @@ namespace VisualDelegates.Events.Editor
         {
             if (item is SubscriberTreeElement responseElement)
             {
-                Debug.Log(responseElement.responseindex);
                 var serialized_object = new SerializedObject(UnityEditor.EditorUtility.InstanceIDToObject(responseElement.responderID));
                 return EditorGUI.GetPropertyHeight(serialized_object.FindProperty("responses").GetArrayElementAtIndex(responseElement.responseindex));
             }
@@ -173,6 +175,11 @@ namespace VisualDelegates.Events.Editor
         {
             cell.x += 15f;
             EditorGUI.LabelField(cell, priorityelement.Priority.ToString());
+            if (!refrehsedpriorities.Contains(priorityelement.id) && IsExpanded(priorityelement.id))
+            {
+                refrehsedpriorities.Add(priorityelement.id);
+                RefreshCustomRowHeights();
+            }
         }
         private void DrawSubscriberGO(Rect cellrect, SubscriberTreeElement response_element)
         {
@@ -185,15 +192,16 @@ namespace VisualDelegates.Events.Editor
         private void DrawResponse(Rect cellrect, SubscriberTreeElement response_element)
         {
             var serialized_object = new SerializedObject(UnityEditor.EditorUtility.InstanceIDToObject(response_element.responderID));
+            cellrect.x += 15f;
+            cellrect.width -= 15f;
             EditorGUI.BeginChangeCheck();
             EditorGUI.PropertyField(cellrect, serialized_object.FindProperty("responses").GetArrayElementAtIndex(response_element.responseindex).FindPropertyRelative("response"));
             if (EditorGUI.EndChangeCheck())
             {
                 if (!EditorApplication.isPlayingOrWillChangePlaymode)
                     serialized_object.ApplyModifiedProperties();
+                Reload();
             }
-            this.RefreshCustomRowHeights();
-            Reload();
         }
     }
 }

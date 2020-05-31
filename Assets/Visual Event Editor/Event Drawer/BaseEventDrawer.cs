@@ -11,13 +11,22 @@ namespace VisualDelegates.Events.Editor
     {
         SuscriberTree responsetree;
         const string RESPONSE_FIELD_NAME = "responses";
+        int ticks;
+      TreeViewState currentState;
+
         private void OnEnable()
         {
             PopulateSubscribers();
+            currentState = currentState ?? new TreeViewState();
+            if ((target as BaseEvent).AllResponses.Count > 0)
+                responsetree = new SuscriberTree(currentState, GetEventCollumns(), target as BaseEvent);
+        }
+        private MultiColumnHeader GetEventCollumns()
+        {
             GUIContent prioritycontent = new GUIContent("Priorities");
             VisualEditorUtility.StandardStyle.CalcMinMaxWidth(prioritycontent, out float min, out float max);
             var collumns = new MultiColumnHeaderState.Column[]
-           {
+         {
                        new MultiColumnHeaderState.Column()
                        {
                            headerContent = prioritycontent,
@@ -30,45 +39,59 @@ namespace VisualDelegates.Events.Editor
                        new MultiColumnHeaderState.Column()
                        {
                            headerContent = new GUIContent("Subscribers"),
-                           width = 150,
+                           width = 75,
                            minWidth = 75,
-                           maxWidth = 300,
+                           maxWidth = 150,
                            autoResize = true,
                            headerTextAlignment = TextAlignment.Left
                        },
                        new MultiColumnHeaderState.Column()
                        {
                            headerContent = new GUIContent("Response"),
-                           width = 200,
+                           width = 300,
                            minWidth = 100,
-                           maxWidth = 300,
+                           maxWidth = 350,
                            autoResize = true,
                            headerTextAlignment = TextAlignment.Center
                        },
-           };
-            var collumnheader = new MultiColumnHeader(new MultiColumnHeaderState(collumns));
-            if((target as BaseEvent).AllResponses.Count>0)
-           responsetree = new SuscriberTree(new TreeViewState(), collumnheader, target as BaseEvent);
+         };
+            return new MultiColumnHeader(new MultiColumnHeaderState(collumns));
         }
         private void OnDisable()
-        { 
+        {
             if (!EditorApplication.isPlayingOrWillChangePlaymode)
             {
                 (target as BaseEvent).AllResponses.Clear();
             }
+            responsetree = null; 
+            ticks = 0;
         }
-         
+
         public override void OnInspectorGUI()
         {
+
             if (responsetree != null)
             {
+
                 float width = 0f;
                 for (int i = 0; i < 2; i++)
                 {
                     width += responsetree.multiColumnHeader.GetVisibleColumnIndex(i);
                 }
                 var rect = GUILayoutUtility.GetRect(width, responsetree.totalHeight);
+                 
                 responsetree.OnGUI(rect);
+                if (ticks != 5)
+                {
+                    ticks++;
+                    if (ticks == 5)
+                    {
+                        Debug.LogError("EVENT DRAWER RICKER");
+                        responsetree.Reload();
+                    }
+
+                }
+
             }
         }
         private void PopulateSubscribers()

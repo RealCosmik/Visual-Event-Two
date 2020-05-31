@@ -5,6 +5,7 @@ namespace VisualDelegates.Events.Editor
     class PriorityTreeElement : TreeViewItem
     {
         public int Priority;
+        public bool expanisonrefresh;
         public PriorityTreeElement(int newpriority)
         {
             Priority = newpriority;
