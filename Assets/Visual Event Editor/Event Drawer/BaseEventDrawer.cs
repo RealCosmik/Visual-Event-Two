@@ -4,18 +4,24 @@ using VisualDelegates.Editor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.SceneManagement;
 using System.Collections.Generic;
+using System;
+using System.Reflection;
 
 namespace VisualDelegates.Events.Editor
 {
+    [CustomEditor(typeof(BaseEvent), true)]
     class BaseEventDrawer : UnityEditor.Editor
     {
         SuscriberTree responsetree;
         const string RESPONSE_FIELD_NAME = "responses";
+        const string ARGUMENT = "argument";
         int ticks;
-      TreeViewState currentState;
-
+        TreeViewState currentState;
+        Type[] genericArguments;
+        Action editorInvocation;
         private void OnEnable()
         {
+            genericArguments = target.GetType().BaseType.GenericTypeArguments;
             PopulateSubscribers();
             currentState = currentState ?? new TreeViewState();
             if ((target as BaseEvent).AllResponses.Count > 0)
@@ -61,43 +67,82 @@ namespace VisualDelegates.Events.Editor
         {
             if (!EditorApplication.isPlayingOrWillChangePlaymode)
             {
-                (target as BaseEvent).AllResponses.Clear();
             }
-            responsetree = null; 
+            responsetree = null;
             ticks = 0;
         }
-
+        private float GetTreewidth()
+        {
+            float width = 0f;
+            for (int i = 0; i < 2; i++)
+                width += responsetree.multiColumnHeader.GetVisibleColumnIndex(i);
+            return width;
+        }
+        private void autoreload()
+        {
+            if (ticks != 5)
+            {
+                ticks++;
+                if (ticks == 5)
+                {
+                    responsetree?.Reload();
+                }
+            }
+        }
         public override void OnInspectorGUI()
         {
-
-            if (responsetree != null)
+            DrawNoteField();
+            DrawInvoke();
+            responsetree?.OnGUI(GUILayoutUtility.GetRect(GetTreewidth(), responsetree.totalHeight));
+            autoreload();
+        }
+        private void DrawNoteField()
+        {
+            var style = new GUIStyle("textField");
+            style.wordWrap = true;
+            var note_property=serializedObject.FindProperty("EventNote");
+            EditorGUI.BeginChangeCheck();
+            note_property.stringValue = EditorGUILayout.TextArea(note_property.stringValue, style, GUILayout.ExpandHeight(true));
+            if (EditorGUI.EndChangeCheck())
             {
-
-                float width = 0f;
-                for (int i = 0; i < 2; i++)
+                serializedObject.ApplyModifiedProperties();
+            } 
+        }
+        
+        private void DrawInvoke()
+        {
+            var argument_count = genericArguments.Length;
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("Invoke"))
+            {
+                if (editorInvocation == null)
                 {
-                    width += responsetree.multiColumnHeader.GetVisibleColumnIndex(i);
+                    var binding = BindingFlags.Instance | BindingFlags.NonPublic;
+                    var event_type = target.GetType();
+                    var editormethod = event_type.GetMethod("EditorInvoke", binding);
+                    editorInvocation = Delegate.CreateDelegate(typeof(Action), target, editormethod, true) as Action;
                 }
-                var rect = GUILayoutUtility.GetRect(width, responsetree.totalHeight);
-                 
-                responsetree.OnGUI(rect);
-                if (ticks != 5)
-                {
-                    ticks++;
-                    if (ticks == 5)
-                    {
-                        Debug.LogError("EVENT DRAWER RICKER");
-                        responsetree.Reload();
-                    }
-
-                }
-
+                editorInvocation.Invoke();
             }
+            EditorGUILayout.BeginVertical();
+            EditorGUI.BeginChangeCheck();
+            for (int i = 0; i < argument_count; i++)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty(ARGUMENT + (i+1)));
+            }
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.EndHorizontal();
+            if (EditorGUI.EndChangeCheck())
+            {
+                serializedObject.ApplyModifiedProperties();
+            }
+          
         }
         private void PopulateSubscribers()
         {
             if (!EditorApplication.isPlayingOrWillChangePlaymode)
             {
+                (target as BaseEvent).AllResponses.Clear();
                 var binding = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
                 var root_objects = EditorSceneManager.GetActiveScene().GetRootGameObjects();
                 var length = root_objects.Length;

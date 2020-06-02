@@ -43,9 +43,14 @@ namespace VisualDelegates.Events.Editor
         {
             var responseElement = item as ResponseTreeElement;
             var eventResponseProperty = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(responseElement.id);
-            ViewCache.GetVisualDelegateInstanceCache(eventResponseProperty.FindPropertyRelative("response"));
             if (eventResponseProperty.FindPropertyRelative("currentEvent").objectReferenceValue != null)
-                return EditorGUI.GetPropertyHeight(eventResponseProperty.FindPropertyRelative("response"));
+            {
+                var delegateprop = eventResponseProperty.FindPropertyRelative("response");
+                if (delegateprop.isExpanded)
+                    return EditorGUI.GetPropertyHeight(delegateprop);
+                else return EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
+                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none);
+            }
             else return EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
                     EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none);
         }
@@ -136,6 +141,7 @@ namespace VisualDelegates.Events.Editor
             {
                 currentDelegate.serializedObject.ApplyModifiedProperties();
                 RefreshCustomRowHeights();
+                ViewCache.GetVisualDelegateInstanceCache(currentDelegate).UpdateInterncalcall(currentDelegate);
                 ticks = 0;
                 if (element.iscollapsed != currentDelegate.isExpanded)
                 {
@@ -155,7 +161,9 @@ namespace VisualDelegates.Events.Editor
                     .GetValue(serializedSubscriber.targetObject) as List<EventResponse>;
                 if (GetCorrespondingDelegate(subscribedEvent, out Type delegatetype))
                 {
-                   // Debug.LogWarning("DO THIS");
+                    //var arguments = String.Join(" ", subscribedEvent.GetType().GenericTypeArguments.Select(t => t.FullName));
+                    //Debug.LogError($"No delegate found in any loaded assembly matching {arguments}");
+                    // Debug.LogWarning("DO THIS");
                     if (EditorApplication.isPlaying)
                     {
                         element.CurrentEvent?.UnSubscribe(responses[element.id]);
@@ -165,8 +173,9 @@ namespace VisualDelegates.Events.Editor
                     //if (!responses[element.id].GetType().GenericTypeArguments.SequenceEqual(delegatetype.GenericTypeArguments))
                     {
                         Undo.RegisterCompleteObjectUndo(serializedSubscriber.targetObject, "swap prop");
-                        var delegateprop = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id).FindPropertyRelative("response")
-                            .managedReferenceValue = Activator.CreateInstance(delegatetype);
+                        var delegateprop = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id).FindPropertyRelative("response");
+                        delegateprop.isExpanded = true;
+                        delegateprop.managedReferenceValue = Activator.CreateInstance(delegatetype);
                     }
                     serializedSubscriber.ApplyModifiedProperties();
                     RefreshCustomRowHeights();
@@ -183,11 +192,16 @@ namespace VisualDelegates.Events.Editor
         }
         private bool GetCorrespondingDelegate(BaseEvent baseEvent, out Type delegatetype)
         {
-            var eventArguments = baseEvent.GetType().GenericTypeArguments;
+            var eventArguments = baseEvent.GetType().BaseType.GenericTypeArguments;
+            for (int i = 0; i < eventArguments.Length; i++)
+            {
+                Debug.Log(eventArguments[i]);
+            }
             var delegateTypes = TypeCache.GetTypesDerivedFrom<VisualDelegateBase>();
-            delegatetype = delegateTypes.FirstOrDefault(t => t.GenericTypeArguments.SequenceEqual(eventArguments));
+            delegatetype = delegateTypes.FirstOrDefault(t => t.BaseType.GenericTypeArguments.SequenceEqual(eventArguments));
+            Debug.Log(delegatetype.FullName);
             return delegatetype != null;
-        }
+        } 
         //private void DrawInvalidEvent(Rect cell)
         //{
         //    var style=new GUIStyle();

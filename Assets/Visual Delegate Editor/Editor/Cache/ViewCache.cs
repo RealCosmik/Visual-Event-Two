@@ -100,7 +100,7 @@ namespace VisualDelegates.Editor
         {
             var publisherCache = GetVisualDelegateInstanceCache(delegateprop);
             int call_index = delegateprop.GetRawCallIndexFromArgumentReference();
-            var rawcall_cache = publisherCache.RawCallCache[call_index];
+            var rawcall_cache = publisherCache.RawCallCache[call_index] as RawCallViewCacheContainer;
             var argument_list = rawcall_cache.argumentViewCache;
             int Argument_index = delegateprop.GetRawArgumentIndexFromArgumentReference();
             return argument_list[Argument_index].argumentReference;
@@ -109,7 +109,7 @@ namespace VisualDelegates.Editor
         {
             var publisercache = GetVisualDelegateInstanceCache(argumentprop);
             int call_index = argumentprop.GetRawCallIndexFromArgumentprop();
-            var rawcall_cache = publisercache.RawCallCache[call_index];
+            var rawcall_cache = publisercache.RawCallCache[call_index] as RawCallViewCacheContainer;
             var argument_index = argumentprop.GetRawArgumentIndex();
             if (argument_index >= rawcall_cache.argumentViewCache.Count)
             {
@@ -147,12 +147,12 @@ namespace VisualDelegates.Editor
                     typearguments = null;
                 currentCache.delegateView = new RawCallView(typearguments);
                 publisherCache.RawCallCache.Add(currentCache);
-            } 
-            //if (publisherCache.RawCallCache[index].dynamic_Cache == true) // if there is a dynamic delegate in a raw call slot remove it
-            //{
-            //    publisherCache.RawCallCache.RemoveAt(index);
-            //    return null;
-            //}
+            }
+            if (publisherCache.RawCallCache[index] is RawRuntimeDelegateContainer) // if there is a dynamic delegate in a raw call slot remove it
+            {
+                publisherCache.RawCallCache.RemoveAt(index);
+                return null;
+            }
             return publisherCache.RawCallCache[index].delegateView as RawCallView;
         } 
         public static RawDynamicDelegateView GetRawDyanmicDelegateCache(SerializedProperty DynamicDelegateprop)
@@ -161,8 +161,7 @@ namespace VisualDelegates.Editor
             int index = DynamicDelegateprop.GetRawCallIndex();
             if (index >= publisherCache.RawCallCache.Count) // if the list is too small make room for the new cache
             {
-                var currentCache = new RawCallViewCacheContainer();
-                currentCache.dynamic_Cache = true; // flag that this cache is dynamic
+                var currentCache = new RawRuntimeDelegateContainer();
                 currentCache.delegateView = new RawDynamicDelegateView();
                 publisherCache.RawCallCache.Add(currentCache);
             }
@@ -180,18 +179,26 @@ namespace VisualDelegates.Editor
         public bool isinvoked;
         // on the game side a visualdelegate can have list of raw calls so the visual delegate cache
         //will have a list of rawcalls caches
-        public List<RawCallViewCacheContainer> RawCallCache = new List<RawCallViewCacheContainer>();
+        public List<RawDelegateCacheContainer> RawCallCache = new List<RawDelegateCacheContainer>();
 
         public VisiualDelegateCacheContainer(VisualDelegateBase visualdelegate)
-        { 
+        {
+            AddInternalcall(visualdelegate);
+        }
+        private void AddInternalcall(VisualDelegateBase visualdelegate )
+        {
             BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
             System.Type[] argument_types = new System.Type[1] { typeof(Action) };
-            var editordelegate = new Action(()=>
+            var editordelegate = new Action(() =>
             {
                 isinvoked = true;
                 VisualEditorUtility.RepaintInspectorWindows();
-            }); 
+            });
             visualdelegate?.GetType().GetEvent("m_internalcalls", flags).GetAddMethod(true).Invoke(visualdelegate, new object[] { editordelegate });
+        }
+        public void UpdateInterncalcall(SerializedProperty delegateprop)
+        {
+            AddInternalcall(delegateprop.GetVisualDelegateObject());
         }
     }
 
@@ -205,21 +212,13 @@ namespace VisualDelegates.Editor
         /// list of arguments if <see cref="delegateView"/> is a <see cref="RawCallView"/>
         /// </summary>
         public List<RawArgumentView> argumentViewCache = new List<RawArgumentView>();
-        /// <summary>
-        /// Determining if this cache container is a cache for a <see cref="RawDynamicDelegateView"/>
-        /// </summary>
-        public bool dynamic_Cache;
     }
-
+    public class RawRuntimeDelegateContainer : RawDelegateCacheContainer { }
     public abstract class RawDelegateCacheContainer
     {
         /// <summary>
         /// Delegate view in this cache container
         /// </summary>
         public RawDelegateView delegateView;
-    }
-    public class RawRuntimeDelegateContainer
-    {
-
     }
 }

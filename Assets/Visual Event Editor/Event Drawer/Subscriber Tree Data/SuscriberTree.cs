@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
+using VisualDelegates.Editor;
+
 namespace VisualDelegates.Events.Editor
 {
     class SuscriberTree : TreeView
@@ -17,7 +19,6 @@ namespace VisualDelegates.Events.Editor
             showAlternatingRowBackgrounds = true;
             showBorder = true;
             m_event = currenetevent;
-            this.useScrollView = true;
             refrehsedpriorities = new HashSet<int>();
             Reload();
         }
@@ -195,11 +196,14 @@ namespace VisualDelegates.Events.Editor
             cellrect.x += 15f;
             cellrect.width -= 15f;
             EditorGUI.BeginChangeCheck();
-            EditorGUI.PropertyField(cellrect, serialized_object.FindProperty("responses").GetArrayElementAtIndex(response_element.responseindex).FindPropertyRelative("response"));
+            var delegateproperty = serialized_object.FindProperty("responses").GetArrayElementAtIndex(response_element.responseindex).FindPropertyRelative("response");
+            EditorGUI.PropertyField(cellrect, delegateproperty);
             if (EditorGUI.EndChangeCheck())
             {
+                Debug.Log("LOGGGG");
+                serialized_object.ApplyModifiedProperties();
                 if (!EditorApplication.isPlayingOrWillChangePlaymode)
-                    serialized_object.ApplyModifiedProperties();
+                    VisualEditorUtility.ReinitializeDelegate(delegateproperty.GetVisualDelegateObject());
                 Reload();
             }
         }

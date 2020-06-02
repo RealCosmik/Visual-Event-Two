@@ -49,7 +49,7 @@ namespace VisualDelegates.Events.Editor
            currentResponseTree = null;
             tick = 0;
         }
-        public override void OnInspectorGUI()
+        private void OnResponseAdded()
         {
             if (GUILayout.Button("Add Response"))
             {
@@ -62,10 +62,42 @@ namespace VisualDelegates.Events.Editor
                     currentResponseTree = new ResponseTree(new TreeViewState(), CreateCollumnHeader(), serializedObject);
                 else
                 {
-                   // Debug.Log("reload");
+                    // Debug.Log("reload");
                     currentResponseTree.Reload();
                 }
             }
+        }
+        private void OnResponseRemoved()
+        {
+            if (GUILayout.Button("Remove response"))
+            {
+                var selectedElements= currentResponseTree.GetSelection();
+                var selectionCount = selectedElements.Count;
+                var responseListProperty = serializedObject.FindProperty("responses");
+                for (int i = 0; i < selectionCount; i++)
+                {
+                    responseListProperty.DeleteArrayElementAtIndex(selectedElements[i]);    
+                }
+                responseListProperty.serializedObject.ApplyModifiedProperties();
+                if(responseListProperty.arraySize>0)
+                currentResponseTree.Reload();
+            }
+        }
+        private void autoRefresh()
+        {
+            if (tick != 5)
+            {
+                tick++;
+                if (tick == 5)
+                    currentResponseTree.Reload();
+            }
+        }
+        public override void OnInspectorGUI()
+        {
+            EditorGUILayout.BeginHorizontal();
+            OnResponseAdded();
+            OnResponseRemoved();
+            EditorGUILayout.EndHorizontal();
             if (serializedObject.FindProperty("responses").arraySize > 0)
             {
                currentResponseTree=currentResponseTree?? new ResponseTree(new TreeViewState(), CreateCollumnHeader(), serializedObject); 
@@ -76,12 +108,7 @@ namespace VisualDelegates.Events.Editor
                 }
                 var tree_rect = GUILayoutUtility.GetRect(width, currentResponseTree.totalHeight);
                 currentResponseTree.OnGUI(tree_rect);
-                if (tick != 5)
-                {
-                    tick++;
-                    if (tick == 5)
-                        currentResponseTree.Reload();
-                }
+                autoRefresh();
             }
         }
     }

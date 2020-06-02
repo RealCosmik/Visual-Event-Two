@@ -4,7 +4,9 @@ namespace VisualDelegates.Events
 {
     public abstract class BaseEvent : ScriptableObject
     {
+        [SerializeField] string EventNote;
         [System.NonSerialized] public List<List<EventResponse>> AllResponses = new List<List<EventResponse>>();
+    
         public void Subscribe(EventResponse response, int priortiy)
         {
                 var count = AllResponses.Count;
@@ -39,5 +41,6 @@ namespace VisualDelegates.Events
         {
             AllResponses[priority].RemoveAt(subscriptionIndex);
         }
+        private protected abstract void EditorInvoke();
     }
 }
