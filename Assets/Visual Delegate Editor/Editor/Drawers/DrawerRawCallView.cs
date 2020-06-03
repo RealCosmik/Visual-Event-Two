@@ -268,7 +268,7 @@ namespace VisualDelegates.Editor
                     }
                 }
             }
-            PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
+            // PrefabUtility.RecordPrefabInstancePropertyModifications(tProperty.serializedObject.targetObject);
             tProperty.serializedObject.ApplyModifiedProperties();
         }
         /// <summary>
@@ -290,7 +290,6 @@ namespace VisualDelegates.Editor
                     {
                         if (rawcallview.isDynamic)
                         {
-                            Debug.Log("should go in here");
                             NewmethodName = "createAction" + argumentlength;
                         }
                         else NewmethodName = "createActionCall" + argumentlength;

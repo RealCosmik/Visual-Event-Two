@@ -81,17 +81,18 @@ namespace VisualDelegates.Editor
             var argumentpos = labelpos;
             argumentpos.width -= (maxoffset + max);
             argumentpos.x += maxoffset;
-            EditorGUI.BeginChangeCheck();
+          // EditorGUI.BeginChangeCheck();
             if (!useReference.boolValue)
                 DisplayArgument(argumentpos, tProperty, paramLabel);
             else
                 DisplayReference(argumentpos, tProperty, paramLabel, reference_content, argument_cache);
-            if (EditorGUI.EndChangeCheck() && !EditorApplication.isPlaying)
-            {
-                tProperty.serializedObject.ApplyModifiedProperties();
-                VisualEditorUtility.ReinitializeDelegate(tProperty.GetVisualDelegateObject());
-                Debug.LogWarning("might have to change this");
-            }
+            //if (EditorGUI.EndChangeCheck())
+            //{
+            //    Debug.LogWarning("there was a change");
+            //    tProperty.serializedObject.ApplyModifiedProperties();
+            //    if(EditorApplication.isPlaying)
+            //    VisualEditorUtility.ReinitializeDelegate(tProperty.GetVisualDelegateObject());
+            //}
             if (!argument_cache.hasCustomType && argument_cache.CurrentCustomType != null)
             {
                 argument_cache.hasCustomType = false;
@@ -160,9 +161,7 @@ namespace VisualDelegates.Editor
             {
                 argument_cache.hasCustomType = false;
                 var tempX1 = tProperty.FindPropertyRelative("_x1");
-                if (!EditorApplication.isPlaying)
                     tempX1.floatValue = EditorGUI.IntField(argpos, GUIContent.none, (int)tempX1.floatValue);
-                else tempX1.floatValue = EditorGUI.DelayedIntField(argpos, GUIContent.none, (int)tempX1.floatValue);
             }
             else if (propertyID == VisualEditorUtility.LONG_TYPE_NAME)
             {

@@ -93,55 +93,60 @@ namespace VisualDelegates
                 switch (tMember.MemberType)
                 {
                     case MemberTypes.Field:
-                        if (!isDynamic && !Utility.DelegateFieldCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                        if (!isDynamic)
                         {
-                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
-                            Utility.DelegateFieldCreationMethods.Add(paramtypes, RunTimeMethod);
+                            if (!Utility.DelegateFieldCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                            {
+                                RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                                Utility.DelegateFieldCreationMethods.Add(paramtypes, RunTimeMethod);
+                            }
                         }
-                        else if (!Utility.DelegateDynamicFieldCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                        else
                         {
-                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
-                            Utility.DelegateDynamicFieldCreationMethods.Add(paramtypes, RunTimeMethod);
+                            if (!Utility.DelegateDynamicFieldCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                            {
+                                RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                                Utility.DelegateDynamicFieldCreationMethods.Add(paramtypes, RunTimeMethod);
+                            }
                         }
                         break;
                     case MemberTypes.Property:
-                        if (!isDynamic && !Utility.DelegatePropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
+                        if (!isDynamic)
                         {
-                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
-                            Utility.DelegatePropertyCreationMethod.Add(paramtypes, RunTimeMethod);
+                            if(!Utility.DelegatePropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
+                            {
+                                RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                                Utility.DelegatePropertyCreationMethod.Add(paramtypes, RunTimeMethod);
+                            }
                         }
-                        else if (!Utility.DelegateDynamicPropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
+                        else
                         {
-                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
-                            Utility.DelegateDynamicPropertyCreationMethod.Add(paramtypes, RunTimeMethod);
+                            if(!Utility.DelegateDynamicPropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
+                            {
+                                RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                                Utility.DelegateDynamicPropertyCreationMethod.Add(paramtypes, RunTimeMethod);
+                            }
                         }
                         break;
                     case MemberTypes.Method:
                         if (paramtypes == null)
-                        {
                             return createActionCall0(tMember as MethodInfo);
-                        }
-                        else if (!isDynamic && !Utility.DelegateMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                        else if (!isDynamic)
                         {
-                            Debug.Log("<color=yellow> static CACHE </color>");
-                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
-                            Utility.DelegateMethodCreationMethods.Add(paramtypes, RunTimeMethod);
+                            if (!Utility.DelegateMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                            {
+                                RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                                Utility.DelegateMethodCreationMethods.Add(paramtypes, RunTimeMethod);
+                            }
                         }
-                        //else if (!isDynamic && Utility.DelegateMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
-                        //{
-                        //    Debug.Log("<color=yellow> got from static cache</color>");
-                        //}
-
-                        else if (isDynamic && !Utility.DelegateDynamicMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                        else
                         {
-                            Debug.Log("<color=blue> DYNAMIC CACHE </color>");
-                            RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
-                            Utility.DelegateDynamicMethodCreationMethods.Add(paramtypes, RunTimeMethod);
+                            if (!Utility.DelegateDynamicMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                            {
+                                RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
+                                Utility.DelegateDynamicMethodCreationMethods.Add(paramtypes, RunTimeMethod);
+                            }
                         }
-                        //else if ( isDynamic && Utility.DelegateDynamicMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
-                        //{
-                        //    Debug.Log("<color=blue> gor from DYNAMIC CACHE </color>");
-                        //} 
                         break;
                 }
                 return RunTimeMethod.Invoke(this, arguments) as Delegate;
@@ -213,7 +218,7 @@ namespace VisualDelegates
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Delegate createPropertyAction<A>(PropertyInfo tProperty)
         {
-            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tProperty.GetSetMethod(), false) as Action<A>;
+            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tProperty.SetMethod, false) as Action<A>;
 
             Action<A> tempAction = (A tA) =>
             {
@@ -237,8 +242,7 @@ namespace VisualDelegates
         /// <returns>Generic 1-parameter action delegate if successful, null if not able to convert</returns>
         protected virtual Delegate createPropertyCall<A>(PropertyInfo tProperty, RawArg arg1)
         {
-            
-            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tProperty.GetSetMethod(), false) as Action<A>;
+            Action<A> tempDelegate = Delegate.CreateDelegate(typeof(Action<A>), m_target, tProperty.SetMethod, false) as Action<A>;
             Func<A> property_input = arg1.CreateArgumentDelegate<A>();
             Action tempcall = () =>
              {

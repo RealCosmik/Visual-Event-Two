@@ -197,15 +197,16 @@ namespace VisualDelegates.Events.Editor
             cellrect.width -= 15f;
             EditorGUI.BeginChangeCheck();
             var delegateproperty = serialized_object.FindProperty("responses").GetArrayElementAtIndex(response_element.responseindex).FindPropertyRelative("response");
+            GUI.enabled = false;
             EditorGUI.PropertyField(cellrect, delegateproperty);
-            if (EditorGUI.EndChangeCheck())
-            {
-                Debug.Log("LOGGGG");
-                serialized_object.ApplyModifiedProperties();
-                if (!EditorApplication.isPlayingOrWillChangePlaymode)
-                    VisualEditorUtility.ReinitializeDelegate(delegateproperty.GetVisualDelegateObject());
-                Reload();
-            }
+            GUI.enabled = true;
+            //if (EditorGUI.EndChangeCheck())
+            //{
+            //    serialized_object.ApplyModifiedProperties();
+            //    if (!EditorApplication.isPlayingOrWillChangePlaymode)
+            //        VisualEditorUtility.ReinitializeDelegate(delegateproperty.GetVisualDelegateObject());
+            //    Reload();
+            //}
         }
     }
 }

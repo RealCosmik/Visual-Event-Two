@@ -10,16 +10,6 @@ namespace VisualDelegates.Events
         {
             SetSubscriptions();
         }
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                foreach(var e in responses)
-                {
-                    (e.response as VisualDelegate).Invoke();
-                }
-            }
-        }
         public void SetSubscriptions()
         {
             for (int i = 0; i < responses.Count; i++)

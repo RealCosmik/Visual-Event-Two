@@ -69,7 +69,14 @@ namespace VisualDelegates.Editor
                 {
                     var prop = tempList.serializedProperty.GetArrayElementAtIndex(index);
                     EditorGUI.BeginProperty(rect, GUIContent.none, prop);
+                    if (EditorApplication.isPlaying)
+                        EditorGUI.BeginChangeCheck();
                     EditorGUI.PropertyField(rect, prop, GUIContent.none, true);
+                    if (EditorApplication.isPlaying && EditorGUI.EndChangeCheck())
+                    {
+                        tempList.serializedProperty.serializedObject.ApplyModifiedProperties();
+                        VisualEditorUtility.ReinitializeDelegate(tempList.serializedProperty.GetVisualDelegateObject());
+                    }
                     EditorGUI.EndProperty();
                 };
                 tempList.elementHeightCallback += (int index) =>
@@ -143,21 +150,26 @@ namespace VisualDelegates.Editor
                 tPosition.y += tPosition.height + EditorGUIUtility.standardVerticalSpacing;
                 tPosition.x -= tempIndentSize;
                 tPosition.height = tempList.GetHeight();
-                EditorGUI.BeginChangeCheck();
+                //EditorGUI.BeginChangeCheck();
                 tempList.DoList(tPosition);
                 ShowInvocation(ViewCache.GetVisualDelegateInstanceCache(tProperty), tPosition, tempList);
                 EditorGUI.indentLevel = tempIndentLevel - 1;
 
                 CopyPasteKeyboard(tempList, tempList.serializedProperty);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    if (EditorApplication.isPlaying)
-                    {
-                       // Debug.LogWarning("might have to change this");
-                        tProperty.serializedObject.ApplyModifiedProperties();
-                        VisualEditorUtility.ReinitializeDelegate(tProperty.GetVisualDelegateObject());
-                    }
-                }
+                //if (EditorGUI.EndChangeCheck())
+                //{
+                //    Debug.Log("ambigious change");
+                //    if (EditorApplication.isPlaying)
+                //    {
+                //        Debug.LogWarning("might have to change this");
+                //        VisualEditorUtility.ReinitializeDelegate(tProperty.GetVisualDelegateObject());
+                //    }
+                //    else
+                //    {
+                //        Debug.LogWarning("not playing instead");
+                //        tProperty.serializedObject.ApplyModifiedProperties();
+                //    }
+                //}
             }
             
         }
@@ -169,6 +181,7 @@ namespace VisualDelegates.Editor
                 var invokepos = delegaterect;
                 invokepos.height -= list.footerHeight;
                 VisualEditorUtility.TweenBox(invokepos, cache);
+                VisualEditorUtility.RepaintInspectorWindows();
             }
             if (cache.istweening)
             {

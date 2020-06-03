@@ -16,6 +16,8 @@ namespace VisualDelegates.Events.Editor
         const string RESPONSE_FIELD_NAME = "responses";
         const string ARGUMENT = "argument";
         int ticks;
+        [SerializeField] bool detailsfolded = true;
+        [SerializeField] bool argumentfold = false;
         TreeViewState currentState;
         Type[] genericArguments;
         Action editorInvocation;
@@ -101,18 +103,39 @@ namespace VisualDelegates.Events.Editor
             var style = new GUIStyle("textField");
             style.wordWrap = true;
             var note_property=serializedObject.FindProperty("EventNote");
-            EditorGUI.BeginChangeCheck();
-            note_property.stringValue = EditorGUILayout.TextArea(note_property.stringValue, style, GUILayout.ExpandHeight(true));
-            if (EditorGUI.EndChangeCheck())
+            detailsfolded = EditorGUILayout.BeginFoldoutHeaderGroup(detailsfolded, "Event Details");
+            if (detailsfolded)
             {
-                serializedObject.ApplyModifiedProperties();
-            } 
+                EditorGUI.BeginChangeCheck();
+                note_property.stringValue = EditorGUILayout.TextArea(note_property.stringValue, style, GUILayout.ExpandHeight(true));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    serializedObject.ApplyModifiedProperties();
+                }
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
         }
         
         private void DrawInvoke()
         {
             var argument_count = genericArguments.Length;
             EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.BeginVertical();
+            argumentfold = EditorGUILayout.BeginFoldoutHeaderGroup(argumentfold, "Arguments");
+            if (argumentfold)
+            {
+                EditorGUI.BeginChangeCheck();
+                for (int i = 0; i < argument_count; i++)
+                {
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty(ARGUMENT + (i + 1)));
+                }
+                if (EditorGUI.EndChangeCheck())
+                {
+                    serializedObject.ApplyModifiedProperties();
+                }
+            }
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.EndFoldoutHeaderGroup();
             if (GUILayout.Button("Invoke"))
             {
                 if (editorInvocation == null)
@@ -124,18 +147,9 @@ namespace VisualDelegates.Events.Editor
                 }
                 editorInvocation.Invoke();
             }
-            EditorGUILayout.BeginVertical();
-            EditorGUI.BeginChangeCheck();
-            for (int i = 0; i < argument_count; i++)
-            {
-                EditorGUILayout.PropertyField(serializedObject.FindProperty(ARGUMENT + (i+1)));
-            }
-            EditorGUILayout.EndVertical();
+            
             EditorGUILayout.EndHorizontal();
-            if (EditorGUI.EndChangeCheck())
-            {
-                serializedObject.ApplyModifiedProperties();
-            }
+            
           
         }
         private void PopulateSubscribers()

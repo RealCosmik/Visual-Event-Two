@@ -188,17 +188,19 @@ namespace VisualDelegates
 
         public virtual void OnAfterDeserialize()
         {
-            try
-            {
+          //  try
+          //  {
                 if (!serializationError)
                     delegateInstance = createDelegate(Utility.QuickDeseralizer(m_target.GetType(), methodData, out paramtypes), m_target);
-                else delegateInstance = new Action(() => Debug.LogError(Utility.CreateDelegateErrorMessage(methodData,m_target),m_target));
-            }
-            catch (Exception)
-            {
-                delegateInstance = new Action(() => Debug.LogError(Utility.CreateDelegateErrorMessage(methodData, m_target),m_target));
-            }
-            
+                else
+                    delegateInstance = new Action(() => Debug.LogError(Utility.CreateDelegateErrorMessage(methodData, m_target), m_target));
+          //  }
+            //catch (Exception ex)
+            //{
+            //    Debug.LogError(ex);
+            //    delegateInstance = new Action(() => Debug.LogError(Utility.CreateDelegateErrorMessage(methodData, m_target), m_target));
+            //}
+
         }
     }
 }

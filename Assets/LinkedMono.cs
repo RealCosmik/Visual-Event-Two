@@ -9,6 +9,8 @@ class LinkedMono : MonoBehaviour
     public KeyCode Invoke_key = KeyCode.Space;
     public intpub Cosmik;
     public UnityEvent unity;
+    [DisplayPrivate,SerializeField] private int PRIVATEFIELD;
+    [DisplayPrivate] private int customprivprop { get; set; }
     public Vector3 vecfield = Vector3.one;
     public int RandomPropp { get => 2; set { Debug.Log("set value to be" + value); } }
     public int mynum;
@@ -23,6 +25,11 @@ class LinkedMono : MonoBehaviour
         }
         else Debug.Log("its all good");
     }
+    [DisplayPrivate] void TryThisPrivteMethod()
+    {
+        Debug.Log($"private prop log{ customprivprop}");
+    }
+
     public void annoying(string methodname, int methodnums, bool methodflags) => Debug.Log("jsut a test");
     public void methodforikram(string s) => Debug.Log("print as a string");
     private List<Func<IEnumerator>> coroutine_delegate;
@@ -35,7 +42,6 @@ class LinkedMono : MonoBehaviour
     public void oddFunction(Action a) => Debug.Log("useless");
     private void Start()
     {
-        Cosmik.OnInvoke += val => Debug.Log("ok");
         Cosmik.initialize();
     }
     public void StopCertain() => StopCoroutine(infinity());

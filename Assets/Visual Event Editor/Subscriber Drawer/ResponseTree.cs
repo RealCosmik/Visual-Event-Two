@@ -184,8 +184,13 @@ namespace VisualDelegates.Events.Editor
                 }
                 else
                 {
-                    var arguments = String.Join(" ", subscribedEvent.GetType().GenericTypeArguments.Select(t => t.FullName));
+                    serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id).FindPropertyRelative("currentEvent")
+                   .objectReferenceValue = null;
+                    serializedSubscriber.ApplyModifiedProperties();
+                    var arguments = String.Join(",", subscribedEvent.GetType().BaseType.GenericTypeArguments.Select(t => t.FullName));
                     Debug.LogError($"No delegate found in any loaded assembly matching {arguments}");
+                  
+
                 }
 
             }
@@ -193,13 +198,8 @@ namespace VisualDelegates.Events.Editor
         private bool GetCorrespondingDelegate(BaseEvent baseEvent, out Type delegatetype)
         {
             var eventArguments = baseEvent.GetType().BaseType.GenericTypeArguments;
-            for (int i = 0; i < eventArguments.Length; i++)
-            {
-                Debug.Log(eventArguments[i]);
-            }
             var delegateTypes = TypeCache.GetTypesDerivedFrom<VisualDelegateBase>();
             delegatetype = delegateTypes.FirstOrDefault(t => t.BaseType.GenericTypeArguments.SequenceEqual(eventArguments));
-            Debug.Log(delegatetype.FullName);
             return delegatetype != null;
         } 
         //private void DrawInvalidEvent(Rect cell)

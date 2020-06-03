@@ -13,31 +13,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-06-01T20:54:06.507-04:00
-  initializedAtString: 2020-06-01T15:44:45.555-04:00
+  lastUpdatedAtString: 2020-06-03T19:14:48.757-04:00
+  initializedAtString: 2020-06-03T18:33:15.475-04:00
   entries:
+  - path: Assets\intevent 1.asset
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\intevent
+      1.asset
+    projectPath: Assets\intevent 1.asset
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\intevent 1.asset.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\intevent
+      1.asset.meta
+    projectPath: Assets\intevent 1.asset.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
   - path: Assets\intevent.asset
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\intevent.asset
     projectPath: Assets\intevent.asset
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\intevent.asset.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\intevent.asset.meta
-    projectPath: Assets\intevent.asset.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Scenes\Pong.unity
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Scenes\Pong.unity
-    projectPath: Assets\Scenes\Pong.unity
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\LinkedMono.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\LinkedMono.cs
+    projectPath: Assets\LinkedMono.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Delegate Editor\Editor\Cache\ViewCache.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate Editor\Editor\Cache\ViewCache.cs
-    projectPath: Assets\Visual Delegate Editor\Editor\Cache\ViewCache.cs
+  - path: Assets\Scenes\Pong.unity
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Scenes\Pong.unity
+    projectPath: Assets\Scenes\Pong.unity
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -48,10 +55,66 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
+  - path: Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawCallView.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate Editor\Editor\Drawers\DrawerRawCallView.cs
+    projectPath: Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawCallView.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate Editor\Editor\Drawers\DrawerVisualDelegate.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate Editor\Editor\Drawers\DrawerVisualDelegate.cs
+    projectPath: Assets\Visual Delegate Editor\Editor\Drawers\DrawerVisualDelegate.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assets\Visual Delegate Editor\Editor\VisualEditorUtility.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Delegate Editor\Editor\VisualEditorUtility.cs
     projectPath: Assets\Visual Delegate Editor\Editor\VisualEditorUtility.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Attributes\DisplayPrivate.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Attributes\DisplayPrivate.cs
+    projectPath: Assets\Visual Delegate\Source\Attributes\DisplayPrivate.cs
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Visual Delegate\Source\Attributes\DisplayPrivate.cs.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Attributes\DisplayPrivate.cs.meta
+    projectPath: Assets\Visual Delegate\Source\Attributes\DisplayPrivate.cs.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Visual Delegate\Source\DelegatePairs\DelegatePair.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\DelegatePairs\DelegatePair.cs
+    projectPath: Assets\Visual Delegate\Source\DelegatePairs\DelegatePair.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Assets\Visual Delegate\Source\DelegatePairs\DelegatePair.cs.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\DelegatePairs\DelegatePair.cs.meta
+    projectPath: Assets\Visual Delegate\Source\DelegatePairs\DelegatePair.cs.meta
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Assets\Visual Delegate\Source\Delegates\RawCall.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Delegates\RawCall.cs
+    projectPath: Assets\Visual Delegate\Source\Delegates\RawCall.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Delegate\Source\Delegates\RawDelegate.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Delegate\Source\Delegates\RawDelegate.cs
+    projectPath: Assets\Visual Delegate\Source\Delegates\RawDelegate.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -69,27 +132,6 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event Editor\Event Drawer\VoidEventDrawer.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\VoidEventDrawer.cs
-    projectPath: Assets\Visual Event Editor\Event Drawer\VoidEventDrawer.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Event Drawer\VoidEventDrawer.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\VoidEventDrawer.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\VoidEventDrawer.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Event Editor\Subscriber Drawer\ResponseTree.cs
@@ -97,69 +139,34 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event\Events\Base Event\BaseEvent.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\Base Event\BaseEvent.cs
-    projectPath: Assets\Visual Event\Events\Base Event\BaseEvent.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Event\Events\Events\VoidEvent.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\Events\VoidEvent.cs
-    projectPath: Assets\Visual Event\Events\Events\VoidEvent.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event\Events\Events\VoidEvent.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\Events\VoidEvent.cs.meta
-    projectPath: Assets\Visual Event\Events\Events\VoidEvent.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
   - path: Assets\Visual Event\Events\GenericEvents\GenericEvent.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Event\Events\GenericEvents\GenericEvent.cs
     projectPath: Assets\Visual Event\Events\GenericEvents\GenericEvent.cs
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event\Events\GenericEvents\GenericEvent.cs.meta
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Event\Events\ImplementedEvents\DoubleInt.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\GenericEvents\GenericEvent.cs.meta
-    projectPath: Assets\Visual Event\Events\GenericEvents\GenericEvent.cs.meta
+      Event\Events\ImplementedEvents\DoubleInt.cs
+    projectPath: Assets\Visual Event\Events\ImplementedEvents\DoubleInt.cs
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Assets\Visual Event\Events\ImplementedEvents\IntEvent.cs
+  - path: Assets\Visual Event\Events\ImplementedEvents\DoubleInt.cs.meta
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\ImplementedEvents\IntEvent.cs
-    projectPath: Assets\Visual Event\Events\ImplementedEvents\IntEvent.cs
+      Event\Events\ImplementedEvents\DoubleInt.cs.meta
+    projectPath: Assets\Visual Event\Events\ImplementedEvents\DoubleInt.cs.meta
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Assets\Visual Event\Events\ImplementedEvents\IntEvent.cs.meta
+  - path: Assets\Visual Event\EventSubscriber.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\ImplementedEvents\IntEvent.cs.meta
-    projectPath: Assets\Visual Event\Events\ImplementedEvents\IntEvent.cs.meta
+      Event\EventSubscriber.cs
+    projectPath: Assets\Visual Event\EventSubscriber.cs
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event\Events\ImplementedEvents\VoidEvent.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\ImplementedEvents\VoidEvent.cs
-    projectPath: Assets\Visual Event\Events\ImplementedEvents\VoidEvent.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event\Events\ImplementedEvents\VoidEvent.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\ImplementedEvents\VoidEvent.cs.meta
-    projectPath: Assets\Visual Event\Events\ImplementedEvents\VoidEvent.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\ArtifactDB
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ArtifactDB
     projectPath: Library\ArtifactDB
@@ -196,12 +203,6 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\InspectorExpandedItems.asset
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\InspectorExpandedItems.asset
-    projectPath: Library\InspectorExpandedItems.asset
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Library\ScriptAssemblies\Assembly-CSharp.dll
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Assembly-CSharp.dll
     projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
@@ -211,6 +212,54 @@ MonoBehaviour:
   - path: Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
     projectPath: Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\com.unity.quicksearch.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\com.unity.quicksearch.dll
+    projectPath: Library\ScriptAssemblies\com.unity.quicksearch.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+    projectPath: Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\Unity.TextMeshPro.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+    projectPath: Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\UnityEditor.UI.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEditor.UI.dll
+    projectPath: Library\ScriptAssemblies\UnityEditor.UI.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+    projectPath: Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\ScriptAssemblies\UnityEngine.UI.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEngine.UI.dll
+    projectPath: Library\ScriptAssemblies\UnityEngine.UI.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

@@ -22,7 +22,7 @@ namespace VisualDelegates.Editor
         static UnityEngine.Object[] inspectorwindows;
         static VisualEditorUtility()
         {
-            inspectorwindows= Resources.FindObjectsOfTypeAll(inspector_type);
+            inspectorwindows = Resources.FindObjectsOfTypeAll(inspector_type);
         }
         //=======================
         // Settings
@@ -299,7 +299,7 @@ namespace VisualDelegates.Editor
         /// <param name="CurrentType">Type to search</param>
         /// <param name="tIsFiltered">If true, will attempt to filter members defined in the <see cref="Settings"/></param>
         /// <returns>List of members</returns>
-        public static List<IMember> GetMemberList(this Type CurrentType, bool tIsFiltered = true,bool staticmembers=false)
+        public static List<IMember> GetMemberList(this Type CurrentType, bool tIsFiltered = true, bool staticmembers = false)
         {
             if (CurrentType != null)
             {
@@ -338,7 +338,7 @@ namespace VisualDelegates.Editor
                 }
 
                 // Methods
-                List<MemberMethod> tempMethods = CurrentType.GetMethodList(tIsFiltered,staticmembers);
+                List<MemberMethod> tempMethods = CurrentType.GetMethodList(tIsFiltered);
                 if (tempMethods != null)
                 {
                     if (tempMembers == null)
@@ -368,12 +368,7 @@ namespace VisualDelegates.Editor
             if (tType != null)
             {
                 // Flags
-                BindingFlags tempFlags = BindingFlags.Public | BindingFlags.Instance;
-                if (Settings.instance.isPrivateDisplayed)
-                {
-                    tempFlags |= BindingFlags.NonPublic;
-                }
-
+                BindingFlags tempFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
                 // Filter member fields
                 FieldInfo[] tempFields = tType.GetFields(tempFlags);
                 int tempListLength = tempFields.Length;
@@ -387,10 +382,12 @@ namespace VisualDelegates.Editor
                         if (!tempField.IsInitOnly && !tempField.IsLiteral) //not readonly field and not const field
                         {
                             MemberField tempMember = new MemberField(tempField);
-                            if (!tIsFiltered || !Settings.instance.isMemberFiltered(tempField.DeclaringType, tempField.ReflectedType, tempMember))
+                            if (tempField.IsPrivate)
                             {
+                                if(tempField.GetCustomAttribute<DisplayPrivate>()!=null)
                                 tempOut.Add(tempMember);
                             }
+                            else tempOut.Add(tempMember);
                         }
                     }
                     return tempOut;
@@ -408,18 +405,14 @@ namespace VisualDelegates.Editor
             if (tType != null)
             {
                 // Flags
-                BindingFlags tempFlags = BindingFlags.Public | BindingFlags.Instance;
-                if (Settings.instance.isPrivateDisplayed)
-                {
-                    tempFlags |= BindingFlags.NonPublic;
-                }
+                BindingFlags tempFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
 
                 // Filter member properties
                 PropertyInfo[] tempProperties = tType.GetProperties(tempFlags);
                 int tempListLength = tempProperties.Length;
                 if (tempListLength > 0)
                 {
-                    List<MemberProperty> tempOut = null;
+                    List<MemberProperty> tempOut = new List<MemberProperty>();
                     PropertyInfo tempProperty;
                     for (int i = 0; i < tempListLength; ++i)
                     {
@@ -427,15 +420,12 @@ namespace VisualDelegates.Editor
                         if (tempProperty.CanWrite)
                         {
                             MemberProperty tempMember = new MemberProperty(tempProperty);
-                            if (!tIsFiltered || !Settings.instance.isMemberFiltered(tempProperty.DeclaringType, tempProperty.ReflectedType, tempMember))
+                            if (tempProperty.SetMethod.IsPrivate)
                             {
-                                if (tempOut == null)
-                                {
-                                    tempOut = new List<MemberProperty>();
-                                }
-
-                                tempOut.Add(tempMember);
+                                if (tempProperty.GetCustomAttribute<DisplayPrivate>() != null)
+                                    tempOut.Add(tempMember);
                             }
+                            else tempOut.Add(tempMember);
                         }
                     }
 
@@ -450,25 +440,18 @@ namespace VisualDelegates.Editor
         /// <param name="tType">Type to search</param>
         /// <param name="tIsFiltered">If true, will attempt to filter methods defined in the <see cref="Settings"/></param>
         /// <returns>List of methods</returns>
-        public static List<MemberMethod> GetMethodList(this Type tType, bool tIsFiltered = true,bool getstatic=false)
+        public static List<MemberMethod> GetMethodList(this Type tType, bool tIsFiltered = true)
         {
             if (tType != null)
             {
                 // Flags
-                BindingFlags tempFlags = BindingFlags.Public | BindingFlags.Instance;
-                if (getstatic)
-                    tempFlags |= BindingFlags.Static | BindingFlags.NonPublic;
-                if (Settings.instance.isPrivateDisplayed)
-                {
-                    tempFlags |= BindingFlags.NonPublic;
-                }
-
+                BindingFlags tempFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
                 // Filter member methods
                 MethodInfo[] tempMethods = tType.GetMethods(tempFlags);
                 int tempListLength = tempMethods.Length;
                 if (tempListLength > 0)
                 {
-                    List<MemberMethod> tempOut = null;
+                    List<MemberMethod> tempOut = new List<MemberMethod>();
                     MethodInfo tempMethod;
                     for (int i = 0; i < tempListLength; ++i)
                     {
@@ -476,15 +459,12 @@ namespace VisualDelegates.Editor
                         if (!tempMethod.IsSpecialName && !tempMethod.IsGenericMethod)
                         {
                             MemberMethod tempMember = new MemberMethod(tempMethod);
-                            if (!tIsFiltered || !Settings.instance.isMemberFiltered(tempMethod.DeclaringType, tempMethod.ReflectedType, tempMember))
+                            if (tempMethod.IsPrivate)
                             {
-                                if (tempOut == null)
-                                {
-                                    tempOut = new List<MemberMethod>();
-                                }
-
-                                tempOut.Add(tempMember);
+                                if (tempMethod.GetCustomAttribute<DisplayPrivate>() != null)
+                                    tempOut.Add(tempMember);
                             }
+                            else tempOut.Add(tempMember);
                         }
                     }
 
@@ -566,7 +546,7 @@ namespace VisualDelegates.Editor
 
         }
         public static int GetRawCallIndex(this SerializedProperty rawcallProperty)
-        {  
+        {
             //viewdelegate._calls[0] OR viewdeelgateArray[0]._calls[0]  are the potential paths types
             string path = rawcallProperty.propertyPath;
             var propertyData = ParseData[path];
@@ -670,8 +650,8 @@ namespace VisualDelegates.Editor
             DestinationArgument.FindPropertyRelative("doubleValue").doubleValue = originargument.FindPropertyRelative("doubleValue").doubleValue;
             DestinationArgument.FindPropertyRelative("animationCurveValue").animationCurveValue = originargument.FindPropertyRelative("animationCurveValue").animationCurveValue;
         }
-        public static async void TweenBox(Rect boxpos,VisiualDelegateCacheContainer containter)
-        { 
+        public static async void TweenBox(Rect boxpos, VisiualDelegateCacheContainer containter)
+        {
             containter.color = DelegateEditorSettings.instance.InvocationColor;
             if (!containter.istweening)
             {
