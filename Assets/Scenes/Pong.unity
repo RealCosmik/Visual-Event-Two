@@ -312,7 +312,6 @@ MonoBehaviour:
   Cosmik:
     m_calls:
     - id: 0
-    - id: 1
   unity:
     m_PersistentCalls:
       m_Calls: []
@@ -369,21 +368,6 @@ MonoBehaviour:
             isparentargstring: 0
             m_isDelegate: 0
             willdeseralize: 0
-        m_isDynamic: 0
-        m_runtime: 0
-        TargetType: 
-    00000001:
-      type: {class: RawCall, ns: VisualDelegates, asm: VisualDelegate}
-      data:
-        m_target: {fileID: 582710740}
-        methodData:
-        - 8
-        - TryThisPrivteMethod
-        m_isYieldableCall: 0
-        haserror: 0
-        serializationError: 0
-        creationMethod: createActionCall0
-        m_arguments: []
         m_isDynamic: 0
         m_runtime: 0
         TargetType: 

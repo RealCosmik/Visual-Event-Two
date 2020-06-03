@@ -99,6 +99,8 @@ namespace VisualDelegates.Editor
                             DelegateCache.serializationError = false;
                             DelegateCache.UpdateSelectedMember(userSelectedMember);
                             handleMemberUpdate(tProperty, DelegateCache);
+                            if (EditorApplication.isPlaying)
+                                VisualEditorUtility.ReinitializeDelegate(tProperty.GetVisualDelegateObject());
                         };
                         SearchablePopup.Show(seratchWindowPos, DelegateCache.memberNames,
                             DelegateCache.selectedMemberIndex, onSelect);
