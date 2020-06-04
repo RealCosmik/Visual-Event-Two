@@ -100,8 +100,9 @@ namespace VisualDelegates
                     if (methodata.Length == 2)
                     {
                         method_info = CurrentType.GetMethod(member_name, memberflags, null, Type.EmptyTypes, null);
-                        if (method_info.ReturnType != typeof(void))
+                        if (method_info!=null&& method_info.ReturnType != typeof(void))
                             paramtypes = new Type[1] { method_info.ReturnType };
+                        else return null;
                     }
                     else
                     {

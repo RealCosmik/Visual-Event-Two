@@ -30,10 +30,6 @@ namespace VisualDelegates.Events
         }
         public void UnSubscribe(EventResponse response)
         {
-            Debug.LogError(name);
-            Debug.LogError(response.priority);
-            Debug.LogError(response.subscriptionindex);
-            Debug.Log(AllResponses.Count);
             var prioritylist=AllResponses[response.priority];
             prioritylist.RemoveAt(response.subscriptionindex);
         }

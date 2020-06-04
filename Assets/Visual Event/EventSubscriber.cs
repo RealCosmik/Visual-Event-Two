@@ -21,5 +21,14 @@ namespace VisualDelegates.Events
                 responses[i].currentEvent?.Subscribe(responses[i], responses[i].priority);
             }
         }
+        private void OnDestroy()
+        {
+            var responsecount = responses.Count;
+            for (int i = 0; i < responsecount; i++)
+            {
+                responses[i].response?.Release();
+                responses[i].currentEvent.UnSubscribe(responses[i]);
+            }
+        }
     }
 }

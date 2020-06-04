@@ -36,7 +36,7 @@ namespace VisualDelegates.Events.Editor
             for (int i = 0; i < responsecount; i++)
             {
                 var baseEvent = subscriberResponses.GetArrayElementAtIndex(i).FindPropertyRelative("currentEvent").objectReferenceValue as BaseEvent;
-               root.AddChild(new ResponseTreeElement(baseEvent){ id = i });
+                root.AddChild(new ResponseTreeElement(baseEvent) { id = i });
             }
         }
         protected override float GetCustomRowHeight(int row, TreeViewItem item)
@@ -48,11 +48,15 @@ namespace VisualDelegates.Events.Editor
                 var delegateprop = eventResponseProperty.FindPropertyRelative("response");
                 if (delegateprop.isExpanded)
                     return EditorGUI.GetPropertyHeight(delegateprop);
-                else return EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
-                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none);
+                else return
+                    EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
+                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none) +
+                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Boolean, GUIContent.none);
             }
-            else return EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
-                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none);
+            else return
+                    EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
+                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none) +
+                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Boolean, GUIContent.none);
         }
         protected override void RowGUI(RowGUIArgs args)
         {
@@ -73,7 +77,6 @@ namespace VisualDelegates.Events.Editor
         {
             var element = rowarg.item as ResponseTreeElement;
             var currentResponse = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id);
-            EditorGUI.BeginProperty(rowarg.GetCellRect(1), GUIContent.none, currentResponse);
             switch (collumn)
             {
                 case 0:
@@ -87,7 +90,6 @@ namespace VisualDelegates.Events.Editor
                 default:
                     break;
             }
-            EditorGUI.EndProperty();
         }
         private void DrawEventAndPriority(Rect cell, SerializedProperty currentResponse, ResponseTreeElement element)
         {
@@ -96,15 +98,21 @@ namespace VisualDelegates.Events.Editor
             var event_rect = cell;
             event_rect.height = EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none);
             EditorGUI.BeginChangeCheck();
+            EditorGUI.BeginProperty(event_rect, GUIContent.none, currentEventProperty);
             EditorGUI.PropertyField(event_rect, currentEventProperty, GUIContent.none);
+            EditorGUI.EndProperty();
             if (EditorGUI.EndChangeCheck())
+            {
                 OnSubscribe(currentEventProperty.objectReferenceValue as BaseEvent, element);
+            }
 
             var priorityrect = event_rect;
             priorityrect.y += priorityrect.height;
             priorityrect.width = cell.width / 3;
             EditorGUI.BeginChangeCheck();
+            EditorGUI.BeginProperty(priorityrect, GUIContent.none, priorityProperty);
             EditorGUI.PropertyField(priorityrect, priorityProperty, GUIContent.none);
+            EditorGUI.EndProperty();
             if (EditorGUI.EndChangeCheck())
             {
                 serializedSubscriber.ApplyModifiedProperties();
@@ -115,6 +123,7 @@ namespace VisualDelegates.Events.Editor
             increaseRect.width = cell.width / 3;
             if (GUI.Button(increaseRect, UP_ARROW))
             {
+                Debug.LogWarning("update this to move response at runtime");
                 priorityProperty.intValue++;
                 serializedSubscriber.ApplyModifiedProperties();
             }
@@ -123,9 +132,35 @@ namespace VisualDelegates.Events.Editor
             decreaseRect.x += increaseRect.width;
             if (GUI.Button(decreaseRect, DOWN_ARROW) && priorityProperty.intValue > 0)
             {
+                Debug.LogWarning("update this to move response at runtime");
                 priorityProperty.intValue--;
                 serializedSubscriber.ApplyModifiedProperties();
             }
+            var toggleContent = new GUIContent("isActive");
+            //VisualEditorUtility.StandardStyle.CalcMinMaxWidth(toggle_content, out float min, out float max);
+            var togglepos = priorityrect;
+            togglepos.y += togglepos.height;
+            togglepos.width = cell.width;
+            var labelpos = togglepos;
+            labelpos.width = cell.width;
+            var isActiveProperty = currentResponse.FindPropertyRelative("isActive");
+            EditorGUI.BeginChangeCheck();
+            EditorGUI.BeginProperty(togglepos, toggleContent, isActiveProperty);
+            isActiveProperty.boolValue= EditorGUI.ToggleLeft(togglepos,toggleContent, isActiveProperty.boolValue);
+            EditorGUI.EndProperty();
+            if (EditorGUI.EndChangeCheck())
+            {
+                isActiveProperty.serializedObject.ApplyModifiedProperties();
+            }
+            //EditorGUI.LabelField(labelpos, toggle_content);
+            //EditorGUI.BeginChangeCheck();
+            //isActiveProperty.boolValue=EditorGUI.Toggle(togglepos, GUIContent.none, isActiveProperty);
+            //EditorGUI.Toggle(togglepos, true);
+            //EditorGUI.EndProperty();
+            //if (EditorGUI.EndChangeCheck())
+            //{
+            //    serializedSubscriber.ApplyModifiedProperties();
+            //}
         }
         private void DrawDelegate(Rect cell, ResponseTreeElement element)
         {
@@ -135,7 +170,9 @@ namespace VisualDelegates.Events.Editor
             EditorGUI.BeginChangeCheck();
             cell.x += 15f;
             cell.width -= 15f;
+            EditorGUI.BeginProperty(cell, GUIContent.none, currentDelegate);
             EditorGUI.PropertyField(cell, currentDelegate);
+            EditorGUI.EndProperty();
 
             if (EditorGUI.EndChangeCheck())
             {
@@ -150,7 +187,7 @@ namespace VisualDelegates.Events.Editor
                 }
                 else
                     tickTrigger = 3;
-            } 
+            }
         }
         private void OnSubscribe(BaseEvent subscribedEvent, ResponseTreeElement element)
         {
@@ -173,6 +210,7 @@ namespace VisualDelegates.Events.Editor
                     //if (!responses[element.id].GetType().GenericTypeArguments.SequenceEqual(delegatetype.GenericTypeArguments))
                     {
                         Undo.RegisterCompleteObjectUndo(serializedSubscriber.targetObject, "swap prop");
+                        PrefabUtility.RecordPrefabInstancePropertyModifications(serializedSubscriber.targetObject);
                         var delegateprop = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id).FindPropertyRelative("response");
                         delegateprop.isExpanded = true;
                         delegateprop.managedReferenceValue = Activator.CreateInstance(delegatetype);
@@ -189,7 +227,7 @@ namespace VisualDelegates.Events.Editor
                     serializedSubscriber.ApplyModifiedProperties();
                     var arguments = String.Join(",", subscribedEvent.GetType().BaseType.GenericTypeArguments.Select(t => t.FullName));
                     Debug.LogError($"No delegate found in any loaded assembly matching {arguments}");
-                  
+
 
                 }
 
@@ -201,7 +239,7 @@ namespace VisualDelegates.Events.Editor
             var delegateTypes = TypeCache.GetTypesDerivedFrom<VisualDelegateBase>();
             delegatetype = delegateTypes.FirstOrDefault(t => t.BaseType.GenericTypeArguments.SequenceEqual(eventArguments));
             return delegatetype != null;
-        } 
+        }
         //private void DrawInvalidEvent(Rect cell)
         //{
         //    var style=new GUIStyle();

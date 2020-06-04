@@ -12,6 +12,7 @@ namespace VisualDelegates.Events
                 var responsecount = AllResponses[i].Count;
                 for (int j = 0; j < responsecount; j++)
                 {
+                    if(AllResponses[i][j].IsActive)
                     (AllResponses[i][j].response as VisualDelegate<arg1>).Invoke(arg1);
                 }
             }
@@ -38,7 +39,8 @@ namespace VisualDelegates.Events
                 var responsecount = AllResponses[i].Count;
                 for (int j = 0; j < responsecount; j++)
                 {
-                    (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2>).Invoke(arg1, arg2);
+                    if (AllResponses[i][j].IsActive)
+                        (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2>).Invoke(arg1, arg2);
                 }
             }
         }
@@ -67,7 +69,8 @@ namespace VisualDelegates.Events
                 var responsecount = AllResponses[i].Count;
                 for (int j = 0; j < responsecount; j++)
                 {
-                    (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3>).Invoke(arg1, arg2, arg3);
+                    if (AllResponses[i][j].IsActive)
+                        (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3>).Invoke(arg1, arg2, arg3);
                 }
             }
         }
@@ -98,7 +101,8 @@ namespace VisualDelegates.Events
                 var responsecount = AllResponses[i].Count;
                 for (int j = 0; j < responsecount; j++)
                 {
-                    (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3, Arg4>).Invoke(arg1, arg2, arg3, arg4);
+                    if (AllResponses[i][j].IsActive)
+                        (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3, Arg4>).Invoke(arg1, arg2, arg3, arg4);
                 }
             }
         }
@@ -132,7 +136,8 @@ namespace VisualDelegates.Events
                 var responsecount = AllResponses[i].Count;
                 for (int j = 0; j < responsecount; j++)
                 {
-                    (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3, Arg4,Arg5>).Invoke(arg1, arg2, arg3, arg4,arg5);
+                    if (AllResponses[i][j].IsActive)
+                        (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3, Arg4,Arg5>).Invoke(arg1, arg2, arg3, arg4,arg5);
                 }
             }
         }

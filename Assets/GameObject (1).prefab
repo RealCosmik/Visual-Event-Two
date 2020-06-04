@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6258588320297570998
+--- !u!1 &2932447297962496897
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6238037191639816785}
-  - component: {fileID: 8521199689794987748}
+  - component: {fileID: 7258015392953406284}
+  - component: {fileID: 3382068078847937912}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6238037191639816785
+--- !u!4 &7258015392953406284
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6258588320297570998}
+  m_GameObject: {fileID: 2932447297962496897}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 148.375, y: 234, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,57 +31,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8521199689794987748
+--- !u!114 &3382068078847937912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6258588320297570998}
+  m_GameObject: {fileID: 2932447297962496897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36daa77921fe6fa408e6c6586762f35c, type: 3}
+  m_Script: {fileID: 11500000, guid: a4df6af7b14bf7d40976400f41517bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Invoke_key: 32
-  Cosmik:
-    m_calls:
-    - id: 0
-  unity:
-    m_PersistentCalls:
-      m_Calls: []
-  PRIVATEFIELD: 0
-  vecfield: {x: 1, y: 1, z: 1}
-  mynum: 0
-  mymonotest: {fileID: 0}
-  ExampleSwitch: 0
-  idk: 0
-  input: 0
+  responses:
+  - response:
+      id: 0
+    currentEvent: {fileID: 11400000, guid: 3101bbe43efc7f0479e8ab3d84ef7102, type: 2}
+    priority: 0
+    isActive: 1
   references:
     version: 1
     00000000:
+      type: {class: intpub, ns: , asm: Assembly-CSharp}
+      data:
+        m_calls:
+        - id: 1
+    00000001:
       type: {class: RawCall, ns: VisualDelegates, asm: VisualDelegate}
       data:
-        m_target: {fileID: 6258588320297570998}
+        m_target: {fileID: 0}
         methodData:
         - 16
-        - layer
+        - color
         m_isYieldableCall: 0
         haserror: 0
         serializationError: 0
         creationMethod: createPropertyCall
         m_arguments:
-        - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b77a5c561934e089
-          FullArgumentName: System.Int32
+        - assemblyQualifiedArgumentName: UnityEngine.Color, UnityEngine.CoreModule,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          FullArgumentName: UnityEngine.Color
           objectValue: {fileID: 0}
           m_objecthasvalue: 0
           stringValue: 
-          _x1: 88
-          _x2: 0
-          _y1: 0
+          _x1: 0.22014059
+          _x2: 1
+          _y1: 0.9150943
           _y2: 0
-          _z1: 0
+          _z1: 0.27384102
           _z2: 0
           longValue: 0
           doubleValue: 0

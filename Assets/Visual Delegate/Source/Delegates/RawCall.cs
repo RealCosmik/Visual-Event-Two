@@ -113,7 +113,7 @@ namespace VisualDelegates
                     case MemberTypes.Property:
                         if (!isDynamic)
                         {
-                            if(!Utility.DelegatePropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
+                            if (!Utility.DelegatePropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
                             {
                                 RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                                 Utility.DelegatePropertyCreationMethod.Add(paramtypes, RunTimeMethod);
@@ -121,7 +121,7 @@ namespace VisualDelegates
                         }
                         else
                         {
-                            if(!Utility.DelegateDynamicPropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
+                            if (!Utility.DelegateDynamicPropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
                             {
                                 RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
                                 Utility.DelegateDynamicPropertyCreationMethod.Add(paramtypes, RunTimeMethod);
@@ -151,7 +151,7 @@ namespace VisualDelegates
                 }
                 return RunTimeMethod.Invoke(this, arguments) as Delegate;
             }
-            else return null;
+            else return new Action(() => Debug.LogError("Invalid Delegate"));
 
         }
         //=======================
