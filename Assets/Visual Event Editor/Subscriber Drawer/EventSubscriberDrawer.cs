@@ -57,6 +57,8 @@ namespace VisualDelegates.Events.Editor
                 var size = responseListProperty.arraySize;
                 responseListProperty.InsertArrayElementAtIndex(size);
                 responseListProperty.GetArrayElementAtIndex(size).FindPropertyRelative("currentEvent").objectReferenceValue = null;
+                responseListProperty.GetArrayElementAtIndex(size).FindPropertyRelative("priority").intValue = 0;
+                PrefabUtility.RecordPrefabInstancePropertyModifications(responseListProperty.serializedObject.targetObject);
                 responseListProperty.serializedObject.ApplyModifiedProperties();
                 if (currentResponseTree == null)
                     currentResponseTree = new ResponseTree(new TreeViewState(), CreateCollumnHeader(), serializedObject);
@@ -107,7 +109,9 @@ namespace VisualDelegates.Events.Editor
                     width += currentResponseTree.multiColumnHeader.GetVisibleColumnIndex(i);
                 }
                 var tree_rect = GUILayoutUtility.GetRect(width, currentResponseTree.totalHeight);
+                //EditorGUI.BeginProperty(tree_rect, GUIContent.none, serializedObject.FindProperty("responses"));
                 currentResponseTree.OnGUI(tree_rect);
+                //EditorGUI.EndProperty();
                 autoRefresh();
             }
         }

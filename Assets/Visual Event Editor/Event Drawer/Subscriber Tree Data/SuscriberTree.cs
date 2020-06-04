@@ -60,7 +60,7 @@ namespace VisualDelegates.Events.Editor
                     var response = m_event.AllResponses[(responseElement.parent as PriorityTreeElement).Priority][responseElement.eventindex];
                     m_event.AllResponses[(responseElement.parent as PriorityTreeElement).Priority].RemoveAt(responseElement.eventindex);
                     if (args.parentItem is PriorityTreeElement priorityElement)
-                    { 
+                    {
                         m_event.AllResponses[priorityElement.Priority].Add(response);
                         UpdateResponsePriority(responseElement, priorityElement.Priority);
                     }
@@ -70,13 +70,13 @@ namespace VisualDelegates.Events.Editor
                         m_event.AllResponses[otherResponseElementParent.Priority].Add(response);
                         UpdateResponsePriority(responseElement, otherResponseElementParent.Priority);
                     }
-                    else if (args.insertAtIndex==rootItem.children.Count)
+                    else if (args.insertAtIndex == rootItem.children.Count)
                     {
                         Debug.Log("OH YEAH");
                         m_event.AllResponses.Add(new List<EventResponse>());
                         m_event.AllResponses[args.insertAtIndex].Add(response);
                         UpdateResponsePriority(responseElement, args.insertAtIndex);
-                    }  
+                    }
                 }
                 Debug.Log(m_event.AllResponses.Count);
                 Reload();
@@ -197,16 +197,21 @@ namespace VisualDelegates.Events.Editor
             cellrect.width -= 15f;
             EditorGUI.BeginChangeCheck();
             var delegateproperty = serialized_object.FindProperty("responses").GetArrayElementAtIndex(response_element.responseindex).FindPropertyRelative("response");
-            GUI.enabled = false;
+            //GUI.enabled = false;
             EditorGUI.PropertyField(cellrect, delegateproperty);
-            GUI.enabled = true;
-            //if (EditorGUI.EndChangeCheck())
-            //{
-            //    serialized_object.ApplyModifiedProperties();
-            //    if (!EditorApplication.isPlayingOrWillChangePlaymode)
-            //        VisualEditorUtility.ReinitializeDelegate(delegateproperty.GetVisualDelegateObject());
-            //    Reload();
-            //}
+            // GUI.enabled = true;
+            if (EditorGUI.EndChangeCheck())
+            {
+                if (!EditorApplication.isPlayingOrWillChangePlaymode)
+                {
+                    serialized_object.ApplyModifiedProperties();
+                }
+                else
+                {
+                    ViewCache.GetVisualDelegateInstanceCache(delegateproperty).UpdateInterncalcall(delegateproperty);
+                }
+                Reload();
+            }
         }
     }
 }

@@ -229,8 +229,8 @@ namespace VisualDelegates.Editor
             //var delegateprop = arrayprop.GetArrayElementAtIndex(size);
             //delegateprop.FindPropertyRelative("m_target").objectReferenceValue = null;
             //delegateprop.FindPropertyRelative("m_runtime").boolValue = false;
-            //  PrefabUtility.RecordPrefabInstancePropertyModifications(arrayprop.serializedObject.targetObject);
-            arrayprop.serializedObject.ApplyModifiedProperties();
+            PrefabUtility.RecordPrefabInstancePropertyModifications(arrayprop.serializedObject.targetObject);
+           arrayprop.serializedObject.ApplyModifiedProperties();
         }
 
         private void OnReorder(ReorderableList list, int oldindex, int newindex, SerializedProperty visualdelegateprop)
