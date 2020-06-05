@@ -16,6 +16,7 @@ namespace VisualDelegates.Events
                 }
             }
         }
+        private protected override void Clear() { }
         private protected override void EditorInvoke() => Invoke();
     }
 }

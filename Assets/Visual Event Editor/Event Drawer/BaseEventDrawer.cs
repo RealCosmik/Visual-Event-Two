@@ -13,22 +13,17 @@ namespace VisualDelegates.Events.Editor
     class BaseEventDrawer : UnityEditor.Editor
     {
         SuscriberTree responsetree;
+        HistoryTree historyTree;
         const string RESPONSE_FIELD_NAME = "responses";
         const string ARGUMENT = "argument";
-        int ticks;
+        const string EVENT_DETAILS = "Event Details";
         [SerializeField] bool detailsfolded = true;
         [SerializeField] bool argumentfold = false;
-        TreeViewState currentState;
+        TreeViewState responseState,historyState;
         Type[] genericArguments;
-        Action editorInvocation;
-        private void OnEnable()
-        {
-            genericArguments = target.GetType().BaseType.GenericTypeArguments;
-            PopulateSubscribers();
-            currentState = currentState ?? new TreeViewState();
-            if ((target as BaseEvent).AllResponses.Count > 0)
-                responsetree = new SuscriberTree(currentState, GetEventCollumns(), target as BaseEvent);
-        }
+        Action editorInvocation,onhistory;
+        int ticks;
+
         private MultiColumnHeader GetEventCollumns()
         {
             GUIContent prioritycontent = new GUIContent("Priorities");
@@ -65,14 +60,30 @@ namespace VisualDelegates.Events.Editor
          };
             return new MultiColumnHeader(new MultiColumnHeaderState(collumns));
         }
+
+        private void OnEnable()
+        {
+            genericArguments = target.GetType().BaseType.GenericTypeArguments;
+            PopulateSubscribers();
+            responseState = responseState ?? new TreeViewState();
+            if ((target as BaseEvent).AllResponses.Count > 0)
+                responsetree = new SuscriberTree(responseState, GetEventCollumns(), target as BaseEvent);
+
+            if (historyTree == null)
+            { 
+                historyTree = new HistoryTree(new TreeViewState(), HistoryTree.CreateHistoryHeader(), target as BaseEvent);
+               
+            }
+        }
         private void OnDisable()
         {
-            if (!EditorApplication.isPlayingOrWillChangePlaymode)
-            {
-            }
             responsetree = null;
+            historyTree = null;
             ticks = 0;
+            onhistory -= ReloadHistoryTree;
         }
+
+      
         private float GetTreewidth()
         {
             float width = 0f;
@@ -86,24 +97,15 @@ namespace VisualDelegates.Events.Editor
             {
                 ticks++;
                 if (ticks == 5)
-                {
                     responsetree?.Reload();
-                }
             }
-        }
-        public override void OnInspectorGUI()
-        {
-            DrawNoteField();
-            DrawInvoke();
-            responsetree?.OnGUI(GUILayoutUtility.GetRect(GetTreewidth(), responsetree.totalHeight));
-            autoreload();
         }
         private void DrawNoteField()
         {
             var style = new GUIStyle("textField");
             style.wordWrap = true;
-            var note_property=serializedObject.FindProperty("EventNote");
-            detailsfolded = EditorGUILayout.BeginFoldoutHeaderGroup(detailsfolded, "Event Details");
+            var note_property = serializedObject.FindProperty("EventNote");
+            detailsfolded = EditorGUILayout.BeginFoldoutHeaderGroup(detailsfolded, EVENT_DETAILS);
             if (detailsfolded)
             {
                 EditorGUI.BeginChangeCheck();
@@ -115,7 +117,7 @@ namespace VisualDelegates.Events.Editor
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
         }
-        
+
         private void DrawInvoke()
         {
             var argument_count = genericArguments.Length;
@@ -147,11 +149,52 @@ namespace VisualDelegates.Events.Editor
                 }
                 editorInvocation.Invoke();
             }
-            
+
             EditorGUILayout.EndHorizontal();
-            
-          
+
+
         }
+        private void DrawEventSenders()
+        {
+            if (onhistory == null)
+            {
+                var fieldflag = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
+                onhistory = typeof(BaseEvent).GetField("onHistoryUpdate", fieldflag).GetValue(target) as Action;
+                Debug.Log(onhistory == null);
+                onhistory += ReloadHistoryTree;
+                Debug.Log(onhistory == null);
+            }
+            EditorGUILayout.BeginFoldoutHeaderGroup(true, "sender list");
+            EditorGUILayout.BeginVertical();
+            historyTree.OnGUI(GUILayoutUtility.GetRect(1, historyTree.totalHeight));
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            Debug.Log(serializedObject.FindProperty("testcounter").intValue);
+            //if (EditorApplication.isPlaying)
+            //{
+            //    if (serializedObject.FindProperty("inv").boolValue)
+            //    {
+            //        Debug.Log("AYE");
+            //        serializedObject.FindProperty("inv").boolValue = false;
+            //    }
+            //    else Debug.Log("no way");
+            //}
+        }
+        private void ReloadHistoryTree()
+        {
+            Debug.Log("asfia");
+            historyTree?.Reload();
+        }
+
+        public override void OnInspectorGUI()
+        {
+            DrawNoteField();
+            DrawInvoke();
+            DrawEventSenders();
+            responsetree?.OnGUI(GUILayoutUtility.GetRect(GetTreewidth(), responsetree.totalHeight));
+            autoreload();
+        }
+
         private void PopulateSubscribers()
         {
             if (!EditorApplication.isPlayingOrWillChangePlaymode)

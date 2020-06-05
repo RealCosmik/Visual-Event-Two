@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
-using Microsoft.CodeAnalysis;
-
 namespace VisualDelegates.Events.Editor
 {
     [CustomEditor(typeof(EventSubscriber))]

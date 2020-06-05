@@ -140,7 +140,6 @@ namespace VisualDelegates.Editor
             int index = rawCallProp.GetRawCallIndex();
             if (index >= publisherCache.RawCallCache.Count) // if the cache list is too small make room for the new cache
             { 
-                Debug.Log("making new room");
                 var currentCache = new RawCallViewCacheContainer();
                 var typearguments = rawCallProp.GetVisualDelegateObject()?.GetType().BaseType.GenericTypeArguments;
                 if (typearguments?.Length == 0)

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Linq;
-using Mono.Posix;
 
 namespace VisualDelegates.Editor
 {
@@ -676,9 +675,7 @@ namespace VisualDelegates.Editor
         public static void ReinitializeDelegate(VisualDelegateBase del)
         {
             var flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
-            if (!(del is VisualDelegate))
-                del.GetType().BaseType.GetField("m_onInvoke", flags).SetValue(del, null);
-            else del.GetType().GetField("m_onInvoke", flags).SetValue(del, null);
+            typeof(VisualDelegateBase).GetField("m_onInvoke", flags).SetValue(del, null);
             del.initialize();
         }
         public static PropertyName STRING_TYPE_NAME = "System.String";

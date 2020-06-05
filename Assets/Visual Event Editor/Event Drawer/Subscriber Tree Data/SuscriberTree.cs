@@ -203,13 +203,9 @@ namespace VisualDelegates.Events.Editor
             if (EditorGUI.EndChangeCheck())
             {
                 if (!EditorApplication.isPlayingOrWillChangePlaymode)
-                {
                     serialized_object.ApplyModifiedProperties();
-                }
                 else
-                {
                     ViewCache.GetVisualDelegateInstanceCache(delegateproperty).UpdateInterncalcall(delegateproperty);
-                }
                 Reload();
             }
         }

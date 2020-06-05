@@ -13,162 +13,1300 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-06-04T03:10:44.274-04:00
-  initializedAtString: 2020-06-03T22:34:55.784-04:00
+  lastUpdatedAtString: 2020-06-05T04:15:10.447-04:00
+  initializedAtString: 2020-06-05T00:08:33.139-04:00
   entries:
-  - path: Assets\GameObject (1).prefab
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\GameObject
-      (1).prefab
-    projectPath: Assets\GameObject (1).prefab
+  - path: Assembly-CSharp.csproj
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assembly-CSharp.csproj
+    projectPath: Assembly-CSharp.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assembly-CSharp-Editor-firstpass.csproj
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assembly-CSharp-Editor-firstpass.csproj
+    projectPath: Assembly-CSharp-Editor-firstpass.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets/Plugins/GitHub/Editor/UnityAPIWrapper.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Plugins/GitHub/Editor/UnityAPIWrapper.cs
+    projectPath: Assets/Plugins/GitHub/Editor/UnityAPIWrapper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets/Visual Delegate Editor/Editor/Cache/ViewCache.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Delegate Editor/Editor/Cache/ViewCache.cs
+    projectPath: Assets/Visual Delegate Editor/Editor/Cache/ViewCache.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets/Visual Delegate Editor/Editor/Visual Delegate Editor.asmdef
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Delegate Editor/Editor/Visual
+      Delegate Editor.asmdef
+    projectPath: Assets/Visual Delegate Editor/Editor/Visual Delegate Editor.asmdef
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets/Visual Delegate Editor/Editor/VisualEditorUtility.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Delegate Editor/Editor/VisualEditorUtility.cs
+    projectPath: Assets/Visual Delegate Editor/Editor/VisualEditorUtility.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets/Visual Delegate/Source/Attributes/DisplayPrivate.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Delegate/Source/Attributes/DisplayPrivate.cs
+    projectPath: Assets/Visual Delegate/Source/Attributes/DisplayPrivate.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets/Visual Delegate/Source/Attributes/RunTimeRestricted.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Delegate/Source/Attributes/RunTimeRestricted.cs
+    projectPath: Assets/Visual Delegate/Source/Attributes/RunTimeRestricted.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets/Visual Event Editor/Event Drawer/BaseEventDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event Editor/Event
+      Drawer/BaseEventDrawer.cs
+    projectPath: Assets/Visual Event Editor/Event Drawer/BaseEventDrawer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets/Visual Event Editor/Event Drawer/History Tree Data/HistoryTree.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event Editor/Event
+      Drawer/History Tree Data/HistoryTree.cs
+    projectPath: Assets/Visual Event Editor/Event Drawer/History Tree Data/HistoryTree.cs
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Assets\GameObject (1).prefab.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\GameObject
-      (1).prefab.meta
-    projectPath: Assets\GameObject (1).prefab.meta
+  - path: Assets/Visual Event Editor/Event Drawer/History Tree Data/HistoryTree.cs.meta
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event Editor/Event
+      Drawer/History Tree Data/HistoryTree.cs.meta
+    projectPath: Assets/Visual Event Editor/Event Drawer/History Tree Data/HistoryTree.cs.meta
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Assets\GameObject 1.prefab
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\GameObject
-      1.prefab
-    projectPath: Assets\GameObject 1.prefab
+  - path: Assets/Visual Event Editor/Event Drawer/History Tree Data/HistoryTreeElement.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event Editor/Event
+      Drawer/History Tree Data/HistoryTreeElement.cs
+    projectPath: Assets/Visual Event Editor/Event Drawer/History Tree Data/HistoryTreeElement.cs
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\GameObject 1.prefab.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\GameObject
-      1.prefab.meta
-    projectPath: Assets\GameObject 1.prefab.meta
+    indexStatus: 4
+    workTreeStatus: 3
+  - path: Assets/Visual Event Editor/Event Drawer/History Tree Data/HistoryTreeElement.cs.meta
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event Editor/Event
+      Drawer/History Tree Data/HistoryTreeElement.cs.meta
+    projectPath: Assets/Visual Event Editor/Event Drawer/History Tree Data/HistoryTreeElement.cs.meta
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\GameObject.prefab
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\GameObject.prefab
-    projectPath: Assets\GameObject.prefab
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\GameObject.prefab.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\GameObject.prefab.meta
-    projectPath: Assets\GameObject.prefab.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\intevent.asset
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\intevent.asset
-    projectPath: Assets\intevent.asset
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets/Visual Event Editor/Event Drawer/Subscriber Tree Data/SuscriberTree.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event Editor/Event
+      Drawer/Subscriber Tree Data/SuscriberTree.cs
+    projectPath: Assets/Visual Event Editor/Event Drawer/Subscriber Tree Data/SuscriberTree.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Scenes\Pong.unity
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Scenes\Pong.unity
-    projectPath: Assets\Scenes\Pong.unity
+  - path: Assets/Visual Event Editor/Subscriber Drawer/EventSubscriberDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event Editor/Subscriber
+      Drawer/EventSubscriberDrawer.cs
+    projectPath: Assets/Visual Event Editor/Subscriber Drawer/EventSubscriberDrawer.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Delegates\RawCall.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Delegates\RawCall.cs
-    projectPath: Assets\Visual Delegate\Source\Delegates\RawCall.cs
+  - path: Assets/Visual Event Editor/Visual Event Editor.asmdef
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event Editor/Visual
+      Event Editor.asmdef
+    projectPath: Assets/Visual Event Editor/Visual Event Editor.asmdef
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Delegates\RawDelegate.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Delegates\RawDelegate.cs
-    projectPath: Assets\Visual Delegate\Source\Delegates\RawDelegate.cs
+  - path: Assets/Visual Event/Events/Base Event/BaseEvent.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event/Events/Base
+      Event/BaseEvent.cs
+    projectPath: Assets/Visual Event/Events/Base Event/BaseEvent.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Delegate\Source\Utility\Utility.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate\Source\Utility\Utility.cs
-    projectPath: Assets\Visual Delegate\Source\Utility\Utility.cs
+  - path: Assets/Visual Event/Events/Base Event/HistoryEntry.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event/Events/Base
+      Event/HistoryEntry.cs
+    projectPath: Assets/Visual Event/Events/Base Event/HistoryEntry.cs
+    originalPath: 
+    indexStatus: 4
+    workTreeStatus: 3
+  - path: Assets/Visual Event/Events/Base Event/HistoryEntry.cs.meta
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event/Events/Base
+      Event/HistoryEntry.cs.meta
+    projectPath: Assets/Visual Event/Events/Base Event/HistoryEntry.cs.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets/Visual Event/Events/GenericEvents/GenericEvent.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event/Events/GenericEvents/GenericEvent.cs
+    projectPath: Assets/Visual Event/Events/GenericEvents/GenericEvent.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\ResponseTree.cs
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs
+  - path: Assets/Visual Event/Events/ImplementedEvents/IntEvent.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event/Events/ImplementedEvents/IntEvent.cs
+    projectPath: Assets/Visual Event/Events/ImplementedEvents/IntEvent.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event\EventResponse.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\EventResponse.cs
-    projectPath: Assets\Visual Event\EventResponse.cs
+  - path: Assets/Visual Event/Events/ImplementedEvents/VoidEvent.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event/Events/ImplementedEvents/VoidEvent.cs
+    projectPath: Assets/Visual Event/Events/ImplementedEvents/VoidEvent.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event\Events\Base Event\BaseEvent.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\Base Event\BaseEvent.cs
-    projectPath: Assets\Visual Event\Events\Base Event\BaseEvent.cs
+  - path: Library/APIUpdater/project-dependencies.graph
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/APIUpdater/project-dependencies.graph
+    projectPath: Library/APIUpdater/project-dependencies.graph
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event\Events\GenericEvents\GenericEvent.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\Events\GenericEvents\GenericEvent.cs
-    projectPath: Assets\Visual Event\Events\GenericEvents\GenericEvent.cs
+  - path: Library/ArtifactDB
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ArtifactDB
+    projectPath: Library/ArtifactDB
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event\EventSubscriber.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\EventSubscriber.cs
-    projectPath: Assets\Visual Event\EventSubscriber.cs
+  - path: Library/CurrentLayout-default.dwlt
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/CurrentLayout-default.dwlt
+    projectPath: Library/CurrentLayout-default.dwlt
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\ArtifactDB
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ArtifactDB
-    projectPath: Library\ArtifactDB
+  - path: Library/EditorUserBuildSettings.asset
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/EditorUserBuildSettings.asset
+    projectPath: Library/EditorUserBuildSettings.asset
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\gfu\cache\gitlocks.yaml
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\gitlocks.yaml
-    projectPath: Library\gfu\cache\gitlocks.yaml
+  - path: Library/gfu/cache/gitlocks.yaml
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/gfu/cache/gitlocks.yaml
+    projectPath: Library/gfu/cache/gitlocks.yaml
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\gfu\cache\gitstatusentries.yaml
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\gitstatusentries.yaml
-    projectPath: Library\gfu\cache\gitstatusentries.yaml
+  - path: Library/gfu/cache/gitstatusentries.yaml
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/gfu/cache/gitstatusentries.yaml
+    projectPath: Library/gfu/cache/gitstatusentries.yaml
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\gfu\cache\gittrackingstatus.yaml
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\gittrackingstatus.yaml
-    projectPath: Library\gfu\cache\gittrackingstatus.yaml
+  - path: Library/gfu/cache/gittrackingstatus.yaml
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/gfu/cache/gittrackingstatus.yaml
+    projectPath: Library/gfu/cache/gittrackingstatus.yaml
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\gfu\cache\repoinfo.yaml
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\repoinfo.yaml
-    projectPath: Library\gfu\cache\repoinfo.yaml
+  - path: Library/gfu/cache/repoinfo.yaml
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/gfu/cache/repoinfo.yaml
+    projectPath: Library/gfu/cache/repoinfo.yaml
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Assembly-CSharp.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Assembly-CSharp.dll
-    projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/CHANGELOG.md
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/CHANGELOG.md
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/CHANGELOG.md
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
-    projectPath: Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/AsyncSearchSession.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/AsyncSearchSession.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/AsyncSearchSession.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\SourceAssetDB
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\SourceAssetDB
-    projectPath: Library\SourceAssetDB
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/com.unity.quicksearch.asmdef
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/com.unity.quicksearch.asmdef
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/com.unity.quicksearch.asmdef
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FilterWindow.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FilterWindow.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FilterWindow.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FuzzySearch.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FuzzySearch.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/FuzzySearch.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Icons.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ADBIndex.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ADBIndex.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ADBIndex.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetIndexer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetIndexer.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetIndexer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetPostprocessorIndexer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetPostprocessorIndexer.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetPostprocessorIndexer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetStoreProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetStoreProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/AssetStoreProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Calculator.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Calculator.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Calculator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Eval.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Eval.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/Eval.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/FileSearchIndexer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/FileSearchIndexer.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/FileSearchIndexer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/HelpProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/HelpProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/HelpProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/LogProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/LogProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/LogProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/MenuProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/MenuProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/MenuProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/OnlineSearchProviders.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/OnlineSearchProviders.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/OnlineSearchProviders.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/PackageManagerProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/PackageManagerProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/PackageManagerProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ResourceProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ResourceProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/ResourceProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SceneProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SceneProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SceneProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SearchIndexer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SearchIndexer.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SearchIndexer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SettingsProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SettingsProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/SettingsProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/StaticMethodProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/StaticMethodProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/StaticMethodProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/UIElementsSearchProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/UIElementsSearchProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Providers/UIElementsSearchProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/DataWalkerQueryHandler.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/DataWalkerQueryHandler.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/DataWalkerQueryHandler.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryEngine.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryEngine.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryEngine.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperations.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperations.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperations.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperators.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperators.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilterOperators.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilters.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilters.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryFilters.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraph.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraph.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraph.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraphViewer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraphViewer.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryGraphViewer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryNodes.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryNodes.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QueryEngine/QueryNodes.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QuickSearch.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QuickSearch.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/QuickSearch.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/ResourceDescriptors.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/ResourceDescriptors.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/ResourceDescriptors.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAction.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAction.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAction.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAnalytics.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAnalytics.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchAnalytics.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchContext.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchContext.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchContext.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchFilter.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchFilter.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchFilter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchItem.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchItem.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchItem.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchProvider.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchProvider.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchProvider.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchService.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchService.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchService.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchSettings.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchSettings.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchUtils.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchUtils.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/SearchUtils.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/StyleSheets/Extensions/common.uss
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/StyleSheets/Extensions/common.uss
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/StyleSheets/Extensions/common.uss
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Utils.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Utils.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Editor/Utils.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/LICENSE.md
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/LICENSE.md
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/LICENSE.md
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/README.md
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/README.md
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/README.md
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/.tests.json
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/.tests.json
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/.tests.json
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/com.unity.quicksearch.tests.asmdef
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/com.unity.quicksearch.tests.asmdef
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/com.unity.quicksearch.tests.asmdef
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QueryEngineTests.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QueryEngineTests.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QueryEngineTests.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QuickSearchToolTests.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QuickSearchToolTests.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/QuickSearchToolTests.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchIndexerTests.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchIndexerTests.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchIndexerTests.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchServiceTests.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchServiceTests.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/SearchServiceTests.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/UtilsTests.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/UtilsTests.cs
+    projectPath: Library/PackageCache/com.unity.quicksearch@1.5.2/Tests/Editor/UtilsTests.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/.gitlab-ci.yml
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/.gitlab-ci.yml
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/.gitlab-ci.yml
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/CHANGELOG.md
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/CHANGELOG.md
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/CHANGELOG.md
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Editor Resources/Shaders/TMP_Properties.cginc
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Editor
+      Resources/Shaders/TMP_Properties.cginc
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Editor Resources/Shaders/TMP_Properties.cginc
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Editor Resources/Shaders/TMP_SDF
+      Internal SSD.shader
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Editor
+      Resources/Shaders/TMP_SDF Internal SSD.shader
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Editor Resources/Shaders/TMP_SDF
+      Internal SSD.shader
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/LICENSE.md
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/LICENSE.md
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/LICENSE.md
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/package.json
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/package.json
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/package.json
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/PackageConversionData.json
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/PackageConversionData.json
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/PackageConversionData.json
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/PackageConversionData_Assets.json
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/PackageConversionData_Assets.json
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/PackageConversionData_Assets.json
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/DropdownOptionListDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/DropdownOptionListDrawer.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/DropdownOptionListDrawer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/GlyphInfoDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/GlyphInfoDrawer.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/GlyphInfoDrawer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/GlyphMetricsPropertyDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/GlyphMetricsPropertyDrawer.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/GlyphMetricsPropertyDrawer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/GlyphRectPropertyDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/GlyphRectPropertyDrawer.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/GlyphRectPropertyDrawer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_BaseEditorPanel.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_BaseEditorPanel.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_BaseEditorPanel.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_BaseShaderGUI.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_BaseShaderGUI.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_BaseShaderGUI.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_BitmapShaderGUI.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_BitmapShaderGUI.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_BitmapShaderGUI.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_CharacterPropertyDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_CharacterPropertyDrawer.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_CharacterPropertyDrawer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ColorGradientAssetMenu.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ColorGradientAssetMenu.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ColorGradientAssetMenu.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ColorGradientEditor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ColorGradientEditor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ColorGradientEditor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_DropdownEditor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_DropdownEditor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_DropdownEditor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_EditorCoroutine.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_EditorCoroutine.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_EditorCoroutine.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_EditorPanel.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_EditorPanel.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_EditorPanel.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_EditorUtility.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_EditorUtility.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_EditorUtility.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_FontAsset_CreationMenu.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_FontAsset_CreationMenu.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_FontAsset_CreationMenu.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_FontAssetEditor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_FontAssetEditor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_FontAssetEditor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_GlyphPairAdjustmentRecordPropertyDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_GlyphPairAdjustmentRecordPropertyDrawer.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_GlyphPairAdjustmentRecordPropertyDrawer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_GlyphPropertyDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_GlyphPropertyDrawer.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_GlyphPropertyDrawer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_InputFieldEditor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_InputFieldEditor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_InputFieldEditor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_MeshRendererEditor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_MeshRendererEditor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_MeshRendererEditor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_PackageUtilities.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_PackageUtilities.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_PackageUtilities.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_PostBuildProcessHandler.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_PostBuildProcessHandler.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_PostBuildProcessHandler.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ProjectTextSettings.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ProjectTextSettings.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ProjectTextSettings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ResourcesLoader.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ResourcesLoader.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_ResourcesLoader.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SDFShaderGUI.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SDFShaderGUI.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SDFShaderGUI.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SerializedPropertyHolder.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SerializedPropertyHolder.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SerializedPropertyHolder.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SettingsEditor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SettingsEditor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SettingsEditor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteAssetEditor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteAssetEditor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteAssetEditor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteAssetImporter.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteAssetImporter.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteAssetImporter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteAssetMenu.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteAssetMenu.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteAssetMenu.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteCharacterPropertyDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteCharacterPropertyDrawer.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteCharacterPropertyDrawer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteGlyphPropertyDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteGlyphPropertyDrawer.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SpriteGlyphPropertyDrawer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_StyleAssetMenu.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_StyleAssetMenu.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_StyleAssetMenu.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_StyleSheetEditor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_StyleSheetEditor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_StyleSheetEditor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SubMesh_Editor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SubMesh_Editor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SubMesh_Editor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SubMeshUI_Editor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SubMeshUI_Editor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_SubMeshUI_Editor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_TextAlignmentDrawer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_TextAlignmentDrawer.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_TextAlignmentDrawer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_UiEditorPanel.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_UiEditorPanel.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_UiEditorPanel.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_UIStyleManager.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_UIStyleManager.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMP_UIStyleManager.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_ContextMenus.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_ContextMenus.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_ContextMenus.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_CreateObjectMenu.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_CreateObjectMenu.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_CreateObjectMenu.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_EditorShaderUtilities.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_EditorShaderUtilities.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_EditorShaderUtilities.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_FontAssetCreatorWindow.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_FontAssetCreatorWindow.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_FontAssetCreatorWindow.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_FontPlugin.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_FontPlugin.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_FontPlugin.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_SortingLayerHelper.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_SortingLayerHelper.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_SortingLayerHelper.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_TextContainerEditor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_TextContainerEditor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_TextContainerEditor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_TexturePostProcessor.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_TexturePostProcessor.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/TMPro_TexturePostProcessor.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/Unity.TextMeshPro.Editor.asmdef
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/Unity.TextMeshPro.Editor.asmdef
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Editor/Unity.TextMeshPro.Editor.asmdef
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/AssemblyInfo.cs.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/AssemblyInfo.cs.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/AssemblyInfo.cs.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/FastAction.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/FastAction.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/FastAction.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/MaterialReferenceManager.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/MaterialReferenceManager.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/MaterialReferenceManager.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TextContainer.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TextContainer.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TextContainer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TextMeshPro.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TextMeshPro.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TextMeshPro.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TextMeshProUGUI.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TextMeshProUGUI.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TextMeshProUGUI.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Asset.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Asset.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Asset.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Character.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Character.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Character.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_CharacterInfo.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_CharacterInfo.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_CharacterInfo.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ColorGradient.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ColorGradient.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ColorGradient.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_CoroutineTween.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_CoroutineTween.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_CoroutineTween.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_DefaultControls.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_DefaultControls.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_DefaultControls.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Dropdown.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Dropdown.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Dropdown.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_EditorResourceManager.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_EditorResourceManager.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_EditorResourceManager.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontAssetCommon.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontAssetCommon.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontAssetCommon.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontAssetUtilities.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontAssetUtilities.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontAssetUtilities.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontFeaturesCommon.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontFeaturesCommon.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontFeaturesCommon.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontFeatureTable.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontFeatureTable.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_FontFeatureTable.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_InputField.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_InputField.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_InputField.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_InputValidator.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_InputValidator.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_InputValidator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_LineInfo.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_LineInfo.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_LineInfo.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ListPool.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ListPool.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ListPool.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_MaterialManager.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_MaterialManager.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_MaterialManager.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_MeshInfo.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_MeshInfo.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_MeshInfo.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ObjectPool.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ObjectPool.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ObjectPool.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_PackageResourceImporter.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_PackageResourceImporter.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_PackageResourceImporter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_RichTextTagsCommon.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_RichTextTagsCommon.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_RichTextTagsCommon.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_RichTextTagStack.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_RichTextTagStack.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_RichTextTagStack.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ScrollbarEventHandler.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ScrollbarEventHandler.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ScrollbarEventHandler.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SelectionCaret.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SelectionCaret.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SelectionCaret.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Settings.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Settings.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Settings.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ShaderUtilities.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ShaderUtilities.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_ShaderUtilities.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Sprite.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Sprite.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Sprite.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteAnimator.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteAnimator.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteAnimator.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteAsset.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteAsset.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteAsset.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteAssetImportFormats.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteAssetImportFormats.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteAssetImportFormats.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteCharacter.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteCharacter.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteCharacter.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteGlyph.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteGlyph.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SpriteGlyph.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Style.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Style.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Style.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_StyleSheet.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_StyleSheet.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_StyleSheet.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SubMesh.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SubMesh.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SubMesh.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SubMeshUI.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SubMeshUI.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_SubMeshUI.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_Text.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextElement.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextElement.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextElement.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextElement_Legacy.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextElement_Legacy.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextElement_Legacy.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextInfo.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextInfo.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextInfo.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextParsingUtilities.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextParsingUtilities.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextParsingUtilities.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextUtilities.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextUtilities.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_TextUtilities.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_UpdateManager.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_UpdateManager.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_UpdateManager.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_UpdateRegistery.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_UpdateRegistery.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMP_UpdateRegistery.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_EventManager.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_EventManager.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_EventManager.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_ExtensionMethods.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_ExtensionMethods.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_ExtensionMethods.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_MeshUtilities.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_MeshUtilities.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_MeshUtilities.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_Private.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_Private.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_Private.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_UGUI_Private.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_UGUI_Private.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/TMPro_UGUI_Private.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/Unity.TextMeshPro.asmdef
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/Unity.TextMeshPro.asmdef
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Scripts/Runtime/Unity.TextMeshPro.asmdef
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Editor/TMP_EditorTests.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Editor/TMP_EditorTests.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Editor/TMP_EditorTests.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Editor/Unity.TextMeshPro.Editor.Tests.asmdef
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Editor/Unity.TextMeshPro.Editor.Tests.asmdef
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Editor/Unity.TextMeshPro.Editor.Tests.asmdef
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Runtime/TMP_RuntimeTests.cs
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Runtime/TMP_RuntimeTests.cs
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Runtime/TMP_RuntimeTests.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Runtime/Unity.TextMeshPro.Tests.asmdef
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Runtime/Unity.TextMeshPro.Tests.asmdef
+    projectPath: Library/PackageCache/com.unity.textmeshpro@2.0.1/Tests/Runtime/Unity.TextMeshPro.Tests.asmdef
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/ScriptAssemblies/Assembly-CSharp.dll
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/Assembly-CSharp.dll
+    projectPath: Library/ScriptAssemblies/Assembly-CSharp.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll
+    projectPath: Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/ScriptAssemblies/com.unity.quicksearch.dll
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/com.unity.quicksearch.dll
+    projectPath: Library/ScriptAssemblies/com.unity.quicksearch.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
+    projectPath: Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/ScriptAssemblies/Unity.TextMeshPro.dll
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/Unity.TextMeshPro.dll
+    projectPath: Library/ScriptAssemblies/Unity.TextMeshPro.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+    projectPath: Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/ScriptAssemblies/UnityEditor.TestRunner.dll
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/UnityEditor.TestRunner.dll
+    projectPath: Library/ScriptAssemblies/UnityEditor.TestRunner.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/ScriptAssemblies/UnityEditor.UI.dll
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/UnityEditor.UI.dll
+    projectPath: Library/ScriptAssemblies/UnityEditor.UI.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/ScriptAssemblies/UnityEngine.TestRunner.dll
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/UnityEngine.TestRunner.dll
+    projectPath: Library/ScriptAssemblies/UnityEngine.TestRunner.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/ScriptAssemblies/UnityEngine.UI.dll
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/UnityEngine.UI.dll
+    projectPath: Library/ScriptAssemblies/UnityEngine.UI.dll
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/ShaderCache/EditorEncounteredVariants
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ShaderCache/EditorEncounteredVariants
+    projectPath: Library/ShaderCache/EditorEncounteredVariants
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library/SourceAssetDB
+    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/SourceAssetDB
+    projectPath: Library/SourceAssetDB
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

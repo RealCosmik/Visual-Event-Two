@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 namespace VisualDelegates.Events
 {
-    public abstract class BaseEvent : ScriptableObject
+    public abstract class BaseEvent : ScriptableObject,ISerializationCallbackReceiver
     {
         [SerializeField] string EventNote;
         [System.NonSerialized] public List<List<EventResponse>> AllResponses = new List<List<EventResponse>>();
-    
+        private protected List<HistoryEntry> eventHistory = new List<HistoryEntry>();
+        private protected System.Action onHistoryUpdate;
+        [SerializeField] public int testcounter;
         public void Subscribe(EventResponse response, int priortiy)
         {
                 var count = AllResponses.Count;
@@ -37,6 +39,25 @@ namespace VisualDelegates.Events
         {
             AllResponses[priority].RemoveAt(subscriptionIndex);
         }
+        void ISerializationCallbackReceiver.OnAfterDeserialize() { }
+        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        {
+            if (!Application.isEditor)
+            {
+                Clear();
+            }
+        }
+        private protected abstract void Clear();
         private protected abstract void EditorInvoke();
+        private protected  void UpdateEventHistory(Object sender, params object[] args)
+        {
+            if (Application.isEditor)
+            {
+                eventHistory = eventHistory ?? new List<HistoryEntry>();
+                eventHistory.Add(new HistoryEntry(sender?.GetInstanceID() ?? -999, args));
+                Debug.Log(onHistoryUpdate == null);
+                onHistoryUpdate?.Invoke();
+            }
+        }
     }
 }
