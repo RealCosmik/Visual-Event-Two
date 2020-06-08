@@ -8,10 +8,13 @@ namespace VisualDelegates.Events.Editor
     public class HistoryTree : TreeView
     {
         BaseEvent currentEvent;
-        public HistoryTree(TreeViewState state, MultiColumnHeader header,BaseEvent newEvent): base(state,header)
+        int capacity;
+        public string activeTrace { get; private set; }
+        public HistoryTree(TreeViewState state, MultiColumnHeader header,BaseEvent newEvent,int maxentries): base(state,header)
         {
             this.useScrollView = true;
             currentEvent = newEvent;
+            capacity = maxentries;
             Reload();
         }
         protected override TreeViewItem BuildRoot()
@@ -22,12 +25,15 @@ namespace VisualDelegates.Events.Editor
             SetupDepthsFromParentsAndChildren(root);
             return root;
         }
-        private void BuildHistoryTree(TreeViewItem root)
+        protected override void SingleClickedItem(int id)
         {
+            activeTrace = (FindItem(id, rootItem) as HistoryTreeElement).currentEntry.entryTrace;
+        }
+        private void BuildHistoryTree(TreeViewItem root)
+        { 
             BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField;
             var current_history = typeof(BaseEvent).GetField("eventHistory", flags).GetValue(currentEvent) as List<HistoryEntry>;
-            var entry_count = current_history.Count;
-            for (int i = 0; i < entry_count; i++)
+            for (int i = 0; i < capacity&&i<current_history.Count; i++)
                 root.AddChild(new HistoryTreeElement(current_history[i]) { id = i });
         }
         protected override void RowGUI(RowGUIArgs args)
@@ -67,18 +73,18 @@ namespace VisualDelegates.Events.Editor
                 new MultiColumnHeaderState.Column()
                 {
                     headerContent=new GUIContent("Sender"),
-                    width=100,
-                    minWidth=100,
-                    maxWidth=150,
+                    width=50,
+                    minWidth=50,
+                    maxWidth=100,
                     autoResize=true,
                     headerTextAlignment=TextAlignment.Center
                 },
                  new MultiColumnHeaderState.Column()
                 {
                     headerContent=new GUIContent("Data"),
-                    width=300,
-                    minWidth=100,
-                    maxWidth=500,
+                    width=50,
+                    minWidth=50,
+                    maxWidth=250,
                     autoResize=true,
                     headerTextAlignment=TextAlignment.Center
                 },

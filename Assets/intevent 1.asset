@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: intevent 1
   m_EditorClassIdentifier: 
   EventNote: 
-  argument1: 0
+  isinvoke: 0
+  argument1: -17
   argument2: 0

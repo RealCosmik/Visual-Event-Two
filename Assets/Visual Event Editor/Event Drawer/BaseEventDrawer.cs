@@ -12,17 +12,19 @@ namespace VisualDelegates.Events.Editor
     [CustomEditor(typeof(BaseEvent), true)]
     class BaseEventDrawer : UnityEditor.Editor
     {
-        SuscriberTree responsetree;
-        HistoryTree historyTree;
         const string RESPONSE_FIELD_NAME = "responses";
         const string ARGUMENT = "argument";
         const string EVENT_DETAILS = "Event Details";
+        SuscriberTree responsetree;
+        HistoryTree historyTree;
         [SerializeField] bool detailsfolded = true;
-        [SerializeField] bool argumentfold = false;
-        TreeViewState responseState,historyState;
-        Type[] genericArguments;
-        Action editorInvocation,onhistory;
+        [SerializeField] bool debugfold, invocationfold, historyfold, argumentfold;
+        TreeViewState responseState;
+        int genericCount;
+        Action editorInvocation;
         int ticks;
+        [SerializeField] int mynum;
+        Vector2 scroll;
 
         private MultiColumnHeader GetEventCollumns()
         {
@@ -63,27 +65,23 @@ namespace VisualDelegates.Events.Editor
 
         private void OnEnable()
         {
-            genericArguments = target.GetType().BaseType.GenericTypeArguments;
+            genericCount = target.GetType().BaseType.GenericTypeArguments.Length;
             PopulateSubscribers();
             responseState = responseState ?? new TreeViewState();
             if ((target as BaseEvent).AllResponses.Count > 0)
                 responsetree = new SuscriberTree(responseState, GetEventCollumns(), target as BaseEvent);
 
             if (historyTree == null)
-            { 
-                historyTree = new HistoryTree(new TreeViewState(), HistoryTree.CreateHistoryHeader(), target as BaseEvent);
-               
-            }
+                historyTree = new HistoryTree(new TreeViewState(), HistoryTree.CreateHistoryHeader(), target as BaseEvent,
+                    serializedObject.FindProperty("historycapacity").intValue);
         }
         private void OnDisable()
         {
             responsetree = null;
             historyTree = null;
             ticks = 0;
-            onhistory -= ReloadHistoryTree;
         }
 
-      
         private float GetTreewidth()
         {
             float width = 0f;
@@ -118,26 +116,23 @@ namespace VisualDelegates.Events.Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
         }
 
-        private void DrawInvoke()
+
+        private void DrawDebuggingData()
         {
-            var argument_count = genericArguments.Length;
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.BeginVertical();
-            argumentfold = EditorGUILayout.BeginFoldoutHeaderGroup(argumentfold, "Arguments");
-            if (argumentfold)
-            {
-                EditorGUI.BeginChangeCheck();
-                for (int i = 0; i < argument_count; i++)
-                {
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty(ARGUMENT + (i + 1)));
-                }
-                if (EditorGUI.EndChangeCheck())
-                {
-                    serializedObject.ApplyModifiedProperties();
-                }
-            }
-            EditorGUILayout.EndVertical();
+
+            invocationfold = EditorGUILayout.BeginFoldoutHeaderGroup(invocationfold, "Test invocation");
+            if (invocationfold)
+                DrawTestInvocation();
             EditorGUILayout.EndFoldoutHeaderGroup();
+
+            historyfold = EditorGUILayout.BeginFoldoutHeaderGroup(historyfold, "Event History");
+            if (historyfold)
+                DrawEventHistory();
+            EditorGUILayout.EndFoldoutHeaderGroup();
+        }
+        private void DrawTestInvocation()
+        {
+            EditorGUI.indentLevel++;
             if (GUILayout.Button("Invoke"))
             {
                 if (editorInvocation == null)
@@ -149,50 +144,68 @@ namespace VisualDelegates.Events.Editor
                 }
                 editorInvocation.Invoke();
             }
+            EditorGUILayout.BeginVertical();
+            EditorGUI.BeginChangeCheck();
+            for (int i = 0; i < genericCount; i++)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty(ARGUMENT + (i + 1)));
+            }
+            if (EditorGUI.EndChangeCheck())
+            {
+                serializedObject.ApplyModifiedProperties();
+            }
+            EditorGUI.indentLevel--;
+            EditorGUILayout.EndVertical();
 
+
+        }
+        private void DrawEventHistory()
+        {
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.BeginVertical();
+            var capacityrect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth * .3f, EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, null));
+            EditorGUI.LabelField(capacityrect, new GUIContent("History Capacity"));
+            var valurect = capacityrect;
+            valurect.width *= .3f;
+            valurect.x += (valurect.width+40);
+            EditorGUI.BeginChangeCheck();
+            serializedObject.FindProperty("historycapacity").intValue= EditorGUI.IntField(valurect, serializedObject.FindProperty("historycapacity").intValue);
+            if (EditorGUI.EndChangeCheck())
+            {
+
+                if (serializedObject.FindProperty("historycapacity").intValue < 5)
+                    serializedObject.FindProperty("historycapacity").intValue = 5;
+                serializedObject.ApplyModifiedProperties();
+                historyTree?.Reload();
+            }
+            // EditorGUILayout.IntField("History capactity",25);
+            historyTree.OnGUI(GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth * .3f, 100f));
+            EditorGUILayout.EndVertical();
+            scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.Height(100f));
+            EditorGUILayout.TextArea(historyTree.activeTrace, GUILayout.ExpandHeight(true), GUILayout.Width(EditorGUIUtility.currentViewWidth * .65f));
+            EditorGUILayout.EndScrollView();
             EditorGUILayout.EndHorizontal();
 
 
-        }
-        private void DrawEventSenders()
-        {
-            if (onhistory == null)
+            if (EditorApplication.isPlaying)
             {
-                var fieldflag = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
-                onhistory = typeof(BaseEvent).GetField("onHistoryUpdate", fieldflag).GetValue(target) as Action;
-                Debug.Log(onhistory == null);
-                onhistory += ReloadHistoryTree;
-                Debug.Log(onhistory == null);
+                if ((target as BaseEvent).isinvoke)
+                {
+                    UnityEngine.Debug.Log("brooo");
+                    historyTree?.Reload();
+                    (target as BaseEvent).isinvoke = false;
+                }
             }
-            EditorGUILayout.BeginFoldoutHeaderGroup(true, "sender list");
-            EditorGUILayout.BeginVertical();
-            historyTree.OnGUI(GUILayoutUtility.GetRect(1, historyTree.totalHeight));
-            EditorGUILayout.EndVertical();
-            EditorGUILayout.EndFoldoutHeaderGroup();
-            Debug.Log(serializedObject.FindProperty("testcounter").intValue);
-            //if (EditorApplication.isPlaying)
-            //{
-            //    if (serializedObject.FindProperty("inv").boolValue)
-            //    {
-            //        Debug.Log("AYE");
-            //        serializedObject.FindProperty("inv").boolValue = false;
-            //    }
-            //    else Debug.Log("no way");
-            //}
-        }
-        private void ReloadHistoryTree()
-        {
-            Debug.Log("asfia");
-            historyTree?.Reload();
         }
 
         public override void OnInspectorGUI()
         {
             DrawNoteField();
-            DrawInvoke();
-            DrawEventSenders();
+            DrawDebuggingData();
             responsetree?.OnGUI(GUILayoutUtility.GetRect(GetTreewidth(), responsetree.totalHeight));
             autoreload();
+            mynum = EditorGUILayout.IntField(mynum);
         }
 
         private void PopulateSubscribers()

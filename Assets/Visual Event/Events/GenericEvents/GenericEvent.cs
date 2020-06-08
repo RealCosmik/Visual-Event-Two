@@ -4,9 +4,9 @@ namespace VisualDelegates.Events
     public abstract class GenericEvent<arg1> : BaseEvent
     {
         [SerializeField] internal arg1 argument1;
-        public void Invoke(arg1 arg1, UnityEngine.Object sender)
+        public virtual void Invoke(arg1 arg1, UnityEngine.Object sender)
         {
-            testcounter += 1;
+            isinvoke = true;
             var priorites = AllResponses.Count;
             for (int i = 0; i < priorites; i++)
             {
@@ -27,7 +27,7 @@ namespace VisualDelegates.Events
     {
         [SerializeField] internal Arg1 argument1;
         [SerializeField] internal Arg2 argument2;
-        public void Invoke(Arg1 arg1, Arg2 arg2, UnityEngine.Object sender)
+        public virtual void Invoke(Arg1 arg1, Arg2 arg2, UnityEngine.Object sender)
         {
             var priorites = AllResponses.Count;
             for (int i = 0; i < priorites; i++)
@@ -54,7 +54,7 @@ namespace VisualDelegates.Events
         [SerializeField] internal Arg1 argument1;
         [SerializeField] internal Arg2 argument2;
         [SerializeField] internal Arg3 argument3;
-        public void Invoke(Arg1 arg1, Arg2 arg2, Arg3 arg3, UnityEngine.Object sender)
+        public virtual void Invoke(Arg1 arg1, Arg2 arg2, Arg3 arg3, UnityEngine.Object sender)
         {
             var priorites = AllResponses.Count;
             for (int i = 0; i < priorites; i++)
@@ -82,7 +82,7 @@ namespace VisualDelegates.Events
         [SerializeField] internal Arg2 argument2;
         [SerializeField] internal Arg3 argument3;
         [SerializeField] internal Arg4 argument4;
-        public void Invoke(Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, UnityEngine.Object sender)
+        public virtual void Invoke(Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, UnityEngine.Object sender)
         {
             var priorites = AllResponses.Count;
             for (int i = 0; i < priorites; i++)
@@ -115,7 +115,7 @@ namespace VisualDelegates.Events
         [SerializeField] internal Arg3 argument3;
         [SerializeField] internal Arg4 argument4;
         [SerializeField] internal Arg5 argument5;
-        public void Invoke(Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, UnityEngine.Object sender)
+        public virtual void Invoke(Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, UnityEngine.Object sender)
         {
             var priorites = AllResponses.Count;
             for (int i = 0; i < priorites; i++)
