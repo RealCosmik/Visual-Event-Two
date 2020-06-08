@@ -13,160 +13,147 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-06-08T01:26:44.951-04:00
-  initializedAtString: 2020-06-07T20:40:27.865-04:00
+  lastUpdatedAtString: 2020-06-08T03:30:23.443-04:00
+  initializedAtString: 2020-06-08T01:34:17.622-04:00
   entries:
-  - path: Assets/intevent 1.asset
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/intevent 1.asset
-    projectPath: Assets/intevent 1.asset
+  - path: Assembly-CSharp.csproj
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assembly-CSharp.csproj
+    projectPath: Assembly-CSharp.csproj
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets/intevent.asset
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/intevent.asset
-    projectPath: Assets/intevent.asset
+  - path: Assembly-CSharp-Editor-firstpass.csproj
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assembly-CSharp-Editor-firstpass.csproj
+    projectPath: Assembly-CSharp-Editor-firstpass.csproj
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets/Scenes/Pong.unity
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Scenes/Pong.unity
-    projectPath: Assets/Scenes/Pong.unity
+  - path: Assets\intevent.asset
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\intevent.asset
+    projectPath: Assets\intevent.asset
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets/Visual Event Editor/Event Drawer/BaseEventDrawer.cs
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event Editor/Event
-      Drawer/BaseEventDrawer.cs
-    projectPath: Assets/Visual Event Editor/Event Drawer/BaseEventDrawer.cs
+  - path: Assets\Visual Event Editor\Event Drawer\BaseEventDrawer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Event Editor\Event Drawer\BaseEventDrawer.cs
+    projectPath: Assets\Visual Event Editor\Event Drawer\BaseEventDrawer.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets/Visual Event Editor/Event Drawer/History Tree Data/HistoryTree.cs
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event Editor/Event
-      Drawer/History Tree Data/HistoryTree.cs
-    projectPath: Assets/Visual Event Editor/Event Drawer/History Tree Data/HistoryTree.cs
+  - path: Assets\Visual Event Editor\Event Drawer\History Tree Data\HistoryTree.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Event Editor\Event Drawer\History Tree Data\HistoryTree.cs
+    projectPath: Assets\Visual Event Editor\Event Drawer\History Tree Data\HistoryTree.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets/Visual Event/Events/Base Event/BaseEvent.cs
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event/Events/Base
-      Event/BaseEvent.cs
-    projectPath: Assets/Visual Event/Events/Base Event/BaseEvent.cs
+  - path: Assets\Visual Event\Events\Base Event\BaseEvent.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Event\Events\Base Event\BaseEvent.cs
+    projectPath: Assets\Visual Event\Events\Base Event\BaseEvent.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets/Visual Event/Events/Base Event/HistoryEntry.cs
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event/Events/Base
-      Event/HistoryEntry.cs
-    projectPath: Assets/Visual Event/Events/Base Event/HistoryEntry.cs
+  - path: Library\APIUpdater\project-dependencies.graph
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\APIUpdater\project-dependencies.graph
+    projectPath: Library\APIUpdater\project-dependencies.graph
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets/Visual Event/Events/GenericEvents/GenericEvent.cs
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Assets/Visual Event/Events/GenericEvents/GenericEvent.cs
-    projectPath: Assets/Visual Event/Events/GenericEvents/GenericEvent.cs
+  - path: Library\ArtifactDB
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ArtifactDB
+    projectPath: Library\ArtifactDB
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/ArtifactDB
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ArtifactDB
-    projectPath: Library/ArtifactDB
+  - path: Library\gfu\cache\gitlocks.yaml
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\gitlocks.yaml
+    projectPath: Library\gfu\cache\gitlocks.yaml
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/CurrentLayout-default.dwlt
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/CurrentLayout-default.dwlt
-    projectPath: Library/CurrentLayout-default.dwlt
+  - path: Library\gfu\cache\gitstatusentries.yaml
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\gitstatusentries.yaml
+    projectPath: Library\gfu\cache\gitstatusentries.yaml
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/gfu/cache/gitlocks.yaml
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/gfu/cache/gitlocks.yaml
-    projectPath: Library/gfu/cache/gitlocks.yaml
+  - path: Library\gfu\cache\gittrackingstatus.yaml
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\gittrackingstatus.yaml
+    projectPath: Library\gfu\cache\gittrackingstatus.yaml
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/gfu/cache/gitstatusentries.yaml
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/gfu/cache/gitstatusentries.yaml
-    projectPath: Library/gfu/cache/gitstatusentries.yaml
+  - path: Library\gfu\cache\repoinfo.yaml
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\repoinfo.yaml
+    projectPath: Library\gfu\cache\repoinfo.yaml
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/gfu/cache/gittrackingstatus.yaml
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/gfu/cache/gittrackingstatus.yaml
-    projectPath: Library/gfu/cache/gittrackingstatus.yaml
+  - path: Library\ScriptAssemblies\Assembly-CSharp.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Assembly-CSharp.dll
+    projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/gfu/cache/repoinfo.yaml
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/gfu/cache/repoinfo.yaml
-    projectPath: Library/gfu/cache/repoinfo.yaml
+  - path: Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
+    projectPath: Library\ScriptAssemblies\Assembly-CSharp-Editor-firstpass.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/ScriptAssemblies/Assembly-CSharp.dll
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/Assembly-CSharp.dll
-    projectPath: Library/ScriptAssemblies/Assembly-CSharp.dll
+  - path: Library\ScriptAssemblies\com.unity.quicksearch.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\com.unity.quicksearch.dll
+    projectPath: Library\ScriptAssemblies\com.unity.quicksearch.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll
-    projectPath: Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll
+  - path: Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
+    projectPath: Library\ScriptAssemblies\Unity.CollabProxy.Editor.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/ScriptAssemblies/com.unity.quicksearch.dll
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/com.unity.quicksearch.dll
-    projectPath: Library/ScriptAssemblies/com.unity.quicksearch.dll
+  - path: Library\ScriptAssemblies\Unity.TextMeshPro.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.TextMeshPro.dll
+    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
-    projectPath: Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll
+  - path: Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
+    projectPath: Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/ScriptAssemblies/Unity.TextMeshPro.dll
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/Unity.TextMeshPro.dll
-    projectPath: Library/ScriptAssemblies/Unity.TextMeshPro.dll
+  - path: Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEditor.TestRunner.dll
+    projectPath: Library\ScriptAssemblies\UnityEditor.TestRunner.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
-    projectPath: Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+  - path: Library\ScriptAssemblies\UnityEditor.UI.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEditor.UI.dll
+    projectPath: Library\ScriptAssemblies\UnityEditor.UI.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/ScriptAssemblies/UnityEditor.TestRunner.dll
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/UnityEditor.TestRunner.dll
-    projectPath: Library/ScriptAssemblies/UnityEditor.TestRunner.dll
+  - path: Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEngine.TestRunner.dll
+    projectPath: Library\ScriptAssemblies\UnityEngine.TestRunner.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/ScriptAssemblies/UnityEditor.UI.dll
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/UnityEditor.UI.dll
-    projectPath: Library/ScriptAssemblies/UnityEditor.UI.dll
+  - path: Library\ScriptAssemblies\UnityEngine.UI.dll
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\ScriptAssemblies\UnityEngine.UI.dll
+    projectPath: Library\ScriptAssemblies\UnityEngine.UI.dll
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library/ScriptAssemblies/UnityEngine.TestRunner.dll
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/UnityEngine.TestRunner.dll
-    projectPath: Library/ScriptAssemblies/UnityEngine.TestRunner.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library/ScriptAssemblies/UnityEngine.UI.dll
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/ScriptAssemblies/UnityEngine.UI.dll
-    projectPath: Library/ScriptAssemblies/UnityEngine.UI.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library/SourceAssetDB
-    fullPath: /Users/mike/Desktop/Visual-Event-Two/Library/SourceAssetDB
-    projectPath: Library/SourceAssetDB
+  - path: Library\SourceAssetDB
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\SourceAssetDB
+    projectPath: Library\SourceAssetDB
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

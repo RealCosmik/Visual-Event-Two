@@ -23,7 +23,6 @@ namespace VisualDelegates.Events.Editor
         int genericCount;
         Action editorInvocation;
         int ticks;
-        [SerializeField] int mynum;
         Vector2 scroll;
 
         private MultiColumnHeader GetEventCollumns()
@@ -90,7 +89,7 @@ namespace VisualDelegates.Events.Editor
             return width;
         }
         private void autoreload()
-        {
+        { 
             if (ticks != 5)
             {
                 ticks++;
@@ -170,20 +169,20 @@ namespace VisualDelegates.Events.Editor
             valurect.width *= .3f;
             valurect.x += (valurect.width+40);
             EditorGUI.BeginChangeCheck();
-            serializedObject.FindProperty("historycapacity").intValue= EditorGUI.IntField(valurect, serializedObject.FindProperty("historycapacity").intValue);
+            var historyprop = serializedObject.FindProperty("historycapacity");
+            historyprop.intValue = EditorGUI.IntField(valurect, historyprop.intValue);
             if (EditorGUI.EndChangeCheck())
             {
-
-                if (serializedObject.FindProperty("historycapacity").intValue < 5)
-                    serializedObject.FindProperty("historycapacity").intValue = 5;
+                if (historyprop.intValue < 5)
+                    historyprop.intValue = 5;
                 serializedObject.ApplyModifiedProperties();
-                historyTree?.Reload();
+                historyTree?.Reload(); 
             }
             // EditorGUILayout.IntField("History capactity",25);
-            historyTree.OnGUI(GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth * .3f, 100f));
-            EditorGUILayout.EndVertical();
-            scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.Height(100f));
-            EditorGUILayout.TextArea(historyTree.activeTrace, GUILayout.ExpandHeight(true), GUILayout.Width(EditorGUIUtility.currentViewWidth * .65f));
+            historyTree?.OnGUI(GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth * .3f, 100f));
+            EditorGUILayout.EndVertical();  
+            scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.Height(100f), GUILayout.Width(EditorGUIUtility.currentViewWidth * .6f));
+            EditorGUILayout.TextArea(historyTree.activeTrace, GUILayout.ExpandHeight(true),GUILayout.ExpandWidth(true));
             EditorGUILayout.EndScrollView();
             EditorGUILayout.EndHorizontal();
 
@@ -192,7 +191,6 @@ namespace VisualDelegates.Events.Editor
             {
                 if ((target as BaseEvent).isinvoke)
                 {
-                    UnityEngine.Debug.Log("brooo");
                     historyTree?.Reload();
                     (target as BaseEvent).isinvoke = false;
                 }
@@ -200,12 +198,11 @@ namespace VisualDelegates.Events.Editor
         }
 
         public override void OnInspectorGUI()
-        {
+        { 
             DrawNoteField();
             DrawDebuggingData();
             responsetree?.OnGUI(GUILayoutUtility.GetRect(GetTreewidth(), responsetree.totalHeight));
             autoreload();
-            mynum = EditorGUILayout.IntField(mynum);
         }
 
         private void PopulateSubscribers()

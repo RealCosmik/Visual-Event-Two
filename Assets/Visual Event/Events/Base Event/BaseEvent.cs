@@ -18,7 +18,6 @@ namespace VisualDelegates.Events
                 int delta = priortiy - AllResponses.Count;
                 for (int i = 0; i <= delta; i++)
                 {
-                    Debug.Log(i);
                     AllResponses.Add(new List<EventResponse>());
                 }
                 //  Debug.LogError("added");

@@ -10,7 +10,7 @@ namespace VisualDelegates.Events.Editor
         BaseEvent currentEvent;
         int capacity;
         public string activeTrace { get; private set; }
-        public HistoryTree(TreeViewState state, MultiColumnHeader header,BaseEvent newEvent,int maxentries): base(state,header)
+        public HistoryTree(TreeViewState state, MultiColumnHeader header, BaseEvent newEvent, int maxentries) : base(state, header)
         {
             this.useScrollView = true;
             currentEvent = newEvent;
@@ -20,8 +20,8 @@ namespace VisualDelegates.Events.Editor
         protected override TreeViewItem BuildRoot()
         {
             var root = new TreeViewItem(-1, -1, "root");
-            BuildHistoryTree(root);
-            root.AddChild(new TreeViewItem());
+            if (!BuildHistoryTree(root))
+                root.AddChild(new TreeViewItem());
             SetupDepthsFromParentsAndChildren(root);
             return root;
         }
@@ -29,12 +29,13 @@ namespace VisualDelegates.Events.Editor
         {
             activeTrace = (FindItem(id, rootItem) as HistoryTreeElement).currentEntry.entryTrace;
         }
-        private void BuildHistoryTree(TreeViewItem root)
-        { 
+        private bool BuildHistoryTree(TreeViewItem root)
+        {
             BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField;
             var current_history = typeof(BaseEvent).GetField("eventHistory", flags).GetValue(currentEvent) as List<HistoryEntry>;
-            for (int i = 0; i < capacity&&i<current_history.Count; i++)
+            for (int i = 0; i < capacity && i < current_history.Count; i++)
                 root.AddChild(new HistoryTreeElement(current_history[i]) { id = i });
+            return current_history.Count > 0;
         }
         protected override void RowGUI(RowGUIArgs args)
         {
@@ -46,7 +47,7 @@ namespace VisualDelegates.Events.Editor
                 else base.RowGUI(args);
             }
         }
-        private void DrawHistoricEntry(int Collumnindex,ref RowGUIArgs args)
+        private void DrawHistoricEntry(int Collumnindex, ref RowGUIArgs args)
         {
             var cellrect = args.GetCellRect(Collumnindex);
             HistoryTreeElement element = args.item as HistoryTreeElement;
@@ -54,14 +55,14 @@ namespace VisualDelegates.Events.Editor
             switch (Collumnindex)
             {
                 case 0:
-                        var sender_object = EditorUtility.InstanceIDToObject(element.currentEntry.SenderID);
-                        EditorGUI.ObjectField(cellrect, sender_object, typeof(UnityEngine.Object), true);
+                    var sender_object = EditorUtility.InstanceIDToObject(element.currentEntry.SenderID);
+                    EditorGUI.ObjectField(cellrect, sender_object, typeof(UnityEngine.Object), true);
                     break;
                 case 1:
                     var arguments = string.Join(",", element.currentEntry.entryData);
                     EditorGUI.LabelField(cellrect, arguments);
                     break;
-                default: 
+                default:
                     break;
             }
             GUI.enabled = true;
