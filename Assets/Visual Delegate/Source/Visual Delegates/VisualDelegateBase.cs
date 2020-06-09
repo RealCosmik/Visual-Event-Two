@@ -17,14 +17,15 @@ namespace VisualDelegates
         /// </summary>
         public void initialize()
         {
-            int tempListLength = m_calls.Count;
+            int tempListLength = m_calls?.Count ?? 0;
+            bool iseditor = Application.isEditor;
             for (int i = 0; i < tempListLength; i++)
             {
                 if (m_calls[i] != null && m_calls[i].delegateInstance != null && (!(m_calls[i] is RawRuntimeCall)))
                 {
                     AppendCallToEvent(m_calls[i]);
                 }
-                if (Application.isEditor && isinitialized && m_calls[i] is RawRuntimeCall)
+                if (iseditor && isinitialized && m_calls[i] is RawRuntimeCall)
                 {
                     AppendCallToEvent(m_calls[i]);
                 }

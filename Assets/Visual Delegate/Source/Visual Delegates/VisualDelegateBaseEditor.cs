@@ -48,7 +48,9 @@ namespace VisualDelegates
         private protected void InvokeInternalCall()
         {
             if (Application.isEditor)
+            {
                 m_internalcalls?.Invoke();
+            }
         }
     }
 }

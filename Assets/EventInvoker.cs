@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets
+﻿using UnityEngine;
+class EventInvoker : MonoBehaviour
 {
-    class EventInvoker
+    public VisualDelegates.Events.IntEvent myevent;
+    public KeyCode invokecode = KeyCode.E;
+    private void Update()
     {
+        if (Input.GetKeyDown(invokecode))
+        {
+            Debug.Log("invok!");
+            myevent.Invoke(UnityEngine.Random.Range(0, 999), this);
+        }
     }
 }

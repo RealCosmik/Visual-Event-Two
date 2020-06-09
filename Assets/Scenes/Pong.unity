@@ -121,190 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &26402229
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 26402231}
-  - component: {fileID: 26402230}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &26402230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26402229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36daa77921fe6fa408e6c6586762f35c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Invoke_key: 32
-  testdelegate:
-    m_calls: []
-  unity:
-    m_PersistentCalls:
-      m_Calls: []
-  PRIVATEFIELD: 0
-  vecfield: {x: 1, y: 1, z: 1}
-  mynum: 0
-  mymonotest: {fileID: 0}
-  ExampleSwitch: 0
-  idk: 0
-  input: 0
-  references:
-    version: 1
---- !u!4 &26402231
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26402229}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 148.375, y: 234, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &139616506
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 139616508}
-  - component: {fileID: 139616507}
-  - component: {fileID: 139616509}
-  m_Layer: 0
-  m_Name: GameObject (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &139616507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139616506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36daa77921fe6fa408e6c6586762f35c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Invoke_key: 32
-  testdelegate:
-    m_calls:
-    - id: 0
-  unity:
-    m_PersistentCalls:
-      m_Calls: []
-  PRIVATEFIELD: 0
-  vecfield: {x: 1, y: 1, z: 1}
-  mynum: 0
-  mymonotest: {fileID: 0}
-  ExampleSwitch: 0
-  idk: 0
-  input: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: RawCall, ns: VisualDelegates, asm: VisualDelegate}
-      data:
-        m_target: {fileID: 139616509}
-        methodData:
-        - 16
-        - rootPosition
-        m_isYieldableCall: 0
-        haserror: 0
-        serializationError: 0
-        creationMethod: createPropertyCall
-        m_arguments:
-        - assemblyQualifiedArgumentName: UnityEngine.Vector3, UnityEngine.CoreModule,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          FullArgumentName: UnityEngine.Vector3
-          objectValue: {fileID: 0}
-          m_objecthasvalue: 0
-          stringValue: 
-          _x1: 0
-          _x2: 0
-          _y1: 0
-          _y2: 0
-          _z1: 0
-          _z2: 0
-          longValue: 0
-          doubleValue: 0
-          animationCurveValue:
-            serializedVersion: 2
-            m_Curve: []
-            m_PreInfinity: 0
-            m_PostInfinity: 0
-            m_RotationOrder: 0
-          UseReference: 0
-          hasCustomType: 0
-          call_Reference:
-            m_target: {fileID: 0}
-            methodData: []
-            m_isYieldableCall: 0
-            haserror: 0
-            serializationError: 0
-            m_isvaluetype: 0
-            isparentargstring: 0
-            m_isDelegate: 0
-            willdeseralize: 0
-        m_isDynamic: 0
-        m_runtime: 0
-        TargetType: 
---- !u!4 &139616508
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139616506}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 148.375, y: 234, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &139616509
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139616506}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &499735612
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +455,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &1475087113
+--- !u!1 &946319733
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -647,52 +463,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1475087115}
-  - component: {fileID: 1475087114}
+  - component: {fileID: 946319735}
+  - component: {fileID: 946319734}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1475087114
+--- !u!114 &946319734
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1475087113}
+  m_GameObject: {fileID: 946319733}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4df6af7b14bf7d40976400f41517bd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 4141977ddf1aca249b6946fe5107dfa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  responses:
-  - response:
-      id: 0
-    currentEvent: {fileID: 11400000, guid: 3101bbe43efc7f0479e8ab3d84ef7102, type: 2}
-    priority: 1
-    isActive: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: intpub, ns: , asm: Assembly-CSharp}
-      data:
-        m_calls: []
---- !u!4 &1475087115
+  myevent: {fileID: 11400000, guid: 3101bbe43efc7f0479e8ab3d84ef7102, type: 2}
+  invokecode: 101
+--- !u!4 &946319735
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1475087113}
+  m_GameObject: {fileID: 946319733}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 148.375, y: 234, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1587212668
 GameObject:

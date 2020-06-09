@@ -181,12 +181,13 @@ namespace VisualDelegates.Editor
                 var invokepos = delegaterect;
                 invokepos.height -= list.footerHeight;
                 VisualEditorUtility.TweenBox(invokepos, cache);
-                VisualEditorUtility.RepaintInspectorWindows();
+                InvocationTracker.requestRepaint = true; 
             }
             if (cache.istweening)
             {
                 EditorGUI.DrawRect(delegaterect, cache.color);
-                VisualEditorUtility.RepaintInspectorWindows();
+                InvocationTracker.requestRepaint = true;
+                //VisualEditorUtility.RepaintInspectorWindows();
             }
         }
         /// <summary>

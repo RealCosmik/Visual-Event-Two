@@ -94,6 +94,7 @@
     <Compile Include="Assets\Visual Delegate Editor\Editor\Searchable List\SearchableEnumAttribute.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Searchable List\SearchableEnumDemo.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Settings.cs" />
+    <Compile Include="Assets\Visual Delegate Editor\Editor\VisualDebugging\InvocationTracker.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\VisualEditorUtility.cs" />
     <Reference Include="UnityEngine">
       <HintPath>F:/UNITY VERSIONS/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

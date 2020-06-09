@@ -151,6 +151,7 @@ namespace VisualDelegates.Events.Editor
             }
             if (EditorGUI.EndChangeCheck())
             {
+                Debug.Log("control change");
                 serializedObject.ApplyModifiedProperties();
             }
             EditorGUI.indentLevel--;

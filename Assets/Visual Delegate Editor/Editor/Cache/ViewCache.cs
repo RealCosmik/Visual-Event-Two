@@ -191,9 +191,9 @@ namespace VisualDelegates.Editor
             var editordelegate = new Action(() =>
             {
                 isinvoked = true;
-                VisualEditorUtility.RepaintInspectorWindows();
+                InvocationTracker.requestRepaint = true;
             });
-            visualdelegate?.GetType().GetEvent("m_internalcalls", flags).GetAddMethod(true).Invoke(visualdelegate, new object[] { editordelegate });
+            visualdelegate.GetType().GetEvent("m_internalcalls", flags).GetAddMethod(true).Invoke(visualdelegate, new object[] { editordelegate });
         }
         public void UpdateInterncalcall(SerializedProperty delegateprop)
         {

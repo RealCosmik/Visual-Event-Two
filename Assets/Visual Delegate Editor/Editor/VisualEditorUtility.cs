@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.CodeAnalysis.FlowAnalysis;
 
 namespace VisualDelegates.Editor
 {
@@ -17,12 +18,6 @@ namespace VisualDelegates.Editor
     {
         static Dictionary<string, string[]> ParseData = new Dictionary<string, string[]>();
         public static GUIStyle StandardStyle { get; private set; } = new GUIStyle();
-        public static Type inspector_type = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.InspectorWindow");
-        static UnityEngine.Object[] inspectorwindows;
-        static VisualEditorUtility()
-        {
-            inspectorwindows = Resources.FindObjectsOfTypeAll(inspector_type);
-        }
         //=======================
         // Settings
         //=======================
@@ -664,18 +659,12 @@ namespace VisualDelegates.Editor
             }
             else containter.color.a = 1f;
         }
-        public static void RepaintInspectorWindows()
-        {
-            int length = inspectorwindows.Length;
-            for (int i = 0; i < length; i++)
-            {
-                (inspectorwindows[i] as EditorWindow).Repaint();
-            }
-        }
         public static void ReinitializeDelegate(VisualDelegateBase del)
         {
             var flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
-            typeof(VisualDelegateBase).GetField("m_onInvoke", flags).SetValue(del, null);
+            if (del is VisualDelegate)
+                del.GetType().GetField("m_onInvoke", flags).SetValue(del, null);
+            else del.GetType().BaseType.GetField("m_onInvoke", flags).SetValue(del, null);
             del.initialize();
         }
         public static PropertyName STRING_TYPE_NAME = "System.String";

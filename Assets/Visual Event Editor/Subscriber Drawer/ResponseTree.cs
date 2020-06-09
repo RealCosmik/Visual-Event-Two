@@ -164,16 +164,16 @@ namespace VisualDelegates.Events.Editor
         }
         private void DrawDelegate(Rect cell, ResponseTreeElement element)
         {
-            var currentDelegate = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id)
-                .FindPropertyRelative("response");
-
+            var currentResponse = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id);
+            var currentDelegate = currentResponse.FindPropertyRelative("response");
             EditorGUI.BeginChangeCheck();
             cell.x += 15f;
             cell.width -= 15f;
             EditorGUI.BeginProperty(cell, GUIContent.none, currentDelegate);
+            GUI.enabled = currentResponse.FindPropertyRelative("isActive").boolValue;
             EditorGUI.PropertyField(cell, currentDelegate);
             EditorGUI.EndProperty();
-
+            GUI.enabled = true;
             if (EditorGUI.EndChangeCheck())
             {
                 currentDelegate.serializedObject.ApplyModifiedProperties();
