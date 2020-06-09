@@ -10,11 +10,7 @@ namespace VisualDelegates.Editor
     {
         public static bool requestRepaint;
         static Type inspector_type = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.InspectorWindow");
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        private static void HookEditorUpdate()
-        {
-            EditorApplication.update += CheckNewInvocation;
-        }
+        static InvocationTracker() => EditorApplication.update += CheckNewInvocation;
         private static void CheckNewInvocation()
         {
             if (requestRepaint)

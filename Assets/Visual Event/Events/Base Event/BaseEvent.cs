@@ -8,7 +8,7 @@ namespace VisualDelegates.Events
         [SerializeField] int historycapacity = 5;
         [System.NonSerialized] public List<List<EventResponse>> AllResponses = new List<List<EventResponse>>();
         private protected List<HistoryEntry> eventHistory = new List<HistoryEntry>();
-        private protected int overwriteIndex;
+        [System.NonSerialized] private protected int overwriteIndex =0;
         public bool isinvoke;
         public void Subscribe(EventResponse response, int priortiy)
         {
@@ -57,11 +57,12 @@ namespace VisualDelegates.Events
                     eventHistory.Add(new HistoryEntry(sender?.GetInstanceID() ?? -999, args, System.Environment.StackTrace));
                 else
                 {
-                    // loop back through history to save memory
-                    overwriteIndex = overwriteIndex == historycapacity - 1 ? overwriteIndex = 0 : overwriteIndex += 1;
                     eventHistory[overwriteIndex].entryData = args;
                     eventHistory[overwriteIndex].SenderID = sender?.GetInstanceID() ?? -990;
                     eventHistory[overwriteIndex].entryTrace = System.Environment.StackTrace;
+                    // wrapping
+                    overwriteIndex = overwriteIndex == historycapacity - 1 ? overwriteIndex = 0 : overwriteIndex += 1;
+                   
                 }
             }
         }

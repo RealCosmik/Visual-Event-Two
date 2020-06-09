@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: intevent
   m_EditorClassIdentifier: 
   EventNote: 
-  historycapacity: 10
+  historycapacity: 5
   isinvoke: 0
   argument1: 11
