@@ -151,7 +151,7 @@ namespace VisualDelegates
                 }
                 return RunTimeMethod.Invoke(this, arguments) as Delegate;
             }
-            else return new Action(() => Debug.LogError("Invalid Delegate"));
+            else return null;
 
         }
         //=======================

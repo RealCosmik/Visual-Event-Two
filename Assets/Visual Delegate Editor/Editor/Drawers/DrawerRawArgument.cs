@@ -81,18 +81,18 @@ namespace VisualDelegates.Editor
             var argumentpos = labelpos;
             argumentpos.width -= (maxoffset + max);
             argumentpos.x += maxoffset;
-          // EditorGUI.BeginChangeCheck();
+          EditorGUI.BeginChangeCheck();
             if (!useReference.boolValue)
                 DisplayArgument(argumentpos, tProperty, paramLabel);
             else
                 DisplayReference(argumentpos, tProperty, paramLabel, reference_content, argument_cache);
-            //if (EditorGUI.EndChangeCheck())
-            //{
-            //    Debug.LogWarning("there was a change");
-            //    tProperty.serializedObject.ApplyModifiedProperties();
-            //    if(EditorApplication.isPlaying)
-            //    VisualEditorUtility.ReinitializeDelegate(tProperty.GetVisualDelegateObject());
-            //}
+            if (EditorGUI.EndChangeCheck())
+            {
+                if (EditorApplication.isPlaying)
+                    VisualEditorUtility.ReinitializeDelegate(tProperty.GetVisualDelegateObject());
+                else
+                    tProperty.serializedObject.ApplyModifiedProperties();
+            }
             if (!argument_cache.hasCustomType && argument_cache.CurrentCustomType != null)
             {
                 argument_cache.hasCustomType = false;

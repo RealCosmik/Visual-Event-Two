@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\AOT.cs" />
     <Compile Include="Assets\Editor Debug\SerializedPropertyViewer.cs" />
+    <Compile Include="Assets\EventInvoker.cs" />
     <Compile Include="Assets\Example\Benchmark\Test.cs" />
     <Compile Include="Assets\Example\Documentation\Character.cs" />
     <Compile Include="Assets\Example\Documentation\CustomInput.cs" />

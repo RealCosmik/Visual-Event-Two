@@ -15,13 +15,13 @@ using System.Collections.Generic;
 using System.Linq;
 namespace VisualDelegates.Editor
 {  
-    internal sealed class DelegateAOT : ScriptableSingleton<DelegateAOT>
+    internal sealed class DelegateAOT :ScriptableObject
     {
         [SerializeField] bool GenerateOnBuild;
+        private static DelegateAOT instance;
         [MenuItem("VisualDelegate/Open AOT Solver", false)]
         static void OpenDelegateMenu()
         {
-            Debug.Log(nameof(DelegateAOT));
             var assetpaths = AssetDatabase.FindAssets("t:DelegateAOT");
             if (assetpaths.Length == 0)
             {
@@ -30,8 +30,8 @@ namespace VisualDelegates.Editor
                 {
                     Directory.CreateDirectory(Path.Combine(Application.dataPath, "Editor"));
                 }
-                var Currentresolver = CreateInstance<DelegateAOT>();
-                AssetDatabase.CreateAsset(Currentresolver, AssetDatabase.GenerateUniqueAssetPath(tempPath));
+                instance = CreateInstance<DelegateAOT>();
+                AssetDatabase.CreateAsset(instance, AssetDatabase.GenerateUniqueAssetPath(tempPath));
                 AssetDatabase.SaveAssets();
                 UnityEditor.EditorUtility.FocusProjectWindow();
             }
@@ -212,7 +212,7 @@ namespace VisualDelegates.Editor
         {
 
             var base_type = generator.IdentifierName("RawCall");
-            var visualEventNameSpace = generator.NamespaceImportDeclaration("VisualEvent");
+            var visualEventNameSpace = generator.NamespaceImportDeclaration("VisualDelegates");
             var SystemNamespace = generator.NamespaceImportDeclaration("System");
             var classConstruction = generator.ClassDeclaration("fixerclass", accessibility: Accessibility.Internal, baseType: base_type, members: members);
             var FullClass = generator.CompilationUnit(SystemNamespace, visualEventNameSpace, classConstruction).NormalizeWhitespace();
@@ -256,7 +256,6 @@ namespace VisualDelegates.Editor
                 }
                 else Debug.LogWarning("OPTED FOR NO GENERATION");
             }
-
             public void OnPostprocessBuild(BuildReport report)
             {
                 if (instance.GenerateOnBuild)

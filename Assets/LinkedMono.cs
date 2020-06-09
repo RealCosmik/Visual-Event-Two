@@ -7,7 +7,11 @@ using UnityEngine.Events;
 class LinkedMono : MonoBehaviour
 {
     public KeyCode Invoke_key = KeyCode.Space;
-    public intpub Cosmik;
+
+    public VisualDelegate testdelegate;
+
+
+
     public UnityEvent unity;
     [DisplayPrivate, SerializeField] private int PRIVATEFIELD;
     [DisplayPrivate] private int customprivprop { get; set; }
@@ -43,7 +47,8 @@ class LinkedMono : MonoBehaviour
     public void oddFunction(Action a) => Debug.Log("useless");
     private void Start()
     {
-        Cosmik.initialize();
+        testdelegate.initialize();
+        testdelegate.OnInvoke += () => Debug.Log("this is a random");
     }
     public void StopCertain() => StopCoroutine(infinity());
     public void testobj(ScriptableObject o)
@@ -160,12 +165,12 @@ class LinkedMono : MonoBehaviour
 
         if (Input.GetKeyDown(Invoke_key))
         {
-            Cosmik.Invoke(2);
+            testdelegate.Invoke();
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
             UnityEngine.Profiling.Profiler.BeginSample("delgate init", this);
-            Cosmik.initialize();
+            testdelegate.initialize();
             UnityEngine.Profiling.Profiler.EndSample();
             Debug.Break();
         }

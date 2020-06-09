@@ -12,13 +12,14 @@ namespace VisualDelegates.Events
         }
         public void SetSubscriptions()
         {
-            for (int i = 0; i < responses.Count; i++)
+            int count = responses.Count;
+            for (int i = 0; i < count; i++)
             { 
-                responses[i].senderID = GetInstanceID();
-                responses[i].responseIndex = i;
-                responses[i].response.initialize();
-                Debug.Log("deserial");
-                responses[i].currentEvent?.Subscribe(responses[i], responses[i].priority);
+                if (responses[i].response != null)
+                {
+                    responses[i].response.initialize();
+                    responses[i].currentEvent.Subscribe(responses[i], responses[i].priority);
+                }
             }
         }
         private void OnDestroy()
@@ -26,8 +27,12 @@ namespace VisualDelegates.Events
             var responsecount = responses.Count;
             for (int i = 0; i < responsecount; i++)
             {
-                responses[i].response?.Release();
-                responses[i].currentEvent.UnSubscribe(responses[i]);
+                if (responses[i].response != null)
+                {
+                    responses[i].response.Release();
+                    responses[i].currentEvent.UnSubscribe(responses[i]);
+                }
+               
             }
         }
     }

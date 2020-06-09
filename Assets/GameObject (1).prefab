@@ -48,7 +48,7 @@ MonoBehaviour:
       id: 0
     currentEvent: {fileID: 11400000, guid: 3101bbe43efc7f0479e8ab3d84ef7102, type: 2}
     priority: 0
-    isActive: 1
+    isActive: 0
   references:
     version: 1
     00000000:
@@ -59,26 +59,26 @@ MonoBehaviour:
     00000001:
       type: {class: RawCall, ns: VisualDelegates, asm: VisualDelegate}
       data:
-        m_target: {fileID: 0}
+        m_target: {fileID: 2932447297962496897}
         methodData:
         - 16
-        - color
+        - layer
         m_isYieldableCall: 0
         haserror: 0
         serializationError: 0
         creationMethod: createPropertyCall
         m_arguments:
-        - assemblyQualifiedArgumentName: UnityEngine.Color, UnityEngine.CoreModule,
-            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          FullArgumentName: UnityEngine.Color
+        - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0,
+            Culture=neutral, PublicKeyToken=b77a5c561934e089
+          FullArgumentName: System.Int32
           objectValue: {fileID: 0}
           m_objecthasvalue: 0
           stringValue: 
-          _x1: 0.22014059
-          _x2: 1
-          _y1: 0.9150943
+          _x1: 64
+          _x2: 0
+          _y1: 0
           _y2: 0
-          _z1: 0.27384102
+          _z1: 0
           _z2: 0
           longValue: 0
           doubleValue: 0

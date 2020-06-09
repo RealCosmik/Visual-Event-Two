@@ -160,7 +160,6 @@ namespace VisualDelegates.Events.Editor
         }
         private void DrawEventHistory()
         {
-
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.BeginVertical();
             var capacityrect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth * .3f, EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, null));
