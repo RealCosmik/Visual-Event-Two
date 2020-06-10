@@ -9,9 +9,9 @@ namespace VisualDelegates.Events
         public void Subscribe(EventResponse newResponse)
         {
             var count = m_EventResponses.Count;
-            if (newResponse.priority >= count)
+            if (newResponse.GetPriority() >= count)
             {
-                int delta = newResponse.priority - m_EventResponses.Count;
+                int delta = newResponse.GetPriority() - m_EventResponses.Count;
                 for (int i = 0; i <= delta; i++)
                 {
                     m_EventResponses.Add(new List<EventResponse>());
@@ -20,18 +20,21 @@ namespace VisualDelegates.Events
             }
             else if (count == 0)
                 m_EventResponses.Add(new List<EventResponse>());
-            newResponse.subscriptionindex = m_EventResponses[newResponse.priority].Count;
+            newResponse.subscriptionindex = m_EventResponses[newResponse.GetPriority()].Count;
             //if (Application.isEditor && !AllResponses[priortiy].Contains(response))
-            m_EventResponses[newResponse.priority].Add(newResponse);
+            m_EventResponses[newResponse.GetPriority()].Add(newResponse);
+            newResponse.currentEvent = this;
         }
         public void UnSubscribe(EventResponse response)
         {
             if (response.subscriptionindex != -1)
             {
-                var prioritylist = m_EventResponses[response.priority];
+                var prioritylist = m_EventResponses[response.GetPriority()];
                 prioritylist.RemoveAt(response.subscriptionindex);
                 response.subscriptionindex = -1;
+                response.currentEvent = null;
             }
+            else throw new UnityException("Response subscription index must be greater than -1!");
         }
         public void UnSubscribe(int priority, int subscriptionIndex)
         {
@@ -40,7 +43,7 @@ namespace VisualDelegates.Events
         public void UpdateResponsePriority(EventResponse response, int newpriority)
         {
             UnSubscribe(response);
-            response.priority = newpriority;
+            response.SetPrioirtiy(newpriority);
             Subscribe(response);
         }
 

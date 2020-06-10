@@ -12,6 +12,7 @@ namespace VisualDelegates.Events.Editor
         SerializedObject serializedSubscriber;
         static readonly string UP_ARROW = char.ConvertFromUtf32(0x2191);
         static readonly string DOWN_ARROW = char.ConvertFromUtf32(0x2193);
+        const float HEIGHT_PADDING = 20f;
         int ticks = 0;
         int tickTrigger = 3;
         public SubscriberTree(TreeViewState state, MultiColumnHeader header, SerializedObject newSerializedSubscriber) : base(state, header)
@@ -35,8 +36,10 @@ namespace VisualDelegates.Events.Editor
             var responsecount = subscriberResponses.arraySize;
             for (int i = 0; i < responsecount; i++)
             {
-                var baseEvent = subscriberResponses.GetArrayElementAtIndex(i).FindPropertyRelative("currentEvent").objectReferenceValue as BaseEvent;
-                root.AddChild(new SubscriberTreeElement(baseEvent) { id = i });
+                var response = subscriberResponses.GetArrayElementAtIndex(i);
+                var baseEvent = response.FindPropertyRelative("currentEvent").objectReferenceValue as BaseEvent;
+                var noteprop = response.FindPropertyRelative("responseNote").stringValue;
+                root.AddChild(new SubscriberTreeElement(baseEvent,noteprop) { id = i });
             }
         }
         protected override float GetCustomRowHeight(int row, TreeViewItem item)
@@ -47,7 +50,7 @@ namespace VisualDelegates.Events.Editor
             {
                 var delegateprop = eventResponseProperty.FindPropertyRelative("response");
                 if (delegateprop.isExpanded)
-                    return EditorGUI.GetPropertyHeight(delegateprop);
+                    return EditorGUI.GetPropertyHeight(delegateprop) + HEIGHT_PADDING;
                 else return
                     EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
                     EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none) +
@@ -77,15 +80,19 @@ namespace VisualDelegates.Events.Editor
         {
             var element = rowarg.item as SubscriberTreeElement;
             var currentResponse = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id);
+            var cellrect = rowarg.GetCellRect(collumn);
             switch (collumn)
             {
                 case 0:
-                    DrawEventAndPriority(rowarg.GetCellRect(0), currentResponse, element);
+                    DrawEventAndPriority(cellrect, currentResponse, element);
                     break;
                 case 1:
-                    var cellrect = rowarg.GetCellRect(1);
                     if (currentResponse.FindPropertyRelative("currentEvent").objectReferenceValue != null)
                         DrawDelegate(cellrect, element);
+                    break;
+                case 2:
+                    if (currentResponse.FindPropertyRelative("currentEvent").objectReferenceValue != null)
+                        DrawResponseNote(cellrect, element);
                     break;
                 default:
                     break;
@@ -146,7 +153,7 @@ namespace VisualDelegates.Events.Editor
             var isActiveProperty = currentResponse.FindPropertyRelative("isActive");
             EditorGUI.BeginChangeCheck();
             EditorGUI.BeginProperty(togglepos, toggleContent, isActiveProperty);
-            isActiveProperty.boolValue= EditorGUI.ToggleLeft(togglepos,toggleContent, isActiveProperty.boolValue);
+            isActiveProperty.boolValue = EditorGUI.ToggleLeft(togglepos, toggleContent, isActiveProperty.boolValue);
             EditorGUI.EndProperty();
             if (EditorGUI.EndChangeCheck())
             {
@@ -187,6 +194,28 @@ namespace VisualDelegates.Events.Editor
                 }
                 else
                     tickTrigger = 3;
+            }
+        }
+        private void DrawResponseNote(Rect cell, SubscriberTreeElement element)
+        {
+            var noteprop = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id).FindPropertyRelative("responseNote");
+            cell.height -= HEIGHT_PADDING;
+            var customeheight=EditorStyles.textArea.CalcHeight(element.responseNote, cell.width);
+            var textrect = cell;
+            EditorGUI.BeginChangeCheck();
+            if (customeheight >= textrect.height)
+            {
+                textrect.height = customeheight;
+                element.scroll = GUI.BeginScrollView(cell, element.scroll, textrect);
+                noteprop.stringValue = EditorGUI.TextArea(textrect, noteprop.stringValue, EditorStyles.textArea);
+                GUI.EndScrollView();
+            }
+            else
+                noteprop.stringValue = EditorGUI.TextArea(textrect, noteprop.stringValue, EditorStyles.textArea);
+            if (EditorGUI.EndChangeCheck())
+            {
+                noteprop.serializedObject.ApplyModifiedProperties();
+                element.responseNote = new GUIContent(noteprop.stringValue);
             }
         }
         private void OnSubscribe(BaseEvent subscribedEvent, SubscriberTreeElement element)

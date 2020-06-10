@@ -1,22 +1,31 @@
 ﻿using UnityEngine;
 namespace VisualDelegates.Events
 {
-    [CreateAssetMenu(fileName = "newevent", menuName = "cusevent/base")]
     public class VoidEvent : BaseEvent
     {
-        public void Invoke()
+        public void Invoke(Object sender)
         {
-            int priority = m_EventResponses.Count;
-            for (int i = 0; i < priority; i++)
+            try
             {
-                int response_count = m_EventResponses[i].Count;
-                for (int j = 0; j < response_count; j++)
+                int priority = m_EventResponses.Count;
+                for (int i = 0; i < priority; i++)
                 {
-                    (m_EventResponses[i][j].response as VisualDelegate).Invoke();
+                    int response_count = m_EventResponses[i].Count;
+                    for (int j = 0; j < response_count; j++)
+                    {
+                        (m_EventResponses[i][j].CurrentResponse as VisualDelegate).Invoke();
+                    }
                 }
+                UpdateEventHistory(sender, false);
             }
+            catch (System.Exception ex)
+            {
+                Debug.LogError(ex);
+                UpdateEventHistory(sender, true);
+            }
+
         }
         private protected override void Clear() { }
-        private protected override void EditorInvoke() => Invoke();
+        private protected override void EditorInvoke() => Invoke(null);
     }
 }

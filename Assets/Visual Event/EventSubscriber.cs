@@ -6,9 +6,14 @@ namespace VisualDelegates.Events
     {
         [SerializeField] List<EventResponse> responses;
 
-        private void Awake()
+        private void Awake() => SetSubscriptions();
+        private void OnEnable() => SetResponseActiveStatus(true);
+        private void OnDisable() => SetResponseActiveStatus(false);
+        private void SetResponseActiveStatus(bool isactive)
         {
-            SetSubscriptions();
+            int count = responses.Count;
+            for (int i = 0; i < count; i++)
+                responses[i].isActive = isactive;
         }
         public void SetSubscriptions()
         {
@@ -16,24 +21,16 @@ namespace VisualDelegates.Events
             bool iseditor = Application.isEditor;
             for (int i = 0; i < count; i++)
             {
-                if (responses[i].response != null)
+                if (responses[i].CurrentResponse != null)
                 {
                     if (iseditor)
                     {
                         responses[i].senderID = GetInstanceID();
                         responses[i].responseIndex = i;
                     }
-                    responses[i].response.initialize();
+                    responses[i].CurrentResponse.initialize();
                     responses[i].currentEvent.Subscribe(responses[i]);
                 }
-            }
-        }
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                foreach (var r in responses)
-                    (r.response as VisualDelegate<int>).Invoke(3);
             }
         }
         private void OnDestroy()
@@ -41,13 +38,18 @@ namespace VisualDelegates.Events
             var responsecount = responses.Count;
             for (int i = 0; i < responsecount; i++)
             {
-                if (responses[i].response != null)
+                if (responses[i].CurrentResponse != null)
                 {
-                    responses[i].response.Release();
+                    responses[i].CurrentResponse.Release();
                     responses[i].currentEvent.UnSubscribe(responses[i]);
                 }
 
             }
+        }
+        private void OnValidate()
+        {
+            if (!Application.isPlaying)
+                SetResponseActiveStatus(enabled);
         }
     }
 }

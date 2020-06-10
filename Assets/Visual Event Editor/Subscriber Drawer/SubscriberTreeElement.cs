@@ -1,4 +1,6 @@
 ﻿using UnityEditor.IMGUI.Controls;
+using UnityEngine;
+
 namespace VisualDelegates.Events.Editor
 {
     [System.Serializable]
@@ -6,7 +8,13 @@ namespace VisualDelegates.Events.Editor
     {
         public BaseEvent CurrentEvent;
         public bool iscollapsed;
-        public SubscriberTreeElement(BaseEvent baseEvent) => CurrentEvent = baseEvent;
+        public Vector2 scroll;
+        public GUIContent responseNote;
+        public SubscriberTreeElement(BaseEvent baseEvent,string note)
+        {
+            CurrentEvent = baseEvent;
+            responseNote = new GUIContent(note);
+        } 
     } 
 
 

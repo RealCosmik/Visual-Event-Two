@@ -21,26 +21,29 @@ namespace VisualDelegates.Events.Editor
                     minWidth=100,
                     maxWidth=150,
                     autoResize=true,
+                    allowToggleVisibility=false,
                     headerTextAlignment=TextAlignment.Center
                 },
                  new MultiColumnHeaderState.Column()
                 {
                     headerContent=new GUIContent("Responses"),
                     width=300,
-                    minWidth=100,
-                    maxWidth=500,
+                    minWidth=250,
+                    maxWidth=450,
                     autoResize=true,
+                    allowToggleVisibility=false,
                     headerTextAlignment=TextAlignment.Center
                 },
-                //   new MultiColumnHeaderState.Column()
-                //{
-                //    headerContent=new GUIContent("Priority"),
-                //    width=50,
-                //    minWidth=100,
-                //    maxWidth=500,
-                //    autoResize=true,
-                //    headerTextAlignment=TextAlignment.Center
-                //},
+                   new MultiColumnHeaderState.Column()
+                {
+                    headerContent=new GUIContent("Note"),
+                    width=180,
+                    minWidth=180,
+                    maxWidth=180,
+                    autoResize=true,
+                    allowToggleVisibility=true,
+                    headerTextAlignment=TextAlignment.Center
+                },
             };
             return new MultiColumnHeader(new MultiColumnHeaderState(collumns));
         }
@@ -111,12 +114,7 @@ namespace VisualDelegates.Events.Editor
             if (serializedObject.FindProperty("responses").arraySize > 0)
             {
                 currentResponseTree = currentResponseTree ?? new SubscriberTree(new TreeViewState(), CreateCollumnHeader(), serializedObject);
-                float width = 0f;
-                for (int i = 0; i < 2; i++)
-                {
-                    width += currentResponseTree.multiColumnHeader.GetVisibleColumnIndex(i);
-                }
-                var tree_rect = GUILayoutUtility.GetRect(width, currentResponseTree.totalHeight);
+                var tree_rect = GUILayoutUtility.GetRect(1, currentResponseTree.totalHeight);
                 //EditorGUI.BeginProperty(tree_rect, GUIContent.none, serializedObject.FindProperty("responses"));
                 currentResponseTree.OnGUI(tree_rect);
                 //EditorGUI.EndProperty();

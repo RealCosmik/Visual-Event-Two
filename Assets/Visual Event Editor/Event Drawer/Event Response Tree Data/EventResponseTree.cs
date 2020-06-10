@@ -112,20 +112,19 @@ namespace VisualDelegates.Events.Editor
         {
             if (responseElement.responderID != -1)
             {
-                var priorityprop = new SerializedObject(EditorUtility.InstanceIDToObject(responseElement.responderID)).FindProperty("responses")
+                var priorityprop = responseElement.serializedSender.FindProperty("responses")
                     .GetArrayElementAtIndex(responseElement.responseindex).FindPropertyRelative("priority");
                 priorityprop.intValue = newpriority;
                 priorityprop.serializedObject.ApplyModifiedProperties();
-            }
-
+            } 
         }
         protected override float GetCustomRowHeight(int row, TreeViewItem item)
         {
             if (item is ResponseTreeElement responseElement)
             {
-               
-                    var serialized_object = new SerializedObject(UnityEditor.EditorUtility.InstanceIDToObject(responseElement.responderID));
-                    return EditorGUI.GetPropertyHeight(serialized_object.FindProperty("responses").GetArrayElementAtIndex(responseElement.responseindex));
+                var serialized_object = responseElement.serializedSender;
+                return EditorGUI.GetPropertyHeight(serialized_object.FindProperty("responses").GetArrayElementAtIndex(responseElement.responseindex)
+                    .FindPropertyRelative("response")) + 10f;
             }
             else if(item is DynamicResponseTreeElement)
             {
@@ -191,6 +190,10 @@ namespace VisualDelegates.Events.Editor
                     else if (args.item is DynamicResponseTreeElement)
                         DrawDynamicResponse(cell, args.item as DynamicResponseTreeElement);
                     break;
+                case 3:
+                    if (args.item is ResponseTreeElement)
+                        DrawResponseNote(cell, args.item as ResponseTreeElement);
+                    break;
                 default:
                     break;
             }
@@ -210,7 +213,7 @@ namespace VisualDelegates.Events.Editor
             if (response_element.responderID != -1)
             {
                 cellrect.height = EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none);
-                var response_object = (UnityEditor.EditorUtility.InstanceIDToObject(response_element.responderID) as MonoBehaviour).gameObject;
+                var response_object =(response_element.sender as MonoBehaviour).gameObject;
                 GUI.enabled = false;
                 EditorGUI.ObjectField(cellrect, response_object, typeof(UnityEngine.Object), true);
                 GUI.enabled = true;
@@ -219,20 +222,20 @@ namespace VisualDelegates.Events.Editor
             {
                 var style = EditorStyles.label;
                 style.fontSize -= 3;
-                var runtime = m_event.EventResponses[response_element.priority][response_element.eventindex].response.Calls[0] as RawRuntimeCall;
+                var runtime = m_event.EventResponses[response_element.priority][response_element.eventindex].CurrentResponse.Calls[0] as RawRuntimeCall;
                 EditorGUI.LabelField(cellrect, VisualEditorUtility.ParseDynamicTargetName(runtime.delegateInstance.Target.GetType().FullName),
                     style);
             }
         }
         private void DrawResponse(Rect cellrect, ResponseTreeElement response_element)
         {
-            var serialized_object = new SerializedObject(UnityEditor.EditorUtility.InstanceIDToObject(response_element.responderID));
-            cellrect.x += 15f;
+            var serialized_object = response_element.serializedSender;
+            cellrect.x += 15f; 
             cellrect.width -= 15f;
             EditorGUI.BeginChangeCheck();
-            var responsweprop = serialized_object.FindProperty("responses").GetArrayElementAtIndex(response_element.responseindex);
-            var delegateproperty = responsweprop.FindPropertyRelative("response");
-            GUI.enabled = responsweprop.FindPropertyRelative("isActive").boolValue;
+            var responseprop = serialized_object.FindProperty("responses").GetArrayElementAtIndex(response_element.responseindex);
+            var delegateproperty = responseprop.FindPropertyRelative("response");
+            GUI.enabled = responseprop.FindPropertyRelative("isActive").boolValue;
             EditorGUI.PropertyField(cellrect, delegateproperty);
             GUI.enabled = true;
             if (EditorGUI.EndChangeCheck())
@@ -252,7 +255,7 @@ namespace VisualDelegates.Events.Editor
         {
             try
             {
-                var runtimecall = m_event.EventResponses[response_element.Priority][response_element.EventIndex].response.Calls[0] as RawRuntimeCall;
+                var runtimecall = m_event.EventResponses[response_element.Priority][response_element.EventIndex].CurrentResponse.Calls[0] as RawRuntimeCall;
                 if (response_element.targetMessage == null)
                     response_element.targetMessage =
                 VisualEditorUtility.ParseDynamicTargetName(runtimecall.delegateInstance.Target.GetType().FullName);
@@ -269,8 +272,29 @@ namespace VisualDelegates.Events.Editor
             catch (ArgumentOutOfRangeException)
             {
                 Reload();
+            } 
+        }
+        private void DrawResponseNote(Rect cell, ResponseTreeElement element)
+        {
+            var noteprop = element.serializedSender.FindProperty("responses").GetArrayElementAtIndex(element.responseindex)
+                 .FindPropertyRelative("responseNote");
+            var customheight = EditorStyles.textArea.CalcHeight(element.noteContent, cell.width);
+            EditorGUI.BeginChangeCheck();
+            if (customheight > cell.height)
+            {
+                var textrect = cell;
+                textrect.height = customheight;
+                element.scroll = GUI.BeginScrollView(cell, element.scroll, textrect);
+                noteprop.stringValue = EditorGUI.TextArea(textrect, noteprop.stringValue);
+                GUI.EndScrollView();
             }
-           
+            else
+                noteprop.stringValue = EditorGUI.TextArea(cell, noteprop.stringValue);
+            if (EditorGUI.EndChangeCheck())
+            {
+                element.serializedSender.ApplyModifiedProperties();
+                element.noteContent = new GUIContent(noteprop.stringValue);
+            }
         }
     }
 }

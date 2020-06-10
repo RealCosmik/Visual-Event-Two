@@ -6,6 +6,7 @@ using UnityEditor.SceneManagement;
 using System.Collections.Generic;
 using System;
 using System.Reflection;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace VisualDelegates.Events.Editor
 {
@@ -39,6 +40,7 @@ namespace VisualDelegates.Events.Editor
                            minWidth = max+10,
                            maxWidth = max+10,
                            autoResize = true,
+                           allowToggleVisibility=false,
                            headerTextAlignment = TextAlignment.Left
                        },
                        new MultiColumnHeaderState.Column()
@@ -48,6 +50,7 @@ namespace VisualDelegates.Events.Editor
                            minWidth = 75,
                            maxWidth = 150,
                            autoResize = true,
+                           allowToggleVisibility=false,
                            headerTextAlignment = TextAlignment.Left
                        },
                        new MultiColumnHeaderState.Column()
@@ -57,8 +60,19 @@ namespace VisualDelegates.Events.Editor
                            minWidth = 100,
                            maxWidth = 350,
                            autoResize = true,
+                           allowToggleVisibility=false,
                            headerTextAlignment = TextAlignment.Center
                        },
+                       new MultiColumnHeaderState.Column()
+                       {
+                           headerContent= new GUIContent("Response Note"),
+                             width = 130,
+                           minWidth = 130,
+                           maxWidth = 150,
+                           autoResize = true,
+                           headerTextAlignment = TextAlignment.Left
+
+                       }
          };
             return new MultiColumnHeader(new MultiColumnHeaderState(collumns));
         }
@@ -228,8 +242,8 @@ namespace VisualDelegates.Events.Editor
         {
             if (!EditorApplication.isPlayingOrWillChangePlaymode)
             {
-                // (target as BaseEvent).GetResponses().Clear();
                 var binding = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+                (typeof(BaseEvent).GetField("m_EventResponses",binding).GetValue(target) as List<List<EventResponse>>).Clear();
                 var root_objects = EditorSceneManager.GetActiveScene().GetRootGameObjects();
                 var length = root_objects.Length;
                 for (int i = 0; i < length; i++)
