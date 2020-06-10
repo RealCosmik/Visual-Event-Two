@@ -13,32 +13,73 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-06-09T20:45:16.144-04:00
-  initializedAtString: 2020-06-09T14:32:39.170-04:00
+  lastUpdatedAtString: 2020-06-10T02:59:06.184-04:00
+  initializedAtString: 2020-06-10T01:56:52.643-04:00
   entries:
+  - path: Assembly-CSharp.csproj
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assembly-CSharp.csproj
+    projectPath: Assembly-CSharp.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assembly-CSharp-Editor.csproj
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assembly-CSharp-Editor.csproj
+    projectPath: Assembly-CSharp-Editor.csproj
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Editor Debug\SerializedPropertyViewer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor
+      Debug\SerializedPropertyViewer.cs
+    projectPath: Assets\Editor Debug\SerializedPropertyViewer.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Assets\Editor Debug\SerializedPropertyViewer.cs.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor
+      Debug\SerializedPropertyViewer.cs.meta
+    projectPath: Assets\Editor Debug\SerializedPropertyViewer.cs.meta
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Assets\Editor\Editor Debug\CreateScriptableObjectWindow.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Editor
+      Debug\CreateScriptableObjectWindow.cs
+    projectPath: Assets\Editor\Editor Debug\CreateScriptableObjectWindow.cs
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Editor\Editor Debug\CreateScriptableObjectWindow.cs.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Editor
+      Debug\CreateScriptableObjectWindow.cs.meta
+    projectPath: Assets\Editor\Editor Debug\CreateScriptableObjectWindow.cs.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Editor\Editor Debug\SerializedPropertyViewer.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Editor
+      Debug\SerializedPropertyViewer.cs
+    projectPath: Assets\Editor\Editor Debug\SerializedPropertyViewer.cs
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Editor\Editor Debug\SerializedPropertyViewer.cs.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Editor\Editor
+      Debug\SerializedPropertyViewer.cs.meta
+    projectPath: Assets\Editor\Editor Debug\SerializedPropertyViewer.cs.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
   - path: Assets\EventInvoker.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\EventInvoker.cs
     projectPath: Assets\EventInvoker.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Scenes\Pong.unity
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Scenes\Pong.unity
-    projectPath: Assets\Scenes\Pong.unity
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawRuntimeDelegate.cs
+  - path: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegate.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate Editor\Editor\Drawers\DrawerRawRuntimeDelegate.cs
-    projectPath: Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawRuntimeDelegate.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Visual Delegate Editor\Editor\VisualEditorUtility.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Delegate Editor\Editor\VisualEditorUtility.cs
-    projectPath: Assets\Visual Delegate Editor\Editor\VisualEditorUtility.cs
+      Delegate\Source\Visual Delegates\VisualDelegate.cs
+    projectPath: Assets\Visual Delegate\Source\Visual Delegates\VisualDelegate.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -56,171 +97,45 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\DynamicResponseTreeElement.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Event Response Tree Data\DynamicResponseTreeElement.cs
-    projectPath: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\DynamicResponseTreeElement.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\DynamicResponseTreeElement.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Event Response Tree Data\DynamicResponseTreeElement.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\DynamicResponseTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
   - path: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\EventResponseTree.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Event Editor\Event Drawer\Event Response Tree Data\EventResponseTree.cs
     projectPath: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\EventResponseTree.cs
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\EventResponseTree.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Event Response Tree Data\EventResponseTree.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\EventResponseTree.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\PriorityTreeElement.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Event Response Tree Data\PriorityTreeElement.cs
-    projectPath: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\PriorityTreeElement.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\PriorityTreeElement.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Event Response Tree Data\PriorityTreeElement.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\PriorityTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\ResponseTreeElement.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Event Response Tree Data\ResponseTreeElement.cs
-    projectPath: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\ResponseTreeElement.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\ResponseTreeElement.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Event Response Tree Data\ResponseTreeElement.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\ResponseTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
-    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs
-    originalPath: 
     indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs.meta
+    workTreeStatus: 3
+  - path: Assets\Visual Event Editor\Event Drawer\History Tree Data\HistoryTree.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs
-    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs
-    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs.meta
-    projectPath: Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs
+      Event Editor\Event Drawer\History Tree Data\HistoryTree.cs
+    projectPath: Assets\Visual Event Editor\Event Drawer\History Tree Data\HistoryTree.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\ResponseTree.cs
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\ResponseTree.cs.meta
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Subscriber Drawer\ResponseTreeElement.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\ResponseTreeElement.cs
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\ResponseTreeElement.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Subscriber Drawer\ResponseTreeElement.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\ResponseTreeElement.cs.meta
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\ResponseTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Assets\Visual Event Editor\Subscriber Drawer\SubscriberTree.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\SubscriberTree.cs
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\SubscriberTree.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Subscriber Drawer\SubscriberTree.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\SubscriberTree.cs.meta
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\SubscriberTree.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Subscriber Drawer\SubscriberTreeElement.cs
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\SubscriberTreeElement.cs
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\SubscriberTreeElement.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Visual Event Editor\Subscriber Drawer\SubscriberTreeElement.cs.meta
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event Editor\Subscriber Drawer\SubscriberTreeElement.cs.meta
-    projectPath: Assets\Visual Event Editor\Subscriber Drawer\SubscriberTreeElement.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
   - path: Assets\Visual Event\Events\Base Event\BaseEvent.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
       Event\Events\Base Event\BaseEvent.cs
     projectPath: Assets\Visual Event\Events\Base Event\BaseEvent.cs
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Visual Event\Events\Base Event\BaseEventEditor.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Event\Events\Base Event\BaseEventEditor.cs
+    projectPath: Assets\Visual Event\Events\Base Event\BaseEventEditor.cs
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Visual Event\Events\Base Event\BaseEventEditor.cs.meta
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Event\Events\Base Event\BaseEventEditor.cs.meta
+    projectPath: Assets\Visual Event\Events\Base Event\BaseEventEditor.cs.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Visual Event\Events\Base Event\HistoryEntry.cs
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
+      Event\Events\Base Event\HistoryEntry.cs
+    projectPath: Assets\Visual Event\Events\Base Event\HistoryEntry.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -231,10 +146,10 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Visual Event\EventSubscriber.cs
+  - path: Assets\Visual Event\Events\ImplementedEvents\VoidEvent.cs
     fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Assets\Visual
-      Event\EventSubscriber.cs
-    projectPath: Assets\Visual Event\EventSubscriber.cs
+      Event\Events\ImplementedEvents\VoidEvent.cs
+    projectPath: Assets\Visual Event\Events\ImplementedEvents\VoidEvent.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -262,9 +177,9 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\InspectorExpandedItems.asset
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\InspectorExpandedItems.asset
-    projectPath: Library\InspectorExpandedItems.asset
+  - path: Library\gfu\cache\repoinfo.yaml
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Library\gfu\cache\repoinfo.yaml
+    projectPath: Library\gfu\cache\repoinfo.yaml
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -286,9 +201,16 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: VisualEventEditor.csproj
-    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\VisualEventEditor.csproj
-    projectPath: VisualEventEditor.csproj
+  - path: Visual Event Two.sln
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\Visual
+      Event Two.sln
+    projectPath: Visual Event Two.sln
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: VisualEvent.csproj
+    fullPath: C:\Users\Mike\Documents\Current Unity project\Visual Event Two\VisualEvent.csproj
+    projectPath: VisualEvent.csproj
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3

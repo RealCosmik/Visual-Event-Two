@@ -66,6 +66,7 @@
     <Compile Include="Assets\Visual Event\EventResponse.cs" />
     <Compile Include="Assets\Visual Event\EventSubscriber.cs" />
     <Compile Include="Assets\Visual Event\Events\Base Event\BaseEvent.cs" />
+    <Compile Include="Assets\Visual Event\Events\Base Event\BaseEventEditor.cs" />
     <Compile Include="Assets\Visual Event\Events\Base Event\HistoryEntry.cs" />
     <Compile Include="Assets\Visual Event\Events\GenericEvents\GenericEvent.cs" />
     <Compile Include="Assets\Visual Event\Events\ImplementedEvents\DoubleInt.cs" />

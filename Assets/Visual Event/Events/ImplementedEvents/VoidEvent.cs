@@ -6,13 +6,13 @@ namespace VisualDelegates.Events
     {
         public void Invoke()
         {
-            int priority = AllResponses.Count;
+            int priority = m_EventResponses.Count;
             for (int i = 0; i < priority; i++)
             {
-                int response_count = AllResponses[i].Count;
+                int response_count = m_EventResponses[i].Count;
                 for (int j = 0; j < response_count; j++)
                 {
-                    (AllResponses[i][j].response as VisualDelegate).Invoke();
+                    (m_EventResponses[i][j].response as VisualDelegate).Invoke();
                 }
             }
         }

@@ -9,6 +9,7 @@ namespace VisualDelegates.Events.Editor
     {
         BaseEvent currentEvent;
         int capacity;
+        private static Color errorColor = new Color(1, 0, 0, .4f);
         public string activeTrace { get; private set; }
         public HistoryTree(TreeViewState state, MultiColumnHeader header, BaseEvent newEvent, int maxentries) : base(state, header)
         {
@@ -51,6 +52,8 @@ namespace VisualDelegates.Events.Editor
         {
             var cellrect = args.GetCellRect(Collumnindex);
             HistoryTreeElement element = args.item as HistoryTreeElement;
+            if (element.currentEntry.haserror)
+                EditorGUI.DrawRect(cellrect, errorColor);
             GUI.enabled = false;
             switch (Collumnindex)
             {

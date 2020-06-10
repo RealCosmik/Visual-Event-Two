@@ -8,19 +8,28 @@ namespace VisualDelegates.Events
         public virtual void Invoke(arg1 arg1, UnityEngine.Object sender)
         {
             isinvoke = true;
-            var priorites = AllResponses.Count;
-            for (int i = 0; i < priorites; i++)
+            try
             {
-                var responsecount = AllResponses[i].Count;
-                for (int j = 0; j < responsecount; j++)
+                var priorites = m_EventResponses.Count;
+                for (int i = 0; i < priorites; i++)
                 {
-                    if (AllResponses[i][j].IsActive)
-                        (AllResponses[i][j].response as VisualDelegate<arg1>).Invoke(arg1);
+                    var responsecount = m_EventResponses[i].Count;
+                    for (int j = 0; j < responsecount; j++)
+                    {
+                        if (m_EventResponses[i][j].IsActive)
+                            (m_EventResponses[i][j].response as VisualDelegate<arg1>).Invoke(arg1);
+                    }
                 }
+                UpdateEventHistory(sender,false, arg1);
             }
-            UpdateEventHistory(sender, arg1);
+            catch (Exception ex)
+            {
+                Debug.LogError(ex);
+                UpdateEventHistory(sender, true, arg1);
+            }
+           
         }
-        public void Subscribe(int priority,Action<arg1> response)
+        public EventResponse Subscribe(Action<arg1> response, int priority)
         {
             var newdelegate = new VisualDelegate<arg1>();
             newdelegate.OnInvoke += response;
@@ -28,9 +37,10 @@ namespace VisualDelegates.Events
             {
                 response = newdelegate,
                 priority = priority,
-                senderID = -1
+                senderID = -1,
             };
             Subscribe(eventresponse);
+            return eventresponse;
         }
         private protected sealed override void Clear() => argument1 = default;
         private protected sealed override void EditorInvoke() => Invoke(argument1, null);
@@ -42,17 +52,26 @@ namespace VisualDelegates.Events
         [SerializeField] internal Arg2 argument2;
         public virtual void Invoke(Arg1 arg1, Arg2 arg2, UnityEngine.Object sender)
         {
-            var priorites = AllResponses.Count;
-            for (int i = 0; i < priorites; i++)
+            try
             {
-                var responsecount = AllResponses[i].Count;
-                for (int j = 0; j < responsecount; j++)
+                var priorites = m_EventResponses.Count;
+                for (int i = 0; i < priorites; i++)
                 {
-                    if (AllResponses[i][j].IsActive)
-                        (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2>).Invoke(arg1, arg2);
+                    var responsecount = m_EventResponses[i].Count;
+                    for (int j = 0; j < responsecount; j++)
+                    {
+                        if (m_EventResponses[i][j].IsActive)
+                            (m_EventResponses[i][j].response as VisualDelegate<Arg1, Arg2>).Invoke(arg1, arg2);
+                    }
                 }
+                UpdateEventHistory(sender,false, arg1, arg2);
             }
-            UpdateEventHistory(sender, arg1, arg2);
+            catch (Exception ex)
+            {
+                Debug.LogError(ex);
+                UpdateEventHistory(sender, true, arg1, arg2);
+            }
+           
         }
 
         private protected sealed override void Clear()
@@ -69,14 +88,14 @@ namespace VisualDelegates.Events
         [SerializeField] internal Arg3 argument3;
         public virtual void Invoke(Arg1 arg1, Arg2 arg2, Arg3 arg3, UnityEngine.Object sender)
         {
-            var priorites = AllResponses.Count;
+            var priorites = m_EventResponses.Count;
             for (int i = 0; i < priorites; i++)
             {
-                var responsecount = AllResponses[i].Count;
+                var responsecount = m_EventResponses[i].Count;
                 for (int j = 0; j < responsecount; j++)
                 {
-                    if (AllResponses[i][j].IsActive)
-                        (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3>).Invoke(arg1, arg2, arg3);
+                    if (m_EventResponses[i][j].IsActive)
+                        (m_EventResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3>).Invoke(arg1, arg2, arg3);
                 }
             }
         }
@@ -97,15 +116,15 @@ namespace VisualDelegates.Events
         [SerializeField] internal Arg4 argument4;
         public virtual void Invoke(Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, UnityEngine.Object sender)
         {
-            var priorites = AllResponses.Count;
+            var priorites = m_EventResponses.Count;
             for (int i = 0; i < priorites; i++)
             {
-                var responsecount = AllResponses[i].Count;
+                var responsecount = m_EventResponses[i].Count;
                 for (int j = 0; j < responsecount; j++)
                 {
-                    if (AllResponses[i][j].IsActive)
+                    if (m_EventResponses[i][j].IsActive)
                     {
-                        (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3, Arg4>).Invoke(arg1, arg2, arg3, arg4);
+                        (m_EventResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3, Arg4>).Invoke(arg1, arg2, arg3, arg4);
                     }
                 }
             }
@@ -130,14 +149,14 @@ namespace VisualDelegates.Events
         [SerializeField] internal Arg5 argument5;
         public virtual void Invoke(Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, UnityEngine.Object sender)
         {
-            var priorites = AllResponses.Count;
+            var priorites = m_EventResponses.Count;
             for (int i = 0; i < priorites; i++)
             {
-                var responsecount = AllResponses[i].Count;
+                var responsecount = m_EventResponses[i].Count;
                 for (int j = 0; j < responsecount; j++)
                 {
-                    if (AllResponses[i][j].IsActive)
-                        (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3, Arg4, Arg5>).Invoke(arg1, arg2, arg3, arg4, arg5);
+                    if (m_EventResponses[i][j].IsActive)
+                        (m_EventResponses[i][j].response as VisualDelegate<Arg1, Arg2, Arg3, Arg4, Arg5>).Invoke(arg1, arg2, arg3, arg4, arg5);
                 }
             }
         }

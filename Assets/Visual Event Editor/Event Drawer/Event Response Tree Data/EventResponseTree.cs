@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
@@ -37,45 +38,47 @@ namespace VisualDelegates.Events.Editor
         {
             if (isDragging && args.performDrop)
             {
+                var flag = BindingFlags.NonPublic | BindingFlags.Instance;
+                var allResponses = m_event.GetType().GetField("m_EventResponses", flag).GetValue(m_event) as List<List<EventResponse>>;
                 if (args.parentItem is PriorityTreeElement selectedpriorityelement && draggedItem is PriorityTreeElement draggedpriorityelement)
                 {
-                    var dragged_responses = m_event.AllResponses[draggedpriorityelement.Priority];
-                    var selected_responses = m_event.AllResponses[selectedpriorityelement.Priority];
-                    m_event.AllResponses[selectedpriorityelement.Priority] = dragged_responses;
+                    var dragged_responses = allResponses[draggedpriorityelement.Priority];
+                    var selected_responses = allResponses[selectedpriorityelement.Priority];
+                    allResponses[selectedpriorityelement.Priority] = dragged_responses;
                     SwapResponsesToNewPriority(dragged_responses, selectedpriorityelement.Priority);
-                    m_event.AllResponses[draggedpriorityelement.Priority] = selected_responses;
+                    allResponses[draggedpriorityelement.Priority] = selected_responses;
                     SwapResponsesToNewPriority(selected_responses, draggedpriorityelement.Priority);
                     Debug.Log("SWAP");
                 }
                 else if (draggedItem is PriorityTreeElement draggedpriority && args.parentItem.id == -1 &&
-                    args.insertAtIndex >= 0 && args.insertAtIndex < m_event.AllResponses.Count)
+                    args.insertAtIndex >= 0 && args.insertAtIndex < allResponses.Count)
                 {
-                    var dragged_responses = m_event.AllResponses[draggedpriority.Priority];
-                    var selected_resposnes = m_event.AllResponses[args.insertAtIndex];
-                    m_event.AllResponses[args.insertAtIndex] = dragged_responses;
-                    m_event.AllResponses[draggedpriority.Priority] = selected_resposnes;
+                    var dragged_responses = allResponses[draggedpriority.Priority];
+                    var selected_resposnes = allResponses[args.insertAtIndex];
+                    allResponses[args.insertAtIndex] = dragged_responses;
+                    allResponses[draggedpriority.Priority] = selected_resposnes;
                     SwapResponsesToNewPriority(dragged_responses, args.insertAtIndex);
                     SwapResponsesToNewPriority(selected_resposnes, draggedpriority.Priority);
                 }
                 else if (draggedItem is ResponseTreeElement responseElement)
                 {
-                    var response = m_event.AllResponses[(responseElement.parent as PriorityTreeElement).Priority][responseElement.eventindex];
-                    m_event.AllResponses[(responseElement.parent as PriorityTreeElement).Priority].RemoveAt(responseElement.eventindex);
+                    var response = allResponses[(responseElement.parent as PriorityTreeElement).Priority][responseElement.eventindex];
+                    allResponses[(responseElement.parent as PriorityTreeElement).Priority].RemoveAt(responseElement.eventindex);
                     if (args.parentItem is PriorityTreeElement priorityElement)
                     {
-                        m_event.AllResponses[priorityElement.Priority].Add(response);
+                        allResponses[priorityElement.Priority].Add(response);
                         UpdateResponsePriority(responseElement, priorityElement.Priority);
                     }
                     else if (args.parentItem is ResponseTreeElement otherResponseElement)
                     {
                         var otherResponseElementParent = otherResponseElement.parent as PriorityTreeElement;
-                        m_event.AllResponses[otherResponseElementParent.Priority].Add(response);
+                        allResponses[otherResponseElementParent.Priority].Add(response);
                         UpdateResponsePriority(responseElement, otherResponseElementParent.Priority);
                     }
                     else if (args.insertAtIndex == rootItem.children.Count)
                     {
-                        m_event.AllResponses.Add(new List<EventResponse>());
-                        m_event.AllResponses[args.insertAtIndex].Add(response);
+                        allResponses.Add(new List<EventResponse>());
+                        allResponses[args.insertAtIndex].Add(response);
                         UpdateResponsePriority(responseElement, args.insertAtIndex);
                     }
                 }
@@ -140,15 +143,15 @@ namespace VisualDelegates.Events.Editor
         private void BuildEventResponses(TreeViewItem root)
         {
             int counter = 0;
-            int priorities = m_event.AllResponses.Count;
+            int priorities = m_event.EventResponses.Count;
             for (int i = 0; i < priorities; i++)
             {
                 counter++;
                 var priorityroot = new PriorityTreeElement(i) { displayName = $"priority {i}", id = counter };
-                for (int j = 0; j < m_event.AllResponses[i].Count; j++)
+                for (int j = 0; j < m_event.EventResponses[i].Count; j++)
                 {
                     counter++;
-                    var currentresponse = m_event.AllResponses[i][j];
+                    var currentresponse = m_event.EventResponses[i][j];
                     if (currentresponse.senderID != -1)
                         priorityroot.AddChild(new ResponseTreeElement(currentresponse.senderID, currentresponse.responseIndex, i, j) { id = counter });
                     else
@@ -216,7 +219,7 @@ namespace VisualDelegates.Events.Editor
             {
                 var style = EditorStyles.label;
                 style.fontSize -= 3;
-                var runtime = m_event.AllResponses[response_element.priority][response_element.eventindex].response.m_calls[0] as RawRuntimeCall;
+                var runtime = m_event.EventResponses[response_element.priority][response_element.eventindex].response.Calls[0] as RawRuntimeCall;
                 EditorGUI.LabelField(cellrect, VisualEditorUtility.ParseDynamicTargetName(runtime.delegateInstance.Target.GetType().FullName),
                     style);
             }
@@ -247,20 +250,27 @@ namespace VisualDelegates.Events.Editor
         }
         private void DrawDynamicResponse(Rect cell, DynamicResponseTreeElement response_element)
         {
-            var runtimecall=m_event.AllResponses[response_element.Priority][response_element.EventIndex].response.m_calls[0] as RawRuntimeCall;
+            try
+            {
+                var runtimecall = m_event.EventResponses[response_element.Priority][response_element.EventIndex].response.Calls[0] as RawRuntimeCall;
+                if (response_element.targetMessage == null)
+                    response_element.targetMessage =
+                VisualEditorUtility.ParseDynamicTargetName(runtimecall.delegateInstance.Target.GetType().FullName);
+                if (response_element.methodMessage == null)
+                    response_element.methodMessage =
+                VisualEditorUtility.ParseDynamicMethodName(runtimecall.delegateInstance.Method.Name);
+                var targetrect = cell;
+                targetrect.height *= .5f;
+                EditorGUI.LabelField(targetrect, response_element.targetMessage);
+                var methodrect = targetrect;
+                methodrect.y += methodrect.height;
+                EditorGUI.LabelField(methodrect, response_element.methodMessage);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Reload();
+            }
            
-            if (response_element.targetMessage== null)
-                response_element.targetMessage =
-            VisualEditorUtility.ParseDynamicTargetName(runtimecall.delegateInstance.Target.GetType().FullName);
-            if(response_element.methodMessage==null)
-                response_element.methodMessage=
-            VisualEditorUtility.ParseDynamicMethodName(runtimecall.delegateInstance.Method.Name);
-            var targetrect = cell;
-            targetrect.height *= .5f;
-            EditorGUI.LabelField(targetrect, response_element.targetMessage);
-            var methodrect = targetrect;
-            methodrect.y += methodrect.height;
-            EditorGUI.LabelField(methodrect, response_element.methodMessage);
         }
     }
 }

@@ -2,69 +2,47 @@
 using System.Collections.Generic;
 namespace VisualDelegates.Events
 {
-    public abstract class BaseEvent : ScriptableObject, ISerializationCallbackReceiver
+    public abstract partial class BaseEvent : ScriptableObject
     {
-        [SerializeField] string EventNote;
-        [SerializeField] int historycapacity = 5;
-        [System.NonSerialized] public List<List<EventResponse>> AllResponses = new List<List<EventResponse>>();
-        private protected List<HistoryEntry> eventHistory = new List<HistoryEntry>();
-        [System.NonSerialized] private protected int overwriteIndex =0;
-        public bool isinvoke;
+        [System.NonSerialized] protected List<List<EventResponse>> m_EventResponses = new List<List<EventResponse>>();
+        public IReadOnlyList<IReadOnlyList<EventResponse>> EventResponses => m_EventResponses;
         public void Subscribe(EventResponse newResponse)
         {
-            var count = AllResponses.Count;
-            if (newResponse.priority>= count)
+            var count = m_EventResponses.Count;
+            if (newResponse.priority >= count)
             {
-                int delta = newResponse.priority - AllResponses.Count;
+                int delta = newResponse.priority - m_EventResponses.Count;
                 for (int i = 0; i <= delta; i++)
                 {
-                    AllResponses.Add(new List<EventResponse>());
+                    m_EventResponses.Add(new List<EventResponse>());
                 }
                 //  Debug.LogError("added");
             }
             else if (count == 0)
-                AllResponses.Add(new List<EventResponse>());
-            newResponse.subscriptionindex = AllResponses[newResponse.priority].Count;
+                m_EventResponses.Add(new List<EventResponse>());
+            newResponse.subscriptionindex = m_EventResponses[newResponse.priority].Count;
             //if (Application.isEditor && !AllResponses[priortiy].Contains(response))
-            AllResponses[newResponse.priority].Add(newResponse);
+            m_EventResponses[newResponse.priority].Add(newResponse);
         }
-        public int HistoryCount() => eventHistory.Count;
         public void UnSubscribe(EventResponse response)
         {
-            var prioritylist = AllResponses[response.priority];
-            prioritylist.RemoveAt(response.subscriptionindex);
+            if (response.subscriptionindex != -1)
+            {
+                var prioritylist = m_EventResponses[response.priority];
+                prioritylist.RemoveAt(response.subscriptionindex);
+                response.subscriptionindex = -1;
+            }
         }
         public void UnSubscribe(int priority, int subscriptionIndex)
         {
-            AllResponses[priority].RemoveAt(subscriptionIndex);
+            m_EventResponses[priority].RemoveAt(subscriptionIndex);
         }
-        void ISerializationCallbackReceiver.OnAfterDeserialize() { }
-        void ISerializationCallbackReceiver.OnBeforeSerialize()
+        public void UpdateResponsePriority(EventResponse response, int newpriority)
         {
-            if (!Application.isEditor)
-            {
-                Clear();
-            }
+            UnSubscribe(response);
+            response.priority = newpriority;
+            Subscribe(response);
         }
-        private protected abstract void Clear();
-        private protected abstract void EditorInvoke();
-        private protected void UpdateEventHistory(Object sender, params object[] args)
-        {
-            if (Application.isEditor)
-            {
-                eventHistory = eventHistory ?? new List<HistoryEntry>();
-                if (eventHistory.Count < historycapacity)
-                    eventHistory.Add(new HistoryEntry(sender?.GetInstanceID() ?? -999, args, System.Environment.StackTrace));
-                else
-                {
-                    eventHistory[overwriteIndex].entryData = args;
-                    eventHistory[overwriteIndex].SenderID = sender?.GetInstanceID() ?? -990;
-                    eventHistory[overwriteIndex].entryTrace = System.Environment.StackTrace;
-                    // wrapping
-                    overwriteIndex = overwriteIndex == historycapacity - 1 ? overwriteIndex = 0 : overwriteIndex += 1;
-                   
-                }
-            }
-        }
+
     }
 }

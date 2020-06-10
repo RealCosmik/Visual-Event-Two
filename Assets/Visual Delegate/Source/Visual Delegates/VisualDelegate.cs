@@ -91,8 +91,6 @@ namespace VisualDelegates
                     RemoveRuntimeFromEditor(value);
             }
         }
-
-
         protected sealed override void AppendCallToEvent(RawDelegate call)
         {
 

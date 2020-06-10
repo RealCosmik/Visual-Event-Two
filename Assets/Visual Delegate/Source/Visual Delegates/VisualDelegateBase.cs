@@ -7,9 +7,10 @@ namespace VisualDelegates
     {
         /// <summary>List of raw <see cref="RawCall"/> objects that this Publisher invokes using predefined arguments</summary>
         [SerializeReference]
-        public List<RawDelegate> m_calls;
+        private List<RawDelegate> m_calls;
         protected bool isinitialized;
         private int pre_initcalls;
+        public IReadOnlyList<RawDelegate> Calls => m_calls;
         public VisualDelegateBase() => m_calls = new List<RawDelegate>();
         protected abstract void AppendCallToEvent(RawDelegate raw_call);
         protected abstract void RemoveCallFromEvent(RawDelegate raw_call);

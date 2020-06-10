@@ -22,6 +22,7 @@ namespace VisualDelegates.Events.Editor
         TreeViewState responseState;
         int genericCount;
         Action editorInvocation;
+        Func<bool> getInvocationStatus;
         int ticks;
         Vector2 scroll;
 
@@ -67,7 +68,7 @@ namespace VisualDelegates.Events.Editor
             genericCount = target.GetType().BaseType.GenericTypeArguments.Length;
             PopulateSubscribers();
             responseState = responseState ?? new TreeViewState();
-            if ((target as BaseEvent).AllResponses.Count > 0)
+            if ((target as BaseEvent).EventResponses.Count > 0)
             {
                 responsetree = new EventResponseTree(responseState, GetEventCollumns(), target as BaseEvent);
             }
@@ -75,6 +76,11 @@ namespace VisualDelegates.Events.Editor
             if (historyTree == null)
                 historyTree = new HistoryTree(new TreeViewState(), HistoryTree.CreateHistoryHeader(), target as BaseEvent,
                     serializedObject.FindProperty("historycapacity").intValue);
+            if (getInvocationStatus == null)
+            {
+                var flags = BindingFlags.NonPublic | BindingFlags.Instance;
+                getInvocationStatus = Delegate.CreateDelegate(typeof(Func<bool>), target, (typeof(BaseEvent).GetMethod("GetisInvoke", flags)), true) as Func<bool>;
+            }
         }
         private void OnDisable()
         {
@@ -91,7 +97,7 @@ namespace VisualDelegates.Events.Editor
             return width;
         }
         private void autoreload()
-        { 
+        {
             if (ticks != 5)
             {
                 ticks++;
@@ -168,7 +174,7 @@ namespace VisualDelegates.Events.Editor
             EditorGUI.LabelField(capacityrect, new GUIContent("History Capacity"));
             var valurect = capacityrect;
             valurect.width *= .3f;
-            valurect.x += (valurect.width+40);
+            valurect.x += (valurect.width + 40);
             EditorGUI.BeginChangeCheck();
             var historyprop = serializedObject.FindProperty("historycapacity");
             historyprop.intValue = EditorGUI.IntField(valurect, historyprop.intValue);
@@ -177,35 +183,38 @@ namespace VisualDelegates.Events.Editor
                 if (historyprop.intValue < 5)
                     historyprop.intValue = 5;
                 serializedObject.ApplyModifiedProperties();
-                historyTree?.Reload(); 
+                historyTree?.Reload();
             }
             // EditorGUILayout.IntField("History capactity",25);
             historyTree?.OnGUI(GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth * .3f, 100f));
-            EditorGUILayout.EndVertical();  
-            scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.Height(100f), GUILayout.Width(EditorGUIUtility.currentViewWidth * .6f));
-            EditorGUILayout.TextArea(historyTree.activeTrace, GUILayout.ExpandHeight(true),GUILayout.ExpandWidth(true));
+            EditorGUILayout.EndVertical();
+            scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.Width(EditorGUIUtility.currentViewWidth * .6f), GUILayout.Height(125));
+            EditorGUILayout.TextArea(historyTree.activeTrace, EditorStyles.textArea, GUILayout.ExpandHeight(true));
             EditorGUILayout.EndScrollView();
             EditorGUILayout.EndHorizontal();
-
-
+            UpdateEventHistory();
+        }
+        private void UpdateEventHistory()
+        {
             if (EditorApplication.isPlaying)
             {
-                if ((target as BaseEvent).isinvoke)
+                if (getInvocationStatus())
                 {
                     historyTree?.Reload();
-                    (target as BaseEvent).isinvoke = false;
+                    var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+                    typeof(BaseEvent).GetField("isinvoke", flags).SetValue(target, false);
                 }
             }
         }
         private void DynamicRegistartionReload()
         {
-            if(responsetree==null&&(target as BaseEvent).AllResponses.Count > 0)
+            if (responsetree == null && (target as BaseEvent).EventResponses.Count > 0)
             {
                 OnEnable();
             }
         }
         public override void OnInspectorGUI()
-        { 
+        {
             DrawNoteField();
             DrawDebuggingData();
             DynamicRegistartionReload();
@@ -217,7 +226,7 @@ namespace VisualDelegates.Events.Editor
         {
             if (!EditorApplication.isPlayingOrWillChangePlaymode)
             {
-                (target as BaseEvent).AllResponses.Clear();
+                // (target as BaseEvent).GetResponses().Clear();
                 var binding = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
                 var root_objects = EditorSceneManager.GetActiveScene().GetRootGameObjects();
                 var length = root_objects.Length;
