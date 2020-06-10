@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 namespace VisualDelegates.Events
 {
     public abstract class GenericEvent<arg1> : BaseEvent
@@ -15,9 +16,21 @@ namespace VisualDelegates.Events
                 {
                     if (AllResponses[i][j].IsActive)
                         (AllResponses[i][j].response as VisualDelegate<arg1>).Invoke(arg1);
-                    UpdateEventHistory(sender, arg1);
                 }
             }
+            UpdateEventHistory(sender, arg1);
+        }
+        public void Subscribe(int priority,Action<arg1> response)
+        {
+            var newdelegate = new VisualDelegate<arg1>();
+            newdelegate.OnInvoke += response;
+            var eventresponse = new EventResponse
+            {
+                response = newdelegate,
+                priority = priority,
+                senderID = -1
+            };
+            Subscribe(eventresponse);
         }
         private protected sealed override void Clear() => argument1 = default;
         private protected sealed override void EditorInvoke() => Invoke(argument1, null);
@@ -37,9 +50,9 @@ namespace VisualDelegates.Events
                 {
                     if (AllResponses[i][j].IsActive)
                         (AllResponses[i][j].response as VisualDelegate<Arg1, Arg2>).Invoke(arg1, arg2);
-                    UpdateEventHistory(sender, arg1, arg2);
                 }
             }
+            UpdateEventHistory(sender, arg1, arg2);
         }
 
         private protected sealed override void Clear()

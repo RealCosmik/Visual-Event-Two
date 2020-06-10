@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Linq;
-using Microsoft.CodeAnalysis.FlowAnalysis;
-
 namespace VisualDelegates.Editor
 {
     //##########################
@@ -666,6 +664,22 @@ namespace VisualDelegates.Editor
                 del.GetType().GetField("m_onInvoke", flags).SetValue(del, null);
             else del.GetType().BaseType.GetField("m_onInvoke", flags).SetValue(del, null);
             del.initialize();
+        }
+        public static string ParseDynamicMethodName(string methodname)
+        {
+            if (methodname[0] == '<')//anon method
+            {
+                return $@"Method: Anonymous method created in ""{methodname.Substring(1, methodname.IndexOf('>') - 1)}""";
+            }
+            else return $@"Method: ""{methodname}""";
+        }
+        public static string ParseDynamicTargetName(string TargetType)
+        {
+            if (TargetType.Contains("+"))
+            {
+                return $@"Target: Anonymous Type Created in ""{TargetType.Substring(0, TargetType.IndexOf('+'))}""";
+            }
+            return $@"Target: ""{TargetType}""";
         }
         public static PropertyName STRING_TYPE_NAME = "System.String";
         public static PropertyName CHAR_TYPE_NAME = "System.Char";

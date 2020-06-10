@@ -15,7 +15,7 @@ namespace VisualDelegates.Events.Editor
         const string RESPONSE_FIELD_NAME = "responses";
         const string ARGUMENT = "argument";
         const string EVENT_DETAILS = "Event Details";
-        SuscriberTree responsetree;
+        EventResponseTree responsetree;
         HistoryTree historyTree;
         [SerializeField] bool detailsfolded = true;
         [SerializeField] bool debugfold, invocationfold, historyfold, argumentfold;
@@ -68,7 +68,9 @@ namespace VisualDelegates.Events.Editor
             PopulateSubscribers();
             responseState = responseState ?? new TreeViewState();
             if ((target as BaseEvent).AllResponses.Count > 0)
-                responsetree = new SuscriberTree(responseState, GetEventCollumns(), target as BaseEvent);
+            {
+                responsetree = new EventResponseTree(responseState, GetEventCollumns(), target as BaseEvent);
+            }
 
             if (historyTree == null)
                 historyTree = new HistoryTree(new TreeViewState(), HistoryTree.CreateHistoryHeader(), target as BaseEvent,
@@ -151,7 +153,6 @@ namespace VisualDelegates.Events.Editor
             }
             if (EditorGUI.EndChangeCheck())
             {
-                Debug.Log("control change");
                 serializedObject.ApplyModifiedProperties();
             }
             EditorGUI.indentLevel--;
@@ -196,11 +197,18 @@ namespace VisualDelegates.Events.Editor
                 }
             }
         }
-
+        private void DynamicRegistartionReload()
+        {
+            if(responsetree==null&&(target as BaseEvent).AllResponses.Count > 0)
+            {
+                OnEnable();
+            }
+        }
         public override void OnInspectorGUI()
         { 
             DrawNoteField();
             DrawDebuggingData();
+            DynamicRegistartionReload();
             responsetree?.OnGUI(GUILayoutUtility.GetRect(GetTreewidth(), responsetree.totalHeight));
             autoreload();
         }
@@ -225,7 +233,7 @@ namespace VisualDelegates.Events.Editor
                             {
                                 event_responses[k].responseIndex = k;
                                 event_responses[k].senderID = event_subscribers[j].GetInstanceID();
-                                (target as BaseEvent).Subscribe(event_responses[k], event_responses[k].priority);
+                                (target as BaseEvent).Subscribe(event_responses[k]);
                             }
                         }
                     }

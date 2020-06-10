@@ -10,12 +10,12 @@ namespace VisualDelegates.Events
         private protected List<HistoryEntry> eventHistory = new List<HistoryEntry>();
         [System.NonSerialized] private protected int overwriteIndex =0;
         public bool isinvoke;
-        public void Subscribe(EventResponse response, int priortiy)
+        public void Subscribe(EventResponse newResponse)
         {
             var count = AllResponses.Count;
-            if (priortiy >= count)
+            if (newResponse.priority>= count)
             {
-                int delta = priortiy - AllResponses.Count;
+                int delta = newResponse.priority - AllResponses.Count;
                 for (int i = 0; i <= delta; i++)
                 {
                     AllResponses.Add(new List<EventResponse>());
@@ -24,9 +24,9 @@ namespace VisualDelegates.Events
             }
             else if (count == 0)
                 AllResponses.Add(new List<EventResponse>());
-            response.subscriptionindex = AllResponses[priortiy].Count;
+            newResponse.subscriptionindex = AllResponses[newResponse.priority].Count;
             //if (Application.isEditor && !AllResponses[priortiy].Contains(response))
-            AllResponses[priortiy].Add(response);
+            AllResponses[newResponse.priority].Add(newResponse);
         }
         public int HistoryCount() => eventHistory.Count;
         public void UnSubscribe(EventResponse response)

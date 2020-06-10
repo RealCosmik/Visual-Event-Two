@@ -10,6 +10,7 @@ namespace VisualDelegates
         public List<RawDelegate> m_calls;
         protected bool isinitialized;
         private int pre_initcalls;
+        public VisualDelegateBase() => m_calls = new List<RawDelegate>();
         protected abstract void AppendCallToEvent(RawDelegate raw_call);
         protected abstract void RemoveCallFromEvent(RawDelegate raw_call);
         /// <summary>

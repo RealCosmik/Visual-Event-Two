@@ -64,14 +64,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Visual Event Editor\Event Drawer\BaseEventDrawer.cs" />
+    <Compile Include="Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\DynamicResponseTreeElement.cs" />
+    <Compile Include="Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\EventResponseTree.cs" />
+    <Compile Include="Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\PriorityTreeElement.cs" />
+    <Compile Include="Assets\Visual Event Editor\Event Drawer\Event Response Tree Data\ResponseTreeElement.cs" />
     <Compile Include="Assets\Visual Event Editor\Event Drawer\History Tree Data\HistoryTree.cs" />
     <Compile Include="Assets\Visual Event Editor\Event Drawer\History Tree Data\HistoryTreeElement.cs" />
-    <Compile Include="Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\PriorityTreeElement.cs" />
-    <Compile Include="Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SubscriberTreeElement.cs" />
-    <Compile Include="Assets\Visual Event Editor\Event Drawer\Subscriber Tree Data\SuscriberTree.cs" />
     <Compile Include="Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs" />
-    <Compile Include="Assets\Visual Event Editor\Subscriber Drawer\ResponseTree.cs" />
-    <Compile Include="Assets\Visual Event Editor\Subscriber Drawer\ResponseTreeElement.cs" />
+    <Compile Include="Assets\Visual Event Editor\Subscriber Drawer\SubscriberTree.cs" />
+    <Compile Include="Assets\Visual Event Editor\Subscriber Drawer\SubscriberTreeElement.cs" />
     <Reference Include="UnityEngine">
       <HintPath>F:/UNITY VERSIONS/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

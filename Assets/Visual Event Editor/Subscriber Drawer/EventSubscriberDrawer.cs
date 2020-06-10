@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
+using Boo.Lang;
+
 namespace VisualDelegates.Events.Editor
 {
     [CustomEditor(typeof(EventSubscriber))]
     class EventSubscriberDrawer : UnityEditor.Editor
     {
-        ResponseTree currentResponseTree;
+        SubscriberTree currentResponseTree;
         int tick = 0;
         private MultiColumnHeader CreateCollumnHeader()
         {
@@ -44,8 +46,16 @@ namespace VisualDelegates.Events.Editor
         }
         private void OnDisable()
         {
-           currentResponseTree = null;
+            currentResponseTree = null;
             tick = 0;
+            var responseListProperty = serializedObject.FindProperty("responses");
+            var length = responseListProperty.arraySize - 1;
+            for (int i = length; i>=0; i--)
+            {
+                if (responseListProperty.GetArrayElementAtIndex(i).FindPropertyRelative("currentEvent").objectReferenceValue == null)
+                    responseListProperty.DeleteArrayElementAtIndex(i);
+            }
+            responseListProperty.serializedObject.ApplyModifiedProperties();
         }
         private void OnResponseAdded()
         {
@@ -59,7 +69,7 @@ namespace VisualDelegates.Events.Editor
                 PrefabUtility.RecordPrefabInstancePropertyModifications(responseListProperty.serializedObject.targetObject);
                 responseListProperty.serializedObject.ApplyModifiedProperties();
                 if (currentResponseTree == null)
-                    currentResponseTree = new ResponseTree(new TreeViewState(), CreateCollumnHeader(), serializedObject);
+                    currentResponseTree = new SubscriberTree(new TreeViewState(), CreateCollumnHeader(), serializedObject);
                 else
                 {
                     // Debug.Log("reload");
@@ -71,16 +81,16 @@ namespace VisualDelegates.Events.Editor
         {
             if (GUILayout.Button("Remove response"))
             {
-                var selectedElements= currentResponseTree.GetSelection();
+                var selectedElements = currentResponseTree.GetSelection();
                 var selectionCount = selectedElements.Count;
                 var responseListProperty = serializedObject.FindProperty("responses");
                 for (int i = 0; i < selectionCount; i++)
                 {
-                    responseListProperty.DeleteArrayElementAtIndex(selectedElements[i]);    
+                    responseListProperty.DeleteArrayElementAtIndex(selectedElements[i]);
                 }
                 responseListProperty.serializedObject.ApplyModifiedProperties();
-                if(responseListProperty.arraySize>0)
-                currentResponseTree.Reload();
+                if (responseListProperty.arraySize > 0)
+                    currentResponseTree.Reload();
             }
         }
         private void autoRefresh()
@@ -100,7 +110,7 @@ namespace VisualDelegates.Events.Editor
             EditorGUILayout.EndHorizontal();
             if (serializedObject.FindProperty("responses").arraySize > 0)
             {
-               currentResponseTree=currentResponseTree?? new ResponseTree(new TreeViewState(), CreateCollumnHeader(), serializedObject); 
+                currentResponseTree = currentResponseTree ?? new SubscriberTree(new TreeViewState(), CreateCollumnHeader(), serializedObject);
                 float width = 0f;
                 for (int i = 0; i < 2; i++)
                 {

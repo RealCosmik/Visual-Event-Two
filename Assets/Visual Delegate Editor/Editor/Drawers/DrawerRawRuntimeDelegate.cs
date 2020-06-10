@@ -18,24 +18,9 @@ namespace VisualDelegates.Editor
                 delegateprop.FindPropertyRelative("isUnityTarget").boolValue = false;
                 delegateprop.FindPropertyRelative("TargetType").stringValue = target_type.AssemblyQualifiedName;
             }
-            cache.TargetName = ParseTargetName(target_type.FullName);
+            cache.TargetName = VisualEditorUtility.ParseDynamicTargetName(target_type.FullName);
         }
-        private string ParseMethodName(string methodname)
-        {
-            if (methodname[0] == '<')//anon method
-            {
-                return $@"Method: Anonymous method created in ""{methodname.Substring(1, methodname.IndexOf('>') - 1)}""";
-            }
-            else return $@"Method: ""{methodname}""";
-        }
-        private string ParseTargetName(string TargetType)
-        {
-            if (TargetType.Contains("+"))
-            {
-                return $@"Target: Anonymous Type Created in ""{TargetType.Substring(0, TargetType.IndexOf('+'))}""";
-            }
-            return $@"Target: ""{TargetType}""";
-        }
+       
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             if (EditorApplication.isPlaying&& ViewCache.GetDelegateView(property, out RawDynamicDelegateView cache))
@@ -47,7 +32,7 @@ namespace VisualDelegates.Editor
                     AddTarget(property, cache, dynamicdelgate.delegateInstance.Target);
                     var seralizedMethodData = Utility.QuickSeralizer(dynamicdelgate.delegateInstance.Method);
                     VisualEditorUtility.CopySeralizedMethodDataToProp(methodData_prop, seralizedMethodData);
-                    cache.MethodName = ParseMethodName(seralizedMethodData[1]);
+                    cache.MethodName = VisualEditorUtility.ParseDynamicMethodName(seralizedMethodData[1]);
                     cache.CalcHeight();
                     property.serializedObject.ApplyModifiedProperties();
                 }

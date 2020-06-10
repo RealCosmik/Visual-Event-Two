@@ -24,7 +24,7 @@ namespace VisualDelegates.Events
                         responses[i].responseIndex = i;
                     }
                     responses[i].response.initialize();
-                    responses[i].currentEvent.Subscribe(responses[i], responses[i].priority);
+                    responses[i].currentEvent.Subscribe(responses[i]);
                 }
             }
         }
