@@ -140,6 +140,7 @@ namespace VisualDelegates.Events.Editor
         private void DrawTestInvocation()
         {
             EditorGUI.indentLevel++;
+            GUI.enabled = EditorApplication.isPlaying;
             if (GUILayout.Button("Invoke"))
             {
                 if (editorInvocation == null)
@@ -151,6 +152,7 @@ namespace VisualDelegates.Events.Editor
                 }
                 editorInvocation.Invoke();
             }
+            GUI.enabled = true;
             EditorGUILayout.BeginVertical();
             EditorGUI.BeginChangeCheck();
             for (int i = 0; i < genericCount; i++)

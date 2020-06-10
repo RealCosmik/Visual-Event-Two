@@ -3,10 +3,7 @@ namespace VisualDelegates.Events.Editor
 {
     public class HistoryTreeElement :TreeViewItem
     {
-        public HistoryEntry currentEntry { get; private set; }
-        public HistoryTreeElement(HistoryEntry newEntry)
-        {
-            currentEntry = newEntry;
-        }
+        public string argumentData;
+        public HistoryTreeElement(object[] args) => argumentData = string.Join(",", args);
     }
 }

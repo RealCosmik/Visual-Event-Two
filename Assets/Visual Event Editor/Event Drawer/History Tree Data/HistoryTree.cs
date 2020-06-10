@@ -9,8 +9,9 @@ namespace VisualDelegates.Events.Editor
     {
         BaseEvent currentEvent;
         int capacity;
-        private static Color errorColor = new Color(1, 0, 0, .4f);
+        private static Color errorColor = new Color(.81f, .3f, .3f, .4f);
         public string activeTrace { get; private set; }
+        List<HistoryEntry> cachedEntries;
         public HistoryTree(TreeViewState state, MultiColumnHeader header, BaseEvent newEvent, int maxentries) : base(state, header)
         {
             this.useScrollView = true;
@@ -28,15 +29,16 @@ namespace VisualDelegates.Events.Editor
         }
         protected override void SingleClickedItem(int id)
         {
-            activeTrace = (FindItem(id, rootItem) as HistoryTreeElement).currentEntry.entryTrace;
+            if (FindItem(id, rootItem) is HistoryTreeElement historyelement)
+                activeTrace = cachedEntries[historyelement.id].entryTrace;
         }
         private bool BuildHistoryTree(TreeViewItem root)
         {
             BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField;
-            var current_history = typeof(BaseEvent).GetField("eventHistory", flags).GetValue(currentEvent) as List<HistoryEntry>;
-            for (int i = 0; i < capacity && i < current_history.Count; i++)
-                root.AddChild(new HistoryTreeElement(current_history[i]) { id = i });
-            return current_history.Count > 0;
+            cachedEntries = typeof(BaseEvent).GetField("eventHistory", flags).GetValue(currentEvent) as List<HistoryEntry>;
+            for (int i = 0; i < capacity && i < cachedEntries.Count; i++)
+                root.AddChild(new HistoryTreeElement(cachedEntries[i].entryData) { id = i });
+            return cachedEntries.Count > 0;
         }
         protected override void RowGUI(RowGUIArgs args)
         {
@@ -51,19 +53,18 @@ namespace VisualDelegates.Events.Editor
         private void DrawHistoricEntry(int Collumnindex, ref RowGUIArgs args)
         {
             var cellrect = args.GetCellRect(Collumnindex);
-            HistoryTreeElement element = args.item as HistoryTreeElement;
-            if (element.currentEntry.haserror)
-                EditorGUI.DrawRect(cellrect, errorColor);
+            var treeItem = args.item as HistoryTreeElement;
+            if (cachedEntries[treeItem.id].haserror)
+                EditorGUI.DrawRect(args.rowRect, errorColor);
             GUI.enabled = false;
             switch (Collumnindex)
             {
                 case 0:
-                    var sender_object = EditorUtility.InstanceIDToObject(element.currentEntry.SenderID);
+                    var sender_object = EditorUtility.InstanceIDToObject(cachedEntries[treeItem.id].SenderID);
                     EditorGUI.ObjectField(cellrect, sender_object, typeof(UnityEngine.Object), true);
                     break;
                 case 1:
-                    var arguments = string.Join(",", element.currentEntry.entryData);
-                    EditorGUI.LabelField(cellrect, arguments);
+                    EditorGUI.LabelField(cellrect,treeItem.argumentData);
                     break;
                 default:
                     break;
