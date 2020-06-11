@@ -41,8 +41,8 @@ namespace VisualDelegates.Events
             Subscribe(eventresponse);
             return eventresponse;
         }
-        private protected sealed override void Clear() => argument1 = default;
-        private protected sealed override void EditorInvoke() => Invoke(argument1, null);
+        protected sealed override void Clear() => argument1 = default;
+        protected  override void EditorInvoke() => Invoke(argument1, null);
     }
 
     public abstract class GenericEvent<Arg1, Arg2> : BaseEvent
@@ -84,12 +84,12 @@ namespace VisualDelegates.Events
             Subscribe(eventresponse);
             return eventresponse;
         }
-        private protected sealed override void Clear()
+        protected sealed override void Clear()
         {
             argument1 = default;
             argument2 = default;
         }
-        private protected sealed override void EditorInvoke() => Invoke(argument1, argument2, null);
+        protected sealed override void EditorInvoke() => Invoke(argument1, argument2, null);
     }
     public abstract class GenericEvent<Arg1, Arg2, Arg3> : BaseEvent, ISerializationCallbackReceiver
     {
@@ -131,13 +131,13 @@ namespace VisualDelegates.Events
             Subscribe(eventresponse);
             return eventresponse;
         }
-        private protected sealed override void Clear()
+        protected sealed override void Clear()
         {
             argument1 = default;
             argument2 = default;
             argument3 = default;
         }
-        private protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, null);
+        protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, null);
     }
     public abstract class GenericEvent<Arg1, Arg2, Arg3, Arg4> : BaseEvent
     {
@@ -180,14 +180,14 @@ namespace VisualDelegates.Events
             return eventresponse;
         }
 
-        private protected sealed override void Clear()
+        protected sealed override void Clear()
         {
             argument1 = default;
             argument2 = default;
             argument3 = default;
             argument4 = default;
         }
-        private protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, argument4, null);
+        protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, argument4, null);
     }
 
     public abstract class GenericEvent<Arg1, Arg2, Arg3, Arg4, Arg5> : BaseEvent, ISerializationCallbackReceiver
@@ -232,7 +232,7 @@ namespace VisualDelegates.Events
             return eventresponse;
         }
 
-        private protected sealed override void Clear()
+        protected sealed override void Clear()
         {
             argument1 = default;
             argument2 = default;
@@ -240,7 +240,7 @@ namespace VisualDelegates.Events
             argument4 = default;
             argument5 = default;
         }
-        private protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, argument4, argument5, null);
+        protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, argument4, argument5, null);
     }
 
     public abstract class GenericEvent<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6> : BaseEvent, ISerializationCallbackReceiver
@@ -286,7 +286,7 @@ namespace VisualDelegates.Events
             return eventresponse;
         }
 
-        private protected sealed override void Clear()
+        protected sealed override void Clear()
         {
             argument1 = default;
             argument2 = default;
@@ -295,7 +295,7 @@ namespace VisualDelegates.Events
             argument5 = default;
             argument6 = default;
         }
-        private protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, argument4, argument5, argument6, null);
+        protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, argument4, argument5, argument6, null);
     }
     public abstract class GenericEvent<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7> : BaseEvent, ISerializationCallbackReceiver
     {
@@ -342,7 +342,7 @@ namespace VisualDelegates.Events
             return eventresponse;
         }
 
-        private protected sealed override void Clear()
+        protected sealed override void Clear()
         {
             argument1 = default;
             argument2 = default;
@@ -352,7 +352,7 @@ namespace VisualDelegates.Events
             argument6 = default;
             argument7 = default;
         }
-        private protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, argument4, argument5, argument6, argument7, null);
+        protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, argument4, argument5, argument6, argument7, null);
     }
     public abstract class GenericEvent<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8> : BaseEvent, ISerializationCallbackReceiver
     {
@@ -399,7 +399,7 @@ namespace VisualDelegates.Events
             return eventresponse;
         }
 
-        private protected sealed override void Clear()
+        protected sealed override void Clear()
         {
             argument1 = default;
             argument2 = default;
@@ -410,6 +410,6 @@ namespace VisualDelegates.Events
             argument7 = default;
             argument8 = default;
         }
-        private protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, argument4, argument5, argument6, argument7, argument8, null);
+        protected sealed override void EditorInvoke() => Invoke(argument1, argument2, argument3, argument4, argument5, argument6, argument7, argument8, null);
     }
 }

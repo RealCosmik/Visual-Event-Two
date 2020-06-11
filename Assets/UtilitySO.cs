@@ -1,8 +1,4 @@
 ﻿using UnityEngine;
-using VisualDelegates;
-using System.Collections.Generic;
-[CreateAssetMenu(fileName = "methodSO", menuName = "Util/methodSO")]
-
 public class UtilitySO : ScriptableObject
 {
     public int value;
@@ -24,14 +20,4 @@ public class UtilitySO : ScriptableObject
                 break;
         }
     }
-    /// <summary>
-    /// this method gets called in <see cref="LinkedMono"/>
-    /// </summary>
-    public void Extramethodattempt()
-    {
-        Debug.LogError("wow did this work");
-    }
-    public void TestInt(int value) => Debug.Log($"the value is {value}");
-    public void TestString(string value) => Debug.Log($"the value is {value}");
-    public void log(string message) => Debug.Log(message);
 }

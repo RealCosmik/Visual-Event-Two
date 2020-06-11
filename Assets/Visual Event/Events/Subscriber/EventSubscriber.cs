@@ -4,7 +4,7 @@ namespace VisualDelegates.Events
 {
     public class EventSubscriber : MonoBehaviour
     {
-        [SerializeField] List<EventResponse> responses;
+        [SerializeField] List<EventResponse> responses = new List<EventResponse>();
 
         private void Awake() => SetSubscriptions();
         private void OnEnable() => SetResponseActiveStatus(true);

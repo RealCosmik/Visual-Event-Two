@@ -63,8 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Visual Event\EventResponse.cs" />
-    <Compile Include="Assets\Visual Event\EventSubscriber.cs" />
     <Compile Include="Assets\Visual Event\Events\Base Event\BaseEvent.cs" />
     <Compile Include="Assets\Visual Event\Events\Base Event\BaseEventEditor.cs" />
     <Compile Include="Assets\Visual Event\Events\Base Event\HistoryEntry.cs" />
@@ -72,7 +70,10 @@
     <Compile Include="Assets\Visual Event\Events\ImplementedEvents\DoubleInt.cs" />
     <Compile Include="Assets\Visual Event\Events\ImplementedEvents\IntEvent.cs" />
     <Compile Include="Assets\Visual Event\Events\ImplementedEvents\VoidEvent.cs" />
-    <Compile Include="Assets\Visual Event\Events\ResponseList.cs" />
+    <Compile Include="Assets\Visual Event\Events\Subscriber\EventResponse.cs" />
+    <Compile Include="Assets\Visual Event\Events\Subscriber\EventSubscriber.cs" />
+    <Compile Include="Assets\Visual Event\Events\Variables\GenericVariable.cs" />
+    <Compile Include="Assets\Visual Event\Events\Variables\Visual Variable.cs" />
     <Reference Include="UnityEngine">
       <HintPath>F:/UNITY VERSIONS/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

@@ -65,6 +65,11 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\Editor Debug\CreateScriptableObjectWindow.cs" />
     <Compile Include="Assets\Editor\Editor Debug\SerializedPropertyViewer.cs" />
+    <Compile Include="Assets\ProceduralUIImage\Editor\FreeModifierEditor.cs" />
+    <Compile Include="Assets\ProceduralUIImage\Editor\ModifierUtility.cs" />
+    <Compile Include="Assets\ProceduralUIImage\Editor\ProceduralImageEditor.cs" />
+    <Compile Include="Assets\ProceduralUIImage\Editor\ProceduralImageEditorUtility.cs" />
+    <Compile Include="Assets\ProtoShape2D\Editor\ProtoShape2DEditor.cs" />
     <Reference Include="UnityEngine">
       <HintPath>F:/UNITY VERSIONS/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

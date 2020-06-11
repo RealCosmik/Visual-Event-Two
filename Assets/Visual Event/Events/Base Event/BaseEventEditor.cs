@@ -9,8 +9,8 @@ namespace VisualDelegates.Events
         private protected bool isinvoke;
         private protected int overwriteIndex = 0;
         private protected List<HistoryEntry> eventHistory = new List<HistoryEntry>();
-        private protected abstract void Clear();
-        private protected abstract void EditorInvoke();
+        protected  abstract void Clear();
+        protected  abstract void EditorInvoke();
         private protected bool GetisInvoke() => isinvoke;
 
         private protected void UpdateEventHistory(Object sender,bool error, params object[] args)

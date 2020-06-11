@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
-using Boo.Lang;
 
 namespace VisualDelegates.Events.Editor
 {

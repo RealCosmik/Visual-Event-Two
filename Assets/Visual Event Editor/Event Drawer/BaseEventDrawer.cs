@@ -6,11 +6,10 @@ using UnityEditor.SceneManagement;
 using System.Collections.Generic;
 using System;
 using System.Reflection;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace VisualDelegates.Events.Editor
 {
-    [CustomEditor(typeof(BaseEvent), true)]
+    [CustomEditor(typeof(BaseEvent), true, isFallback = true)]
     class BaseEventDrawer : UnityEditor.Editor
     {
         const string RESPONSE_FIELD_NAME = "responses";
@@ -71,7 +70,6 @@ namespace VisualDelegates.Events.Editor
                            maxWidth = 150,
                            autoResize = true,
                            headerTextAlignment = TextAlignment.Left
-
                        }
          };
             return new MultiColumnHeader(new MultiColumnHeaderState(collumns));
@@ -119,6 +117,31 @@ namespace VisualDelegates.Events.Editor
                     responsetree?.Reload();
             }
         }
+        private void DrawVarialbe()
+        {
+            if (target is IVisualVariable)
+            {
+                bool isplaying = EditorApplication.isPlaying;
+                GUI.enabled = !isplaying;
+                EditorGUI.BeginChangeCheck();
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("initialValue"));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    serializedObject.ApplyModifiedProperties();
+                    EditorUtility.SetDirty(target);
+                }
+                GUI.enabled = true;
+                if (isplaying)
+                {
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("CurrentValue"));
+                    serializedObject.UpdateIfRequiredOrScript();
+                }
+            }
+        }
+        public override bool RequiresConstantRepaint()
+        {
+            return target is IVisualVariable;
+        }
         private void DrawNoteField()
         {
             var style = new GUIStyle("textField");
@@ -132,6 +155,7 @@ namespace VisualDelegates.Events.Editor
                 if (EditorGUI.EndChangeCheck())
                 {
                     serializedObject.ApplyModifiedProperties();
+                    EditorUtility.SetDirty(target);
                 }
             }
             EditorGUILayout.EndFoldoutHeaderGroup();
@@ -165,6 +189,7 @@ namespace VisualDelegates.Events.Editor
                     editorInvocation = Delegate.CreateDelegate(typeof(Action), target, editormethod, true) as Action;
                 }
                 editorInvocation.Invoke();
+                serializedObject.Update();
             }
             GUI.enabled = true;
             EditorGUILayout.BeginVertical();
@@ -231,6 +256,7 @@ namespace VisualDelegates.Events.Editor
         }
         public override void OnInspectorGUI()
         {
+            DrawVarialbe();
             DrawNoteField();
             DrawDebuggingData();
             DynamicRegistartionReload();
@@ -243,7 +269,7 @@ namespace VisualDelegates.Events.Editor
             if (!EditorApplication.isPlayingOrWillChangePlaymode)
             {
                 var binding = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
-                (typeof(BaseEvent).GetField("m_EventResponses",binding).GetValue(target) as List<List<EventResponse>>).Clear();
+                (typeof(BaseEvent).GetField("m_EventResponses", binding).GetValue(target) as List<List<EventResponse>>).Clear();
                 var root_objects = EditorSceneManager.GetActiveScene().GetRootGameObjects();
                 var length = root_objects.Length;
                 for (int i = 0; i < length; i++)

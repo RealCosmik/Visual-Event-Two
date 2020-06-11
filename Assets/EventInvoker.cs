@@ -6,10 +6,10 @@ class EventInvoker : MonoBehaviour
     public KeyCode invokecode = KeyCode.E;
     public KeyCode unsubcode= KeyCode.U;
     EventResponse response;
+    public IntVar v;
+    public int num;
     private void Start()
     {
-      response = myevent.Subscribe(val => throw new UnityException("random exception"), 1);
-        myevent.Subscribe(val => Debug.Log("another thing"), 1);
     }
     private void Update()
     {
@@ -22,5 +22,9 @@ class EventInvoker : MonoBehaviour
             if(response!=null)
             myevent.UnSubscribe(response);
         }
+    }
+    private void OnValidate()
+    {
+        v.Invoke(num, this);
     }
 }
