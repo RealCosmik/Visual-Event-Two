@@ -5,8 +5,7 @@ internal class fixerclass : RawCall
 {
     private void AOTFIX()
     {
-        createPropertyCall<System.Int32>(null, null);
-        createPropertyCall<UnityEngine.Vector3>(null, null);
+        createFunc1<System.Int32, System.Collections.IEnumerator>(null);
         throw new System.AccessViolationException();
     }
 }

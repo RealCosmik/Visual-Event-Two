@@ -7,11 +7,11 @@ namespace VisualDelegates
         [SerializeField]
         string TargetType;
         [SerializeField]
-        bool isUnityTarget; 
+        bool isUnityTarget;
         public RawRuntimeCall(Delegate new_delegate) => delegateInstance = new_delegate;
-        public sealed override void OnAfterDeserialize()
+        protected sealed override void Deserialization()
         {
-            if (methodData.Length > 0)
+            if (Application.isEditor && methodData.Length > 0)
             {
                 var deltype = Type.GetType(TargetType);
                 var method = Utility.QuickDeseralizer(deltype, methodData, out paramtypes);

@@ -22,11 +22,9 @@ namespace VisualDelegates
         private protected string[] methodData;
         /// <summary>Cached delegate instance generated upon initialization</summary>
         public System.Delegate delegateInstance { get; internal set; }
-        [SerializeField]
-        protected bool m_isYieldableCall;
+      
         protected Type[] paramtypes;
         [SerializeField] internal bool haserror;
-        public bool isYieldable => m_isYieldableCall;
         [SerializeField] private bool serializationError = false;
         /// <summary>
         /// Checks delegate for potential memory leaks 
@@ -157,36 +155,13 @@ namespace VisualDelegates
             return val => boxed_lamda(val);
 
         }
-        protected virtual Delegate CreateFieldGetter<A>(UnityEngine.Object target, FieldInfo info)
-        {
-            var targetExpression = Expression.Constant(target);
-            var fieldexprssion = Expression.Field(targetExpression, info);
-            var boxed_object = Expression.Convert(fieldexprssion, typeof(object));
-            var boxed_field = Expression.Lambda<Func<object>>(boxed_object);
-            var FieldGetter = boxed_field.Compile();
-            if ((this as RawReference).isparentargumentstring == true)
-                return new Func<string>(() => FieldGetter.Invoke().ToString());
-            else
-            {
-                Func<A> safegetter = () => (A)FieldGetter.Invoke();
-                if ((this as RawReference).isDelegate)
-                {
-                    Func<Func<A>> nested_func = () => safegetter;
-                    return nested_func;
-                }
-                else return safegetter;
-            }
-        }
+       
         public virtual void Release()
         {
             delegateInstance = null;
             m_target = null;
         }
-        public void OnBeforeSerialize()
-        {
-        }
-
-        public virtual void OnAfterDeserialize()
+        protected virtual void Deserialization()
         {
             try
             {
@@ -200,7 +175,8 @@ namespace VisualDelegates
                 Debug.LogError(ex);
                 delegateInstance = new Action(() => Debug.LogError(Utility.CreateDelegateErrorMessage(methodData, m_target), m_target));
             }
-
         }
+        void ISerializationCallbackReceiver.OnBeforeSerialize() { }
+        void ISerializationCallbackReceiver.OnAfterDeserialize() => Deserialization();
     }
 }

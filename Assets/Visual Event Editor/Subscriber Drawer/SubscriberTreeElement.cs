@@ -10,10 +10,9 @@ namespace VisualDelegates.Events.Editor
         public bool iscollapsed;
         public Vector2 scroll;
         public GUIContent responseNote;
-        public SubscriberTreeElement(BaseEvent baseEvent,string note)
+        public SubscriberTreeElement(BaseEvent baseEvent)
         {
             CurrentEvent = baseEvent;
-            responseNote = new GUIContent(note);
         } 
     } 
 

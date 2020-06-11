@@ -8,7 +8,7 @@ namespace VisualDelegates.Events
         [SerializeField] public BaseEvent currentEvent;
         [SerializeField] int priority;
         [SerializeField] public bool isActive = true;
-        [SerializeField] string responseNote;
+        [SerializeField] string responseNote = string.Empty;
         [System.NonSerialized] public int senderID, responseIndex,subscriptionindex;
 
         public EventResponse(VisualDelegateBase newresponse,int newpriority)

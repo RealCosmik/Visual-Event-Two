@@ -72,7 +72,7 @@ class LinkedMono : MonoBehaviour
             yield return null;
         }
     }
-    public IEnumerator second(float time)
+    public IEnumerator second(int time)
     {
         Debug.Log("second");
         yield return new WaitForSeconds(time);
@@ -152,8 +152,9 @@ class LinkedMono : MonoBehaviour
     }
     public IEnumerator WaitForSeconds(int time)
     {
-        Debug.Log("starting wait time of" + time);
+        Debug.LogWarning("starting wait time of" + time);
         yield return new WaitForSeconds(time);
+        Debug.Log("Completed wait time");
     }
     private void Testmethod()
     {

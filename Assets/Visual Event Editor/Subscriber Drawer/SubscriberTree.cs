@@ -38,8 +38,8 @@ namespace VisualDelegates.Events.Editor
             {
                 var response = subscriberResponses.GetArrayElementAtIndex(i);
                 var baseEvent = response.FindPropertyRelative("currentEvent").objectReferenceValue as BaseEvent;
-                var noteprop = response.FindPropertyRelative("responseNote").stringValue;
-                root.AddChild(new SubscriberTreeElement(baseEvent,noteprop) { id = i });
+               // var noteprop = response.FindPropertyRelative("responseNote").stringValue;
+                root.AddChild(new SubscriberTreeElement(baseEvent) { id = i });
             }
         }
         protected override float GetCustomRowHeight(int row, TreeViewItem item)
@@ -200,6 +200,8 @@ namespace VisualDelegates.Events.Editor
         {
             var noteprop = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id).FindPropertyRelative("responseNote");
             cell.height -= HEIGHT_PADDING;
+            if (element.responseNote == null)
+                element.responseNote = new GUIContent(noteprop.stringValue);
             var customeheight=EditorStyles.textArea.CalcHeight(element.responseNote, cell.width);
             var textrect = cell;
             EditorGUI.BeginChangeCheck();

@@ -10,8 +10,8 @@ class EventInvoker : MonoBehaviour
     EventResponse response;
     private void Start()
     {
-        response = myevent.Subscribe(val => throw new UnityException("random exception"), 1);
-        myevent.Subscribe(val => Debug.Log("another thing"), 1);
+       // response = myevent.Subscribe(val => throw new UnityException("random exception"), 1);
+        //myevent.Subscribe(val => Debug.Log("another thing"), 1);
     }
     private void Update()
     {
