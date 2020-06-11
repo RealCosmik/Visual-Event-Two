@@ -112,13 +112,17 @@ namespace VisualDelegates
                             paramtypes[i - 2] = Type.GetType(methodata[i]);
                         }
                         method_info = CurrentType.GetMethod(member_name, memberflags, null, paramtypes, null);
-                        if (method_info.ReturnType != typeof(void))
+                        if (method_info != null)
                         {
-                            var all_params = new Type[paramtypes.Length + 1];
-                            paramtypes.CopyTo(all_params, 0);
-                            all_params[all_params.Length - 1] = method_info.ReturnType;
-                            paramtypes = all_params;
+                            if (method_info.ReturnType != typeof(void))
+                            {
+                                var all_params = new Type[paramtypes.Length + 1];
+                                paramtypes.CopyTo(all_params, 0);
+                                all_params[all_params.Length - 1] = method_info.ReturnType;
+                                paramtypes = all_params;
+                            }
                         }
+                        else return null;
                     }
                     //method_info.MethodHandle.GetFunctionPointer();
                     member_info = method_info;

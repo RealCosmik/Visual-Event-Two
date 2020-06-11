@@ -59,7 +59,7 @@ namespace VisualDelegates.Editor
             // this instance ID has not been added to the dictonary so its a new object
             if (!publisherCache.TryGetValue(key, out List<VisiualDelegateCacheContainer> instanceCache))
             {
-                Debug.LogWarning("<color=green>Creating publisher Cache</color>");
+              //  Debug.LogWarning("<color=green>Creating publisher Cache</color>");
                 instanceCache = new List<VisiualDelegateCacheContainer>() { new VisiualDelegateCacheContainer(property.GetVisualDelegateObject()) };
                 publisherCache.Add(key, instanceCache);
             }

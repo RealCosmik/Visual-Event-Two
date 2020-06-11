@@ -50,6 +50,7 @@ namespace VisualDelegates.Editor
         public bool executionError;
         public RawDelegateView()
         {
+            Application.quitting += () => isvalidated = false;
             Undo.undoRedoPerformed += () => ClearViewCache();
         }
         public void trythis()
@@ -62,7 +63,7 @@ namespace VisualDelegates.Editor
         /// Clears the data from this view when delegate is removed
         /// </summary>
         public virtual void ClearViewCache()
-        { 
+        {
             //Debug.Log("nah this gets called alot");
             // there seems to be a weird bug in unity where while drag and drops are being perfomed 
             // undo/redo is constantly being called
@@ -99,7 +100,7 @@ namespace VisualDelegates.Editor
         /// </summary>
         /// <param name="newTargetIndex"> index in <see cref="AvailableTargetObjects"/></param>
         public void UpdateSelectedTarget(int newTargetIndex)
-        { 
+        {
             if (AvailableTargetObjects != null)
             {
                 CurrentTargetIndex = newTargetIndex < 0 ? 0 : newTargetIndex;
@@ -118,7 +119,7 @@ namespace VisualDelegates.Editor
                 //// any other index thats not the bottom of the list is some component child
                 //else
                 {
-                   
+
                     CurrentTarget = AvailableTargetObjects[CurrentTargetIndex];
                 }
                 GenerateNewTargetMembers(CurrentTargetIndex);
@@ -228,7 +229,7 @@ namespace VisualDelegates.Editor
                 return;
             }
 
-                CurrentMembers = AvailableTargetObjects[CurrentTargetIndex].GetType().GetMemberList();
+            CurrentMembers = AvailableTargetObjects[CurrentTargetIndex].GetType().GetMemberList();
 
             int tempListLength = CurrentMembers.Count;
             memberNames = new string[tempListLength]; // update membernames
@@ -246,11 +247,11 @@ namespace VisualDelegates.Editor
         /// <param name="seralizedMember">Selected member property</param>
         /// <returns>True if the data matches</returns> 
         public virtual bool validateTarget(SerializedProperty seralizedTarget)
-        { 
+        {
             //  on assembly recompile we must rebuild the view from the seralized values of the delegate
             if (AvailableTargetObjects == null && seralizedTarget.objectReferenceValue != null)
             {
-                
+
                 UnityEngine.Object newtarget = seralizedTarget.objectReferenceValue;
                 GenerateChildTargets(newtarget, out AvailableTargetObjects, out _targetNames);
                 {
@@ -262,21 +263,21 @@ namespace VisualDelegates.Editor
             }
             // if user reorders components in editor 
             else if (seralizedTarget.objectReferenceValue != null && seralizedTarget.objectReferenceValue != CurrentTarget && AvailableTargetObjects != null)
-            {
-                if (this is RawReferenceView)
-                    Debug.Log("checking next");
+            { 
                 // Debug.Log("mis match targets");
                 int tempIndex = AvailableTargetObjects.IndexOf(seralizedTarget.objectReferenceValue);
+                //Debug.Log(tempIndex);
                 if (tempIndex >= 0)
-                {
-                      Debug.LogWarning("found the index");
+                { 
+                  //  Debug.LogWarning("found the index");
                     CurrentTargetIndex = tempIndex;
-                    GenerateNewTargetMembers(CurrentTargetIndex);
+                    UpdateSelectedTarget(CurrentTargetIndex);
+                    //GenerateNewTargetMembers(CurrentTargetIndex);
                 }
                 //could not find target in seralized object so just force set
                 else
                 {
-                     Debug.LogWarning("setting here");
+                  //  Debug.LogWarning("setting here");
                     CurrentTargetIndex = 0;
                     SetParentTarget(seralizedTarget.objectReferenceValue);
                 }
@@ -302,7 +303,7 @@ namespace VisualDelegates.Editor
             var seralizedMethodData = GetSeralizedMemberDataFromprop(memberDataprop);
             if (CurrentMembers == null || seralizedMethodData == null)
             {
-                 //Debug.Log("no members");
+                //Debug.Log("no members");
                 UpdateSelectedMember(0);
                 return false;
             }
@@ -324,14 +325,14 @@ namespace VisualDelegates.Editor
             }
             // search all members for the index
             else if (CurrentMembers != null && seralizedmethodData.Length > 0)
-            {  
+            {
                 //filters based on member type  (field,prop,method)
                 var possibleMembers = CurrentMembers.Where(m => m.SeralizedData[0] == seralizedmethodData[0]);
                 for (int i = 0; i < possibleMembers.Count(); i++)
                 {
                     if (possibleMembers.ElementAt(i).SeralizedData.SequenceEqual(seralizedmethodData))
                     {
-                       
+
                         index = CurrentMembers.IndexOf(possibleMembers.ElementAt(i));
                         break;
                     }
@@ -345,9 +346,9 @@ namespace VisualDelegates.Editor
                 Debug.Log(CurrentMembers == null);
                 Debug.Log(CurrentTarget?.name);
                 Debug.Log(AvailableTargetObjects == null);
-               // Debug.Log(CurrentMembers[0].GetdisplayName());
-                 
-               // Debug.Log(CurrentTarget.GetType().FullName);
+                // Debug.Log(CurrentMembers[0].GetdisplayName());
+
+                // Debug.Log(CurrentTarget.GetType().FullName);
                 for (int i = 0; i < seralizedmethodData.Length; i++)
                 {
                     Debug.Log(seralizedmethodData[i]);
@@ -367,7 +368,7 @@ namespace VisualDelegates.Editor
             int array_size = methodDataprop.arraySize;
             string[] member_data = new string[array_size];
             for (int i = 0; i < array_size; i++)
-            {  
+            {
                 member_data[i] = methodDataprop.GetArrayElementAtIndex(i).stringValue;
             }
             return member_data;

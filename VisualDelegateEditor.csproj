@@ -96,6 +96,7 @@
     <Compile Include="Assets\Visual Delegate Editor\Editor\Settings.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\VisualDebugging\InvocationTracker.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\VisualEditorUtility.cs" />
+    <Compile Include="Assets\Visual Delegate Editor\Editor\VisualHookDrawer.cs" />
     <Reference Include="UnityEngine">
       <HintPath>F:/UNITY VERSIONS/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
