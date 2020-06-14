@@ -14,27 +14,7 @@ namespace VisualDelegates.Editor
     /// <summary>Utility class for editor functions and display</summary>
     public static class VisualEditorUtility
     {
-        static Dictionary<string, string[]> ParseData = new Dictionary<string, string[]>();
         public static GUIStyle StandardStyle { get; private set; } = new GUIStyle();
-        //=======================
-        // Settings
-        //=======================
-        /// <summary>Menu item that will select the <see cref="Settings"/> object from "Assets/EventsPlus/Resources" folder; this will create one if it doesn't exist</summary>
-        [MenuItem("Events Plus/Settings", false)]
-        public static void OpenSettings()
-        {
-            string tempPath = "Assets/EventsPlus/Resources/Settings.asset";
-            Settings tempSettings = AssetDatabase.LoadMainAssetAtPath(tempPath) as Settings;
-            if (tempSettings == null)
-            {
-                tempSettings = ScriptableObject.CreateInstance<Settings>();
-                AssetDatabase.CreateAsset(tempSettings, AssetDatabase.GenerateUniqueAssetPath(tempPath));
-                AssetDatabase.SaveAssets();
-                UnityEditor.EditorUtility.FocusProjectWindow();
-            }
-
-            Selection.activeObject = tempSettings;
-        }
         /// <summary>Converts a type into its short-hand keyword</summary>
         /// <param name="tType">Type to convert</param>
         /// <returns>Keyword if successfully read, null if not</returns>
@@ -216,89 +196,20 @@ namespace VisualDelegates.Editor
         }
 
         //=======================
-        // Namespaces
-        //=======================
-        /// <summary>Returns a list of all assembly <see cref="Namespace"/>s that contain <see cref="UnityEngine.Object"/> classes</summary>
-        /// <returns>List of namespaces</returns>
-        public static List<Namespace> GetUnityObjectNamespaces()
-        {
-            // Generate
-            List<Type> tempClasses;
-            Dictionary<string, List<Type>> tempNamespaces = null;
-            Assembly[] tempAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-            for (int i = (tempAssemblies.Length - 1); i >= 0; --i)
-            {
-                if (tempAssemblies[i].FullName.IndexOf("UnityEditor") < 0)
-                {
-                    Type[] tempTypes = tempAssemblies[i].GetTypes();
-                    Type tempType;
-                    for (int j = (tempTypes.Length - 1); j >= 0; --j)
-                    {
-                        tempType = tempTypes[j];
-                        if (tempType == typeof(UnityEngine.Object) || tempType.IsSubclassOf(typeof(UnityEngine.Object)))
-                        {
-                            bool tempIsNamespace = tempType.Namespace != null;
-                            if (!tempIsNamespace || tempType.Namespace.IndexOf("UnityEditor") < 0)
-                            {
-                                string tempNamespace = tempIsNamespace ? tempType.Namespace : "NONE";
-                                if (tempNamespaces == null)
-                                {
-                                    tempNamespaces = new Dictionary<string, List<Type>>();
-                                    tempClasses = new List<Type>();
-                                    tempClasses.Add(tempType);
-                                    tempNamespaces.Add(tempNamespace, tempClasses);
-                                }
-                                else if (tempNamespaces.TryGetValue(tempNamespace, out tempClasses))
-                                {
-                                    tempClasses.Add(tempType);
-                                }
-                                else
-                                {
-                                    tempClasses = new List<Type>();
-                                    tempClasses.Add(tempType);
-                                    tempNamespaces.Add(tempNamespace, tempClasses);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Compile and order
-            tempClasses = new List<Type>();
-            tempClasses.Add(typeof(object));
-            List<Namespace> tempOut = new List<Namespace>();
-            tempOut.Add(new Namespace("System", tempClasses));
-
-            if (tempNamespaces != null)
-            {
-                foreach (KeyValuePair<string, List<Type>> tempPair in tempNamespaces)
-                {
-                    tempPair.Value.Sort((tA, tB) => string.Compare(tA.Name, tB.Name));
-                    tempOut.Add(new Namespace(tempPair.Key, tempPair.Value));
-                }
-
-                tempOut.Sort((tA, tB) => string.Compare(tA.name, tB.name));
-            }
-
-            return tempOut;
-        }
-
-        //=======================
         // Members
         //=======================
         /// <summary>Returns a list of all <see cref="IMember"/>s belonging to the <paramref name="CurrentType"/></summary>
         /// <param name="CurrentType">Type to search</param>
         /// <param name="tIsFiltered">If true, will attempt to filter members defined in the <see cref="Settings"/></param>
         /// <returns>List of members</returns>
-        public static List<IMember> GetMemberList(this Type CurrentType, bool tIsFiltered = true, bool staticmembers = false)
+        public static List<IMember> GetMemberList(this Type CurrentType)
         {
             if (CurrentType != null)
             {
                 List<IMember> tempMembers = null;
 
                 // Fields
-                List<MemberField> tempFields = CurrentType.GetFieldList(tIsFiltered);
+                List<MemberField> tempFields = CurrentType.GetFieldList();
                 if (tempFields != null)
                 {
                     if (tempMembers == null)
@@ -314,7 +225,7 @@ namespace VisualDelegates.Editor
                 }
 
                 // Properties
-                List<MemberProperty> tempProperties = CurrentType.GetPropertyList(tIsFiltered);
+                List<MemberProperty> tempProperties = CurrentType.GetPropertysetterList();
                 if (tempProperties != null)
                 {
                     if (tempMembers == null)
@@ -330,7 +241,7 @@ namespace VisualDelegates.Editor
                 }
 
                 // Methods
-                List<MemberMethod> tempMethods = CurrentType.GetMethodList(tIsFiltered);
+                List<MemberMethod> tempMethods = CurrentType.GetMethodList();
                 if (tempMethods != null)
                 {
                     if (tempMembers == null)
@@ -355,12 +266,12 @@ namespace VisualDelegates.Editor
         /// <param name="tType">Type to search</param>
         /// <param name="tIsFiltered">If true, will attempt to filter fields defined in the <see cref="Settings"/></param>
         /// <returns>List of fields</returns>
-        public static List<MemberField> GetFieldList(this Type tType, bool tIsFiltered = true)
+        public static List<MemberField> GetFieldList(this Type tType)
         {
             if (tType != null)
             {
                 // Flags
-                BindingFlags tempFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
+                BindingFlags tempFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.SuppressChangeType;
                 // Filter member fields
                 FieldInfo[] tempFields = tType.GetFields(tempFlags);
                 int tempListLength = tempFields.Length;
@@ -369,17 +280,18 @@ namespace VisualDelegates.Editor
                     List<MemberField> tempOut = new List<MemberField>();
                     FieldInfo tempField;
                     for (int i = 0; i < tempListLength; ++i)
-                    {
+                    { 
                         tempField = tempFields[i];
                         if (!tempField.IsInitOnly && !tempField.IsLiteral) //not readonly field and not const field
                         {
                             MemberField tempMember = new MemberField(tempField);
-                            if (tempField.IsPrivate)
-                            {
-                                if(tempField.GetCustomAttribute<DisplayPrivate>()!=null)
-                                tempOut.Add(tempMember);
+                            if (tempField.IsPrivate||tempField.IsFamily)
+                            { 
+                                if (tempField.GetCustomAttribute<DisplayPrivate>() != null)
+                                    tempOut.Add(tempMember);
                             }
-                            else tempOut.Add(tempMember);
+                            else if (tempField.GetCustomAttribute<HideExposedField>() == null)
+                                tempOut.Add(tempMember);
                         }
                     }
                     return tempOut;
@@ -392,7 +304,7 @@ namespace VisualDelegates.Editor
         /// <param name="tType">Type to search</param>
         /// <param name="tIsFiltered">If true, will attempt to filter properties defined in the <see cref="Settings"/></param>
         /// <returns>List of properties</returns>
-        public static List<MemberProperty> GetPropertyList(this Type tType, bool tIsFiltered = true)
+        public static List<MemberProperty> GetPropertysetterList(this Type tType)
         {
             if (tType != null)
             {
@@ -412,12 +324,50 @@ namespace VisualDelegates.Editor
                         if (tempProperty.CanWrite)
                         {
                             MemberProperty tempMember = new MemberProperty(tempProperty);
-                            if (tempProperty.SetMethod.IsPrivate)
+                            if (tempProperty.SetMethod.IsPrivate||tempProperty.SetMethod.IsFamily)
                             {
                                 if (tempProperty.GetCustomAttribute<DisplayPrivate>() != null)
                                     tempOut.Add(tempMember);
                             }
-                            else tempOut.Add(tempMember);
+                            else if (tempProperty.GetCustomAttribute<HideExposedField>() == null)
+                                tempOut.Add(tempMember);
+                        }
+                    }
+
+                    return tempOut;
+                }
+            }
+
+            return null;
+        }
+        public static List<MemberProperty> GetPropertyGetterMethosd(this Type type)
+        {
+            if (type != null)
+            {
+                // Flags
+                BindingFlags tempFlags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
+
+                // Filter member properties
+                PropertyInfo[] tempProperties = type.GetProperties(tempFlags);
+                int tempListLength = tempProperties.Length;
+                if (tempListLength > 0)
+                {
+                    List<MemberProperty> tempOut = new List<MemberProperty>();
+                    PropertyInfo tempProperty;
+                    for (int i = 0; i < tempListLength; ++i)
+                    {
+                        tempProperty = tempProperties[i];
+                        Debug.Log(tempProperty.Name);
+                        if (tempProperty.CanRead)
+                        {
+                            MemberProperty tempMember = new MemberProperty(tempProperty);
+                            if (tempProperty.GetMethod.IsPrivate||tempProperty.GetMethod.IsFamily)
+                            {
+                                if (tempProperty.GetCustomAttribute<DisplayPrivate>() != null)
+                                    tempOut.Add(tempMember);
+                            }
+                            else if (tempProperty.GetCustomAttribute<HideExposedField>() == null)
+                                tempOut.Add(tempMember);
                         }
                     }
 
@@ -432,7 +382,7 @@ namespace VisualDelegates.Editor
         /// <param name="tType">Type to search</param>
         /// <param name="tIsFiltered">If true, will attempt to filter methods defined in the <see cref="Settings"/></param>
         /// <returns>List of methods</returns>
-        public static List<MemberMethod> GetMethodList(this Type tType, bool tIsFiltered = true)
+        public static List<MemberMethod> GetMethodList(this Type tType)
         {
             if (tType != null)
             {
@@ -451,12 +401,13 @@ namespace VisualDelegates.Editor
                         if (!tempMethod.IsSpecialName && !tempMethod.IsGenericMethod)
                         {
                             MemberMethod tempMember = new MemberMethod(tempMethod);
-                            if (tempMethod.IsPrivate)
+                            if (tempMethod.IsPrivate||tempMethod.IsFamily)
                             {
                                 if (tempMethod.GetCustomAttribute<DisplayPrivate>() != null)
                                     tempOut.Add(tempMember);
                             }
-                            else tempOut.Add(tempMember);
+                            else if (tempMethod.GetCustomAttribute<HideExposedField>() == null)
+                                tempOut.Add(tempMember);
                         }
                     }
 
@@ -472,7 +423,7 @@ namespace VisualDelegates.Editor
         /// <param name="members"></param>
         /// <param name="matchtype"></param>
         /// <returns></returns>
-        public static List<IMember> GetMemberList(this IEnumerable<IMember> members, Type matchtype)
+        public static List<IMember> FilterMemberByTypes(this IEnumerable<IMember> members, Type matchtype)
         {
             return members.Where(m => filterGetterMembersByReturnType(m, matchtype)).ToList();
         }
@@ -503,101 +454,7 @@ namespace VisualDelegates.Editor
                     return false;
             }
         }
-        /// <summary>
-        /// Gets Key of the current ViewDelegateproperty
-        /// </summary>
-        /// <param name="ViewDelegateproperty"></param>
-        /// <returns></returns>
-        public static string GetViewDelegateKey(this SerializedProperty ViewDelegateproperty)
-        {
-            //response.Array.Data[0] // if the  property is an array element then the key will be response i.e the name of th array instance
-            //pub // if the property is not an array element then the key will just be the name of the field
-            string path = ViewDelegateproperty.propertyPath;
-            if (!ParseData.TryGetValue(path, out string[] propertyData))
-            {
-                propertyData = path.Replace("Array.data", string.Empty).Split('.');
-                ParseData.Add(path, propertyData);
-            }
-            return propertyData[0];
-        }
-        /// <summary>
-        /// Get the index of the current seralized ViewDelegate
-        /// </summary>
-        /// <param name="ViewDelegateproperty"></param>
-        /// <returns></returns>
-        public static int GetViewDelegateIndex(this SerializedProperty ViewDelegateproperty)
-        {
-            ///<see cref="GetViewDelegateKey(SerializedProperty)"/>
-            string path = ViewDelegateproperty.propertyPath;
-            var propertyData = ParseData[path];
-            if (propertyData.Length == 1 || propertyData[1][0] != '[')
-            { // if length is 1 the publisher is not in an array so its index in cache is always 0
-                return 0;
-            }
-            else return propertyData[1][1] - '0'; // second elemnt is always [{index}] so index 1 -'0' gives publisher index 
 
-        }
-        public static int GetRawCallIndex(this SerializedProperty rawcallProperty)
-        {
-            //viewdelegate._calls[0] OR viewdeelgateArray[0]._calls[0]  are the potential paths types
-            string path = rawcallProperty.propertyPath;
-            var propertyData = ParseData[path];
-            return propertyData[propertyData.Length - 1][1] - '0';
-        }
-        /// <summary>
-        /// Get the index of the raw call that this raw argument property may belong too
-        /// </summary>
-        /// <param name="rawArgumentprop"></param>
-        /// <returns></returns>
-        public static int GetRawCallIndexFromArgumentprop(this SerializedProperty rawArgumentprop)
-        {
-            //0         //1  //2    //3      //4
-            //ViewDelegate._calls[0].m_arguments[0]
-            string path = rawArgumentprop.propertyPath;
-            var propertydata = ParseData[path];
-            // length-3 gives us [0] that is adjacent to ._calls and the [1] is the second charachter in that string which is the index number
-            return propertydata[propertydata.Length - 3][1] - '0';
-        }
-        /// <summary>
-        /// Returns the index of the <see cref="RawCallView"/>
-        /// </summary>
-        /// <param name="rawreferenceprop"></param>
-        /// <returns></returns>
-        public static int GetRawCallIndexFromArgumentReference(this SerializedProperty rawreferenceprop)
-        {
-            //0         //1  //2    //3      //4    //5
-            //ViewDelegate._calls[0].m_arguments[0].m_reference
-            string path = rawreferenceprop.propertyPath;
-            var propertydata = ParseData[path];
-            return propertydata[propertydata.Length - 4][1] - '0';
-        }
-        /// <summary>
-        /// Gets the index of the rawargument that this argument reference belongs to
-        /// </summary>
-        /// <param name="rawreferenceprop"></param>
-        /// <returns></returns>
-        public static int GetRawArgumentIndexFromArgumentReference(this SerializedProperty rawreferenceprop)
-        {
-            //0             //1  //2    //3     //4    //5
-            //ViewDelegate._calls[0].m_arguments[0].m_reference 
-
-            string path = rawreferenceprop.propertyPath;
-            var propertydata = ParseData[path];
-            return propertydata[propertydata.Length - 2][1] - '0'; // 6-2 =4 which is argument index and then we get the second char
-        }
-        /// <summary>
-        /// Gets the rawargument Index from this rawargument property
-        /// </summary>
-        /// <param name="rawArgumentprop"></param>
-        /// <returns></returns>
-        public static int GetRawArgumentIndex(this SerializedProperty rawArgumentprop)
-        {
-            //0             //1  //2    //3     //4 
-            //ViewDelegate._calls[0].m_arguments[0]
-            string path = rawArgumentprop.propertyPath;
-            var propertydata = ParseData[path];
-            return propertydata[propertydata.Length - 1][1] - '0'; //final index is last second charachter is index
-        }
         /// <summary>
         /// Copies Seralized MemberData Data into a seralziedProperty 
         /// </summary>

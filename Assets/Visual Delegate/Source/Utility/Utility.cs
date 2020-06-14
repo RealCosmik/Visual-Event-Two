@@ -23,24 +23,25 @@ namespace VisualDelegates
         public const string UNITYCURVE_TYPE_NAME = "UnityEngine.AnimationCurve";
         public const string UNITYOBJECt_TYPE_NAME = "UnityEngine.Object";
 
-        public static Dictionary<Type[], MethodInfo> DelegateFieldCreationMethods;
-        public static Dictionary<Type[], MethodInfo> DelegateDynamicFieldCreationMethods;
-        public static Dictionary<Type[], MethodInfo> DelegatePropertyCreationMethod;
-        public static Dictionary<Type[], MethodInfo> DelegateDynamicPropertyCreationMethod;
-        public static Dictionary<Type[], MethodInfo> DelegateMethodCreationMethods;
+        public static Dictionary<Type[], MethodInfo> delegateFieldSetterCreationMethods;
+        public static Dictionary<Type[], MethodInfo> delegateDynamicFieldSetterCreationMethods;
+        public static Dictionary<Type[], MethodInfo> DelegateFieldGetterCreationMethods;
+        public static Dictionary<Type[], MethodInfo> delegatePropertySetterCreationMethods;
+        public static Dictionary<Type[], MethodInfo> delegateDynamicPropertySetterCreationMethod;
+        public static Dictionary<Type[], MethodInfo> delegatePropertyGetterCreationMethod;
+        public static Dictionary<Type[], MethodInfo> delegateMethodCreationMethods;
         public static Dictionary<Type[], MethodInfo> DelegateDynamicMethodCreationMethods;
-        public static Dictionary<Type[], MethodInfo> DelegateFieldReturnCreationMethods;
         public const BindingFlags memberBinding = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static;
-
         static Utility()
         {
             var comparer=new MethodParamEquaility();
-            DelegateFieldCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
-            DelegateDynamicFieldCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
-            DelegateFieldReturnCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
-            DelegatePropertyCreationMethod = new Dictionary<Type[], MethodInfo>(comparer);
-            DelegateDynamicPropertyCreationMethod = new Dictionary<Type[], MethodInfo>(comparer);
-            DelegateMethodCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
+            delegateFieldSetterCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
+            delegateDynamicFieldSetterCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
+            DelegateFieldGetterCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
+            delegatePropertySetterCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
+            delegateDynamicPropertySetterCreationMethod = new Dictionary<Type[], MethodInfo>(comparer);
+            delegatePropertyGetterCreationMethod= new Dictionary<Type[], MethodInfo>(comparer);
+            delegateMethodCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
             DelegateDynamicMethodCreationMethods = new Dictionary<Type[], MethodInfo>(comparer);
         }
         //=======================

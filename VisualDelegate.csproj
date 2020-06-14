@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Visual Delegate\Source\Attributes\DisplayPrivate.cs" />
+    <Compile Include="Assets\Visual Delegate\Source\Attributes\HideExposedField.cs" />
     <Compile Include="Assets\Visual Delegate\Source\Attributes\RunTimeRestricted.cs" />
     <Compile Include="Assets\Visual Delegate\Source\Delegates\DelgateArguments\IVisualArgument.cs" />
     <Compile Include="Assets\Visual Delegate\Source\Delegates\DelgateArguments\RawArgument.cs" />
@@ -71,6 +72,12 @@
     <Compile Include="Assets\Visual Delegate\Source\Delegates\RawCall.cs" />
     <Compile Include="Assets\Visual Delegate\Source\Delegates\RawDelegate.cs" />
     <Compile Include="Assets\Visual Delegate\Source\Delegates\RawRuntimeCall.cs" />
+    <Compile Include="Assets\Visual Delegate\Source\Hooks\Collision Hook\CollisionHook.cs" />
+    <Compile Include="Assets\Visual Delegate\Source\Hooks\Collision Hook\CollisionHook2D.cs" />
+    <Compile Include="Assets\Visual Delegate\Source\Hooks\Collision Hook\CollisionHook3D.cs" />
+    <Compile Include="Assets\Visual Delegate\Source\Hooks\Collision Hook\CollisionResponse.cs" />
+    <Compile Include="Assets\Visual Delegate\Source\Hooks\VisualHooks.cs" />
+    <Compile Include="Assets\Visual Delegate\Source\Implemented Delegates\ObjectDelegate.cs" />
     <Compile Include="Assets\Visual Delegate\Source\Utility\LogType.cs" />
     <Compile Include="Assets\Visual Delegate\Source\Utility\MethodParamEquaility.cs" />
     <Compile Include="Assets\Visual Delegate\Source\Utility\UtilHelper.cs" />
@@ -78,7 +85,6 @@
     <Compile Include="Assets\Visual Delegate\Source\Visual Delegates\VisualDelegate.cs" />
     <Compile Include="Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBase.cs" />
     <Compile Include="Assets\Visual Delegate\Source\Visual Delegates\VisualDelegateBaseEditor.cs" />
-    <Compile Include="Assets\Visual Delegate\Source\VisualHooks.cs" />
     <Reference Include="UnityEngine">
       <HintPath>F:/UNITY VERSIONS/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

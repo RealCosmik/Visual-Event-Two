@@ -4,7 +4,7 @@ namespace VisualDelegates.Events
 {
     public abstract class GenericEvent<Arg1> : BaseEvent
     {
-        [SerializeField] internal Arg1 argument1;
+        [SerializeField, HideExposedField] internal Arg1 argument1;
         public virtual void Invoke(Arg1 arg1, UnityEngine.Object sender)
         {
             isinvoke = true;
@@ -42,7 +42,7 @@ namespace VisualDelegates.Events
             return eventresponse;
         }
         protected sealed override void Clear() => argument1 = default;
-        protected  override void EditorInvoke() => Invoke(argument1, null);
+        protected override void EditorInvoke() => Invoke(argument1, null);
     }
 
     public abstract class GenericEvent<Arg1, Arg2> : BaseEvent
@@ -329,9 +329,9 @@ namespace VisualDelegates.Events
             }
         }
 
-        public EventResponse Subscribe(Action<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6,Arg7> response, int priority)
+        public EventResponse Subscribe(Action<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7> response, int priority)
         {
-            var newdelegate = new VisualDelegate<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6,Arg7>();
+            var newdelegate = new VisualDelegate<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7>();
             newdelegate.OnInvoke += response;
             var eventresponse = new EventResponse(newdelegate, priority)
             {
@@ -386,9 +386,9 @@ namespace VisualDelegates.Events
                 UpdateEventHistory(sender, true, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
             }
         }
-        public EventResponse Subscribe(Action<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7,Arg8> response, int priority)
+        public EventResponse Subscribe(Action<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8> response, int priority)
         {
-            var newdelegate = new VisualDelegate<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7,Arg8>();
+            var newdelegate = new VisualDelegate<Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8>();
             newdelegate.OnInvoke += response;
             var eventresponse = new EventResponse(newdelegate, priority)
             {

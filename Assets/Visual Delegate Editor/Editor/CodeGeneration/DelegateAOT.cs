@@ -49,7 +49,6 @@ namespace VisualDelegates.Editor
             {
                 var currentscene = EditorSceneManager.OpenScene(included_scenes.ElementAt(i).path);
             }
-            Debug.Log(Utility.DelegatePropertyCreationMethod.Count);
             EditorSceneManager.RestoreSceneManagerSetup(setup);
         }
         private static int DisplayWarningMessage()
@@ -83,21 +82,21 @@ namespace VisualDelegates.Editor
         /// <returns></returns>
         private static List<KeyValuePair<Type[], MethodInfo>> GetAllSerailizationCache()
         {
-            var count = Utility.DelegateFieldCreationMethods?.Count ?? 0 +
-                        Utility.DelegateFieldReturnCreationMethods?.Count ?? 0 +
-                        Utility.DelegateDynamicFieldCreationMethods?.Count ?? 0 +
-                        Utility.DelegateMethodCreationMethods?.Count ?? 0 +
+            var count = Utility.delegateFieldSetterCreationMethods?.Count ?? 0 +
+                        Utility.DelegateFieldGetterCreationMethods?.Count ?? 0 +
+                        Utility.delegateDynamicFieldSetterCreationMethods?.Count ?? 0 +
+                        Utility.delegateMethodCreationMethods?.Count ?? 0 +
                         Utility.DelegateDynamicMethodCreationMethods?.Count ?? 0 +
-                        Utility.DelegatePropertyCreationMethod?.Count ?? 0 +
-                        Utility.DelegateDynamicPropertyCreationMethod?.Count ?? 0;
+                        Utility.delegatePropertySetterCreationMethods?.Count ?? 0 +
+                        Utility.delegateDynamicPropertySetterCreationMethod?.Count ?? 0;
 
             var info_cache = new List<KeyValuePair<Type[], MethodInfo>>(count);
-                info_cache.AddRange(Utility.DelegateFieldCreationMethods??null);
-                info_cache.AddRange(Utility.DelegateFieldReturnCreationMethods??null);
-                info_cache.AddRange(Utility.DelegateDynamicFieldCreationMethods??null);
-                info_cache.AddRange(Utility.DelegatePropertyCreationMethod??null);
-                info_cache.AddRange(Utility.DelegateDynamicPropertyCreationMethod??null);
-                info_cache.AddRange(Utility.DelegateMethodCreationMethods??null);
+                info_cache.AddRange(Utility.delegateFieldSetterCreationMethods??null);
+                info_cache.AddRange(Utility.DelegateFieldGetterCreationMethods??null);
+                info_cache.AddRange(Utility.delegateDynamicFieldSetterCreationMethods??null);
+                info_cache.AddRange(Utility.delegatePropertySetterCreationMethods??null);
+                info_cache.AddRange(Utility.delegateDynamicPropertySetterCreationMethod??null);
+                info_cache.AddRange(Utility.delegateMethodCreationMethods??null);
                 info_cache.AddRange(Utility.DelegateDynamicMethodCreationMethods??null);
             Debug.Log(info_cache.Count);
             return info_cache;

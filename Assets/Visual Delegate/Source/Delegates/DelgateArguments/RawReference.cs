@@ -9,9 +9,12 @@ namespace VisualDelegates
     {
         [SerializeField] bool m_isvaluetype;
         [SerializeField] bool isparentargstring;
+        public bool ParentArgString => isparentargstring;
         [SerializeField] bool m_isDelegate;
+        public bool isDelegate => m_isDelegate;
         [SerializeField] bool willdeseralize;
         const string FIELD_GETTER_NAME = "CreateFieldGetter";
+        const string TO_STRING_DELEGATE = "ToStringDelegate";
         protected sealed override void Deserialization()
         {
             if (willdeseralize)
@@ -21,39 +24,31 @@ namespace VisualDelegates
         {
             if (tMember is FieldInfo field_info)
             {
-                if(!Utility.DelegateFieldReturnCreationMethods.TryGetValue(paramtypes,out MethodInfo getfieldmethod))
+                if(!Utility.DelegateFieldGetterCreationMethods.TryGetValue(paramtypes,out MethodInfo getfieldmethod))
                 {
-                    getfieldmethod = GetType().GetMethod(FIELD_GETTER_NAME, Utility.memberBinding).MakeGenericMethod(field_info.FieldType);
-                    Utility.DelegateFieldReturnCreationMethods.Add(paramtypes, getfieldmethod);
+                    getfieldmethod = typeof(RawReference).GetMethod(FIELD_GETTER_NAME, Utility.memberBinding).MakeGenericMethod(paramtypes);
+                    Utility.DelegateFieldGetterCreationMethods.Add(paramtypes, getfieldmethod);
                 }
                 return getfieldmethod.Invoke(this, new object[] { m_target, field_info }) as Delegate;
             }
             else if (tMember is PropertyInfo prop_info)
             {
-                return Delegate.CreateDelegate(typeof(Func<>).MakeGenericType(prop_info.PropertyType), target, prop_info.GetGetMethod(), false);
+                var getter = Delegate.CreateDelegate(typeof(Func<>).MakeGenericType(paramtypes), target, prop_info.GetGetMethod(), false);
+                if (isparentargstring)
+                {
+                    if (!Utility.delegatePropertyGetterCreationMethod.TryGetValue(paramtypes, out MethodInfo conversionmethod))
+                    {
+                        var flags = BindingFlags.NonPublic | BindingFlags.Instance;
+                        conversionmethod = typeof(RawDelegate).GetMethod(TO_STRING_DELEGATE, flags).MakeGenericMethod(prop_info.PropertyType);
+                        Utility.delegatePropertyGetterCreationMethod.Add(paramtypes, conversionmethod);
+                    }
+                    getter = conversionmethod.Invoke(this, new object[] { getter }) as Func<string>;
+                }
+                return getter;
             }
             else return base.createDelegate(tMember, target);
         }
-        private Delegate CreateFieldGetter<A>(UnityEngine.Object target, FieldInfo info)
-        {
-            var targetExpression = Expression.Constant(target);
-            var fieldexprssion = Expression.Field(targetExpression, info);
-            var boxed_object = Expression.Convert(fieldexprssion, typeof(object));
-            var boxed_field = Expression.Lambda<Func<object>>(boxed_object);
-            var FieldGetter = boxed_field.Compile();
-            if (isparentargstring)
-                return new Func<string>(() => FieldGetter.Invoke().ToString());
-            else
-            {
-                Func<A> safegetter = () => (A)FieldGetter.Invoke();
-                if (m_isDelegate)
-                {
-                    Func<Func<A>> nested_func = () => safegetter;
-                    return nested_func;
-                }
-                else return safegetter;
-            }
-        }
+      
     }
 
 }

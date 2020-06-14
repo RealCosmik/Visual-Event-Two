@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 namespace VisualDelegates.Editor
@@ -12,7 +13,8 @@ namespace VisualDelegates.Editor
             if (CurrentTarget != null && AvailableTargetObjects != null || CurrentTargetIndex != 0 && !EditorApplication.isPlayingOrWillChangePlaymode)
             {
                 base.GenerateNewTargetMembers(TargetIndex);
-                CurrentMembers = CurrentMembers.GetMemberList(reference_type);
+                CurrentMembers.AddRange(CurrentTarget.GetType().GetPropertyGetterMethosd());
+                CurrentMembers = CurrentMembers.FilterMemberByTypes(reference_type);
                 int membercount = CurrentMembers.Count;
                 if (membercount == 0)
                 {

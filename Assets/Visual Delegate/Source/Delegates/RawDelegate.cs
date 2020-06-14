@@ -155,7 +155,31 @@ namespace VisualDelegates
             return val => boxed_lamda(val);
 
         }
-       
+        private Delegate CreateFieldGetter<A>(UnityEngine.Object target, FieldInfo info)
+        {
+            var targetExpression = Expression.Constant(target);
+            var fieldexprssion = Expression.Field(targetExpression, info);
+            var boxed_object = Expression.Convert(fieldexprssion, typeof(object));
+            var boxed_field = Expression.Lambda<Func<object>>(boxed_object);
+            var FieldGetter = boxed_field.Compile();
+            if ((this as RawReference).ParentArgString)
+                return new Func<string>(() => FieldGetter.Invoke().ToString());
+            else
+            {
+                Func<A> safegetter = () => (A)FieldGetter.Invoke();
+                if ((this as RawReference).ParentArgString)
+                {
+                    Func<Func<A>> nested_func = () => safegetter;
+                    return nested_func;
+                }
+                else return safegetter;
+            }
+        }
+        private Func<string> ToStringDelegate<arg>(Delegate original)
+        {
+            return new Func<string>(() => (original as Func<arg>)().ToString());
+        }
+
         public virtual void Release()
         {
             delegateInstance = null;

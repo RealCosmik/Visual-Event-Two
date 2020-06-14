@@ -64,8 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Visual Delegate Editor\Editor\Argument.cs" />
+    <Compile Include="Assets\Visual Delegate Editor\Editor\Cache\CacheHelper.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Cache\ViewCache.cs" />
-    <Compile Include="Assets\Visual Delegate Editor\Editor\CacheFilter.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\CodeGeneration\DelegateAOT.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\CodeGeneration\Drawer\DelegateAOTDrawer.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\DelegateEditorSettings.cs" />
@@ -74,29 +74,28 @@
     <Compile Include="Assets\Visual Delegate Editor\Editor\DelegateView\RawDelegateView.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\DelegateView\RawDynamicDelegateView.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\DelegateView\RawReferenceView.cs" />
-    <Compile Include="Assets\Visual Delegate Editor\Editor\Drawers\DrawerFilter.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawArgument.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawCallView.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawDelegateView.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawReferenceView.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Drawers\DrawerRawRuntimeDelegate.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Drawers\DrawerVisualDelegate.cs" />
-    <Compile Include="Assets\Visual Delegate Editor\Editor\Filter.cs" />
-    <Compile Include="Assets\Visual Delegate Editor\Editor\HashedFilter.cs" />
+    <Compile Include="Assets\Visual Delegate Editor\Editor\Hooks\Collision Hooks\CollisionHook2DDrawer.cs" />
+    <Compile Include="Assets\Visual Delegate Editor\Editor\Hooks\Collision Hooks\CollisionHook3DDrawer.cs" />
+    <Compile Include="Assets\Visual Delegate Editor\Editor\Hooks\Collision Hooks\CollisionHookDrawer.cs" />
+    <Compile Include="Assets\Visual Delegate Editor\Editor\Hooks\Collision Hooks\HookResponseView.cs" />
+    <Compile Include="Assets\Visual Delegate Editor\Editor\Hooks\Visual Hooks\VisualHookDrawer.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Method Members\IMember.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Method Members\Member.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Method Members\MemberField.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Method Members\MemberMethod.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Method Members\MemberProperty.cs" />
-    <Compile Include="Assets\Visual Delegate Editor\Editor\Namespace.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Searchable List\Editor\SearchableEnumDrawer.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Searchable List\Editor\SearchablePopup.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Searchable List\SearchableEnumAttribute.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\Searchable List\SearchableEnumDemo.cs" />
-    <Compile Include="Assets\Visual Delegate Editor\Editor\Settings.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\VisualDebugging\InvocationTracker.cs" />
     <Compile Include="Assets\Visual Delegate Editor\Editor\VisualEditorUtility.cs" />
-    <Compile Include="Assets\Visual Delegate Editor\Editor\VisualHookDrawer.cs" />
     <Reference Include="UnityEngine">
       <HintPath>F:/UNITY VERSIONS/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

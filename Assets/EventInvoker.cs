@@ -25,6 +25,6 @@ class EventInvoker : MonoBehaviour
     }
     private void OnValidate()
     {
-        v.Invoke(num, this);
+     //   v.Invoke(num, this);
     }
 }

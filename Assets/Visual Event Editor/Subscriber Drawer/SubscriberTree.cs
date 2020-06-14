@@ -50,7 +50,8 @@ namespace VisualDelegates.Events.Editor
             {
                 var delegateprop = eventResponseProperty.FindPropertyRelative("response");
                 if (delegateprop.isExpanded)
-                    return EditorGUI.GetPropertyHeight(delegateprop) + HEIGHT_PADDING;
+                    return EditorGUI.GetPropertyHeight(eventResponseProperty) - 20f;
+                //return EditorGUI.GetPropertyHeight(delegateprop) + HEIGHT_PADDING;
                 else return
                     EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
                     EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none) +

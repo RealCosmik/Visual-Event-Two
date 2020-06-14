@@ -95,36 +95,36 @@ namespace VisualDelegates
                     case MemberTypes.Field:
                         if (!isDynamic)
                         {
-                            if (!Utility.DelegateFieldCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                            if (!Utility.delegateFieldSetterCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
                             {
                                 RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
-                                Utility.DelegateFieldCreationMethods.Add(paramtypes, RunTimeMethod);
+                                Utility.delegateFieldSetterCreationMethods.Add(paramtypes, RunTimeMethod);
                             }
                         }
                         else
                         {
-                            if (!Utility.DelegateDynamicFieldCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                            if (!Utility.delegateDynamicFieldSetterCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
                             {
                                 RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
-                                Utility.DelegateDynamicFieldCreationMethods.Add(paramtypes, RunTimeMethod);
+                                Utility.delegateDynamicFieldSetterCreationMethods.Add(paramtypes, RunTimeMethod);
                             }
                         }
                         break;
                     case MemberTypes.Property:
                         if (!isDynamic)
                         {
-                            if (!Utility.DelegatePropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
+                            if (!Utility.delegatePropertySetterCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
                             {
                                 RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
-                                Utility.DelegatePropertyCreationMethod.Add(paramtypes, RunTimeMethod);
+                                Utility.delegatePropertySetterCreationMethods.Add(paramtypes, RunTimeMethod);
                             }
                         }
                         else
                         {
-                            if (!Utility.DelegateDynamicPropertyCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
+                            if (!Utility.delegateDynamicPropertySetterCreationMethod.TryGetValue(paramtypes, out RunTimeMethod))
                             {
                                 RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
-                                Utility.DelegateDynamicPropertyCreationMethod.Add(paramtypes, RunTimeMethod);
+                                Utility.delegateDynamicPropertySetterCreationMethod.Add(paramtypes, RunTimeMethod);
                             }
                         }
                         break;
@@ -133,10 +133,10 @@ namespace VisualDelegates
                             return createActionCall0(tMember as MethodInfo);
                         else if (!isDynamic)
                         {
-                            if (!Utility.DelegateMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
+                            if (!Utility.delegateMethodCreationMethods.TryGetValue(paramtypes, out RunTimeMethod))
                             {
                                 RunTimeMethod = raw_calltype.GetMethod(creationMethod, Utility.InstanceFlags).MakeGenericMethod(paramtypes);
-                                Utility.DelegateMethodCreationMethods.Add(paramtypes, RunTimeMethod);
+                                Utility.delegateMethodCreationMethods.Add(paramtypes, RunTimeMethod);
                             }
                         }
                         else

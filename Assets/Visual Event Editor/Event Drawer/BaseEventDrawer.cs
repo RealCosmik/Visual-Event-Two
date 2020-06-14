@@ -149,7 +149,7 @@ namespace VisualDelegates.Events.Editor
             var note_property = serializedObject.FindProperty("EventNote");
             detailsfolded = EditorGUILayout.BeginFoldoutHeaderGroup(detailsfolded, EVENT_DETAILS);
             if (detailsfolded)
-            {
+            {  
                 EditorGUI.BeginChangeCheck();
                 note_property.stringValue = EditorGUILayout.TextArea(note_property.stringValue, style, GUILayout.ExpandHeight(true));
                 if (EditorGUI.EndChangeCheck())
