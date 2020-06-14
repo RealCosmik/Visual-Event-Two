@@ -14,8 +14,8 @@ using UnityEditor.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
 namespace VisualDelegates.Editor
-{  
-    internal sealed class DelegateAOT :ScriptableObject
+{
+    internal sealed class DelegateAOT : ScriptableObject
     {
         [SerializeField] bool GenerateOnBuild;
         private static DelegateAOT instance;
@@ -88,16 +88,18 @@ namespace VisualDelegates.Editor
                         Utility.delegateMethodCreationMethods?.Count ?? 0 +
                         Utility.DelegateDynamicMethodCreationMethods?.Count ?? 0 +
                         Utility.delegatePropertySetterCreationMethods?.Count ?? 0 +
+                        Utility.delegatePropertyGetterCreationMethod?.Count ?? 0 +
                         Utility.delegateDynamicPropertySetterCreationMethod?.Count ?? 0;
 
             var info_cache = new List<KeyValuePair<Type[], MethodInfo>>(count);
-                info_cache.AddRange(Utility.delegateFieldSetterCreationMethods??null);
-                info_cache.AddRange(Utility.DelegateFieldGetterCreationMethods??null);
-                info_cache.AddRange(Utility.delegateDynamicFieldSetterCreationMethods??null);
-                info_cache.AddRange(Utility.delegatePropertySetterCreationMethods??null);
-                info_cache.AddRange(Utility.delegateDynamicPropertySetterCreationMethod??null);
-                info_cache.AddRange(Utility.delegateMethodCreationMethods??null);
-                info_cache.AddRange(Utility.DelegateDynamicMethodCreationMethods??null);
+            info_cache.AddRange(Utility.delegateFieldSetterCreationMethods ?? null);
+            info_cache.AddRange(Utility.DelegateFieldGetterCreationMethods ?? null);
+            info_cache.AddRange(Utility.delegateDynamicFieldSetterCreationMethods ?? null);
+            info_cache.AddRange(Utility.delegatePropertySetterCreationMethods ?? null);
+            info_cache.AddRange(Utility.delegateDynamicPropertySetterCreationMethod ?? null);
+            info_cache.AddRange(Utility.delegatePropertyGetterCreationMethod?? null);
+            info_cache.AddRange(Utility.delegateMethodCreationMethods ?? null);
+            info_cache.AddRange(Utility.DelegateDynamicMethodCreationMethods ?? null);
             Debug.Log(info_cache.Count);
             return info_cache;
         }

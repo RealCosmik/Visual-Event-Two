@@ -270,6 +270,7 @@ namespace VisualDelegates.Events.Editor
             var eventArguments = baseEvent.GetType().BaseType.GenericTypeArguments;
             var delegateTypes = TypeCache.GetTypesDerivedFrom<VisualDelegateBase>();
             delegatetype = delegateTypes.FirstOrDefault(t => t.BaseType.GenericTypeArguments.SequenceEqual(eventArguments));
+            Debug.Log(delegatetype.Name);
             return delegatetype != null;
         }
         //private void DrawInvalidEvent(Rect cell)

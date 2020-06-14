@@ -26,6 +26,12 @@ namespace VisualDelegates
                 }
             }
         }
+        private void OnDestroy()
+        {
+            collisionEnterResponse.Release();
+            collisionExitResponse.Release();
+            collisionStayResponse.Release();
+        }
     }
 }
 

@@ -255,8 +255,6 @@ namespace VisualDelegates.Editor
                 UnityEngine.Object newtarget = seralizedTarget.objectReferenceValue;
                 GenerateChildTargets(newtarget, out AvailableTargetObjects, out _targetNames);
                 {
-                    if (this is RawReferenceView)
-                        Debug.Log("non static ref");
                     UpdateSelectedTarget(AvailableTargetObjects.IndexOf(seralizedTarget.objectReferenceValue));
                 }
                 return false;

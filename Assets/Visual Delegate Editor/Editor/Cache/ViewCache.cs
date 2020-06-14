@@ -192,8 +192,10 @@ namespace VisualDelegates.Editor
             {
                 isinvoked = true;
                 InvocationTracker.requestRepaint = true;
-            });
-            visualdelegate.GetType().GetEvent("m_internalcalls", flags).GetAddMethod(true).Invoke(visualdelegate, new object[] { editordelegate });
+            });  
+            Debug.Log(visualdelegate==null);
+            Debug.Log(typeof(VisualDelegateBase).GetEvent("m_internalcalls", flags) == null);
+           typeof(VisualDelegateBase).GetEvent("m_internalcalls", flags).GetAddMethod(true).Invoke(visualdelegate, new object[] { editordelegate });
         }
         public void UpdateInterncalcall(SerializedProperty delegateprop)
         {

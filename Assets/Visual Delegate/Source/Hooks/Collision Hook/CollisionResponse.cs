@@ -11,6 +11,7 @@ namespace VisualDelegates
         public Type[] targedTypes { get; private set; }
         public void Initialize() => onCollision.initialize();
         public void onCollide(UnityEngine.Object collision = null) => onCollision.Invoke(collision);
+        public void Release() => onCollision.Release();
         void ISerializationCallbackReceiver.OnAfterDeserialize()
         {
             var length = typeInfos.Length;

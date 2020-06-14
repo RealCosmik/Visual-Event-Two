@@ -357,7 +357,6 @@ namespace VisualDelegates.Editor
                     for (int i = 0; i < tempListLength; ++i)
                     {
                         tempProperty = tempProperties[i];
-                        Debug.Log(tempProperty.Name);
                         if (tempProperty.CanRead)
                         {
                             MemberProperty tempMember = new MemberProperty(tempProperty);

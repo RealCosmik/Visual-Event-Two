@@ -49,11 +49,11 @@ class LinkedMono : MonoBehaviour
     {
         testdelegate.initialize();
         testdelegate.OnInvoke += () => Debug.Log("this is a random");
-    }
+    } 
     public void StopCertain() => StopCoroutine(infinity());
     public void testobj(ScriptableObject o)
     {
-        Debug.LogError("bad so");
+        Debug.LogError("bad so");  
     }
     public void logCode(KeyCode c) => Debug.Log(c);
     private void IkramislookingProgrammer(int x) => Debug.Log("<color=blue> she loves me with code</color>");
@@ -169,7 +169,7 @@ class LinkedMono : MonoBehaviour
             testdelegate.Invoke();
         }
         if (Input.GetKeyDown(KeyCode.I))
-        {
+        { 
             UnityEngine.Profiling.Profiler.BeginSample("delgate init", this);
             testdelegate.initialize();
             UnityEngine.Profiling.Profiler.EndSample();
@@ -177,7 +177,3 @@ class LinkedMono : MonoBehaviour
         }
     }
 }
-[System.Serializable]
-public sealed class intpub : VisualDelegate<int> { }
-[System.Serializable]
-public class stringpub : VisualDelegate<string> { }

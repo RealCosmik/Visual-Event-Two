@@ -175,7 +175,7 @@ namespace VisualDelegates
                 else return safegetter;
             }
         }
-        private Func<string> ToStringDelegate<arg>(Delegate original)
+        protected Func<string> ToStringDelegate<arg>(Delegate original)
         {
             return new Func<string>(() => (original as Func<arg>)().ToString());
         }

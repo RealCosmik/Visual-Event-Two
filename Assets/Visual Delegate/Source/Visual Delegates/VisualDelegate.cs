@@ -73,11 +73,11 @@ namespace VisualDelegates
     //##########################
     /// <summary>1-Parameter Publisher</summary>
     public class VisualDelegate<A> : VisualDelegateBase
-    {
+    { 
         private Action<A> m_onInvoke;
         /// <summary>Event for 0-Parameter delegates and calls</summary>
         public event Action<A> OnInvoke
-        {
+        { 
             add
             {
                 m_onInvoke += value;
