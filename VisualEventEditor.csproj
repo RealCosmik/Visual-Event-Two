@@ -73,7 +73,7 @@
     <Compile Include="Assets\Visual Event Editor\Subscriber Drawer\EventSubscriberDrawer.cs" />
     <Compile Include="Assets\Visual Event Editor\Subscriber Drawer\SubscriberTree.cs" />
     <Compile Include="Assets\Visual Event Editor\Subscriber Drawer\SubscriberTreeElement.cs" />
-    <Compile Include="Assets\Visual Event Editor\Variable Drawer\VisualVariableDrawer.cs" />
+    <Compile Include="Assets\Visual Event Editor\Variable Drawer\VisualVariablePropertyDrawer.cs" />
     <Reference Include="UnityEngine">
       <HintPath>F:/UNITY VERSIONS/2019.3.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

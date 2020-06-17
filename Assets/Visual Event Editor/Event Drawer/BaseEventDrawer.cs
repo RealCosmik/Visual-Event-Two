@@ -21,7 +21,7 @@ namespace VisualDelegates.Events.Editor
         [SerializeField] bool debugfold, invocationfold, historyfold, argumentfold;
         TreeViewState responseState;
         int genericCount;
-        Action editorInvocation;
+        Action<UnityEngine.Object> editorInvocation;
         Func<bool> getInvocationStatus;
         int ticks;
         Vector2 scroll;
@@ -133,14 +133,15 @@ namespace VisualDelegates.Events.Editor
                 GUI.enabled = true;
                 if (isplaying)
                 {
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("CurrentValue"));
+                    EditorGUI.BeginChangeCheck();
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("currentValue"));
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        serializedObject.ApplyModifiedProperties();
+                    }
                     serializedObject.UpdateIfRequiredOrScript();
                 }
             }
-        }
-        public override bool RequiresConstantRepaint()
-        {
-            return target is IVisualVariable;
         }
         private void DrawNoteField()
         {
@@ -186,9 +187,9 @@ namespace VisualDelegates.Events.Editor
                     var binding = BindingFlags.Instance | BindingFlags.NonPublic;
                     var event_type = target.GetType();
                     var editormethod = event_type.GetMethod("EditorInvoke", binding);
-                    editorInvocation = Delegate.CreateDelegate(typeof(Action), target, editormethod, true) as Action;
+                    editorInvocation = Delegate.CreateDelegate(typeof(Action<UnityEngine.Object>), target, editormethod, true) as Action<UnityEngine.Object>;
                 }
-                editorInvocation.Invoke();
+                editorInvocation.Invoke(target);
                 serializedObject.Update();
             }
             GUI.enabled = true;

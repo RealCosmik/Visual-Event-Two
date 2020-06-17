@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af2b4eb7219c4b4799ee38e2ec27efd, type: 3}
+  m_Name: Player one score
+  m_EditorClassIdentifier: 
+  EventNote: this event is for when the player scores
+  historycapacity: 5
+  argument1: 166
+  initialValue: 77
+  currentValue: 77

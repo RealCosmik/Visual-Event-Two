@@ -6,7 +6,7 @@ class EventInvoker : MonoBehaviour
     public KeyCode invokecode = KeyCode.E;
     public KeyCode unsubcode= KeyCode.U;
     EventResponse response;
-    public IntVar v;
+    public IntVar randomevent;
     public int num;
     private void Start()
     {

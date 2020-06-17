@@ -1,5 +1,6 @@
-﻿using VisualDelegates.Events;
-public class IntVar : GenericVariable<int>
+﻿using VisualDelegates;
+using VisualDelegates.Events;
+public class IntVar : GenericVariable<int>,IVisualVariable
 {
-    public override void ModifyBy(int modifier) => Invoke(CurrentValue += modifier, null);
+    public override void ModifyBy(int modifier) => Invoke(currentValue += modifier, null);
 }

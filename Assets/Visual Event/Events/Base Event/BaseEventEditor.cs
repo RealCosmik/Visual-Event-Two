@@ -10,7 +10,7 @@ namespace VisualDelegates.Events
         private protected int overwriteIndex = 0;
         private protected List<HistoryEntry> eventHistory = new List<HistoryEntry>();
         protected  abstract void Clear();
-        protected  abstract void EditorInvoke();
+        protected  abstract void EditorInvoke(UnityEngine.Object sender);
         private protected bool GetisInvoke() => isinvoke;
 
         private protected void UpdateEventHistory(Object sender,bool error, params object[] args)

@@ -38,29 +38,27 @@ namespace VisualDelegates.Events.Editor
             {
                 var response = subscriberResponses.GetArrayElementAtIndex(i);
                 var baseEvent = response.FindPropertyRelative("currentEvent").objectReferenceValue as BaseEvent;
-               // var noteprop = response.FindPropertyRelative("responseNote").stringValue;
+                // var noteprop = response.FindPropertyRelative("responseNote").stringValue;
                 root.AddChild(new SubscriberTreeElement(baseEvent) { id = i });
             }
         }
         protected override float GetCustomRowHeight(int row, TreeViewItem item)
         {
             var responseElement = item as SubscriberTreeElement;
+            var baseheight= 
+                     EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
+                     EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none) +
+                     EditorGUI.GetPropertyHeight(SerializedPropertyType.Boolean, GUIContent.none);
             var eventResponseProperty = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(responseElement.id);
             if (eventResponseProperty.FindPropertyRelative("currentEvent").objectReferenceValue != null)
             {
                 var delegateprop = eventResponseProperty.FindPropertyRelative("response");
                 if (delegateprop.isExpanded)
-                    return EditorGUI.GetPropertyHeight(eventResponseProperty) - 20f;
+                    return EditorGUI.GetPropertyHeight(delegateprop) + baseheight;
                 //return EditorGUI.GetPropertyHeight(delegateprop) + HEIGHT_PADDING;
-                else return
-                    EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
-                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none) +
-                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Boolean, GUIContent.none);
+                else return baseheight;
             }
-            else return
-                    EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
-                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none) +
-                    EditorGUI.GetPropertyHeight(SerializedPropertyType.Boolean, GUIContent.none);
+            else return baseheight;
         }
         protected override void RowGUI(RowGUIArgs args)
         {
@@ -203,7 +201,7 @@ namespace VisualDelegates.Events.Editor
             cell.height -= HEIGHT_PADDING;
             if (element.responseNote == null)
                 element.responseNote = new GUIContent(noteprop.stringValue);
-            var customeheight=EditorStyles.textArea.CalcHeight(element.responseNote, cell.width);
+            var customeheight = EditorStyles.textArea.CalcHeight(element.responseNote, cell.width);
             var textrect = cell;
             EditorGUI.BeginChangeCheck();
             if (customeheight >= textrect.height)
@@ -240,13 +238,12 @@ namespace VisualDelegates.Events.Editor
                         subscribedEvent.Subscribe(responses[element.id]);
                     }
                     //if (!responses[element.id].GetType().GenericTypeArguments.SequenceEqual(delegatetype.GenericTypeArguments))
-                    {
-                        Undo.RegisterCompleteObjectUndo(serializedSubscriber.targetObject, "swap prop");
-                        PrefabUtility.RecordPrefabInstancePropertyModifications(serializedSubscriber.targetObject);
-                        var delegateprop = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id).FindPropertyRelative("response");
-                        delegateprop.isExpanded = true;
-                        delegateprop.managedReferenceValue = Activator.CreateInstance(delegatetype);
-                    }
+                    Undo.RegisterCompleteObjectUndo(serializedSubscriber.targetObject, "swap prop");
+                    Debug.Log("ok");
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(serializedSubscriber.targetObject);
+                    var delegateprop = serializedSubscriber.FindProperty("responses").GetArrayElementAtIndex(element.id).FindPropertyRelative("response");
+                    delegateprop.isExpanded = true;
+                    delegateprop.managedReferenceValue = Activator.CreateInstance(delegatetype);
                     serializedSubscriber.ApplyModifiedProperties();
                     RefreshCustomRowHeights();
                     ticks = 0;

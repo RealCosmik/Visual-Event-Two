@@ -33,9 +33,13 @@ namespace VisualDelegates.Editor
                 var prop = serializedObject.FindProperty(delegatefieldname);
                 prop.isExpanded = true;
                 EditorGUILayout.PropertyField(prop,GUIContent.none,GUILayout.Width(width*.7f));
-                scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.Width(width * .25f), GUILayout.Height(100));
+                var notewidth = GUILayout.Width(width * .25f);
+                EditorGUILayout.BeginVertical();
+                EditorGUILayout.LabelField("Hook Note",notewidth);
+                scroll = EditorGUILayout.BeginScrollView(scroll, notewidth, GUILayout.Height(100));
                 EditorGUI.BeginChangeCheck();
                 noteprop.stringValue = EditorGUILayout.TextArea(noteprop.stringValue,EditorStyles.textArea, GUILayout.ExpandHeight(true));
+                EditorGUILayout.EndVertical();
                 if (EditorGUI.EndChangeCheck())
                     serializedObject.ApplyModifiedProperties();
                 EditorGUILayout.EndScrollView();

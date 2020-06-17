@@ -2,6 +2,9 @@
 using System.Reflection;
 using System.Linq.Expressions;
 using UnityEngine;
+using System.Text;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+
 namespace VisualDelegates
 {
     //##########################
@@ -26,6 +29,7 @@ namespace VisualDelegates
         protected Type[] paramtypes;
         [SerializeField] internal bool haserror;
         [SerializeField] private bool serializationError = false;
+        private StringBuilder builder;
         /// <summary>
         /// Checks delegate for potential memory leaks 
         /// </summary>

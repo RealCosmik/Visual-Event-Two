@@ -94,6 +94,8 @@ namespace VisualDelegates.Editor
         }
         private void DrawNote()
         {
+            EditorGUILayout.BeginVertical();
+            EditorGUILayout.LabelField("Hook Note");
             var noteprop = hookresponse.FindPropertyRelative(NOTE);
             scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.Height(50), GUILayout.ExpandWidth(false));
             EditorGUI.BeginChangeCheck();
@@ -101,6 +103,7 @@ namespace VisualDelegates.Editor
             if (EditorGUI.EndChangeCheck())
                 noteprop.serializedObject.ApplyModifiedProperties();
             EditorGUILayout.EndScrollView();
+            EditorGUILayout.EndVertical();
         }
     }
 }

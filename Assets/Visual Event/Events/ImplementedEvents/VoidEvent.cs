@@ -26,6 +26,6 @@ namespace VisualDelegates.Events
 
         }
         protected override void Clear() { }
-        protected override void EditorInvoke() => Invoke(null);
+        protected override void EditorInvoke(UnityEngine.Object sender) => Invoke(null);
     }
 }

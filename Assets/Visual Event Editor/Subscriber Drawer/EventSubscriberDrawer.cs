@@ -73,7 +73,7 @@ namespace VisualDelegates.Events.Editor
                 if (currentResponseTree == null)
                     currentResponseTree = new SubscriberTree(new TreeViewState(), CreateCollumnHeader(), serializedObject);
                 else
-                {
+                { 
                     // Debug.Log("reload");
                     currentResponseTree.Reload();
                 }

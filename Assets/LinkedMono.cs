@@ -10,7 +10,7 @@ class LinkedMono : MonoBehaviour
 
     public VisualDelegate testdelegate;
 
-
+    public IntVar myvar;
 
     public UnityEvent unity;
     [DisplayPrivate, SerializeField] private int PRIVATEFIELD;

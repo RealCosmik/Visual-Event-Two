@@ -15,6 +15,7 @@ namespace VisualDelegates.Events.Editor
         BaseEvent m_event;
         TreeViewItem draggedItem;
         HashSet<int> refrehsedpriorities;
+        const float  HEIGHT_PADDING = 10f; 
         public EventResponseTree(TreeViewState treeViewState, MultiColumnHeader header, BaseEvent currenetevent) : base(treeViewState, header)
         {
             extraSpaceBeforeIconAndLabel = 20;
@@ -124,7 +125,7 @@ namespace VisualDelegates.Events.Editor
             {
                 var serialized_object = responseElement.serializedSender;
                 return EditorGUI.GetPropertyHeight(serialized_object.FindProperty("responses").GetArrayElementAtIndex(responseElement.responseindex)
-                    .FindPropertyRelative("response")) + 10f;
+                    .FindPropertyRelative("response")) + HEIGHT_PADDING;
             }
             else if(item is DynamicResponseTreeElement)
             {
@@ -203,9 +204,10 @@ namespace VisualDelegates.Events.Editor
             cell.x += 15f;
             EditorGUI.LabelField(cell, priorityelement.Priority.ToString());
             if (!refrehsedpriorities.Contains(priorityelement.id) && IsExpanded(priorityelement.id))
-            {
+            {   
                 refrehsedpriorities.Add(priorityelement.id);
-                RefreshCustomRowHeights();
+                Reload();
+                //RefreshCustomRowHeights();
             }
         }
         private void DrawSubscriberGO(Rect cellrect, ResponseTreeElement response_element)
@@ -276,6 +278,7 @@ namespace VisualDelegates.Events.Editor
         }
         private void DrawResponseNote(Rect cell, ResponseTreeElement element)
         {
+            cell.height -= HEIGHT_PADDING;
             var noteprop = element.serializedSender.FindProperty("responses").GetArrayElementAtIndex(element.responseindex)
                  .FindPropertyRelative("responseNote");
             var customheight = EditorStyles.textArea.CalcHeight(element.noteContent, cell.width);
@@ -285,11 +288,11 @@ namespace VisualDelegates.Events.Editor
                 var textrect = cell;
                 textrect.height = customheight;
                 element.scroll = GUI.BeginScrollView(cell, element.scroll, textrect);
-                noteprop.stringValue = EditorGUI.TextArea(textrect, noteprop.stringValue);
+                noteprop.stringValue = EditorGUI.TextArea(textrect, noteprop.stringValue,EditorStyles.textArea);
                 GUI.EndScrollView();
             }
             else
-                noteprop.stringValue = EditorGUI.TextArea(cell, noteprop.stringValue);
+                noteprop.stringValue = EditorGUI.TextArea(cell, noteprop.stringValue,EditorStyles.textArea);
             if (EditorGUI.EndChangeCheck())
             {
                 element.serializedSender.ApplyModifiedProperties();
