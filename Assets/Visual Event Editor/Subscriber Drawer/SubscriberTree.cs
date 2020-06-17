@@ -129,6 +129,7 @@ namespace VisualDelegates.Events.Editor
             increaseRect.width = cell.width / 3;
             if (GUI.Button(increaseRect, UP_ARROW))
             {
+                if(EditorApplication.isPlaying)
                 Debug.LogWarning("update this to move response at runtime");
                 priorityProperty.intValue++;
                 serializedSubscriber.ApplyModifiedProperties();
@@ -138,6 +139,7 @@ namespace VisualDelegates.Events.Editor
             decreaseRect.x += increaseRect.width;
             if (GUI.Button(decreaseRect, DOWN_ARROW) && priorityProperty.intValue > 0)
             {
+                if(EditorApplication.isPlaying)
                 Debug.LogWarning("update this to move response at runtime");
                 priorityProperty.intValue--;
                 serializedSubscriber.ApplyModifiedProperties();

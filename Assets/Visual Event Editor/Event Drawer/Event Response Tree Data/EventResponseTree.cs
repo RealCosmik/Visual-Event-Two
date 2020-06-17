@@ -261,7 +261,6 @@ namespace VisualDelegates.Events.Editor
             }
             if (delegateproperty.isExpanded != response_element.isexpanded)
             {
-                Debug.Log("ok");
                 RefreshCustomRowHeights();
                 response_element.isexpanded = delegateproperty.isExpanded;
             }

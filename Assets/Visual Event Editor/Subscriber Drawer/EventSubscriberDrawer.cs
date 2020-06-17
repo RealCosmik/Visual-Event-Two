@@ -9,6 +9,7 @@ namespace VisualDelegates.Events.Editor
     {
         SubscriberTree currentResponseTree;
         int tick = 0;
+        bool removalSweep;
         private MultiColumnHeader CreateCollumnHeader()
         {
             var collumns = new MultiColumnHeaderState.Column[]
@@ -50,14 +51,23 @@ namespace VisualDelegates.Events.Editor
         {
             currentResponseTree = null;
             tick = 0;
-            var responseListProperty = serializedObject.FindProperty("responses");
-            var length = responseListProperty.arraySize - 1;
-            for (int i = length; i>=0; i--)
+            removalSweep = false;
+         
+        }
+        private void RemoveEmtpyResponses()
+        {
+            if (!removalSweep)
             {
-                if (responseListProperty.GetArrayElementAtIndex(i).FindPropertyRelative("currentEvent").objectReferenceValue == null)
-                    responseListProperty.DeleteArrayElementAtIndex(i);
+                var responseListProperty = serializedObject.FindProperty("responses");
+                var length = responseListProperty.arraySize - 1;
+                for (int i = length; i >= 0; i--)
+                {
+                    if (responseListProperty.GetArrayElementAtIndex(i).FindPropertyRelative("currentEvent").objectReferenceValue == null)
+                        responseListProperty.DeleteArrayElementAtIndex(i);
+                }
+                responseListProperty.serializedObject.ApplyModifiedProperties();
+                removalSweep = true;
             }
-            responseListProperty.serializedObject.ApplyModifiedProperties();
         }
         private void OnResponseAdded()
         {
@@ -106,6 +116,7 @@ namespace VisualDelegates.Events.Editor
         }
         public override void OnInspectorGUI()
         {
+            RemoveEmtpyResponses();
             EditorGUILayout.BeginHorizontal();
             OnResponseAdded();
             OnResponseRemoved();

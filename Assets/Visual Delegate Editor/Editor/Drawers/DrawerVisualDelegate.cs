@@ -209,10 +209,12 @@ namespace VisualDelegates.Editor
                 if (cache?.CurrentTarget != null)
                 {
                     PrefabUtility.RecordPrefabInstancePropertyModifications(arrayprop.serializedObject.targetObject);
-                    //PrefabUtility.ApplyPrefabInstance((arrayprop.serializedObject.targetObject as Component).gameObject,
-                    //    InteractionMode.UserAction);
                 }
                 cache?.ClearViewCache();
+                if (arrayprop.arraySize > 0)
+                {
+                    VisualEditorUtility.ReinitializeDelegate(arrayprop.GetArrayElementAtIndex(0).GetVisualDelegateObject());
+                }
             }
         }
         /// <summary>
@@ -232,6 +234,8 @@ namespace VisualDelegates.Editor
             //delegateprop.FindPropertyRelative("m_runtime").boolValue = false;
             PrefabUtility.RecordPrefabInstancePropertyModifications(arrayprop.serializedObject.targetObject);
            arrayprop.serializedObject.ApplyModifiedProperties();
+            if (EditorApplication.isPlaying)
+                VisualEditorUtility.ReinitializeDelegate(arrayprop.GetArrayElementAtIndex(size).GetVisualDelegateObject());
         }
 
         private void OnReorder(ReorderableList list, int oldindex, int newindex, SerializedProperty visualdelegateprop)
