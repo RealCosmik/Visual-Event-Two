@@ -113,7 +113,7 @@ namespace VisualDelegates.Events.Editor
             if (serializedObject.FindProperty("responses").arraySize > 0)
             {
                 currentResponseTree = currentResponseTree ?? new SubscriberTree(new TreeViewState(), CreateCollumnHeader(), serializedObject);
-                var tree_rect = GUILayoutUtility.GetRect(1, currentResponseTree.totalHeight);
+                var tree_rect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, currentResponseTree.totalHeight);
                 //EditorGUI.BeginProperty(tree_rect, GUIContent.none, serializedObject.FindProperty("responses"));
                 currentResponseTree.OnGUI(tree_rect);
                 //EditorGUI.EndProperty();

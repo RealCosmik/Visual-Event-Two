@@ -17,7 +17,7 @@ namespace VisualDelegates.Events.Editor
         HashSet<int> refrehsedpriorities;
         const float  HEIGHT_PADDING = 10f; 
         public EventResponseTree(TreeViewState treeViewState, MultiColumnHeader header, BaseEvent currenetevent) : base(treeViewState, header)
-        {
+        { 
             extraSpaceBeforeIconAndLabel = 20;
             base.columnIndexForTreeFoldouts = 0;
             showAlternatingRowBackgrounds = true;
@@ -131,7 +131,13 @@ namespace VisualDelegates.Events.Editor
             {
                 return EditorGUI.GetPropertyHeight(SerializedPropertyType.String,GUIContent.none) * 2;
             }
-            else return base.GetCustomRowHeight(row, item);
+            else
+            {
+                var row_height = base.GetCustomRowHeight(row, item);
+                if (showingHorizontalScrollBar)
+                    return row_height * 2f;
+                else return row_height;
+            }
         }
         protected override TreeViewItem BuildRoot()
         {
@@ -202,7 +208,8 @@ namespace VisualDelegates.Events.Editor
         private void DrawPrioirty(Rect cell, PriorityTreeElement priorityelement)
         {
             cell.x += 15f;
-            EditorGUI.LabelField(cell, priorityelement.Priority.ToString());
+            cell.height = EditorStyles.label.CalcHeight(priorityelement.content, cell.width);
+            EditorGUI.LabelField(cell,priorityelement.priorityString);
             if (!refrehsedpriorities.Contains(priorityelement.id) && IsExpanded(priorityelement.id))
             {   
                 refrehsedpriorities.Add(priorityelement.id);
@@ -251,6 +258,12 @@ namespace VisualDelegates.Events.Editor
                     // ViewCache.GetVisualDelegateInstanceCache(delegateproperty).UpdateInterncalcall(delegateproperty);
                 }
                 Reload();
+            }
+            if (delegateproperty.isExpanded != response_element.isexpanded)
+            {
+                Debug.Log("ok");
+                RefreshCustomRowHeights();
+                response_element.isexpanded = delegateproperty.isExpanded;
             }
         }
         private void DrawDynamicResponse(Rect cell, DynamicResponseTreeElement response_element)

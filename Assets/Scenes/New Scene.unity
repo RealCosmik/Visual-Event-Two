@@ -823,14 +823,45 @@ MonoBehaviour:
     00000002:
       type: {class: RawCall, ns: VisualDelegates, asm: VisualDelegate}
       data:
-        m_target: {fileID: 865666390}
+        m_target: {fileID: 865666387}
         methodData:
-        - 8
-        - Play
+        - 16
+        - layer
         haserror: 0
         serializationError: 0
-        creationMethod: createActionCall0
-        m_arguments: []
+        creationMethod: createPropertyCall
+        m_arguments:
+        - assemblyQualifiedArgumentName: System.Int32, mscorlib, Version=4.0.0.0,
+            Culture=neutral, PublicKeyToken=b77a5c561934e089
+          FullArgumentName: System.Int32
+          objectValue: {fileID: 0}
+          m_objecthasvalue: 0
+          stringValue: 
+          _x1: 0
+          _x2: 0
+          _y1: 0
+          _y2: 0
+          _z1: 0
+          _z2: 0
+          longValue: 0
+          doubleValue: 0
+          animationCurveValue:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 0
+            m_PostInfinity: 0
+            m_RotationOrder: 0
+          UseReference: 0
+          hasCustomType: 0
+          call_Reference:
+            m_target: {fileID: 0}
+            methodData: []
+            haserror: 0
+            serializationError: 0
+            m_isvaluetype: 0
+            isparentargstring: 0
+            m_isDelegate: 0
+            willdeseralize: 0
         m_isDynamic: 0
         m_isYieldableCall: 0
         TargetType: 

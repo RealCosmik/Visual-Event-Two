@@ -25,6 +25,7 @@ namespace VisualDelegates.Events.Editor
         public readonly UnityEngine.Object sender;
         public GUIContent noteContent;
         public Vector2 scroll;
+        public bool isexpanded;
         public ResponseTreeElement(int id,int newindex, int newpriority, int event_index)
         {
             responderID = id;

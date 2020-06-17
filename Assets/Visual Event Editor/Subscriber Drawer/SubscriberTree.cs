@@ -45,7 +45,7 @@ namespace VisualDelegates.Events.Editor
         protected override float GetCustomRowHeight(int row, TreeViewItem item)
         {
             var responseElement = item as SubscriberTreeElement;
-            var baseheight= 
+            var baseheight =
                      EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none) +
                      EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, GUIContent.none) +
                      EditorGUI.GetPropertyHeight(SerializedPropertyType.Boolean, GUIContent.none);
@@ -54,11 +54,11 @@ namespace VisualDelegates.Events.Editor
             {
                 var delegateprop = eventResponseProperty.FindPropertyRelative("response");
                 if (delegateprop.isExpanded)
-                    return EditorGUI.GetPropertyHeight(delegateprop) + baseheight;
-                //return EditorGUI.GetPropertyHeight(delegateprop) + HEIGHT_PADDING;
-                else return baseheight;
+                    baseheight += EditorGUI.GetPropertyHeight(delegateprop);
             }
-            else return baseheight;
+            if (this.showingHorizontalScrollBar)
+                baseheight += 20f;
+            return baseheight += 10;
         }
         protected override void RowGUI(RowGUIArgs args)
         {
@@ -186,13 +186,13 @@ namespace VisualDelegates.Events.Editor
                 RefreshCustomRowHeights();
                 ViewCache.GetVisualDelegateInstanceCache(currentDelegate).UpdateInterncalcall(currentDelegate);
                 ticks = 0;
-                if (element.iscollapsed != currentDelegate.isExpanded)
-                {
-                    tickTrigger = 5;
-                    element.iscollapsed = currentDelegate.isExpanded;
-                }
-                else
-                    tickTrigger = 3;
+                tickTrigger = 3;
+            }
+            if (element.iscollapsed != currentDelegate.isExpanded)
+            {
+                RefreshCustomRowHeights();
+                //tickTrigger = 5;
+                element.iscollapsed = currentDelegate.isExpanded;
             }
         }
         private void DrawResponseNote(Rect cell, SubscriberTreeElement element)

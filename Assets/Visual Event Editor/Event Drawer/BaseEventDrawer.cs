@@ -101,13 +101,6 @@ namespace VisualDelegates.Events.Editor
             ticks = 0;
         }
 
-        private float GetTreewidth()
-        {
-            float width = 0f;
-            for (int i = 0; i < 2; i++)
-                width += responsetree.multiColumnHeader.GetVisibleColumnIndex(i);
-            return width;
-        }
         private void autoreload()
         {
             if (ticks != 5)
@@ -261,7 +254,7 @@ namespace VisualDelegates.Events.Editor
             DrawNoteField();
             DrawDebuggingData();
             DynamicRegistartionReload();
-            responsetree?.OnGUI(GUILayoutUtility.GetRect(GetTreewidth(), responsetree.totalHeight));
+            responsetree?.OnGUI(GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, responsetree.totalHeight));
             autoreload();
         }
 

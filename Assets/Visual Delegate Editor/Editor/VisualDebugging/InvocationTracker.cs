@@ -10,17 +10,30 @@ namespace VisualDelegates.Editor
     {
         public static bool requestRepaint;
         static Type inspector_type = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.InspectorWindow");
-        static InvocationTracker() => EditorApplication.update += CheckNewInvocation;
+        static UnityEngine.Object[] inspectorwindows;
+        static InvocationTracker()
+        {
+            inspectorwindows = Resources.FindObjectsOfTypeAll(inspector_type);
+            EditorApplication.update += CheckNewInvocation;
+            EditorApplication.playModeStateChanged += OnPlay;
+        }
+
+        private static void OnPlay(PlayModeStateChange obj)
+        {
+            if (obj == PlayModeStateChange.EnteredEditMode)
+                inspectorwindows = Resources.FindObjectsOfTypeAll(inspector_type);
+        }
+
         private static void CheckNewInvocation()
         {
             if (requestRepaint)
             {
-                var inspectorwindows = Resources.FindObjectsOfTypeAll(inspector_type);
                 var length = inspectorwindows.Length;
                 for (int i = 0; i < length; i++)
                 {
                     (inspectorwindows[i] as EditorWindow).Repaint();
                 }
+                requestRepaint = false;
             }
         }
     }

@@ -1,4 +1,6 @@
 ﻿using UnityEditor.IMGUI.Controls;
+using UnityEngine;
+
 namespace VisualDelegates.Events.Editor
 {
     /// <summary>
@@ -7,11 +9,15 @@ namespace VisualDelegates.Events.Editor
     [System.Serializable]
     class PriorityTreeElement : TreeViewItem
     {
-        public int Priority;
+        public int Priority { get; private set; }
+        public GUIContent content { get; private set; }
+        public string priorityString { get; private set; }
         public bool expanisonrefresh;
         public PriorityTreeElement(int newpriority)
         {
             Priority = newpriority;
+            priorityString = newpriority.ToString();
+            content = new GUIContent(priorityString);
         }
     }
 }
