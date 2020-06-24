@@ -116,7 +116,7 @@ namespace VisualDelegates.Events.Editor
         }
         public override void OnInspectorGUI()
         {
-            RemoveEmtpyResponses();
+           // RemoveEmtpyResponses();
             EditorGUILayout.BeginHorizontal();
             OnResponseAdded();
             OnResponseRemoved();

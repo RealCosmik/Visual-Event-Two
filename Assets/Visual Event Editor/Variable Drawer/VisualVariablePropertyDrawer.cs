@@ -54,7 +54,6 @@ namespace VisualDelegates.Events.Editor
                 var serializedvar = GetSeriazliedVariable(variableobject);
                 EditorGUI.PropertyField(variablerect, serializedvar.FindProperty(GetVariableName()), GUIContent.none);
                 GUI.enabled = true;
-                if (EditorApplication.isPlaying)
                     serializedvar.UpdateIfRequiredOrScript();
             }
         }

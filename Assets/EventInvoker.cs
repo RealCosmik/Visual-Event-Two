@@ -8,6 +8,7 @@ class EventInvoker : MonoBehaviour
     EventResponse response;
     public IntVar randomevent;
     public int num;
+    public FloatVariable floater;
     private void Start()
     {
     }

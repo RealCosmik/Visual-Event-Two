@@ -11,6 +11,7 @@ namespace VisualDelegates.Cinema.Editor
         SignalTree signalTree;
         TreeViewState state;
         SerializedProperty assetList;
+        int refresh;
         private MultiColumnHeader CreateCollumnHeader()
         {
             var collumns = new MultiColumnHeaderState.Column[]
@@ -46,13 +47,14 @@ namespace VisualDelegates.Cinema.Editor
         private void OnDisable()
         { 
             signalTree = null;
+            refresh = -1;
         }
         public override void OnInspectorGUI()
         {
             assetList = assetList ?? serializedObject.FindProperty("signalAssets");
             var size = assetList.arraySize;
             if (GUILayout.Button("Add Signal"))
-            {
+            { 
                 assetList.InsertArrayElementAtIndex(size);
                 assetList.GetArrayElementAtIndex(size).objectReferenceValue = null;
                 var signalresponses = serializedObject.FindProperty("signalResponses");
@@ -74,6 +76,12 @@ namespace VisualDelegates.Cinema.Editor
                     CreateTree();
                 var tree_rect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, signalTree.totalHeight);
                 signalTree.OnGUI(tree_rect);
+                if (refresh < 5)
+                {
+                    refresh += 1;
+                    if (refresh == 5)
+                        signalTree.Reload();
+                }
             }
         }
     }

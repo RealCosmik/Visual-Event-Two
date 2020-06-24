@@ -15,5 +15,5 @@ MonoBehaviour:
   EventNote: this event is for when the player scores
   historycapacity: 5
   argument1: 166
-  initialValue: 77
-  currentValue: 77
+  initialValue: 987
+  currentValue: 399

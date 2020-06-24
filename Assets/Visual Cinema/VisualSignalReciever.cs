@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 namespace VisualDelegates.Cinema
 {
-    public class VisualSignalReciever : MonoBehaviour, INotificationReceiver,ISerializationCallbackReceiver
+    public class VisualSignalReciever : MonoBehaviour, INotificationReceiver, ISerializationCallbackReceiver
     {
         [SerializeField] List<SignalAsset> signalAssets;
         [SerializeField] List<SignalResponse> signalResponses;
@@ -50,11 +49,8 @@ namespace VisualDelegates.Cinema
         {
             assetPairs.Clear();
             assetPairs = null;
-            if (Application.isEditor)
-            {
-                signalAssets = null;
-                signalResponses = null;
-            }
+            signalAssets = null;
+            signalResponses = null;
         }
     }
 }
