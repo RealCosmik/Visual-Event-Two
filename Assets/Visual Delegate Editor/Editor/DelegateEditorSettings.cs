@@ -1,13 +1,13 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.IO;
-using System.Diagnostics;
 
 namespace VisualDelegates.Editor
 {
     class DelegateEditorSettings : ScriptableObject
     {
         static DelegateEditorSettings m_instance;
+        public bool visualDebugging = false;
         public Color EvenColor, OddColor, Selectedcolor, YieldColor, InvocationColor, ErrorColor;
         public static DelegateEditorSettings instance
         {

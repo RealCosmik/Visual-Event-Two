@@ -7,7 +7,7 @@ namespace VisualDelegates
     //##########################
     /// <summary>Manages delegate event registration and invocation</summary>
     [Serializable]
-    public sealed class VisualDelegate : VisualDelegateBase
+    public class VisualDelegate : VisualDelegateBase
     {
         private Action m_onInvoke;
         /// <summary>Event for 0-Parameter delegates and calls</summary>

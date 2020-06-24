@@ -198,6 +198,10 @@ namespace VisualDelegates.Editor
         public void UpdateInterncalcall(SerializedProperty delegateprop)
         {
             AddInternalcall(delegateprop.GetVisualDelegateObject());
+        } 
+        public void ClearAllCache()
+        {
+            RawCallCache.Clear();
         }
     }
 

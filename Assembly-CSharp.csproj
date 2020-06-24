@@ -660,6 +660,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="VisualCinema.csproj">
+      <Project>{5D5016D2-A817-71F6-FE42-95B0FA11203C}</Project>
+      <Name>VisualCinema</Name>
+    </ProjectReference>
     <ProjectReference Include="VisualEventEditor.csproj">
       <Project>{77733AC6-5A37-D759-9231-4B6753DC7F54}</Project>
       <Name>VisualEventEditor</Name>
@@ -675,6 +679,10 @@
     <ProjectReference Include="VisualDelegateEditor.csproj">
       <Project>{71BB7A50-5227-8343-53E4-F874424580EC}</Project>
       <Name>VisualDelegateEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="VisualCinemaEditor.csproj">
+      <Project>{611FD1CD-8CBC-F990-DA05-9E02FFEABC2F}</Project>
+      <Name>VisualCinemaEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

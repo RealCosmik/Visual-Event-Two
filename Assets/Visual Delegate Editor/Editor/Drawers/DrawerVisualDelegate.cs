@@ -123,7 +123,7 @@ namespace VisualDelegates.Editor
         /// <param name="tProperty">Serialized <see cref="VisualDelegate"/> property</param>
         /// <param name="tLabel">GUI Label of the drawer</param>
         public override void OnGUI(Rect tPosition, SerializedProperty tProperty, GUIContent tLabel)
-        { 
+        {
             ClearOldCache(tProperty);
             ReorderableList tempList = GetReoderableList(tProperty);
             tPosition.height = base.GetPropertyHeight(tProperty, tLabel);

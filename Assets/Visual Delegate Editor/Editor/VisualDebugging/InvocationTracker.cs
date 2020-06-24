@@ -6,7 +6,7 @@ namespace VisualDelegates.Editor
     /// <summary>
     /// used to repain the inspector when a delegate is invoked
     /// </summary>
-   internal static class InvocationTracker
+    internal static class InvocationTracker
     {
         public static bool requestRepaint;
         static Type inspector_type = typeof(UnityEditor.Editor).Assembly.GetType("UnityEditor.InspectorWindow");
@@ -26,7 +26,7 @@ namespace VisualDelegates.Editor
 
         private static void CheckNewInvocation()
         {
-            if (requestRepaint)
+            if (requestRepaint && DelegateEditorSettings.instance.visualDebugging)
             {
                 var length = inspectorwindows.Length;
                 for (int i = 0; i < length; i++)
