@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 4890085278179872738, guid: cbe7d02f4cd3daa448b14dd290890b44,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -118,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -248,6 +251,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227c86f88f34355499f6bd5b1e9482ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  signalAssets:
+  - {fileID: 0}
+  signalResponses:
+  - m_calls: []
+    validResponse: 0
+  references:
+    version: 1
 --- !u!95 &631685718
 Animator:
   serializedVersion: 3
@@ -300,7 +310,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &752935118
 GameObject:
@@ -334,6 +344,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -517,7 +528,8 @@ MonoBehaviour:
         - 8
         - LogMessage
         - System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        - LogType, VisualDelegate, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        - UnityEngine.LogType, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
         - UnityEngine.Object, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
         haserror: 0
@@ -529,7 +541,7 @@ MonoBehaviour:
           FullArgumentName: System.String
           objectValue: {fileID: 0}
           m_objecthasvalue: 0
-          stringValue: 'ok '
+          stringValue: asdsa
           _x1: 0
           _x2: 0
           _y1: 0
@@ -555,13 +567,13 @@ MonoBehaviour:
             isparentargstring: 0
             m_isDelegate: 0
             willdeseralize: 0
-        - assemblyQualifiedArgumentName: LogType, VisualDelegate, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
-          FullArgumentName: LogType
+        - assemblyQualifiedArgumentName: UnityEngine.LogType, UnityEngine.CoreModule,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          FullArgumentName: UnityEngine.LogType
           objectValue: {fileID: 0}
           m_objecthasvalue: 0
           stringValue: 
-          _x1: 1
+          _x1: 0
           _x2: 0
           _y1: 0
           _y2: 0
@@ -589,8 +601,8 @@ MonoBehaviour:
         - assemblyQualifiedArgumentName: UnityEngine.Object, UnityEngine.CoreModule,
             Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
           FullArgumentName: UnityEngine.Object
-          objectValue: {fileID: 1416209127}
-          m_objecthasvalue: 1
+          objectValue: {fileID: 0}
+          m_objecthasvalue: 0
           stringValue: 
           _x1: 0
           _x2: 0
@@ -634,7 +646,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1516042502
+--- !u!1 &1634491269
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -642,8 +654,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1516042504}
-  - component: {fileID: 1516042503}
+  - component: {fileID: 1634491271}
+  - component: {fileID: 1634491270}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -651,46 +663,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1516042503
-MonoBehaviour:
+--- !u!320 &1634491270
+PlayableDirector:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1516042502}
+  m_GameObject: {fileID: 1634491269}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: 33f934b88311d664bbaa4913dfbeea2d, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1516042502}
-          m_MethodName: 
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!4 &1516042504
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 1a60e90ff59cf7245a4804b546ea8c80, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
+--- !u!4 &1634491271
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1516042502}
+  m_GameObject: {fileID: 1634491269}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 148.375, y: 234, z: 0}
+  m_LocalPosition: {x: 0.29850584, y: 0.39980063, z: -0.036017545}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -1,4 +1,4 @@
-﻿
+﻿using VisualDelegates;
 [System.Serializable]
 class Person : VisualDelegates.IVisualArgument
 {

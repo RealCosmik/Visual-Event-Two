@@ -6,13 +6,13 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 using System;
-using VisualDelegates;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using System.Reflection;
 using UnityEditor.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace VisualDelegates.Editor
 {
     internal sealed class DelegateAOT : ScriptableObject
@@ -22,8 +22,13 @@ namespace VisualDelegates.Editor
         [MenuItem("VisualDelegate/Open AOT Solver", false)]
         static void OpenDelegateMenu()
         {
-            var assetpaths = AssetDatabase.FindAssets("t:DelegateAOT");
-            if (assetpaths.Length == 0)
+
+            Selection.activeObject = GetSingleGenerator();
+        }
+        private static DelegateAOT GetSingleGenerator()
+        {
+            var assetGUIDS = AssetDatabase.FindAssets("t:DelegateAOT");
+            if (assetGUIDS.Length == 0)
             {
                 string tempPath = "Assets/Editor/Delegate AOT.asset";
                 if (!AssetDatabase.IsValidFolder("Assets/Editor"))
@@ -34,8 +39,9 @@ namespace VisualDelegates.Editor
                 AssetDatabase.CreateAsset(instance, AssetDatabase.GenerateUniqueAssetPath(tempPath));
                 AssetDatabase.SaveAssets();
                 UnityEditor.EditorUtility.FocusProjectWindow();
+                return instance;
             }
-            Selection.activeObject = instance;
+            else return AssetDatabase.LoadAssetAtPath<DelegateAOT>(AssetDatabase.GUIDToAssetPath(assetGUIDS[0]));
         }
         /// <summary>
         /// Opens and closes all scenes included in build to deseralize all delegates
@@ -97,7 +103,7 @@ namespace VisualDelegates.Editor
             info_cache.AddRange(Utility.delegateDynamicFieldSetterCreationMethods ?? null);
             info_cache.AddRange(Utility.delegatePropertySetterCreationMethods ?? null);
             info_cache.AddRange(Utility.delegateDynamicPropertySetterCreationMethod ?? null);
-            info_cache.AddRange(Utility.delegatePropertyGetterCreationMethod?? null);
+            info_cache.AddRange(Utility.delegatePropertyGetterCreationMethod ?? null);
             info_cache.AddRange(Utility.delegateMethodCreationMethods ?? null);
             info_cache.AddRange(Utility.DelegateDynamicMethodCreationMethods ?? null);
             Debug.Log(info_cache.Count);
@@ -225,25 +231,32 @@ namespace VisualDelegates.Editor
         /// <param name="AOTNode"></param>
         private static void GenerateFile(SyntaxNode AOTNode)
         {
-            string writePath = Path.Combine(Application.dataPath, "AOT.cs");
+            var writeDirectory = Path.Combine(Application.dataPath, "Scripts", "Generated");
+            if (!Directory.Exists(writeDirectory))
+                Directory.CreateDirectory(writeDirectory);
+
+            string writePath = Path.Combine(writeDirectory, "AOT.cs");
             using (StreamWriter writer = new StreamWriter(writePath))
             {
                 writer.WriteLine(AOTNode.GetText().ToString());
             }
-            AssetDatabase.ImportAsset(Path.Combine("Assets", "AOT.cs"), ImportAssetOptions.ForceUpdate);
+            AssetDatabase.ImportAsset(Path.Combine("Assets", "Scripts", "Generated", "AOT.cs"), ImportAssetOptions.ForceUpdate);
         }
-
-
-
         internal class AOTsolver : IPreprocessBuildWithReport, IPostprocessBuildWithReport
         {
             public int callbackOrder => 1;
             bool success;
+            DelegateAOT generator;
+            public AOTsolver()
+            {
+                generator = GetSingleGenerator();
+            }
             public void OnPreprocessBuild(BuildReport report)
             {
-                Debug.LogError("DOES THIS WORK");
-                if (instance.GenerateOnBuild)
+                if (generator.GenerateOnBuild)
                 {
+#if !UNITY_CLOUD_BUILD
+
                     try
                     {
                         AOTGeneration();
@@ -251,20 +264,27 @@ namespace VisualDelegates.Editor
                     }
                     catch (Exception ex)
                     {
+                        Debug.LogError("there was an error in the build!");
                         success = false;
                         throw new BuildFailedException(ex);
                     }
+#else
+                Debug.LogError("AOT code generation is not allowed in cloud builds");
+
+#endif
+
                 }
-                else Debug.LogWarning("OPTED FOR NO GENERATION");
             }
             public void OnPostprocessBuild(BuildReport report)
             {
-                if (instance.GenerateOnBuild)
+#if !UNITY_CLOUD_BUILD
+                if (generator.GenerateOnBuild)
                 {
                     if (success)
-                        Debug.Log("<color=green> Delegate AOT Generation was Succesful</color");
-                    else Debug.Log("<color=red> Delegate AOT Generation failed </color");
+                        Debug.Log("<color=green> Delegate AOT Generation was Succesful</color>");
+                    else Debug.Log("<color=red> Delegate AOT Generation failed </color>");
                 }
+#endif
             }
         }
     }

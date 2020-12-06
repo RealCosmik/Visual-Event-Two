@@ -1,7 +1,9 @@
-﻿namespace VisualDelegates
+﻿using System;
+namespace VisualDelegates
 {
     /// <summary>
-    /// Hide public fields from delgate drawer in editor
+    /// Hide fields from showing up in <see cref="VisualDelegate"/> Drawer
     /// </summary>
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method | AttributeTargets.Field,AllowMultiple =false)]
     public class HideExposedField : System.Attribute { }
 }

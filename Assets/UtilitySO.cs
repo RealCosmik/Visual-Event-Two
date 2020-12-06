@@ -7,7 +7,7 @@ public class UtilitySO : ScriptableObject
     {
         switch (logtype)
         {
-            case LogType.Standard:
+            case LogType.Log:
                 Debug.Log(message,context);
                 break;
             case LogType.Warning:

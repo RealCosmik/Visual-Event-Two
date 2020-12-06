@@ -17,6 +17,12 @@ namespace VisualDelegates.Editor
     [CustomPropertyDrawer(typeof(RawArgument), true)]
     internal class DrawerRawArgument : PropertyDrawer
     {
+        const string X1 = "_x1";
+        const string X2 = "_x2";
+        const string Y1 = "_y1";
+        const string Y2 = "_y2";
+        const string Z1 = "_z1";
+        const string Z2 = "_z2";
         //=======================
         // Render
         //=======================
@@ -274,10 +280,10 @@ namespace VisualDelegates.Editor
             else if (propertyID == VisualEditorUtility.UNITYCOLOR_TYPE_NAME)
             {
                 argument_cache.hasCustomType = false;
-                var tempX1 = tProperty.FindPropertyRelative("_x1");
-                var tempY1 = tProperty.FindPropertyRelative("_y1");
-                var tempZ1 = tProperty.FindPropertyRelative("_z1");
-                var tempX2 = tProperty.FindPropertyRelative("_x2");
+                var tempX1 = tProperty.FindPropertyRelative(X1);
+                var tempY1 = tProperty.FindPropertyRelative(Y1);
+                var tempZ1 = tProperty.FindPropertyRelative(Z1);
+                var tempX2 = tProperty.FindPropertyRelative(X2);
 
                 EditorGUI.BeginChangeCheck();
                 Color tempColor = EditorGUI.ColorField(argpos, GUIContent.none, new Color(tempX1.floatValue, tempY1.floatValue, tempZ1.floatValue, tempX2.floatValue));

@@ -1,0 +1,20 @@
+{
+    "name": "VisualEventSubscribersEditor",
+    "references": [
+        "GUID:e3080a67585e8544a928a1c79bcab5b5",
+        "GUID:b027cae6271d03340bd9d1355951a93e",
+        "GUID:7bce422ca91577a438a29199e2a25366",
+        "GUID:cf9ae6fb298762f41bccb82b7b9cd9bd"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

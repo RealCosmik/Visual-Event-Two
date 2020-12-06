@@ -1,10 +1,7 @@
-﻿namespace VisualDelegates.Events
+﻿namespace VisualEvents
 {
-    public class FloatVariable :GenericVariable<float>
+    public sealed class FloatVariable : GenericValueVariable<float,float>
     {
-        public override void ModifyBy(float modifier)
-        {
-            Invoke(currentValue += modifier, null);
-        }
+        protected override void OnDataUpdated(float arg) => currentValue = arg;
     }
 }

@@ -1,17 +1,33 @@
 ﻿using UnityEditor.IMGUI.Controls;
-using UnityEngine;
-namespace VisualDelegates.Events.Editor
+using System;
+namespace VisualEvents.Editor
 {
-    class DynamicResponseTreeElement : TreeViewItem
+    class DynamicResponseTreeElement : GenericResponseElement
     {
-        public int Priority { get; private set; }
-        public int EventIndex { get; private set; }
         public string methodMessage;
         public string targetMessage;
-        public DynamicResponseTreeElement(int priority,int eventindex)
+
+        public DynamicResponseTreeElement(Delegate response, int subscriberid, int priority, int eventindex) : base(subscriberid, priority, eventindex)
         {
-            Priority = priority;
-            EventIndex = eventindex;
+            methodMessage = ParseDynamicMethodName(response.Method.Name);
+            targetMessage = ParseDynamicTargetName(response.Target.GetType().FullName);
+        }
+        public static string ParseDynamicMethodName(string methodname)
+        {
+            if (methodname[0] == '<')//anon method
+            {
+                return $@"Method: Anonymous method created in ""{methodname.Substring(1, methodname.IndexOf('>') - 1)}""";
+            }
+            else return $@"Method: ""{methodname}""";
+        }
+        public static string ParseDynamicTargetName(string TargetType)
+        {
+            if (TargetType.Contains("+"))
+            {
+                return $@"Target: Anonymous Type Created in ""{TargetType.Substring(0, TargetType.IndexOf('+'))}""";
+            }
+            return $@"Target: ""{TargetType}""";
         }
     }
+
 }

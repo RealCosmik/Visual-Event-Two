@@ -34,11 +34,11 @@ namespace VisualDelegates.Editor
         /// <param name="tProperty">Serialized <see cref="VisualDelegate"/> property</param>
         /// <param name="tLabel">GUI Label of the drawer</param>
         /// <returns>Height of the drawer</returns>
-      
+
         private ReorderableList GetReoderableList(SerializedProperty delegateproperty)
         {
-            if(!cache.TryGetValue(delegateproperty.propertyPath,out ReorderableList tempList))
-            { 
+            if (!cache.TryGetValue(delegateproperty.propertyPath, out ReorderableList tempList))
+            {
                 var pubcache = ViewCache.GetVisualDelegateInstanceCache(delegateproperty);
                 SerializedProperty callsProperty = delegateproperty.FindPropertyRelative("m_calls");
                 tempList = new ReorderableList(delegateproperty.serializedObject, callsProperty, true, true, true, true);
@@ -67,6 +67,8 @@ namespace VisualDelegates.Editor
                 };
                 tempList.drawElementCallback += (Rect rect, int index, bool tIsActive, bool tIsFocused) =>
                 {
+                    if (index < 0)
+                        return;
                     var prop = tempList.serializedProperty.GetArrayElementAtIndex(index);
                     EditorGUI.BeginProperty(rect, GUIContent.none, prop);
                     if (EditorApplication.isPlaying)
@@ -78,10 +80,11 @@ namespace VisualDelegates.Editor
                         VisualEditorUtility.ReinitializeDelegate(tempList.serializedProperty.GetVisualDelegateObject());
                     }
                     EditorGUI.EndProperty();
+                    
                 };
                 tempList.elementHeightCallback += (int index) =>
                 {
-                    if (index < pubcache.RawCallCache.Count)
+                    if (index >= 0 && index < pubcache.RawCallCache.Count)
                     {
                         var height = pubcache.RawCallCache[index].delegateView.Height + EditorGUIUtility.standardVerticalSpacing;
                         return height;
@@ -99,7 +102,7 @@ namespace VisualDelegates.Editor
                 };
                 tempList.onRemoveCallback += onElementDelete;
                 tempList.onAddCallback += onAddElement;
-                cache.Add(delegateproperty.propertyPath,tempList);
+                cache.Add(delegateproperty.propertyPath, tempList);
             }
             return tempList;
         }
@@ -131,7 +134,7 @@ namespace VisualDelegates.Editor
             if (string.IsNullOrWhiteSpace(tLabel.text))
             {
                 cursorheihgt.y += 17f;
-            } 
+            }
             tProperty.isExpanded = EditorGUI.Foldout(cursorheihgt, tProperty.isExpanded, tLabel);
             if (tProperty.isExpanded)
             {
@@ -171,7 +174,7 @@ namespace VisualDelegates.Editor
                 //    }
                 //}
             }
-            
+
         }
         private void ShowInvocation(VisiualDelegateCacheContainer cache, Rect delegaterect, ReorderableList list)
         {
@@ -181,7 +184,7 @@ namespace VisualDelegates.Editor
                 var invokepos = delegaterect;
                 invokepos.height -= list.footerHeight;
                 VisualEditorUtility.TweenBox(invokepos, cache);
-                InvocationTracker.requestRepaint = true; 
+                InvocationTracker.requestRepaint = true;
             }
             if (cache.istweening)
             {
@@ -197,7 +200,7 @@ namespace VisualDelegates.Editor
         /// <param name="arrayprop"></param>
         private void onElementDelete(ReorderableList list)
         {
-           // Debug.Log("delete");
+            // Debug.Log("delete");
             var removedindex = list.index;
             var arrayprop = list.serializedProperty;
             if (list.index < arrayprop.arraySize)
@@ -233,7 +236,7 @@ namespace VisualDelegates.Editor
             //delegateprop.FindPropertyRelative("m_target").objectReferenceValue = null;
             //delegateprop.FindPropertyRelative("m_runtime").boolValue = false;
             PrefabUtility.RecordPrefabInstancePropertyModifications(arrayprop.serializedObject.targetObject);
-           arrayprop.serializedObject.ApplyModifiedProperties();
+            arrayprop.serializedObject.ApplyModifiedProperties();
             if (EditorApplication.isPlaying)
                 VisualEditorUtility.ReinitializeDelegate(arrayprop.GetArrayElementAtIndex(size).GetVisualDelegateObject());
         }
@@ -241,6 +244,8 @@ namespace VisualDelegates.Editor
         private void OnReorder(ReorderableList list, int oldindex, int newindex, SerializedProperty visualdelegateprop)
         {
             var cache_list = ViewCache.GetVisualDelegateInstanceCache(visualdelegateprop).RawCallCache;
+            if (oldindex < 0)
+                return;
             var elementCache = cache_list[oldindex]; //cache before reorder
             if (newindex < oldindex) // moved element higher up
             {
@@ -293,7 +298,7 @@ namespace VisualDelegates.Editor
         {
             if (list.index != -1)
             {
-               // Debug.Log("Copy");
+                // Debug.Log("Copy");
                 copiedcache = ViewCache.GetRawCallCache(arrayprop.GetArrayElementAtIndex(list.index)) as RawCallView;
                 copyIndex = list.index;
             }

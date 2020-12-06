@@ -1,9 +1,9 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
-namespace VisualDelegates.Events.Editor
+namespace VisualEvents.Editor
 {
-    [CustomPropertyDrawer(typeof(IVisualVariable), true)]
+  //  [CustomPropertyDrawer(typeof(IVisualVariable), true)]
     class VisualVariablePropertyDrawer : PropertyDrawer
     {
         static Dictionary<int, SerializedObject> variableCache = new Dictionary<int, SerializedObject>();
@@ -37,6 +37,8 @@ namespace VisualDelegates.Events.Editor
         }
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            if (property.isArray)
+                return;
             var variableobject = property.objectReferenceValue;
             var objectrect = position;
             objectrect.width = variableobject == null ? position.width : position.width * .7f;

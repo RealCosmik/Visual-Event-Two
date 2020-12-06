@@ -28,13 +28,14 @@ namespace VisualDelegates.Editor
                 var methodData_prop = property.FindPropertyRelative("methodData");
                 if (methodData_prop.arraySize == 0)
                 {
-                    var dynamicdelgate = property.GetTarget<RawRuntimeCall>();
+                    var visualdelegate = property.GetVisualDelegateObject();
+                    int index = property.GetRawCallIndex();
+                    var dynamicdelgate = visualdelegate.Calls[index];
                     AddTarget(property, cache, dynamicdelgate.delegateInstance.Target);
                     var seralizedMethodData = Utility.QuickSeralizer(dynamicdelgate.delegateInstance.Method);
                     VisualEditorUtility.CopySeralizedMethodDataToProp(methodData_prop, seralizedMethodData);
                     cache.MethodName = VisualEditorUtility.ParseDynamicMethodName(seralizedMethodData[1]);
                     cache.CalcHeight();
-                    property.serializedObject.ApplyModifiedProperties();
                 }
                 Rect targetRect = position;
                 targetRect.height *= .5f;

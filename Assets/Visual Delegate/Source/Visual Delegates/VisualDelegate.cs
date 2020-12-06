@@ -26,6 +26,7 @@ namespace VisualDelegates
                     RemoveRuntimeFromEditor(value);
             }
         }
+        protected override Delegate m_delegate => m_onInvoke;
         /// <summary>Handles the <see cref="RawCall"/> that was added and registers its delegate to the Publisher's matching event(s)</summary>
         /// <param name="tCall">RawCall that was added</param>
         protected override void AppendCallToEvent(RawDelegate call)
@@ -35,12 +36,16 @@ namespace VisualDelegates
             // here we know that the delegate is either void method or a method with pre-defined args
             if (raw_delegate_instance is Action call_delegate)
             {
-                m_onInvoke += () =>
+                Action leaksafe= () =>
                  {
                      if (call.isDelegateLeaking())
+                     {
                          removeCall(call);
+                     }
                      else call_delegate();
                  };
+                call.delegateInstance = leaksafe;
+                m_onInvoke += leaksafe;
             }
             else Debug.LogWarning("no case found");
         }
@@ -58,6 +63,8 @@ namespace VisualDelegates
         /// <summary>Invokes the <see cref="m_onInvoke"/> event</summary>
         public void Invoke()
         {
+            if (!isinitialized)
+                throw new Exception("Delegate not initliazed!");
             InvokeInternalCall();
             m_onInvoke?.Invoke();
         }
@@ -72,6 +79,7 @@ namespace VisualDelegates
     // Class Declaration
     //##########################
     /// <summary>1-Parameter Publisher</summary>
+    [Serializable]
     public class VisualDelegate<A> : VisualDelegateBase
     { 
         private Action<A> m_onInvoke;
@@ -135,6 +143,8 @@ namespace VisualDelegates
         /// <summary>Invokes the <see cref="VisualDelegate.m_onInvoke"/> and <see cref="m_onInvoke"/> events</summary>
         public void Invoke(A val1)
         {
+            if (!isinitialized)
+                throw new Exception("Delegate not initliazed!");
             InvokeInternalCall();
             m_onInvoke?.Invoke(val1);
         }
@@ -215,6 +225,8 @@ namespace VisualDelegates
         /// <summary>Invokes the <see cref="VisualDelegate.m_onInvoke"/> and <see cref="m_onInvoke"/> events</summary>
         public void Invoke(A val1, B val2)
         {
+            if (!isinitialized)
+                throw new Exception("Delegate not initliazed!");
             InvokeInternalCall();
             m_onInvoke?.Invoke(val1, val2);
         }
@@ -295,6 +307,8 @@ namespace VisualDelegates
         /// <summary>Invokes the <see cref="VisualDelegate.m_onInvoke"/> and <see cref="m_onInvoke"/> events</summary>
         public void Invoke(A val1, B val2, C val3)
         {
+            if (!isinitialized)
+                throw new Exception("Delegate not initliazed!");
             InvokeInternalCall();
             m_onInvoke?.Invoke(val1, val2, val3);
         }

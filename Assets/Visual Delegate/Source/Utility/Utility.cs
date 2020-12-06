@@ -97,13 +97,16 @@ namespace VisualDelegates
                 {  
                     paramtypes = null;
                     MethodInfo method_info;
-                    // data only contiains membertype and method name i.e its a void method
+                    // data only contiains (membertype and a method name) i.e its a void method
                     if (methodata.Length == 2)
                     {
+                       // UnityEngine.Debug.Log(member_name);
+                        //UnityEngine.Debug.Log(CurrentType.FullName);
                         method_info = CurrentType.GetMethod(member_name, memberflags, null, Type.EmptyTypes, null);
-                        if (method_info!=null&& method_info.ReturnType != typeof(void))
-                            paramtypes = new Type[1] { method_info.ReturnType };
-                        else return null;
+                        //UnityEngine.Debug.Log(method_info.ReturnType.FullName);
+                        // null paramtypes == void since typeof(void) is illegal in c#
+                        paramtypes = null;
+                        return method_info;
                     }
                     else
                     {
@@ -123,7 +126,10 @@ namespace VisualDelegates
                                 paramtypes = all_params;
                             }
                         }
-                        else return null;
+                        else
+                        {
+                            return null;
+                        }
                     }
                     //method_info.MethodHandle.GetFunctionPointer();
                     member_info = method_info;

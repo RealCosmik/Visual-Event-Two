@@ -49,7 +49,7 @@ namespace VisualDelegates
         {
             if (Application.isEditor)
             {
-                m_internalcalls?.Invoke();
+               m_internalcalls?.Invoke();
             }
         }
     }

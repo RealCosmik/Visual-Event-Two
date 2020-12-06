@@ -1,8 +1,6 @@
 {
     "name": "VisualEventEditor",
     "references": [
-        "GUID:e3080a67585e8544a928a1c79bcab5b5",
-        "GUID:cf9ae6fb298762f41bccb82b7b9cd9bd",
         "GUID:b027cae6271d03340bd9d1355951a93e"
     ],
     "includePlatforms": [
@@ -11,8 +9,10 @@
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
+    "precompiledReferences": [
+        ""
+    ],
+    "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

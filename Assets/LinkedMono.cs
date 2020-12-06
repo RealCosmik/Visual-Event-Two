@@ -1,18 +1,12 @@
 ﻿using UnityEngine;
-using VisualDelegates;
 using System.Collections.Generic;
 using System.Collections;
 using System;
-using UnityEngine.Events;
+using VisualDelegates;
 class LinkedMono : MonoBehaviour
 {
     public KeyCode Invoke_key = KeyCode.Space;
-
-    public VisualDelegate testdelegate;
-
-    public IntVar myvar;
-
-    public UnityEvent unity;
+    [SerializeField] VisualDelegate<Color> wow;
     [DisplayPrivate, SerializeField] private int PRIVATEFIELD;
     [DisplayPrivate] private int customprivprop { get; set; }
     public Vector3 vecfield = Vector3.one;
@@ -47,13 +41,11 @@ class LinkedMono : MonoBehaviour
     public void oddFunction(Action a) => Debug.Log("useless");
     private void Start()
     {
-        testdelegate.initialize();
-        testdelegate.OnInvoke += () => Debug.Log("this is a random");
-    } 
+    }
     public void StopCertain() => StopCoroutine(infinity());
     public void testobj(ScriptableObject o)
     {
-        Debug.LogError("bad so");  
+        Debug.LogError("bad so");
     }
     public void logCode(KeyCode c) => Debug.Log(c);
     private void IkramislookingProgrammer(int x) => Debug.Log("<color=blue> she loves me with code</color>");
@@ -164,16 +156,19 @@ class LinkedMono : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetKeyDown(Invoke_key))
-        {
-            testdelegate.Invoke();
-        }
-        if (Input.GetKeyDown(KeyCode.I))
-        { 
-            UnityEngine.Profiling.Profiler.BeginSample("delgate init", this);
-            testdelegate.initialize();
-            UnityEngine.Profiling.Profiler.EndSample();
-            Debug.Break();
-        }
+        //if (Input.GetKeyDown(Invoke_key))
+        //{
+        //    testdelegate.Invoke();
+        //}
+        //if (Input.GetKeyDown(KeyCode.I))
+        //{ 
+        //    UnityEngine.Profiling.Profiler.BeginSample("delgate init", this);
+        //    testdelegate.initialize();
+        //    UnityEngine.Profiling.Profiler.EndSample();
+        //    Debug.Break();
+        //}
+    }
+    private void OnValidate()
+    {
     }
 }

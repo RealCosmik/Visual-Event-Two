@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
-namespace VisualDelegates.Events.Editor
+namespace VisualEvents.Editor
 {
     public class HistoryTree : TreeView
     {
@@ -12,7 +12,7 @@ namespace VisualDelegates.Events.Editor
         private static Color errorColor = new Color(.81f, .3f, .3f, .4f);
         public string activeTrace { get; private set; }
         List<HistoryEntry> cachedEntries;
-        public HistoryTree(TreeViewState state, MultiColumnHeader header, BaseEvent newEvent, int maxentries) : base(state, header)
+        public HistoryTree(TreeViewState state, BaseEvent newEvent, int maxentries) : base(state, CreateHistoryHeader())
         {
             this.useScrollView = true;
             currentEvent = newEvent;
@@ -37,7 +37,7 @@ namespace VisualDelegates.Events.Editor
             BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField;
             cachedEntries = typeof(BaseEvent).GetField("eventHistory", flags).GetValue(currentEvent) as List<HistoryEntry>;
             for (int i = 0; i < capacity && i < cachedEntries.Count; i++)
-                root.AddChild(new HistoryTreeElement(cachedEntries[i].entryData) { id = i });
+                root.AddChild(new HistoryTreeElement(cachedEntries[i].frame,cachedEntries[i].entryData) { id = i });
             return cachedEntries.Count > 0;
         }
         protected override void RowGUI(RowGUIArgs args)
@@ -46,32 +46,37 @@ namespace VisualDelegates.Events.Editor
             for (int i = 0; i < colls; i++)
             {
                 if (args.item is HistoryTreeElement)
-                    DrawHistoricEntry(i, ref args);
+                    DrawHistoricEntry(i, in args);
                 else base.RowGUI(args);
             }
         }
-        private void DrawHistoricEntry(int Collumnindex, ref RowGUIArgs args)
+        private void DrawHistoricEntry(int Collumnindex, in RowGUIArgs args)
         {
             var cellrect = args.GetCellRect(Collumnindex);
-            var treeItem = args.item as HistoryTreeElement;
-            if (cachedEntries[treeItem.id].haserror)
+            var historyItem = args.item as HistoryTreeElement;
+            if (cachedEntries[historyItem.id].haserror)
                 EditorGUI.DrawRect(args.rowRect, errorColor);
-            GUI.enabled = false;
+            // GUI.enabled = false;
             switch (Collumnindex)
             {
                 case 0:
-                    var sender_object = EditorUtility.InstanceIDToObject(cachedEntries[treeItem.id].SenderID);
+                    var sender_object = EditorUtility.InstanceIDToObject(cachedEntries[historyItem.id].SenderID);
                     EditorGUI.ObjectField(cellrect, sender_object, typeof(UnityEngine.Object), true);
                     break;
                 case 1:
-                    EditorGUI.LabelField(cellrect,treeItem.argumentData);
+                    EditorGUI.LabelField(cellrect, historyItem.argumentData);
+                    break;
+                case 2:
+                    GUI.enabled = false;
+                    EditorGUI.IntField(cellrect, historyItem.frame);
+                    GUI.enabled = true;
                     break;
                 default:
                     break;
             }
-            GUI.enabled = true;
+            // GUI.enabled = true;
         }
-        public static MultiColumnHeader CreateHistoryHeader()
+        private static MultiColumnHeader CreateHistoryHeader()
         {
             var collumns = new MultiColumnHeaderState.Column[]
            {
@@ -93,6 +98,15 @@ namespace VisualDelegates.Events.Editor
                     autoResize=true,
                     headerTextAlignment=TextAlignment.Center
                 },
+                 new MultiColumnHeaderState.Column()
+                 {
+                    headerContent=new GUIContent("Frame #"),
+                    width=65,
+                    minWidth=50,
+                    maxWidth=250,
+                    autoResize=true,
+                    headerTextAlignment=TextAlignment.Center
+                 }
            };
             return new MultiColumnHeader(new MultiColumnHeaderState(collumns));
         }

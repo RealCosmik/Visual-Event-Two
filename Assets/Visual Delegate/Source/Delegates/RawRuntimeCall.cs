@@ -18,7 +18,9 @@ namespace VisualDelegates
                 if (isUnityTarget)
                     delegateInstance = createDelegate(method, m_target);
                 else
+                {
                     delegateInstance = createDelegate(method, Activator.CreateInstance(deltype));
+                }
             }
         }
     }

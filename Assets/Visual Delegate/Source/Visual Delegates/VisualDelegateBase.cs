@@ -14,6 +14,8 @@ namespace VisualDelegates
         public VisualDelegateBase() => m_calls = new List<RawDelegate>();
         protected abstract void AppendCallToEvent(RawDelegate raw_call);
         protected abstract void RemoveCallFromEvent(RawDelegate raw_call);
+        protected virtual System.Delegate m_delegate { get; } = null;
+
         /// <summary>
         /// Deseralizes all editor delegates and appends to oninvoke event
         /// </summary>
@@ -64,6 +66,7 @@ namespace VisualDelegates
             for (int i = 0; i < m_calls.Count; i++)
                 m_calls[i].Release();
             m_calls.Clear();
+            m_calls = null;
         }
     }
 

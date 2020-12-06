@@ -94,7 +94,7 @@ namespace VisualDelegates.Cinema.Editor
         {
             var size = assetList.arraySize;
             bool validSignal = true && newsignal != null;
-            for (int i = 0; i < size&&validSignal; i++)
+            for (int i = 0; i < size && validSignal; i++)
             {
                 if (assetList.GetArrayElementAtIndex(i).objectReferenceInstanceIDValue == newsignal.GetInstanceID())
                 {

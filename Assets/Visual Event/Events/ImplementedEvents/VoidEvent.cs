@@ -1,31 +1,50 @@
 ﻿using UnityEngine;
-namespace VisualDelegates.Events
+using System;
+namespace VisualEvents
 {
-    public class VoidEvent : BaseEvent
+    public sealed class VoidEvent : BaseEvent
     {
-        public void Invoke(Object sender)
-        {
-            try
+        public void Invoke(UnityEngine.Object sender)
+        { 
+            bool haserror = false;
+            isinvoke = true;
+            if (ReferenceEquals(sender, null))
+                throw new System.ArgumentNullException(nameof(sender));
+            var priorites = m_EventResponses.Count;
+            for (int i = 0; i < priorites; i++)
             {
-                int priority = m_EventResponses.Count;
-                for (int i = 0; i < priority; i++)
+                var responsecount = m_EventResponses[i].Count;
+                for (int j = 0; j < responsecount; j++)
                 {
-                    int response_count = m_EventResponses[i].Count;
-                    for (int j = 0; j < response_count; j++)
+                    if (m_EventResponses[i][j].isActive)
                     {
-                        (m_EventResponses[i][j].CurrentResponse as VisualDelegate).Invoke();
+                        var eventresponse = m_EventResponses[i][j];
+                        try
+                        {
+                            eventresponse.Invoke();
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.LogError($"Error in {name}\n {ex}", sender);
+                            haserror = true;
+                        }
                     }
                 }
-                UpdateEventHistory(sender, false);
             }
-            catch (System.Exception ex)
-            {
-                Debug.LogError(ex);
-                UpdateEventHistory(sender, true);
-            }
+            if (debugHistory)
+                UpdateEventHistory(sender: sender, error: in haserror);
 
         }
-        protected override void Clear() { }
-        protected override void EditorInvoke(UnityEngine.Object sender) => Invoke(null);
+        public RuntimeResponse Subscribe(System.Action response, in int priority, UnityEngine.Object subscriber)
+        {
+            if (response == null)
+                throw new System.ArgumentNullException(nameof(response));
+
+            var eventresponse = new RuntimeResponse(response, priority,subscriber);
+            Subscribe(eventresponse);
+            return eventresponse;
+        }
+        protected sealed override void Clear() { }
+        protected sealed override void EditorInvoke() => Invoke(this);
     }
 }

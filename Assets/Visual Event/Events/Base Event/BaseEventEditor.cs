@@ -1,34 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-namespace VisualDelegates.Events
+
+namespace VisualEvents
 {
-    public abstract partial class BaseEvent: ISerializationCallbackReceiver
+    public abstract partial class BaseEvent : ISerializationCallbackReceiver
     {
         [SerializeField] string EventNote;
         [SerializeField] int historycapacity = 5;
-        private protected bool isinvoke;
+        [SerializeField] protected bool debugHistory;
         private protected int overwriteIndex = 0;
         private protected List<HistoryEntry> eventHistory = new List<HistoryEntry>();
-        protected  abstract void Clear();
-        protected  abstract void EditorInvoke(UnityEngine.Object sender);
-        private protected bool GetisInvoke() => isinvoke;
-
-        private protected void UpdateEventHistory(Object sender,bool error, params object[] args)
+        protected abstract void Clear();
+        protected abstract void EditorInvoke();
+        private protected bool isinvoke;
+        private bool GetisInvoke() => isinvoke;
+        private protected void UpdateEventHistory(Object sender, in bool error, params object[] args)
         {
+            int senderID;
+            try
+            {
+                senderID = sender.GetInstanceID();
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
             if (Application.isEditor)
             {
                 eventHistory = eventHistory ?? new List<HistoryEntry>();
                 if (eventHistory.Count < historycapacity)
-                    eventHistory.Add(new HistoryEntry(sender?.GetInstanceID() ?? -999, args, System.Environment.StackTrace,error));
+                    eventHistory.Add(new HistoryEntry(senderID, Time.frameCount, args, System.Environment.StackTrace, error));
                 else
                 {
                     eventHistory[overwriteIndex].entryData = args;
-                    eventHistory[overwriteIndex].SenderID = sender?.GetInstanceID() ?? -990;
+                    eventHistory[overwriteIndex].SenderID = senderID;
                     eventHistory[overwriteIndex].entryTrace = System.Environment.StackTrace;
                     eventHistory[overwriteIndex].haserror = error;
+                    eventHistory[overwriteIndex].frame= Time.frameCount;
+
                     // wrapping
                     overwriteIndex = overwriteIndex == historycapacity - 1 ? overwriteIndex = 0 : overwriteIndex += 1;
-
                 }
             }
         }

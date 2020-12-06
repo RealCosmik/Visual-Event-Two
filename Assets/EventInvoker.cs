@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using VisualDelegates.Events;
+using VisualEvents;
 class EventInvoker : MonoBehaviour
 {
-    public VisualDelegates.Events.IntEvent myevent;
+    public IntEvent myevent;
     public KeyCode invokecode = KeyCode.E;
     public KeyCode unsubcode= KeyCode.U;
     EventResponse response;

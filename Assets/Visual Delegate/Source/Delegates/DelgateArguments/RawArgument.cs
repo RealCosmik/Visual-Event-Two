@@ -72,7 +72,7 @@ namespace VisualDelegates
             else
             {
                 ArgType static_value = (ArgType)GetGenericValue<ArgType>();
-                return () => static_value;
+                return new Func<ArgType>(()=> static_value);
             } 
         }
       

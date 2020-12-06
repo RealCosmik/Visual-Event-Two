@@ -38,8 +38,14 @@ namespace VisualDelegates.Cinema
                     signalResponses[i].initialize();
                     assetPairs.Add(signalAssets[i], signalResponses[i]);
                 }
-                else signalResponses[i].Release();
-            }
+                else
+                {
+                    if(signalResponses[i].Calls.Count>0)
+                    Debug.LogError("must have valid signal before populating response!");
+                    signalResponses[i].Release();
+
+                }
+            } 
         }
 
         void ISerializationCallbackReceiver.OnBeforeSerialize()

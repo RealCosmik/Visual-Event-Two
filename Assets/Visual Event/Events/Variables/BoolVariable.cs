@@ -1,7 +1,8 @@
-﻿namespace VisualDelegates.Events
+﻿namespace VisualEvents
 {
-    public class BoolVariable : GenericVariable<bool>
+    public sealed class BoolVariable : GenericValueVariable<bool,bool>
     {
-        public override void ModifyBy(bool modifier) => Invoke(currentValue = modifier, null);
+        protected override void OnDataUpdated(bool arg) => currentValue = arg;
+        public static implicit operator bool(BoolVariable boolvar)=>boolvar.currentValue;
     }
 }

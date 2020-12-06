@@ -1,4 +1,4 @@
-﻿namespace VisualDelegates.Events
+﻿namespace VisualEvents
 {
     public interface IVisualVariable { }
 }

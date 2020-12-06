@@ -1,19 +1,20 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using VisualDelegates.Editor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.SceneManagement;
 using System.Collections.Generic;
 using System;
 using System.Reflection;
+using UnityEngine.SceneManagement;
+using UnityEditor.Experimental.SceneManagement;
+using System.Linq;
 
-namespace VisualDelegates.Events.Editor
+namespace VisualEvents.Editor
 {
     [CustomEditor(typeof(BaseEvent), true, isFallback = true)]
     class BaseEventDrawer : UnityEditor.Editor
     {
         const string RESPONSE_FIELD_NAME = "responses";
-        const string ARGUMENT = "argument";
         const string EVENT_DETAILS = "Event Details";
         EventResponseTree responsetree;
         HistoryTree historyTree;
@@ -21,77 +22,72 @@ namespace VisualDelegates.Events.Editor
         [SerializeField] bool debugfold, invocationfold, historyfold, argumentfold;
         TreeViewState responseState;
         int genericCount;
-        Action<UnityEngine.Object> editorInvocation;
+        Action editorInvocation;
         Func<bool> getInvocationStatus;
         int ticks;
         Vector2 scroll;
-
-        private MultiColumnHeader GetEventCollumns()
-        {
-            GUIContent prioritycontent = new GUIContent("Priorities");
-            VisualEditorUtility.StandardStyle.CalcMinMaxWidth(prioritycontent, out float min, out float max);
-            var collumns = new MultiColumnHeaderState.Column[]
-         {
-                       new MultiColumnHeaderState.Column()
-                       {
-                           headerContent = prioritycontent,
-                           width = max+10,
-                           minWidth = max+10,
-                           maxWidth = max+10,
-                           autoResize = true,
-                           allowToggleVisibility=false,
-                           headerTextAlignment = TextAlignment.Left
-                       },
-                       new MultiColumnHeaderState.Column()
-                       {
-                           headerContent = new GUIContent("Subscribers"),
-                           width = 75,
-                           minWidth = 75,
-                           maxWidth = 150,
-                           autoResize = true,
-                           allowToggleVisibility=false,
-                           headerTextAlignment = TextAlignment.Left
-                       },
-                       new MultiColumnHeaderState.Column()
-                       {
-                           headerContent = new GUIContent("Response"),
-                           width = 300,
-                           minWidth = 100,
-                           maxWidth = 350,
-                           autoResize = true,
-                           allowToggleVisibility=false,
-                           headerTextAlignment = TextAlignment.Center
-                       },
-                       new MultiColumnHeaderState.Column()
-                       {
-                           headerContent= new GUIContent("Response Note"),
-                             width = 130,
-                           minWidth = 130,
-                           maxWidth = 150,
-                           autoResize = true,
-                           headerTextAlignment = TextAlignment.Left
-                       }
-         };
-            return new MultiColumnHeader(new MultiColumnHeaderState(collumns));
-        }
-
+        Type ResponseType;
+        FieldInfo responseIndex_field, invocation_field;
+        Type VisualSubscriber;
+        const int HEIGHT_PADDING = 30;
+        SerializedProperty[] invocationProperties;
+        List<Type> genericArguments;
+        Dictionary<string, FieldInfo> unityArguments;
+        public override bool RequiresConstantRepaint() => true;
         private void OnEnable()
         {
-            genericCount = target.GetType().BaseType.GenericTypeArguments.Length;
-            PopulateSubscribers();
+            SetInitalVariableValue();
+            VisualSubscriber = TypeCache.GetTypesWithAttribute<VisualSubscriber>().FirstOrDefault();
+            SetDebugProperties();
+            PopulateVisualSubscribers();
             responseState = responseState ?? new TreeViewState();
             if ((target as BaseEvent).EventResponses.Count > 0)
             {
-                responsetree = new EventResponseTree(responseState, GetEventCollumns(), target as BaseEvent);
+                responsetree = new EventResponseTree(responseState, target as BaseEvent);
             }
 
             if (historyTree == null)
-                historyTree = new HistoryTree(new TreeViewState(), HistoryTree.CreateHistoryHeader(), target as BaseEvent,
+                historyTree = new HistoryTree(new TreeViewState(), target as BaseEvent,
                     serializedObject.FindProperty("historycapacity").intValue);
             if (getInvocationStatus == null)
             {
                 var flags = BindingFlags.NonPublic | BindingFlags.Instance;
                 getInvocationStatus = Delegate.CreateDelegate(typeof(Func<bool>), target, (typeof(BaseEvent).GetMethod("GetisInvoke", flags)), true) as Func<bool>;
+            }
+        }
+
+        private void SetDebugProperties()
+        {
+            genericArguments = target.GetType().BaseType.GenericTypeArguments.ToList();
+            genericCount = genericArguments.Count;
+            if (target is IVisualVariable)
+            {
+                genericCount -= 1;
+                genericArguments.RemoveAt(genericCount);
+            }
+            var targetType = target.GetType();
+            var binding = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+            unityArguments = new Dictionary<string, FieldInfo>(genericCount);
+            string argument = "argument";
+            invocationProperties = new SerializedProperty[genericCount];
+            for (int i = 0; i < genericCount; i++)
+            {
+                string propertyName = argument + (i + 1);
+                var argumentproperty = serializedObject.FindProperty(propertyName);
+                invocationProperties[i] = argumentproperty;
+                if (argumentproperty.propertyType == SerializedPropertyType.ObjectReference)
+                {
+                    unityArguments.Add(propertyName, targetType.GetField(propertyName, binding));
+                }
+            }
+        }
+        private void SetInitalVariableValue()
+        {
+            if (target is IVisualVariable)
+            {
+                var binding = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+                var var_type = target.GetType();
+                var_type.GetMethod("InitializeVariable", binding).Invoke(target, null);
             }
         }
         private void OnDisable()
@@ -143,7 +139,7 @@ namespace VisualDelegates.Events.Editor
             var note_property = serializedObject.FindProperty("EventNote");
             detailsfolded = EditorGUILayout.BeginFoldoutHeaderGroup(detailsfolded, EVENT_DETAILS);
             if (detailsfolded)
-            {  
+            {
                 EditorGUI.BeginChangeCheck();
                 note_property.stringValue = EditorGUILayout.TextArea(note_property.stringValue, style, GUILayout.ExpandHeight(true));
                 if (EditorGUI.EndChangeCheck())
@@ -158,11 +154,13 @@ namespace VisualDelegates.Events.Editor
 
         private void DrawDebuggingData()
         {
-
-            invocationfold = EditorGUILayout.BeginFoldoutHeaderGroup(invocationfold, "Test invocation");
-            if (invocationfold)
-                DrawTestInvocation();
-            EditorGUILayout.EndFoldoutHeaderGroup();
+            // if (EditorApplication.isPlaying)
+            {
+                invocationfold = EditorGUILayout.BeginFoldoutHeaderGroup(invocationfold, "Test invocation");
+                if (invocationfold)
+                    DrawTestInvocation();
+                EditorGUILayout.EndFoldoutHeaderGroup();
+            }
 
             historyfold = EditorGUILayout.BeginFoldoutHeaderGroup(historyfold, "Event History");
             if (historyfold)
@@ -180,9 +178,9 @@ namespace VisualDelegates.Events.Editor
                     var binding = BindingFlags.Instance | BindingFlags.NonPublic;
                     var event_type = target.GetType();
                     var editormethod = event_type.GetMethod("EditorInvoke", binding);
-                    editorInvocation = Delegate.CreateDelegate(typeof(Action<UnityEngine.Object>), target, editormethod, true) as Action<UnityEngine.Object>;
+                    editorInvocation = Delegate.CreateDelegate(typeof(Action), target, editormethod, true) as Action;
                 }
-                editorInvocation.Invoke(target);
+                editorInvocation.Invoke();
                 serializedObject.Update();
             }
             GUI.enabled = true;
@@ -190,12 +188,24 @@ namespace VisualDelegates.Events.Editor
             EditorGUI.BeginChangeCheck();
             for (int i = 0; i < genericCount; i++)
             {
-                EditorGUILayout.PropertyField(serializedObject.FindProperty(ARGUMENT + (i + 1)));
+                UnityEngine.Object value = null;
+                var prop = invocationProperties[i];
+                if (prop.propertyType == SerializedPropertyType.ObjectReference)
+                {
+                    value = EditorGUILayout.ObjectField(prop.displayName, unityArguments[prop.name].GetValue(target) as UnityEngine.Object, genericArguments[i], true);
+                }
+                else EditorGUILayout.PropertyField(prop);
+
+                if (EditorGUI.EndChangeCheck())
+                {
+                    if (!ReferenceEquals(value, null))
+                    {
+                        unityArguments[prop.name].SetValue(target,value);
+                    }
+                    else serializedObject.ApplyModifiedProperties();
+                }
             }
-            if (EditorGUI.EndChangeCheck())
-            {
-                serializedObject.ApplyModifiedProperties();
-            }
+
             EditorGUI.indentLevel--;
             EditorGUILayout.EndVertical();
 
@@ -205,29 +215,53 @@ namespace VisualDelegates.Events.Editor
         {
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.BeginVertical();
-            var capacityrect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth * .3f, EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, null));
-            EditorGUI.LabelField(capacityrect, new GUIContent("History Capacity"));
-            var valurect = capacityrect;
-            valurect.width *= .3f;
-            valurect.x += (valurect.width + 40);
+            var debugToggleRect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth * .3f, EditorGUI.GetPropertyHeight(SerializedPropertyType.Boolean, null));
+            var debugproperty = serializedObject.FindProperty("debugHistory");
+            EditorGUI.LabelField(debugToggleRect, new GUIContent("Debug History"));
+            var togglerect = debugToggleRect;
+            togglerect.width *= .1f;
+            togglerect.x += 105;
             EditorGUI.BeginChangeCheck();
-            var historyprop = serializedObject.FindProperty("historycapacity");
-            historyprop.intValue = EditorGUI.IntField(valurect, historyprop.intValue);
+            debugproperty.boolValue = EditorGUI.Toggle(togglerect, debugproperty.boolValue);
             if (EditorGUI.EndChangeCheck())
             {
-                if (historyprop.intValue < 5)
-                    historyprop.intValue = 5;
                 serializedObject.ApplyModifiedProperties();
                 historyTree?.Reload();
             }
-            // EditorGUILayout.IntField("History capactity",25);
-            historyTree?.OnGUI(GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth * .3f, 100f));
-            EditorGUILayout.EndVertical();
-            scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.Width(EditorGUIUtility.currentViewWidth * .6f), GUILayout.Height(125));
-            EditorGUILayout.TextArea(historyTree.activeTrace, EditorStyles.textArea, GUILayout.ExpandHeight(true));
-            EditorGUILayout.EndScrollView();
-            EditorGUILayout.EndHorizontal();
-            UpdateEventHistory();
+            if (debugproperty.boolValue)
+            {
+                var capacityrect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth * .3f, EditorGUI.GetPropertyHeight(SerializedPropertyType.Integer, null));
+                EditorGUI.LabelField(capacityrect, new GUIContent("History Capacity"));
+                var valurect = capacityrect;
+                valurect.width *= .3f;
+                valurect.x += (valurect.width + 40);
+                EditorGUI.BeginChangeCheck();
+                var historyprop = serializedObject.FindProperty("historycapacity");
+                historyprop.intValue = EditorGUI.IntField(valurect, historyprop.intValue);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    if (historyprop.intValue < 5)
+                        historyprop.intValue = 5;
+                    serializedObject.ApplyModifiedProperties();
+                    historyTree?.Reload();
+                }
+
+
+                // EditorGUILayout.IntField("History capactity",25);
+                historyTree?.OnGUI(GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth * .3f, 100f));
+                EditorGUILayout.EndVertical();
+                scroll = EditorGUILayout.BeginScrollView(scroll, GUILayout.Width(EditorGUIUtility.currentViewWidth * .6f), GUILayout.Height(125));
+                EditorGUILayout.TextArea(historyTree.activeTrace, EditorStyles.textArea, GUILayout.ExpandHeight(true));
+                EditorGUILayout.EndScrollView();
+                EditorGUILayout.EndHorizontal();
+                UpdateEventHistory();
+                serializedObject.UpdateIfRequiredOrScript();
+            }
+            else
+            {
+                EditorGUILayout.EndVertical();
+                EditorGUILayout.EndHorizontal();
+            }
         }
         private void UpdateEventHistory()
         {
@@ -236,8 +270,12 @@ namespace VisualDelegates.Events.Editor
                 if (getInvocationStatus())
                 {
                     historyTree?.Reload();
-                    var flags = BindingFlags.Instance | BindingFlags.NonPublic;
-                    typeof(BaseEvent).GetField("isinvoke", flags).SetValue(target, false);
+                    if (invocation_field == null)
+                    {
+                        var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+                        invocation_field = typeof(BaseEvent).GetField("isinvoke", flags);
+                    }
+                    invocation_field.SetValue(target, false);
                 }
             }
         }
@@ -245,7 +283,7 @@ namespace VisualDelegates.Events.Editor
         {
             if (responsetree == null && (target as BaseEvent).EventResponses.Count > 0)
             {
-                OnEnable();
+                //  OnEnable();
             }
         }
         public override void OnInspectorGUI()
@@ -253,32 +291,61 @@ namespace VisualDelegates.Events.Editor
             DrawVarialbe();
             DrawNoteField();
             DrawDebuggingData();
-            DynamicRegistartionReload();
-            responsetree?.OnGUI(GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, responsetree.totalHeight));
+            // DynamicRegistartionReload();
+            responsetree?.OnGUI(GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, responsetree.totalHeight + HEIGHT_PADDING));
             autoreload();
         }
 
-        private void PopulateSubscribers()
+        private Scene[] GetLoadedScenes()
         {
+            var scenecount = EditorSceneManager.sceneCount;
+            Scene[] loadedScenes = new Scene[scenecount];
+            for (int i = 0; i < scenecount; i++)
+            {
+                loadedScenes[i] = EditorSceneManager.GetSceneAt(i);
+            }
+            return loadedScenes;
+        }
+        private void PopulateVisualSubscribers()
+        {
+            if (VisualSubscriber == null)
+                return;
+
             if (!EditorApplication.isPlayingOrWillChangePlaymode)
             {
+                var prefabstage = PrefabStageUtility.GetCurrentPrefabStage();
                 var binding = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
                 (typeof(BaseEvent).GetField("m_EventResponses", binding).GetValue(target) as List<List<EventResponse>>).Clear();
-                var root_objects = EditorSceneManager.GetActiveScene().GetRootGameObjects();
-                var length = root_objects.Length;
-                for (int i = 0; i < length; i++)
+
+                var loadedScenes = GetLoadedScenes();
+                for (int s = 0; s < loadedScenes.Length && prefabstage == null; s++)
                 {
-                    var event_subscribers = root_objects[i].GetComponentsInChildren<EventSubscriber>();
-                    for (int j = 0; j < event_subscribers.Length; j++)
+                    var scene = loadedScenes[s];
+                    if (scene.isLoaded)
                     {
-                        var event_responses = event_subscribers[j].GetType().GetField(RESPONSE_FIELD_NAME, binding).GetValue(event_subscribers[j]) as List<EventResponse>;
-                        for (int k = 0; k < event_responses.Count; k++)
+                        var root_objects = loadedScenes[s].GetRootGameObjects();
+                        var length = root_objects.Length;
+                        for (int i = 0; i < length; i++)
                         {
-                            if (event_responses[k].currentEvent == target)
+                            var event_subscribers = root_objects[i].GetComponentsInChildren(VisualSubscriber);
+                            for (int j = 0; j < event_subscribers.Length; j++)
                             {
-                                event_responses[k].responseIndex = k;
-                                event_responses[k].senderID = event_subscribers[j].GetInstanceID();
-                                (target as BaseEvent).Subscribe(event_responses[k]);
+                                var event_responses = VisualSubscriber.GetField(RESPONSE_FIELD_NAME, binding).GetValue(event_subscribers[j]) as IEnumerable<EventResponse>;
+                                for (int k = 0; k < event_responses.Count(); k++)
+                                {
+                                    var response = event_responses.ElementAt(k);
+                                    if (response.currentEvent == target)
+                                    {
+                                        if (responseIndex_field == null)
+                                        {
+                                            ResponseType = response.GetType();
+                                            responseIndex_field = ResponseType.GetField("responseIndex", binding);
+                                        }
+                                        responseIndex_field.SetValue(response, k);
+                                        response.subscriberID = event_subscribers[j].GetInstanceID();
+                                        (target as BaseEvent).Subscribe(response);
+                                    }
+                                }
                             }
                         }
                     }

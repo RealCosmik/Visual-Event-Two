@@ -1,6 +1,4 @@
-﻿namespace VisualDelegates.Events
+﻿namespace VisualEvents
 {
-    public class IntEvent : GenericEvent<int>
-    {
-    }
+    public sealed class IntEvent : GenericEvent<int> { }
 }

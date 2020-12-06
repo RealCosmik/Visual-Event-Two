@@ -1,41 +1,29 @@
-﻿using UnityEditor.IMGUI.Controls;
-using VisualDelegates;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
-namespace VisualDelegates.Events.Editor
+namespace VisualEvents.Editor
 {
     [System.Serializable]
-    class ResponseTreeElement : TreeViewItem
+    class ResponseTreeElement : GenericResponseElement
     {
-        public int responderID;
         /// <summary>
         /// index of this response on the subscriber GO
         /// </summary>
-        public int responseindex;
-        /// <summary>
-        /// the index of this response within the event
-        /// </summary>
-        public int eventindex;
-        /// <summary>
-        /// the priority index of this response
-        /// </summary>
-        public int priority;
+        public int subscriberIndex;
         public readonly SerializedObject serializedSender;
-        public readonly UnityEngine.Object sender;
         public GUIContent noteContent;
         public Vector2 scroll;
         public bool isexpanded;
-        public ResponseTreeElement(int id,int newindex, int newpriority, int event_index)
+        public ResponseTreeElement(int id, int subscriberIndex, int newpriority, int newEventIndex) : base(id, newpriority, newEventIndex)
         {
-            responderID = id;
-            responseindex = newindex;
-            eventindex = event_index;
+            this.subscriberIndex = subscriberIndex;
             priority = newpriority;
-            sender = EditorUtility.InstanceIDToObject(responderID);
-            serializedSender = new SerializedObject(sender);
-            noteContent = new GUIContent(serializedSender.FindProperty("responses").GetArrayElementAtIndex(responseindex).FindPropertyRelative("responseNote")
-                .stringValue);
+            serializedSender = new SerializedObject(Subscriber);
+            var noteprop = serializedSender.FindProperty("responses")?.GetArrayElementAtIndex(this.subscriberIndex)?.FindPropertyRelative("responseNote");
+            if (noteprop != null)
+            {
+                noteContent = new GUIContent(noteprop.stringValue);
+            }
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Linq.Expressions;
 using UnityEngine;
 using System.Text;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace VisualDelegates
 {
@@ -25,7 +24,7 @@ namespace VisualDelegates
         private protected string[] methodData;
         /// <summary>Cached delegate instance generated upon initialization</summary>
         public System.Delegate delegateInstance { get; internal set; }
-      
+
         protected Type[] paramtypes;
         [SerializeField] internal bool haserror;
         [SerializeField] private bool serializationError = false;
@@ -34,7 +33,7 @@ namespace VisualDelegates
         /// Checks delegate for potential memory leaks 
         /// </summary>
         /// <returns></returns>
-        public virtual bool isDelegateLeaking() => delegateInstance?.Target== null;
+        public virtual bool isDelegateLeaking() => delegateInstance.Target == null ? true : false;
         /// <summary>
         /// Creates a new type array that contains the return type of the method for delegates that will be funcs
         /// </summary>
@@ -104,7 +103,7 @@ namespace VisualDelegates
 
                             return null;
                         }
-                        switch (tempParametersLength-1)
+                        switch (tempParametersLength - 1)
                         {
                             case 0:
                                 return Delegate.CreateDelegate(typeof(Func<>).MakeGenericType(paramtypes), target, tempMethod, false);

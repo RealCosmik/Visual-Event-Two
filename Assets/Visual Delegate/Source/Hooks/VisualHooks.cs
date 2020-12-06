@@ -25,7 +25,7 @@ namespace VisualDelegates
         private void OnEnable()
         {
             onEnable.Invoke();
-            Hooklog("Start hook executed");
+            Hooklog("Enable hook executed");
         }
         private void OnDisable()
         {
@@ -35,7 +35,7 @@ namespace VisualDelegates
         private void Update()
         {
             onUpdate.Invoke();
-            Hooklog("Update Hook executed");
+           // Hooklog("Update Hook executed");
         }
         private void OnDestroy()
         {
@@ -51,7 +51,7 @@ namespace VisualDelegates
         private void Hooklog(string message)
         {
             if (Application.isEditor&&LogHooks)
-                Debug.Log(message,this);
+                Debug.Log(message+$" on {name}" ,this);
 
         }
     }

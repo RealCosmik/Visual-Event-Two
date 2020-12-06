@@ -1,7 +1,7 @@
-﻿namespace VisualDelegates.Events
+﻿namespace VisualEvents
 {
-    public class IntVariable :GenericVariable<int>
+    public sealed class IntVariable : GenericValueVariable<int, int>
     {
-        public override void ModifyBy(int modifier) => Invoke(currentValue += modifier, null);
+        protected override void OnDataUpdated(int arg) => currentValue = arg;
     }
 }

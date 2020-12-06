@@ -141,7 +141,12 @@ namespace VisualDelegates.Editor
             if (index >= publisherCache.RawCallCache.Count) // if the cache list is too small make room for the new cache
             { 
                 var currentCache = new RawCallViewCacheContainer();
-                var typearguments = rawCallProp.GetVisualDelegateObject()?.GetType().BaseType.GenericTypeArguments;
+                var delegatetype = rawCallProp.GetVisualDelegateObject()?.GetType();
+                Type[] typearguments;
+                if (!delegatetype.IsGenericType)
+                    typearguments = delegatetype.BaseType.GenericTypeArguments;
+                else typearguments = delegatetype.GenericTypeArguments;
+
                 if (typearguments?.Length == 0)
                     typearguments = null;
                 currentCache.delegateView = new RawCallView(typearguments);

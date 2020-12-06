@@ -2,33 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-using VisualDelegates.Editor;
 
-namespace VisualDelegates.Events.Editor
+namespace VisualEvents.Editor
 {
     class EventResponseTree : TreeView
     {
         BaseEvent m_event;
         TreeViewItem draggedItem;
         HashSet<int> refrehsedpriorities;
-        const float  HEIGHT_PADDING = 10f; 
-        public EventResponseTree(TreeViewState treeViewState, MultiColumnHeader header, BaseEvent currenetevent) : base(treeViewState, header)
-        { 
+        const float HEIGHT_PADDING = 10f;
+        const string SUBSCRIBER_RESPONSE = "SubscriberResponse";
+        static Type subscriberResponseType;
+        static FieldInfo responseIndex_field = null;
+        List<List<EventResponse>> allResponses;
+        static EventResponseTree()
+        {
+            subscriberResponseType = subscriberResponseType = TypeCache.GetTypesDerivedFrom<EventResponse>().FirstOrDefault(t => t.Name == SUBSCRIBER_RESPONSE);
+            if (subscriberResponseType != null)
+            {
+                var binding_flags = BindingFlags.Instance | BindingFlags.NonPublic;
+                responseIndex_field = subscriberResponseType.GetField("responseIndex", binding_flags);
+            }
+        }
+        public EventResponseTree(TreeViewState treeViewState, BaseEvent currenetevent) : base(treeViewState, GetEventCollumns())
+        {
             extraSpaceBeforeIconAndLabel = 20;
             base.columnIndexForTreeFoldouts = 0;
             showAlternatingRowBackgrounds = true;
             showBorder = true;
             m_event = currenetevent;
             refrehsedpriorities = new HashSet<int>();
+            var flag = BindingFlags.NonPublic | BindingFlags.Instance;
+            allResponses = m_event.GetType().GetField("m_EventResponses", flag).GetValue(m_event) as List<List<EventResponse>>;
             Reload();
         }
         protected override bool CanStartDrag(CanStartDragArgs args)
         {
-            if (args.draggedItem is PriorityTreeElement || args.draggedItem is ResponseTreeElement)
+            if (args.draggedItem is PriorityTreeElement || args.draggedItem is GenericResponseElement)
             {
                 draggedItem = args.draggedItem;
                 return true;
@@ -39,8 +52,6 @@ namespace VisualDelegates.Events.Editor
         {
             if (isDragging && args.performDrop)
             {
-                var flag = BindingFlags.NonPublic | BindingFlags.Instance;
-                var allResponses = m_event.GetType().GetField("m_EventResponses", flag).GetValue(m_event) as List<List<EventResponse>>;
                 if (args.parentItem is PriorityTreeElement selectedpriorityelement && draggedItem is PriorityTreeElement draggedpriorityelement)
                 {
                     var dragged_responses = allResponses[draggedpriorityelement.Priority];
@@ -61,29 +72,50 @@ namespace VisualDelegates.Events.Editor
                     SwapResponsesToNewPriority(dragged_responses, args.insertAtIndex);
                     SwapResponsesToNewPriority(selected_resposnes, draggedpriority.Priority);
                 }
-                else if (draggedItem is ResponseTreeElement responseElement)
+                else if (draggedItem is GenericResponseElement draggedElement)
                 {
-                    var response = allResponses[(responseElement.parent as PriorityTreeElement).Priority][responseElement.eventindex];
-                    allResponses[(responseElement.parent as PriorityTreeElement).Priority].RemoveAt(responseElement.eventindex);
+                    var currentprioritylist = allResponses[(draggedElement.parent as PriorityTreeElement).Priority];
+                    var draggedResponse = currentprioritylist[draggedElement.eventIndex];
+                    //allResponses[(draggedElement.parent as PriorityTreeElement).Priority].RemoveAt(draggedElement.eventIndex);
                     if (args.parentItem is PriorityTreeElement priorityElement)
                     {
-                        allResponses[priorityElement.Priority].Add(response);
-                        UpdateResponsePriority(responseElement, priorityElement.Priority);
+                        var response_count = allResponses[priorityElement.Priority].Count;
+                        if (args.insertAtIndex == response_count || args.insertAtIndex == -1)
+                        {
+                            allResponses[priorityElement.Priority].Add(draggedResponse);
+                            allResponses[draggedElement.priority].RemoveAt(draggedElement.eventIndex);
+                        }
+                        else if (args.insertAtIndex >= 0 && args.insertAtIndex < response_count)
+                        {
+                            allResponses[priorityElement.Priority].Insert(args.insertAtIndex, draggedResponse);
+
+                            if (args.parentItem == draggedElement.parent && args.insertAtIndex < draggedElement.eventIndex) // inserted and removed inside the same priorty
+                                allResponses[draggedElement.priority].RemoveAt(draggedElement.eventIndex + 1);
+                            else allResponses[draggedElement.priority].RemoveAt(draggedElement.eventIndex);
+                        }
+                        UpdateResponsePriority(draggedElement, priorityElement.Priority);
                     }
-                    else if (args.parentItem is ResponseTreeElement otherResponseElement)
+                    else if (args.parentItem is GenericResponseElement otherResponseElement)
                     {
                         var otherResponseElementParent = otherResponseElement.parent as PriorityTreeElement;
-                        allResponses[otherResponseElementParent.Priority].Add(response);
-                        UpdateResponsePriority(responseElement, otherResponseElementParent.Priority);
+                        allResponses[otherResponseElementParent.Priority].Add(draggedResponse);
+                        allResponses[draggedElement.priority].RemoveAt(draggedElement.eventIndex);
+                        UpdateResponsePriority(draggedElement, otherResponseElementParent.Priority);
                     }
                     else if (args.insertAtIndex == rootItem.children.Count)
                     {
+                        Debug.Log("swap here");
                         allResponses.Add(new List<EventResponse>());
-                        allResponses[args.insertAtIndex].Add(response);
-                        UpdateResponsePriority(responseElement, args.insertAtIndex);
+                        allResponses[args.insertAtIndex].Add(draggedResponse);
+                        UpdateResponsePriority(draggedElement, args.insertAtIndex);
                     }
+                    else if (args.parentItem == null)
+                    {
+                        Debug.Log("maybe droped in between");
+                    }
+                    Debug.Log(args.insertAtIndex);
                 }
-              //  Debug.Log(m_event.AllResponses.Count);
+                //  Debug.Log(m_event.AllResponses.Count);
                 Reload();
             }
             return DragAndDropVisualMode.Move;
@@ -101,35 +133,35 @@ namespace VisualDelegates.Events.Editor
         }
         private void MoveSingleResponse(EventResponse response, int newpriority)
         {
-            if (response.senderID != -1)
+            if (response.subscriberID != -1)
             {
-                var priorityprop = new SerializedObject(EditorUtility.InstanceIDToObject(response.senderID)).FindProperty("responses")
-                        .GetArrayElementAtIndex(response.responseIndex).FindPropertyRelative("priority");
+                var priorityprop = new SerializedObject(EditorUtility.InstanceIDToObject(response.subscriberID)).FindProperty("responses")
+                        .GetArrayElementAtIndex((int)responseIndex_field.GetValue(response)).FindPropertyRelative("priority");
                 priorityprop.intValue = newpriority;
                 priorityprop.serializedObject.ApplyModifiedProperties();
             }
         }
-        private void UpdateResponsePriority(ResponseTreeElement responseElement, int newpriority)
+        private void UpdateResponsePriority(GenericResponseElement responseElement, int newpriority)
         {
-            if (responseElement.responderID != -1)
+            if (responseElement is ResponseTreeElement re && responseElement.SubscriberId != -1)
             {
-                var priorityprop = responseElement.serializedSender.FindProperty("responses")
-                    .GetArrayElementAtIndex(responseElement.responseindex).FindPropertyRelative("priority");
+                var priorityprop = re.serializedSender.FindProperty("responses")
+                    .GetArrayElementAtIndex(re.subscriberIndex).FindPropertyRelative("priority");
                 priorityprop.intValue = newpriority;
                 priorityprop.serializedObject.ApplyModifiedProperties();
-            } 
+            }
         }
         protected override float GetCustomRowHeight(int row, TreeViewItem item)
         {
             if (item is ResponseTreeElement responseElement)
             {
                 var serialized_object = responseElement.serializedSender;
-                return EditorGUI.GetPropertyHeight(serialized_object.FindProperty("responses").GetArrayElementAtIndex(responseElement.responseindex)
+                return EditorGUI.GetPropertyHeight(serialized_object.FindProperty("responses").GetArrayElementAtIndex(responseElement.subscriberIndex)
                     .FindPropertyRelative("response")) + HEIGHT_PADDING;
             }
-            else if(item is DynamicResponseTreeElement)
+            else if (item is DynamicResponseTreeElement)
             {
-                return EditorGUI.GetPropertyHeight(SerializedPropertyType.String,GUIContent.none) * 2;
+                return EditorGUI.GetPropertyHeight(SerializedPropertyType.String, GUIContent.none) * 2;
             }
             else
             {
@@ -158,10 +190,12 @@ namespace VisualDelegates.Events.Editor
                 {
                     counter++;
                     var currentresponse = m_event.EventResponses[i][j];
-                    if (currentresponse.senderID != -1)
-                        priorityroot.AddChild(new ResponseTreeElement(currentresponse.senderID, currentresponse.responseIndex, i, j) { id = counter });
-                    else
-                        priorityroot.AddChild(new DynamicResponseTreeElement(i, j) { id = counter });
+                    if (currentresponse is RuntimeResponse rt&&EditorApplication.isPlaying)
+                        priorityroot.AddChild(new DynamicResponseTreeElement(rt.response, rt.subscriberID, i, j) { id = counter });
+                    else if (subscriberResponseType != null && currentresponse.GetType() == subscriberResponseType)
+                    {
+                        priorityroot.AddChild(new ResponseTreeElement(currentresponse.subscriberID, (int)responseIndex_field.GetValue(currentresponse), i, j) { id = counter });
+                    }
                 }
                 root.AddChild(priorityroot);
             }
@@ -170,36 +204,59 @@ namespace VisualDelegates.Events.Editor
         {
             for (int i = 0; i < args.GetNumVisibleColumns(); i++)
             {
-                DrawTreeElement(i, ref args);
+                if (isValidElement(in args))
+                    DrawTreeElement(i, in args);
+                else
+                {
+                    Reload();
+                    break;
+                }
                 //   DrawItem(args.GetCellRect(i), args.item as ResponseTreeElement, i);
                 // args.rowRect = args.GetCellRect(i);
             }
             // base.RowGUI(args);
         }
-        private void DrawTreeElement(int coll, ref RowGUIArgs args)
+        /// <summary>
+        /// Ensures that the currently elements inside the tree are still valid representations of responses within <see cref="BaseEvent.m_EventResponses"/>
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        private bool isValidElement(in RowGUIArgs args)
+        {
+            if (args.item is GenericResponseElement genericElement)
+            {
+                if (genericElement.priority >= allResponses.Count)
+                    return false;
+                else if (genericElement.eventIndex >= allResponses[genericElement.priority].Count)
+                    return false;
+                else return true;
+            }
+            else return true;
+        }
+        private void DrawTreeElement(int coll, in RowGUIArgs args)
         {
             var cell = args.GetCellRect(coll);
             switch (coll)
             {
                 case 0:
-                    if (args.item is PriorityTreeElement)
-                        DrawPrioirty(cell, args.item as PriorityTreeElement);
+                    if (args.item is PriorityTreeElement priority_element)
+                        DrawPrioirty(cell, priority_element);
                     break;
                 case 1:
-                    if (args.item is ResponseTreeElement)
-                        DrawSubscriberGO(cell, args.item as ResponseTreeElement);
-                    else if(args.item is DynamicResponseTreeElement) 
-                        EditorGUI.LabelField(cell, "N/A");
+                    DrawSubscriberObject(cell, args.item);
                     break;
                 case 2:
                     if (args.item is ResponseTreeElement)
                         DrawResponse(cell, args.item as ResponseTreeElement);
-                    else if (args.item is DynamicResponseTreeElement)
-                        DrawDynamicResponse(cell, args.item as DynamicResponseTreeElement);
+                    else if (args.item is DynamicResponseTreeElement dynamic_element)
+                        DrawDynamicResponse(cell, dynamic_element);
                     break;
                 case 3:
-                    if (args.item is ResponseTreeElement)
-                        DrawResponseNote(cell, args.item as ResponseTreeElement);
+                    DrawResponseActivityStatus(cell, args.item);
+                    break;
+                case 4:
+                    if (args.item is ResponseTreeElement response && response.noteContent != null)
+                        DrawResponseNote(cell, response);
                     break;
                 default:
                     break;
@@ -209,40 +266,34 @@ namespace VisualDelegates.Events.Editor
         {
             cell.x += 15f;
             cell.height = EditorStyles.label.CalcHeight(priorityelement.content, cell.width);
-            EditorGUI.LabelField(cell,priorityelement.priorityString);
+            EditorGUI.LabelField(cell, priorityelement.priorityString);
             if (!refrehsedpriorities.Contains(priorityelement.id) && IsExpanded(priorityelement.id))
-            {   
+            {
                 refrehsedpriorities.Add(priorityelement.id);
                 Reload();
                 //RefreshCustomRowHeights();
             }
         }
-        private void DrawSubscriberGO(Rect cellrect, ResponseTreeElement response_element)
+        private void DrawSubscriberObject(Rect cellrect, TreeViewItem item)
         {
-            if (response_element.responderID != -1)
-            {
-                cellrect.height = EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none);
-                var response_object =(response_element.sender as MonoBehaviour).gameObject;
-                GUI.enabled = false;
-                EditorGUI.ObjectField(cellrect, response_object, typeof(UnityEngine.Object), true);
-                GUI.enabled = true;
-            }
-            else
-            {
-                var style = EditorStyles.label;
-                style.fontSize -= 3;
-                var runtime = m_event.EventResponses[response_element.priority][response_element.eventindex].CurrentResponse.Calls[0] as RawRuntimeCall;
-                EditorGUI.LabelField(cellrect, VisualEditorUtility.ParseDynamicTargetName(runtime.delegateInstance.Target.GetType().FullName),
-                    style);
-            }
+            if (item is PriorityTreeElement)
+                return;
+
+            UnityEngine.Object subscriber;
+            if (item is ResponseTreeElement re)
+                subscriber = re.Subscriber;
+            else subscriber = (item as DynamicResponseTreeElement).Subscriber;
+
+            cellrect.height = EditorGUI.GetPropertyHeight(SerializedPropertyType.ObjectReference, GUIContent.none);
+            EditorGUI.ObjectField(cellrect, subscriber, typeof(UnityEngine.Object), true);
         }
         private void DrawResponse(Rect cellrect, ResponseTreeElement response_element)
         {
             var serialized_object = response_element.serializedSender;
-            cellrect.x += 15f; 
+            cellrect.x += 15f;
             cellrect.width -= 15f;
             EditorGUI.BeginChangeCheck();
-            var responseprop = serialized_object.FindProperty("responses").GetArrayElementAtIndex(response_element.responseindex);
+            var responseprop = serialized_object.FindProperty("responses").GetArrayElementAtIndex(response_element.subscriberIndex);
             var delegateproperty = responseprop.FindPropertyRelative("response");
             GUI.enabled = responseprop.FindPropertyRelative("isActive").boolValue;
             EditorGUI.PropertyField(cellrect, delegateproperty);
@@ -264,34 +315,32 @@ namespace VisualDelegates.Events.Editor
                 RefreshCustomRowHeights();
                 response_element.isexpanded = delegateproperty.isExpanded;
             }
+            GUI.enabled = true;
         }
         private void DrawDynamicResponse(Rect cell, DynamicResponseTreeElement response_element)
         {
-            try
-            {
-                var runtimecall = m_event.EventResponses[response_element.Priority][response_element.EventIndex].CurrentResponse.Calls[0] as RawRuntimeCall;
-                if (response_element.targetMessage == null)
-                    response_element.targetMessage =
-                VisualEditorUtility.ParseDynamicTargetName(runtimecall.delegateInstance.Target.GetType().FullName);
-                if (response_element.methodMessage == null)
-                    response_element.methodMessage =
-                VisualEditorUtility.ParseDynamicMethodName(runtimecall.delegateInstance.Method.Name);
                 var targetrect = cell;
                 targetrect.height *= .5f;
                 EditorGUI.LabelField(targetrect, response_element.targetMessage);
                 var methodrect = targetrect;
                 methodrect.y += methodrect.height;
                 EditorGUI.LabelField(methodrect, response_element.methodMessage);
-            }
-            catch (ArgumentOutOfRangeException)
+        }
+        private void DrawResponseActivityStatus(Rect cell, TreeViewItem item)
+        {
+            if (item is GenericResponseElement responseElement)
             {
-                Reload();
-            } 
+                    EventResponse currentResponse = allResponses[responseElement.priority][responseElement.eventIndex];
+                    cell.x += 10;
+                    GUI.enabled = EditorApplication.isPlaying;
+                    currentResponse.isActive = EditorGUI.Toggle(cell, currentResponse.isActive);
+                    GUI.enabled = true;
+            }
         }
         private void DrawResponseNote(Rect cell, ResponseTreeElement element)
         {
             cell.height -= HEIGHT_PADDING;
-            var noteprop = element.serializedSender.FindProperty("responses").GetArrayElementAtIndex(element.responseindex)
+            var noteprop = element.serializedSender.FindProperty("responses").GetArrayElementAtIndex(element.subscriberIndex)
                  .FindPropertyRelative("responseNote");
             var customheight = EditorStyles.textArea.CalcHeight(element.noteContent, cell.width);
             EditorGUI.BeginChangeCheck();
@@ -300,16 +349,73 @@ namespace VisualDelegates.Events.Editor
                 var textrect = cell;
                 textrect.height = customheight;
                 element.scroll = GUI.BeginScrollView(cell, element.scroll, textrect);
-                noteprop.stringValue = EditorGUI.TextArea(textrect, noteprop.stringValue,EditorStyles.textArea);
+                noteprop.stringValue = EditorGUI.TextArea(textrect, noteprop.stringValue, EditorStyles.textArea);
                 GUI.EndScrollView();
             }
             else
-                noteprop.stringValue = EditorGUI.TextArea(cell, noteprop.stringValue,EditorStyles.textArea);
+                noteprop.stringValue = EditorGUI.TextArea(cell, noteprop.stringValue, EditorStyles.textArea);
             if (EditorGUI.EndChangeCheck())
             {
                 element.serializedSender.ApplyModifiedProperties();
                 element.noteContent = new GUIContent(noteprop.stringValue);
             }
+        }
+        private static MultiColumnHeader GetEventCollumns()
+        {
+            GUIContent prioritycontent = new GUIContent("Priorities");
+            GUIStyle.none.CalcMinMaxWidth(prioritycontent, out float min, out float max);
+            var collumns = new MultiColumnHeaderState.Column[]
+         {
+                       new MultiColumnHeaderState.Column()
+                       {
+                           headerContent = prioritycontent,
+                           width = max+10,
+                           minWidth = max+10,
+                           maxWidth = max+10,
+                           autoResize = true,
+                           allowToggleVisibility=false,
+                           headerTextAlignment = TextAlignment.Left
+                       },
+                       new MultiColumnHeaderState.Column()
+                       {
+                           headerContent = new GUIContent("Subscribers"),
+                           width = 75,
+                           minWidth = 75,
+                           maxWidth = 150,
+                           autoResize = true,
+                           allowToggleVisibility=false,
+                           headerTextAlignment = TextAlignment.Left
+                       },
+                       new MultiColumnHeaderState.Column()
+                       {
+                           headerContent = new GUIContent("Response"),
+                           width = 300,
+                           minWidth = 100,
+                           maxWidth = 350,
+                           autoResize = true,
+                           allowToggleVisibility=false,
+                           headerTextAlignment = TextAlignment.Center
+                       },
+                        new MultiColumnHeaderState.Column()
+                       {
+                           headerContent= new GUIContent("Active"),
+                             width = 50,
+                           minWidth = 50,
+                           maxWidth = 50,
+                           autoResize = true,
+                           headerTextAlignment = TextAlignment.Center
+                       },
+                       new MultiColumnHeaderState.Column()
+                       {
+                           headerContent= new GUIContent("Response Note"),
+                             width = 130,
+                           minWidth = 130,
+                           maxWidth = 150,
+                           autoResize = true,
+                           headerTextAlignment = TextAlignment.Left
+                       }
+         };
+            return new MultiColumnHeader(new MultiColumnHeaderState(collumns));
         }
     }
 }

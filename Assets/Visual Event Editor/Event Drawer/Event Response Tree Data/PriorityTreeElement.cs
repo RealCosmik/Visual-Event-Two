@@ -1,7 +1,7 @@
 ﻿using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace VisualDelegates.Events.Editor
+namespace VisualEvents.Editor
 {
     /// <summary>
     /// Element used to represent priorites in a <see cref="EventResponseTree"/>
