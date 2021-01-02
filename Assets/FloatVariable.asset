@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EventNote: 
   historycapacity: 5
+  debugHistory: 1
   argument1: 0
   initialValue: 17.94
-  currentValue: 7.43
+  currentValue: 17.94

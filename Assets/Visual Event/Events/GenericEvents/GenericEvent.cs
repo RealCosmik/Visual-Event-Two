@@ -11,16 +11,16 @@ namespace VisualEvents
             isinvoke = true;
             if (ReferenceEquals(sender, null))
                 throw new System.ArgumentNullException(nameof(sender));
-             
+
             var priorites = m_EventResponses.Count;
             for (int i = 0; i < priorites; i++)
             {
                 var responsecount = m_EventResponses[i].Count;
                 for (int j = 0; j < responsecount; j++)
                 {
-                    if (m_EventResponses[i][j].isActive)
+                    var eventresponse = m_EventResponses[i][j];
+                    if (eventresponse != null && eventresponse.isActive)
                     {
-                        var eventresponse = m_EventResponses[i][j];
                         try
                         {
                             eventresponse.Invoke(arg1);
@@ -69,9 +69,10 @@ namespace VisualEvents
                 var responsecount = m_EventResponses[i].Count;
                 for (int j = 0; j < responsecount; j++)
                 {
-                    if (m_EventResponses[i][j].isActive)
+                    var eventresponse = m_EventResponses[i][j];
+
+                    if (eventresponse != null && eventresponse.isActive)
                     {
-                        var eventresponse = m_EventResponses[i][j];
                         try
                         {
                             eventresponse.Invoke(arg1, arg2);
@@ -145,7 +146,7 @@ namespace VisualEvents
         {
             if (response == null)
                 throw new System.ArgumentNullException(nameof(response));
-            var eventresponse = new RuntimeResponse(response, priority,subscriber);
+            var eventresponse = new RuntimeResponse(response, priority, subscriber);
             eventresponse.SetPriority(in priority);
             Subscribe(eventresponse);
             return eventresponse;
@@ -435,7 +436,7 @@ namespace VisualEvents
         {
             if (response == null)
                 throw new System.ArgumentNullException(nameof(response));
-            var eventresponse = new RuntimeResponse(response, priority,subscriber);
+            var eventresponse = new RuntimeResponse(response, priority, subscriber);
             eventresponse.SetPriority(in priority);
             Subscribe(eventresponse);
             return eventresponse;

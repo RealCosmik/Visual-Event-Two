@@ -5,7 +5,7 @@ namespace VisualEvents
     public sealed class VoidEvent : BaseEvent
     {
         public void Invoke(UnityEngine.Object sender)
-        { 
+        {
             bool haserror = false;
             isinvoke = true;
             if (ReferenceEquals(sender, null))
@@ -16,9 +16,9 @@ namespace VisualEvents
                 var responsecount = m_EventResponses[i].Count;
                 for (int j = 0; j < responsecount; j++)
                 {
-                    if (m_EventResponses[i][j].isActive)
+                    var eventresponse = m_EventResponses[i][j];
+                    if (eventresponse != null && eventresponse.isActive)
                     {
-                        var eventresponse = m_EventResponses[i][j];
                         try
                         {
                             eventresponse.Invoke();
@@ -40,7 +40,7 @@ namespace VisualEvents
             if (response == null)
                 throw new System.ArgumentNullException(nameof(response));
 
-            var eventresponse = new RuntimeResponse(response, priority,subscriber);
+            var eventresponse = new RuntimeResponse(response, priority, subscriber);
             Subscribe(eventresponse);
             return eventresponse;
         }

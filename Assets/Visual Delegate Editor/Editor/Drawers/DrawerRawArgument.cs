@@ -158,8 +158,8 @@ namespace VisualDelegates.Editor
             {
 
                 argument_cache.hasCustomType = false;
-                argpos.x += 40;
-                argpos.width -= 40f;
+                //argpos.x += 40;
+               // argpos.width -= 40f;
                 var tempX1 = tProperty.FindPropertyRelative("_x1");
                 tempX1.floatValue = EditorGUI.ToggleLeft(argpos, GUIContent.none, tempX1.floatValue > 0) ? 1 : -1;
             }

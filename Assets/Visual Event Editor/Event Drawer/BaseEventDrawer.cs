@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.SceneManagement;
@@ -156,16 +156,14 @@ namespace VisualEvents.Editor
         {
             // if (EditorApplication.isPlaying)
             {
-                invocationfold = EditorGUILayout.BeginFoldoutHeaderGroup(invocationfold, "Test invocation");
+                invocationfold = EditorGUILayout.Foldout(invocationfold, "Test invocation");
                 if (invocationfold)
                     DrawTestInvocation();
-                EditorGUILayout.EndFoldoutHeaderGroup();
             }
 
-            historyfold = EditorGUILayout.BeginFoldoutHeaderGroup(historyfold, "Event History");
+            historyfold = EditorGUILayout.Foldout(historyfold, "Event History");
             if (historyfold)
                 DrawEventHistory();
-            EditorGUILayout.EndFoldoutHeaderGroup();
         }
         private void DrawTestInvocation()
         {
@@ -185,9 +183,9 @@ namespace VisualEvents.Editor
             }
             GUI.enabled = true;
             EditorGUILayout.BeginVertical();
-            EditorGUI.BeginChangeCheck();
             for (int i = 0; i < genericCount; i++)
             {
+                EditorGUI.BeginChangeCheck();
                 UnityEngine.Object value = null;
                 var prop = invocationProperties[i];
                 if (prop.propertyType == SerializedPropertyType.ObjectReference)
@@ -200,7 +198,7 @@ namespace VisualEvents.Editor
                 {
                     if (!ReferenceEquals(value, null))
                     {
-                        unityArguments[prop.name].SetValue(target,value);
+                        unityArguments[prop.name].SetValue(target, value);
                     }
                     else serializedObject.ApplyModifiedProperties();
                 }
@@ -208,9 +206,8 @@ namespace VisualEvents.Editor
 
             EditorGUI.indentLevel--;
             EditorGUILayout.EndVertical();
-
-
         }
+
         private void DrawEventHistory()
         {
             EditorGUILayout.BeginHorizontal();

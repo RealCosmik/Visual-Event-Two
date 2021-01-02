@@ -3,7 +3,7 @@ namespace VisualEvents
 {
     public abstract class EventResponse
     {
-        [SerializeField] public BaseEvent currentEvent; //TODO Remove cyclic referece lucky that this saves by ID
+        [SerializeField] public BaseEvent currentEvent; 
         /// <summary>
         /// The zero-based priority of this response within the event it is subscribed to 
         /// </summary>
@@ -36,11 +36,7 @@ namespace VisualEvents
         public void UnsubscribeAndRelease()
         {
             Release();
-            if (!ReferenceEquals(currentEvent, null))
-            {
-                currentEvent.UnSubscribe(this);
-                currentEvent = null;
-            }
+            UnSubscribe();
         }
         public void UnSubscribe()
         {

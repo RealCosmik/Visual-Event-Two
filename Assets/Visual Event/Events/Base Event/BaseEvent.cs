@@ -24,7 +24,7 @@ namespace VisualEvents
                 int delta = priority - count;
                 for (int i = 0; i <= delta; i++)
                 {
-                    responseGaps.Add(count+i, new Queue<int>());
+                    responseGaps.Add(count + i, new Queue<int>());
                     m_EventResponses.Add(new List<EventResponse>());
                 }
                 //  Debug.LogError("added");
@@ -43,7 +43,7 @@ namespace VisualEvents
             }
             else
             {
-                int openIndex=responseGaps[priority].Dequeue();
+                int openIndex = responseGaps[priority].Dequeue();
                 subscriptionlist[openIndex] = newResponse;
                 newResponse.subscriptionIndex = openIndex;
             }
@@ -94,6 +94,20 @@ namespace VisualEvents
             UnSubscribe(response);
             response.SetPriority(in newpriority);
             Subscribe(response);
+        }
+
+        public void ClearGaps()
+        {
+            for (int i = 0; i < m_EventResponses.Count; i++)
+            {
+                var responselist = m_EventResponses[i];
+                var gaps = responseGaps[i];
+                var count = gaps.Count;
+                for (int j = 0; j < count; j++)
+                {
+                    responselist.RemoveAt(gaps.Dequeue());
+                }
+            }
         }
 
     }
